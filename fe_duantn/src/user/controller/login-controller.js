@@ -130,6 +130,8 @@ app.controller("registerController", function ($scope, $http, $window) {
 
     if (!$scope.taikhoan) {
       $scope.taikhoanRegisValid = false;
+      $scope.taikhoanRegisForcus = true;
+      $scope.taikhoanRegisLeng = true;
     } else if ($scope.taikhoan.length < 7 || $scope.taikhoan.length > 13) {
       $scope.taikhoanRegisLeng = false;
       $scope.taikhoanRegisValid = true;
@@ -146,6 +148,7 @@ app.controller("registerController", function ($scope, $http, $window) {
     }
 
     if (!$scope.email) {
+      $scope.emailRegisForcus = true;
       $scope.emailRegisValid = false;
     } else if (!emailRegexp.test($scope.email)) {
       $scope.emailRegisForcus = false;
@@ -157,6 +160,7 @@ app.controller("registerController", function ($scope, $http, $window) {
     }
 
     if (!$scope.matkhau) {
+      $scope.matkhauRegisLeng = true;
       $scope.matkhauRegisValid = false;
     } else if($scope.matkhau.length < 6 || $scope.matkhau.length > 15){
       $scope.matkhauRegisValid = true;
