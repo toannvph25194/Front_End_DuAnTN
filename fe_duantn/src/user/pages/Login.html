@@ -16,10 +16,37 @@
                     ><i class="fa-brands fa-linkedin-in"></i
                   ></a>
                 </div>
-                <span>Bạn có thể sử dụng email để đăng ký</span>
+                <span style="margin-bottom: 20px;">Bạn có thể sử dụng email để đăng ký</span>
+                <!-- Username -->
+                <span style="color: rgba(250, 36, 36, 0.963); margin-right: 120px;" ng-show="!taikhoanRegisValid">
+                    Vui lòng nhập username !
+                </span>
+                <span style="color: rgba(250, 36, 36, 0.963); margin-right: 92px;" ng-show="!taikhoanRegisLeng">
+                    Username phải từ 7 -> 13 kí tự !
+                </span>
+                <span style="color: rgba(250, 36, 36, 0.963); margin-right: 55px;" ng-show="!taikhoanRegisForcus">
+                    Username chỉ được nhập số và chữ !
+                </span>
                 <input type="text" placeholder="taikhoan" ng-model="taikhoan" />
-                <input type="email" placeholder="email" ng-model="email" />
+
+                 <!-- EMail -->
+                <span style="color: rgba(250, 36, 36, 0.963); margin-right: 146px;" ng-show="!emailRegisValid">
+                    Vui lòng nhập email !
+                </span>
+                <span style="color: rgba(250, 36, 36, 0.963); margin-right: 92px;" ng-show="!emailRegisForcus">
+                    Email không đúng định dạng !
+                </span>
+                <input type="text" placeholder="email" ng-model="email" />
+
+                 <!-- Password -->
+                <span style="color: rgba(250, 36, 36, 0.963); margin-right: 120px;" ng-show="!matkhauRegisValid">
+                    Vui lòng nhập password !
+                </span>
+                <span style="color: rgba(250, 36, 36, 0.963); margin-right: 120px;" ng-show="!matkhauRegisLeng">
+                    Password phải từ 6 -> 15 kí tự !
+                </span>
                 <input type="password" placeholder="matkhau" ng-model="matkhau" />
+
                 <button ng-click="register()">Đăng Ký</button>
               </form>
         </div>
@@ -32,11 +59,20 @@
                     <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
-                <span>Bạn có thể sử dụng email và password để đăng nhập</span>
+                <!-- <span>Bạn có thể sử dụng email và password để đăng nhập</span> -->
+
+                <span style="color: rgba(250, 36, 36, 0.963); margin-right: 120px;" ng-show="!taikhoanLoginValid">
+                    Vui lòng nhập username !
+                </span>
                 <input type="text" placeholder="Username" ng-model="taikhoan">
+               
+                <span style="color: rgba(250, 36, 36, 0.963);  margin-right: 120px;" ng-show="!matkhauLoginValid">
+                    Vui lòng nhập password !
+                </span>
                 <input type="password" placeholder="Password" ng-model="matkhau">
-                <a href="#">Bạn đã quên mật khẩu?</a>
-                <button ng-click="authenticate()" >Đăng Nhập</button>
+                
+                <button ng-click="authenticate()">Đăng Nhập</button>
+                <a href="#" style="color: rgb(255, 125, 26);">Bạn đã quên mật khẩu ?</a>
             </form>
         </div>
         <div class="toggle-container">
