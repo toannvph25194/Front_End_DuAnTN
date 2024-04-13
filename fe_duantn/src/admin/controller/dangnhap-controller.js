@@ -48,9 +48,9 @@ app.controller("loginController", function ($scope, $http, $window) {
             // Tải lại trang sau 1.5 giây khi thông báo biến mất
             setTimeout(function () {
                 if (role === "NHANVIEN") {
-                  $window.location.href = "/fe_duantn/src/admin/index_admin.html#/sanpham";
+                  $window.location.href = "/src/admin/index_admin.html#/sanpham";
                 } else if (role === "ADMIN") {
-                  $window.location.href = "/fe_duantn/src/admin/index_admin.html#/";
+                  $window.location.href = "/src/admin/index_admin.html#/";
                 }
             }, 1500);
           })
