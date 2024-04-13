@@ -11,6 +11,11 @@ app.controller('cartController', function ($scope, $http, $window, $routeParams,
     var IdTK = localStorage.getItem('idtk');
     console.log("ID TK :" , IdTK);
 
+    // Tạo biến lấy idtk trên localStorage để check;
+    $scope.Idtaikhoan = localStorage.getItem('idtk');
+    // Tạo biến lấy tentk trên localStorage để hiển thị khi dn;
+    $scope.tenTK = localStorage.getItem('taikhoan');
+
     // Lấy soluongton từ localStorage
     // var soLuongTon = localStorage.getItem('soluongton');
     // console.log("SoLuongTon LocalStor :", soLuongTon);
@@ -247,10 +252,9 @@ app.controller('cartController', function ($scope, $http, $window, $routeParams,
             if (result.isConfirmed) {
                 // Xóa các thông tin liên quan đến người dùng khỏi localStorage
                 // $window.localStorage.clear();
-                $window.localStorage.removeItem("accessToken");
-                $window.localStorage.removeItem("username");
+
+                $window.localStorage.removeItem("taikhoan");
                 $window.localStorage.removeItem("idtk");
-                $window.localStorage.removeItem("role");
                 $window.localStorage.removeItem("listCart");
                 $window.localStorage.removeItem("tongsotien");
                 $window.localStorage.removeItem("idgiohang");

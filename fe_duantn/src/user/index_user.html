@@ -35,15 +35,11 @@
                         <div class="header-info">
                             <ul>
                                 <li>
-                                    <a class="language-dropdown-active" href="#"> <i class="fi-rs-world"></i> English <i
+                                    <a class="language-dropdown-active" href="#"> <i class="fi-rs-world"></i> Việt Nam <i
                                             class="fi-rs-angle-small-down"></i></a>
                                     <ul class="language-dropdown">
-                                        <li><a href="#"><img src="assets/imgs/theme/flag-fr.png" alt="">Việt
-                                                Nam</a>
-                                        </li>
-                                        <li><a href="#"><img src="assets/imgs/theme/flag-dt.png" alt="">Mỹ</a></li>
-                                        <li><a href="#"><img src="assets/imgs/theme/flag-ru.png" alt="">Nhật</a>
-                                        </li>
+                                        <li><a href="#"><img src="assets/imgs/theme/icon_vn.png" alt="">Việt Nam</a></li>
+                                        <li><a href="#"><img src="assets/imgs/theme/icon_us.png" alt="">English</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -65,16 +61,16 @@
                         <div class="header-info header-info-right">
                             <ul>
                                 <li><i class="fi-rs-key"></i>
-                                    <a href="/src/user/pages/Login.html">Log In </a>
-                                    <ul class="language-dropdown">
+                                    <a ng-show="Idtaikhoan == null" href="/src/user/pages/Login.html">Log In </a>
+                                    <a ng-show="Idtaikhoan !== null" href="/src/user/pages/Login.html">Xin Chào Bạn</a>
+                                    <ul ng-show="Idtaikhoan !== null" class="language-dropdown">
 
                                         <li><a href="#" ng-click="logout()"><span
                                                     class="material-icons-sharp">logout</span>Logout</a></li>
                                         <li><a href="#"><span
                                                     class="material-icons-sharp">person_outline</span>Account</a></li>
                                     </ul>
-                                    <!-- <a href="Page/Login.html">Sign Up</a> -->
-                                </li>
+                                </li>                             
                             </ul>
                         </div>
                     </div>
@@ -421,7 +417,7 @@
                         </div>
                     </div>
                     <div class="hotline d-none d-lg-block">
-                        <p><i class="fi-rs-smartphone"></i><span>Số điện thoại</span> (+1) 0000-000-000 </p>
+                        <p><i class="material-icons-sharp">person_outline</i><span>Username : </span>{{tenTK}}</p>
                     </div>
 
                     <div class="header-action-right d-block d-lg-none">
