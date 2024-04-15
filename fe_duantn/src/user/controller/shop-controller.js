@@ -45,10 +45,123 @@ app.controller('shopController', function ($scope, $http) {
         }
     };
 
+    // Load danh mục sản phẩm shop
+    $scope.getAllDanhMucSPShop = function () {
+        $http
+            .get("http://localhost:8080/api/san-pham-shop/load-danh-muc")
+            .then(function (response) {
+                $scope.listDanhMuc = response.data;
+                console.log("ListDM :", $scope.listDanhMuc);
+            });
+    };
+    $scope.getAllDanhMucSPShop();
 
-    // Load sp lên trang chủ
-    function loadSPShop() {
-        $http.get(`http://localhost:8080/api/san-pham/show-phan-trang?page=${$scope.currentPage - 1}`).then(resp => {
+    // Load màu sắc sản phẩm shop
+    $scope.getAllMauSacSPShop = function () {
+        $http
+            .get("http://localhost:8080/api/san-pham-shop/load-mau-sac")
+            .then(function (response) {
+                $scope.listMauSac = response.data;
+                console.log("ListMS :", $scope.listMauSac);
+            });
+    };
+    $scope.getAllMauSacSPShop();
+
+    // Load danh mục sản phẩm shop
+    $scope.getAllSizeSPShop = function () {
+        $http
+            .get("http://localhost:8080/api/san-pham-shop/load-size")
+            .then(function (response) {
+                $scope.listSize = response.data;
+                // Sắp xếp dữ liệu theo thứ tự mong muốn (S, M, L, XL, XXL)
+                $scope.listSize.sort(function (a, b) {
+                    var sizesOrder = ['S', 'M', 'L', 'XL', 'XXL'];
+                    return sizesOrder.indexOf(a.tensize) - sizesOrder.indexOf(b.tensize);
+                });
+                console.log("ListSize :", $scope.listSize);
+            });
+    };
+    $scope.getAllSizeSPShop();
+
+    // kéo thả gias
+    var sliderrange = $('#slider-range');
+    var amountprice = $('#amount');
+    $(function () {
+        sliderrange.slider({
+            range: true,
+            min: 1000,
+            max: 800000,
+            values: [0, 300000],
+            slide: function (event, ui) {
+                amountprice.val(ui.values[0] + "đ" + " - " + ui.values[1] + "đ");
+            },
+            stop: function (event, ui) {
+                $scope.locSPShopKhoangGia();
+            }
+        });
+        amountprice.val(sliderrange.slider("values", 0) + "đ" +
+            " - " + sliderrange.slider("values", 1) + "đ");
+    });
+
+
+    // Lọc sản phẩm theo khoảng giá
+    $scope.locSPShopKhoangGia = function () {
+        var key1 = sliderrange.slider("values", 0);
+        var key2 = sliderrange.slider("values", 1);
+    
+            $http.get(
+                "http://localhost:8080/api/san-pham-shop/loc/khoang-gia?pageNumber=" + $scope.pageNumber + "&pageSize=" + $scope.pageSize +
+                "&key1=" + key1 +
+                "&key2=" + key2
+            )
+                .then(function (response) {
+                    $scope.sanPhamShop = response.data.content;
+                    console.log("Lọc SP Theo khoảng giá :", $scope.sanPhamShop);
+                    if ($scope.sanPhamShop.length < $scope.pageSize) {
+                        $scope.showNextButton = false; // Ẩn nút "Next"
+                    } else {
+                        $scope.showNextButton = true; // Hiển thị nút "Next"
+                    }
+                });
+    };
+
+    // Lọc sản phẩm theo nhiều tiêu chí tensp, tendanhmuc, tenmausac, tensize
+    // Khởi tạo giá trị ban đầu cho các biến
+    $scope.tensp = "";
+    $scope.tendanhmuc = "";
+    $scope.tenmausac = "";
+    $scope.tensize = "";
+    $scope.locSPShopNhieuTC = function () {
+        var tensanpham = $scope.tensp;
+        var tendm = $scope.tendanhmuc;
+        var tenms = $scope.tenmausac;
+        var tens = $scope.tensize;
+
+        if (tensanpham == "" && tendm == "" && tenms == "" && tens == "") {
+            // Nếu giá trị là null, gọi lại danh sách đầy đủ
+            $scope.loadSPShop();
+            console.log("Gọi Hàm LoadSPShop");
+        } else {
+            $http.get(
+                "http://localhost:8080/api/san-pham-shop/loc/san-pham?pageNumber=" + $scope.pageNumber + "&pageSize=" + $scope.pageSize +
+                "&tensp=" + tensanpham + "&tendanhmuc=" + tendm + "&tenmausac=" + tenms + "&tensize=" + tens
+            )
+                .then(function (response) {
+                    $scope.sanPhamShop = response.data.content;
+                    console.log("Lọc SP Theo Nhiều Tiêu Chí :", $scope.sanPhamShop);
+                    if ($scope.sanPhamShop.length < $scope.pageSize) {
+                        $scope.showNextButton = false; // Ẩn nút "Next"
+                    } else {
+                        $scope.showNextButton = true; // Hiển thị nút "Next"
+                    }
+                });
+        }
+    };
+
+
+    // Load sp shop lên trang shop
+    $scope.loadSPShop = function () {
+        $http.get(`http://localhost:8080/api/san-pham-shop/load?page=${$scope.currentPage - 1}`).then(resp => {
             $scope.sanPhamShop = resp.data.content;
             console.log("Load SPShop :", $scope.sanPhamShop);
 
@@ -64,234 +177,11 @@ app.controller('shopController', function ($scope, $http) {
                 $scope.showNextButton = true; // Hiển thị nút "Next"
             }
         }).catch(error => {
-            console.log("Error", error);
+            console.log("Lỗi Load SPShop", error);
         });
     }
 
 
-    $scope.$watch('currentPage', loadSPShop);
-
-
-    // ------------------- Tìm Kiếm Dòng Sản Phẩm -------------------- //
-
-    // Tìm kiếm sản phẩm theo name
-    $scope.searchProductKey = function () {
-        var name = $scope.tensp;
-
-        if (!name) {
-            // Nếu giá trị là null, gọi lại danh sách đầy đủ
-            loadSPShop();
-        } else {
-            $http
-                .get(
-                    "http://localhost:8080/api/san-pham/loc-tensp?pageNumber=" +
-                    $scope.pageNumber +
-                    "&pageSize=" +
-                    $scope.pageSize +
-                    "&tensp=" +
-                    name
-                )
-                .then(function (response) {
-                    $scope.sanPhamShop = response.data;
-                    console.log("TK SP Theo Name:", $scope.sanPhamShop);
-                    if ($scope.sanPhamShop.length < $scope.pageSize) {
-                        $scope.showNextButton = false; // Ẩn nút "Next"
-                    } else {
-                        $scope.showNextButton = true; // Hiển thị nút "Next"
-                    }
-                });
-        }
-    };
-
-
-    // Show danh mục lên Combobox
-    $scope.getAllDanhMuc = function () {
-        $http
-            .get("http://localhost:8080/api/san-pham/hien-thi-danh-muc-shop")
-            .then(function (response) {
-                $scope.listDanhMuc = response.data;
-                console.log("ListDM :", $scope.listDanhMuc);
-            });
-    };
-    $scope.getAllDanhMuc();
-
-    // Tìm Kiếm Danh Mục Theo Tên Danh Mục
-    $scope.searchDanhMuc = function () {
-        var namedm = $scope.tendanhmuc;
-        console.log("Name DM :", namedm)
-
-        if (!namedm) {
-            // Nếu giá trị là null, gọi lại danh sách đầy đủ
-            loadSPShop();
-        } else {
-            $http
-                .get(
-                    "http://localhost:8080/api/san-pham/loc-danh-muc?pageNumber=" +
-                    $scope.pageNumber +
-                    "&pageSize=" +
-                    $scope.pageSize +
-                    "&tendanhmuc=" +
-                    namedm
-                )
-                .then(function (response) {
-                    // $scope.listDanhMuc = response.data;
-                    $scope.sanPhamShop = response.data.content;
-                    console.log("TK SP Theo Name DanhMuc:", $scope.sanPhamShop);
-                    if ($scope.sanPhamShop.length < $scope.pageSize) {
-                        $scope.showNextButton = false; // Ẩn nút "Next"
-                    } else {
-                        $scope.showNextButton = true; // Hiển thị nút "Next"
-                    }
-                });
-        }
-    };
-
-    // Show Size 
-    $scope.getAllSize = function () {
-        $http
-            .get("http://localhost:8080/api/san-pham/hien-thi-size-shop")
-            .then(function (response) {
-                $scope.listSize = response.data;
-                // Sắp xếp dữ liệu theo thứ tự mong muốn (S, M, L, XL, XXL)
-                $scope.listSize.sort(function (a, b) {
-                    var sizesOrder = ['S', 'M', 'L', 'XL', 'XXL'];
-                    return sizesOrder.indexOf(a.tensize) - sizesOrder.indexOf(b.tensize);
-                });
-                console.log("ListSize :", $scope.listSize);
-            });
-    };
-    $scope.getAllSize();
-
-    // Tìm Kiếm Size Theo Tên Size
-    $scope.searchSize = function () {
-        var namesize = $scope.tensize;
-        console.log("Name Size :", $scope.tensize)
-
-        if (!namesize) {
-            // Nếu giá trị là null, gọi lại danh sách đầy đủ
-            loadSPShop();
-        } else {
-            $http
-                .get(
-                    "http://localhost:8080/api/san-pham/loc-size?pageNumber=" +
-                    $scope.pageNumber +
-                    "&pageSize=" +
-                    $scope.pageSize +
-                    "&tensize=" +
-                    namesize
-                )
-                .then(function (response) {
-                    // $scope.listDanhMuc = response.data;
-                    $scope.sanPhamShop = response.data.content;
-                    console.log("TK SP Theo Name Size:", $scope.sanPhamShop);
-                    if ($scope.sanPhamShop.length < $scope.pageSize) {
-                        $scope.showNextButton = false; // Ẩn nút "Next"
-                    } else {
-                        $scope.showNextButton = true; // Hiển thị nút "Next"
-                    }
-                });
-        }
-    };
-
-    // Show danh mục lên Combobox
-    $scope.getAllMauSac = function () {
-        $http
-            .get("http://localhost:8080/api/san-pham/hien-thi-mau-sac-shop")
-            .then(function (response) {
-                $scope.listMauSac = response.data;
-                console.log("ListMS :", $scope.listMauSac);
-            });
-    };
-    $scope.getAllMauSac();
-
-
-    // Tìm Kiếm Màu Sắc Theo Tên mausac
-    $scope.searchMauSac = function () {
-        var namemausac = $scope.tenmausac;
-        console.log("Name Size :", $scope.tenmausac)
-
-        if (!namemausac) {
-            // Nếu giá trị là null, gọi lại danh sách đầy đủ
-            loadSPShop();
-        } else {
-            $http
-                .get(
-                    "http://localhost:8080/api/san-pham/loc-mau-sac?pageNumber=" +
-                    $scope.pageNumber +
-                    "&pageSize=" +
-                    $scope.pageSize +
-                    "&tenmausac=" +
-                    namemausac
-                )
-                .then(function (response) {
-                    // $scope.listDanhMuc = response.data;
-                    $scope.sanPhamShop = response.data.content;
-                    console.log("TK SP Theo Name MauSac:", $scope.sanPhamShop);
-                    if ($scope.sanPhamShop.length < $scope.pageSize) {
-                        $scope.showNextButton = false; // Ẩn nút "Next"
-                    } else {
-                        $scope.showNextButton = true; // Hiển thị nút "Next"
-                    }
-                });
-        }
-    };
-
-
-
-    /*--------------------- Price range --------------------- */
-    // kéo thả gias
-    var sliderrange = $('#slider-range');
-    var amountprice = $('#amount');
-    $(function () {
-        sliderrange.slider({
-            range: true,
-            min: 16000,
-            max: 400000,
-            values: [0, 300000],
-            slide: function (event, ui) {
-                amountprice.val(ui.values[0] + "đ" + " - " + ui.values[1] + "đ");
-            },
-            stop: function (event, ui) {
-                $scope.searchSPGiaBan();
-            }
-        });
-        amountprice.val(sliderrange.slider("values", 0) + "đ" +
-            " - " + sliderrange.slider("values", 1) + "đ" );
-    });
-
-
-    // Tìm Kiếm Màu Sắc Theo giá
-    $scope.searchSPGiaBan = function () {
-        var key1 = sliderrange.slider("values", 0);
-        var key2 = sliderrange.slider("values", 1);
-        console.log("key1 :", key1);
-        console.log("key2 :", key2);
-        if (!key1 && !key2) {
-            // Nếu giá trị là null, gọi lại danh sách đầy đủ
-            loadSPShop();
-        } else {
-            $http
-                .get(
-                    "http://localhost:8080/api/san-pham/loc-gia-ban?pageNumber=" +
-                    $scope.pageNumber +
-                    "&pageSize=" +
-                    $scope.pageSize +
-                    "&key1=" +
-                    key1 +
-                    "&key2=" +
-                    key2
-                )
-                .then(function (response) {
-                    // $scope.listDanhMuc = response.data;
-                    $scope.sanPhamShop = response.data.content;
-                    console.log("TK SP Theo Giá Bán :", $scope.sanPhamShop);
-                    if ($scope.sanPhamShop.length < $scope.pageSize) {
-                        $scope.showNextButton = false; // Ẩn nút "Next"
-                    } else {
-                        $scope.showNextButton = true; // Hiển thị nút "Next"
-                    }
-                });
-        }
-    };
+    $scope.loadSPShop();
 
 });
