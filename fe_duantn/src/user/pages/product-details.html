@@ -21,36 +21,14 @@
                                     <!-- MAIN SLIDES -->
                                     <div class="product-image-slider">
                                         <figure class="border-radius-10">
-                                            <img src="assets/imgs/shop/product-16-2.jpg" alt="product image">
-                                        </figure>
-                                        <figure class="border-radius-10">
-                                            <img src="assets/imgs/shop/product-16-1.jpg" alt="product image">
-                                        </figure>
-                                        <figure class="border-radius-10">
-                                            <img src="assets/imgs/shop/product-16-3.jpg" alt="product image">
-                                        </figure>
-                                        <figure class="border-radius-10">
-                                            <img src="assets/imgs/shop/product-16-4.jpg" alt="product image">
-                                        </figure>
-                                        <figure class="border-radius-10">
-                                            <img src="assets/imgs/shop/product-16-5.jpg" alt="product image">
-                                        </figure>
-                                        <figure class="border-radius-10">
-                                            <img src="assets/imgs/shop/product-16-6.jpg" alt="product image">
-                                        </figure>
-                                        <figure class="border-radius-10">
-                                            <img src="assets/imgs/shop/product-16-7.jpg" alt="product image">
+                                            <img style="width: 471px; height: 510px;" src="{{selectedImage}}" alt="product image">
                                         </figure>
                                     </div>
                                     <!-- THUMBNAILS -->
                                     <div class="slider-nav-thumbnails pl-15 pr-15">
-                                        <div><img src="assets/imgs/shop/thumbnail-3.jpg" alt="product image"></div>
-                                        <div><img src="assets/imgs/shop/thumbnail-4.jpg" alt="product image"></div>
-                                        <div><img src="assets/imgs/shop/thumbnail-5.jpg" alt="product image"></div>
-                                        <div><img src="assets/imgs/shop/thumbnail-6.jpg" alt="product image"></div>
-                                        <div><img src="assets/imgs/shop/thumbnail-7.jpg" alt="product image"></div>
-                                        <div><img src="assets/imgs/shop/thumbnail-8.jpg" alt="product image"></div>
-                                        <div><img src="assets/imgs/shop/thumbnail-9.jpg" alt="product image"></div>
+                                        <span ng-repeat="list in loadlistImgSP" class="border border-secondary" ng-click="selectImage(list)">
+                                            <img style="width: 75px; height: 75px;" src="{{list.tenimage}}" alt="product image">
+                                        </span>
                                     </div>
                                 </div>
                                 <!-- End Gallery -->
@@ -79,7 +57,7 @@
                                     <h2 class="title-detail">{{detailProduct.tensp}}</h2>
                                     <div class="product-detail-rating">
                                         <div class="pro-details-brand">
-                                            <span> Sản phâm tương tự: <a href="shop.html">Tại đây</a></span>
+                                            <span> Sản phâm tương tự: <a href="#/shop">Tại đây</a></span>
                                         </div>
                                         <div class="product-rate-cover text-end">
                                             <div class="product-rate d-inline-block">
@@ -91,7 +69,7 @@
                                     </div>
                                     <div class="clearfix product-price-cover">
                                         <div class="product-price primary-color float-left">
-                                            <ins><span class="text-brand">{{detailProduct.giaban}}</span></ins>
+                                            <ins><span class="text-brand">{{detailProduct.giaban | number}} đ</span></ins>
                                             <ins><span class="old-price font-md ml-15">$200.00</span></ins>
                                             <span class="save-price  font-md color3 ml-15">25% Off</span>
                                         </div>
@@ -118,7 +96,7 @@
                                             <li ng-repeat="ms in detailMauSac"
                                                 ng-class="{ 'active': ms.isActive, 'muted-color-size': isSizeSelected && !ms.isSelectable }">
                                                 <a style="margin-right: 7px; margin-bottom: 7px;"
-                                                    ng-click="toggleActiveMS(ms); timKiemSize(); detailIDCTSP()"><span>
+                                                    ng-click="FinSizeByIdSPAndIdMauSac(ms); finByIdSPCTAndSoLuongTon()"><span>
                                                         {{ ms.tenmausac }} </span></a>
                                             </li>
 
@@ -127,14 +105,14 @@
                                     <br>
 
                                     <!-- Load Size  -->
-                                    <div class="attr-detail attr-size">
+                                    <div class="attr-detail attr-size" ng-if="detailSize.length > 0">
                                         <strong class="mr-10">Size</strong>
                                         <ul class="list-filter size-filter font-small">
 
                                             <li ng-repeat="s in detailSize"
                                                 ng-class="{ 'active': s.isActive, 'muted-color-mausac': isMauSacSelected && !s.isSelectable }">
                                                 <a style="margin-right: 7px;"
-                                                    ng-click="toggleActiveSize(s); timKiemMauSac(); detailIDCTSP()"> {{
+                                                    ng-click="FinMauSacByIdSPAndIdSize(s); finByIdSPCTAndSoLuongTon()"> {{
                                                     s.tensize }} </a>
                                             </li>
 
@@ -145,16 +123,16 @@
                                     <!-- Số lượng sp -->
                                     <div class="detail-khung">
                                         <div class="detail-qty-ctsp ">
-                                            <a class="qty-down" ng-click="changeQuantityCTSP('qty-down')"><i
+                                            <a class="qty-down" ng-click="changeQuantitySPCT('qty-down')"><i
                                                     class="fi-rs-angle-small-down"></i></a>
                                             <input type="" class="qty-val" ng-model="soluong"
                                                 ng-change="validateNumber()">
-                                            <a class="qty-up" ng-click="changeQuantityCTSP('qty-up')"><i
+                                            <a class="qty-up" ng-click="changeQuantitySPCT('qty-up')"><i
                                                     class="fi-rs-angle-small-up"></i></a>
                                         </div>
 
                                         <p style="color: red; margin-left: 15px;">
-                                            {{isSoLuongTonAndTongSoLuongSP == false ? getAllTongSoLuongSP.tongsoluongsp
+                                            {{isSoLuongTonAndTongSoLuongSP == false ? tongSoLuongTonSP.tongsoluongtonsp
                                             + ' Sản Phẩm Có Sẵn' : chiTietSP.soluongton + ' Sản Phẩm Có Sẵn'}}
                                         </p>
 
@@ -361,16 +339,16 @@
                     <!-- Product sidebar Widget -->
                     <div class="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
                         <div class="widget-header position-relative mb-20 pb-10">
-                            <h5 class="widget-title mb-10">Sản phẩm mới</h5>
+                            <h5 class="widget-title mb-10">Top 4 sản phẩm mới</h5>
                             <div class="bt-1 border-color-1"></div>
                         </div>
                         <div ng-repeat="spn in sanPhamNewCTSP" class="single-post clearfix">
                             <div class="image">
-                                <img src="assets/imgs/shop/thumbnail-3.jpg" alt="#">
+                                <img src="{{spn.imagedefaul}}" alt="#">
                             </div>
                             <div class="content pt-10">
                                 <h5><a href="#/shop">{{spn.tensp}}</a></h5>
-                                <p class="price mb-0 mt-5">{{spn.giaban}}</p>
+                                <p class="price mb-0 mt-5">{{spn.giaban | number}} đ</p>
                                 <div class="product-rate">
                                     <div class="product-rating" style="width:90%"></div>
                                 </div>
@@ -382,7 +360,4 @@
             </div>
         </div>
     </section>
-
-
-    <script src="assets/js/shop.js?v=3.3"></script> 
 </main>
