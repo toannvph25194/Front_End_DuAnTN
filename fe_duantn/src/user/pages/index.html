@@ -208,12 +208,12 @@
                             type="button" role="tab" aria-controls="tab-one" aria-selected="true">Tất Cả</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button ng-click="loadSPNamNuHome(1)" class="nav-link" id="nav-tab-two" data-bs-toggle="tab" data-bs-target="#tab-two"
+                        <button class="nav-link" id="nav-tab-two" data-bs-toggle="tab" data-bs-target="#tab-two"
                             type="button" role="tab" aria-controls="tab-two" aria-selected="false">Sản Phẩm
                             Nam</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button ng-click="loadSPNamNuHome(0)" class="nav-link" id="nav-tab-three" data-bs-toggle="tab" data-bs-target="#tab-three"
+                        <button class="nav-link" id="nav-tab-three" data-bs-toggle="tab" data-bs-target="#tab-three"
                             type="button" role="tab" aria-controls="tab-three" aria-selected="false">Sản Phẩm
                             Nữ</button>
                     </li>
@@ -304,7 +304,7 @@
                 <!-- Sản Phẩm Nam Load  -->
                 <div class="tab-pane fade" id="tab-two" role="tabpanel" aria-labelledby="tab-two">
                     <div class="row product-grid-4">
-                        <div ng-repeat="spnam in sanPhamNamNu" class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-6">
+                        <div ng-repeat="spnam in sanPhamNam" class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-6">
                             <div class="product-cart-wrap mb-30">
                                 <div class="product-img-action-wrap">
                                     <div class="product-img product-img-zoom">
@@ -354,20 +354,20 @@
                     <!-- pagination Sản Phẩm Nam Load-->
                     <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
 
-                        <span>Số Trang : {{currentPageNamNu}} / {{ totalPagesNamNu}} </span>
+                        <span>Số Trang : {{currentPageNam}} / {{ totalPagesNam}} </span>
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-start">
 
-                                <li class="page-item active"><a class="page-link" ng-click="previousPageNamNu()"><i
+                                <li class="page-item active"><a class="page-link" ng-click="previousPageNam()"><i
                                             class="fi-rs-angle-double-small-left"></i></a></li>
                                 <!-- <li ng-repeat="page in pages" class="page-item" ng-class="{active: page === currentPage}">
                               <a class="page-link" ng-click="selectPage(page)">{{page}}</a>
                             </li> -->
                                 <li>
-                                    <input style="width: 60px; height: 35px;" ng-model="currentPageNamNu" min="1"
-                                        max="{{ totalPagesNamNu }}" ng-change="updatePageNamNu()" />
+                                    <input style="width: 60px; height: 35px;" ng-model="currentPageNam" min="1"
+                                        max="{{ totalPagesNam }}" ng-change="updatePageNam()" />
                                 </li>
-                                <li class="page-item active"><a class="page-link" ng-click="nextPageNamNu()"><i
+                                <li class="page-item active"><a class="page-link" ng-click="nextPageNam()"><i
                                             class="fi-rs-angle-double-small-right"></i></a></li>
                             </ul>
 
@@ -381,7 +381,7 @@
                 <!-- Sản Phẩm Nữ Load  -->
                 <div class="tab-pane fade" id="tab-three" role="tabpanel" aria-labelledby="tab-three">
                     <div class="row product-grid-4">
-                        <div ng-repeat="spnu in sanPhamNamNu" class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-6">
+                        <div ng-repeat="spnu in sanPhamNu" class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-6">
                             <div class="product-cart-wrap mb-30">
                                 <div class="product-img-action-wrap">
                                     <div class="product-img product-img-zoom">
@@ -430,17 +430,17 @@
                     <!-- pagination Sản Phẩm Nam Load-->
                     <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
 
-                        <span>Số Trang : {{currentPageNamNu}} / {{ totalPagesNamNu}} </span>
+                        <span>Số Trang : {{currentPageNu}} / {{ totalPagesNu}} </span>
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-start">
 
-                                <li class="page-item active"><a class="page-link" ng-click="previousPageNamNu()"><i
+                                <li class="page-item active"><a class="page-link" ng-click="previousPageNu()"><i
                                             class="fi-rs-angle-double-small-left"></i></a></li>
                                 <li>
-                                    <input style="width: 60px; height: 35px;" ng-model="currentPageNamNu" min="1"
-                                        max="{{ totalPagesNamNu }}" ng-change="updatePageNamNu()" />
+                                    <input style="width: 60px; height: 35px;" ng-model="currentPageNu" min="1"
+                                        max="{{ totalPagesNu }}" ng-change="updatePageNu()" />
                                 </li>
-                                <li class="page-item active"><a class="page-link" ng-click="nextPageNamNu()"><i
+                                <li class="page-item active"><a class="page-link" ng-click="nextPageNu()"><i
                                             class="fi-rs-angle-double-small-right"></i></a></li>
                             </ul>
 

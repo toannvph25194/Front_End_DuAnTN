@@ -25,38 +25,31 @@ app.controller("homeController", function ($scope, $http, $window, $route) {
     loadSPGiamGia();
 
 
-    // --------------- Phân Trang SP Home --------------- //
-
+    // Load và phân trang sp lên home
     // khai báo biến trang đầu tiên là 1
     $scope.currentPageHome = 1;
     // khai báo biến có 12 sp trên 1 trang
     $scope.itemsPerPageHome = 12;
-
     // Xử lý sự kiện trang trước
     $scope.previousPageHome = function () {
         if ($scope.currentPageHome > 1) {
             $scope.currentPageHome--;
         }
     };
-
     // Xử lý sự kiện trang tiếp theo
     $scope.nextPageHome = function () {
-        var totalPagesHome = Math.ceil($scope.totalItemsHome / $scope.itemsPerPageHome);
-        if ($scope.currentPageHome < totalPagesHome) {
+        if ($scope.currentPageHome < $scope.totalPagesHome) {
             $scope.currentPageHome++;
         }
     };
-
     // Hàm cập nhật trang từ ô input
     $scope.updatePageHome = function () {
-        var totalPagesHome = Math.ceil($scope.totalItemsHome / $scope.itemsPerPageHome);
         if (!/^[1-9]\d*$/.test($scope.currentPageHome)) {
             $scope.currentPageHome = 1;
-        } else if ($scope.currentPageHome > totalPagesHome) {
-            $scope.currentPageHome = totalPagesHome;
+        } else if ($scope.currentPageHome > $scope.totalPagesHome) {
+            $scope.currentPageHome = $scope.totalPagesHome;
         }
     };
-
     // Load sp lên trang chủ
     function loadSPHome() {
         $http.get(`http://localhost:8080/api/san-pham/show?page=${$scope.currentPageHome - 1}`)
@@ -72,57 +65,95 @@ app.controller("homeController", function ($scope, $http, $window, $route) {
                 console.log("Lỗi k load được sphome :", error);
             });
     }
-
     $scope.$watch('currentPageHome', loadSPHome);
 
 
-
-    // ---------------- Phân Trang SP Nam ---------------- //
-
+    // Load và phân trang spnam lên home
     // khai báo biến trang đầu tiên là 1
-    $scope.currentPageNamNu = 1;
+    $scope.currentPageNam = 1;
     // khai báo biến có 12 sp trên 1 trang
-    $scope.itemsPerPageNamNu = 12;
+    $scope.itemsPerPageNam = 12;
+    // Xử lý sự kiện trang trước
+    $scope.previousPageNam = function () {
+        if ($scope.currentPageNam > 1) {
+            $scope.currentPageNam--;
+        }
+    };
+    // Xử lý sự kiện trang tiếp theo
+    $scope.nextPageNam = function () {
+        if ($scope.currentPageNam < $scope.totalPagesNam) {
+            $scope.currentPageNam++;
+        }
+    };
+    // Hàm cập nhật trang từ ô input
+    $scope.updatePageNam = function () {
+        if (!/^[1-9]\d*$/.test($scope.currentPageNam)) {
+            $scope.currentPageNam = 1;
+        } else if ($scope.currentPageNam > $scope.totalPagesNam) {
+            $scope.currentPageNam = $scope.totalPagesNam;
+        }
+    };
+    // Load sp Nam lên trang chủ
+    $scope.loadSPNamHome = function() {
+        const page = $scope.currentPageNam - 1
+        $http.get(`http://localhost:8080/api/san-pham/show-nam?page=${page}`)
+            .then(resp => {
+                $scope.sanPhamNam = resp.data.content;
+                // Tổng số bản ghi
+                $scope.totalItemsNam = resp.data.totalElements;
+                // Tổng số trang
+                $scope.totalPagesNam = Math.ceil($scope.totalItemsNam / $scope.itemsPerPageNam);
+                console.log("Load data SPNam :", resp);
+            }).catch(error => {
+                console.log("Lỗi K load được spnam :", error);
+            });
+    }
+    $scope.$watch('currentPageNam',$scope.loadSPNamHome);
+
+
+    // Load và phân trang spnu lên home
+    // khai báo biến trang đầu tiên là 1
+    $scope.currentPageNu = 1;
+    // khai báo biến có 12 sp trên 1 trang
+    $scope.itemsPerPageNu = 12;
 
     // Xử lý sự kiện trang trước
-    $scope.previousPageNamNu = function () {
-        if ($scope.currentPageNamNu > 1) {
-            $scope.currentPageNamNu--;
+    $scope.previousPageNu = function () {
+        if ($scope.currentPageNu > 1) {
+            $scope.currentPageNu--;
         }
     };
 
     // Xử lý sự kiện trang tiếp theo
-    $scope.nextPageNamNu = function () {
-        var totalPagesNamNu = Math.ceil($scope.totalItemsNamNu / $scope.itemsPerPageNamNu);
-        if ($scope.currentPageNamNu < totalPagesNamNu) {
-            $scope.currentPageNamNu++;
+    $scope.nextPageNu = function () {
+        if ($scope.currentPageNu < $scope.totalPagesNu) {
+            $scope.currentPageNu++;
         }
     };
 
     // Hàm cập nhật trang từ ô input
-    $scope.updatePageNamNu = function () {
-        var totalPagesNamNu = Math.ceil($scope.totalItemsNamNu / $scope.itemsPerPageNamNu);
-        if (!/^[1-9]\d*$/.test($scope.currentPageNamNu)) {
-            $scope.currentPageNamNu = 1;
-        } else if ($scope.currentPageNamNu > totalPagesNamNu) {
-            $scope.currentPageNamNu = totalPagesNamNu;
+    $scope.updatePageNu = function () {
+        if (!/^[1-9]\d*$/.test($scope.currentPageNu)) {
+            $scope.currentPageNu = 1;
+        } else if ($scope.currentPageNu > $scope.totalPagesNu) {
+            $scope.currentPageNu = $scope.totalPagesNu;
         }
     };
 
     // Load sp Nam lên trang chủ
-    $scope.loadSPNamNuHome = function(theloai) {
-        const page = $scope.currentPageNamNu - 1
-        $http.get(`http://localhost:8080/api/san-pham/show-nam-nu?page=${page}&theloai=${theloai}`)
+    $scope.loadSPNuHome = function() {
+        const page = $scope.currentPageNu - 1
+        $http.get(`http://localhost:8080/api/san-pham/show-nu?page=${page}`)
             .then(resp => {
-                $scope.sanPhamNamNu = resp.data.content;
+                $scope.sanPhamNu = resp.data.content;
                 // Tổng số bản ghi
-                $scope.totalItemsNamNu = resp.data.totalElements;
+                $scope.totalItemsNu = resp.data.totalElements;
                 // Tổng số trang
-                $scope.totalPagesNamNu = Math.ceil($scope.totalItemsNamNu / $scope.itemsPerPageNamNu);
-
-                console.log("Load data SPNamNu :", resp);
+                $scope.totalPagesNu = Math.ceil($scope.totalItemsNu / $scope.itemsPerPageNu);
+                console.log("Load data SPNu :", resp);
             }).catch(error => {
-                console.log("Lỗi K load được spnamnu :", error);
+                console.log("Lỗi K load được spnu :", error);
             });
     }
+    $scope.$watch('currentPageNu',$scope.loadSPNuHome);
 });
