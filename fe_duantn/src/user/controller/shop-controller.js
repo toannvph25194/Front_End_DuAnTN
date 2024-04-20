@@ -145,26 +145,48 @@ app.controller('shopController', function ($scope, $http) {
             });
     };
 
-    // Lọc sản phẩm theo nhiều tiêu chí tensp, tendanhmuc, tenmausac, tensize
+    // Lọc sản phẩm theo tensp
+    $scope.locTenSPShop = function () {
+        var tensanpham = $scope.tensp;
+        if (tensanpham == "") {
+            // Nếu giá trị là null, gọi lại danh sách đầy đủ
+            $scope.loadSPShop();
+            console.log("Gọi Hàm LoadSPShop");
+        } else {
+            $http.get(
+                "http://localhost:8080/api/san-pham-shop/loc/ten-san-pham?pageNumber=" + $scope.pageNumber + "&pageSize=" + $scope.pageSize +
+                "&tensp=" + tensanpham 
+            )
+                .then(function (response) {
+                    $scope.sanPhamShop = response.data.content;
+                    console.log("Lọc SP Theo Nhiều Tiêu Chí :", $scope.sanPhamShop);
+                    if ($scope.sanPhamShop.length < $scope.pageSize) {
+                        $scope.showNextButton = false; // Ẩn nút "Next"
+                    } else {
+                        $scope.showNextButton = true; // Hiển thị nút "Next"
+                    }
+                });
+        }
+    };
+
+    // Lọc sản phẩm theo nhiều tiêu chí. tendanhmuc, tenmausac, tensize
     // Khởi tạo giá trị ban đầu cho các biến
-    $scope.tensp = "";
     $scope.tendanhmuc = "";
     $scope.tenmausac = "";
     $scope.tensize = "";
     $scope.locSPShopNhieuTC = function () {
-        var tensanpham = $scope.tensp;
         var tendm = $scope.tendanhmuc;
         var tenms = $scope.tenmausac;
         var tens = $scope.tensize;
 
-        if (tensanpham == "" && tendm == "" && tenms == "" && tens == "") {
+        if (tendm == "" && tenms == "" && tens == "") {
             // Nếu giá trị là null, gọi lại danh sách đầy đủ
             $scope.loadSPShop();
             console.log("Gọi Hàm LoadSPShop");
         } else {
             $http.get(
                 "http://localhost:8080/api/san-pham-shop/loc/san-pham?pageNumber=" + $scope.pageNumber + "&pageSize=" + $scope.pageSize +
-                "&tensp=" + tensanpham + "&tendanhmuc=" + tendm + "&tenmausac=" + tenms + "&tensize=" + tens
+                "&tendanhmuc=" + tendm + "&tenmausac=" + tenms + "&tensize=" + tens
             )
                 .then(function (response) {
                     $scope.sanPhamShop = response.data.content;
