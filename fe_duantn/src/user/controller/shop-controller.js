@@ -109,8 +109,8 @@ app.controller('shopController', function ($scope, $http) {
     $(function () {
         sliderrange.slider({
             range: true,
-            min: 1000,
-            max: 800000,
+            min: 9000,
+            max: 1000000,
             values: [0, 300000],
             slide: function (event, ui) {
                 amountprice.val(ui.values[0] + "đ" + " - " + ui.values[1] + "đ");

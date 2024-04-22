@@ -28,11 +28,11 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
         $http.get('http://localhost:8080/api/san-pham-chi-tiet/findbyid/san-pham?idsp=' + idsanpham)
             .then(function (response) {
                 $scope.detailProduct = response.data;
-                console.log('Data load SPCT new :', $scope.detailProduct);
+                console.log('Data load SPCT :', $scope.detailProduct);
                 $scope.loadListImageSP();
             })
             .catch(function (error) {
-                console.error('Lỗi load spc new !', error);
+                console.error('Lỗi load spc !', error);
             });
     }
 
