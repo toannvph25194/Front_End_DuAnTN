@@ -3,7 +3,7 @@ app.controller("homeController", function ($scope, $http, $window, $route) {
     // Load sp Mới lên trang chủ
     function loadSPMoi() {
 
-        $http.get('http://localhost:8080/api/san-pham/show-new').then(resp => {
+        $http.get('http://localhost:8080/api/ol/san-pham/show-new').then(resp => {
             $scope.sanPhamMoi = resp.data;
             console.log("Success Data SP Mới :", resp)
         }).catch(error => {
@@ -15,7 +15,7 @@ app.controller("homeController", function ($scope, $http, $window, $route) {
     // Load sp giảm giá lên trang chủ
     function loadSPGiamGia() {
 
-        $http.get('http://localhost:8080/api/san-pham/show-giam-gia').then(resp => {
+        $http.get('http://localhost:8080/api/ol/san-pham/show-giam-gia').then(resp => {
             $scope.sanPhamGG = resp.data;
             console.log("Success Data SP GG :", resp)
         }).catch(error => {
@@ -52,7 +52,7 @@ app.controller("homeController", function ($scope, $http, $window, $route) {
     };
     // Load sp lên trang chủ
     function loadSPHome() {
-        $http.get(`http://localhost:8080/api/san-pham/show?page=${$scope.currentPageHome - 1}`)
+        $http.get(`http://localhost:8080/api/ol/san-pham/show?page=${$scope.currentPageHome - 1}`)
             .then(resp => {
                 $scope.sanPhamS = resp.data.content;
                 // Tổng số bản ghi
@@ -96,7 +96,7 @@ app.controller("homeController", function ($scope, $http, $window, $route) {
     // Load sp Nam lên trang chủ
     $scope.loadSPNamHome = function() {
         const page = $scope.currentPageNam - 1
-        $http.get(`http://localhost:8080/api/san-pham/show-nam?page=${page}`)
+        $http.get(`http://localhost:8080/api/ol/san-pham/show-nam?page=${page}`)
             .then(resp => {
                 $scope.sanPhamNam = resp.data.content;
                 // Tổng số bản ghi
@@ -143,7 +143,7 @@ app.controller("homeController", function ($scope, $http, $window, $route) {
     // Load sp Nam lên trang chủ
     $scope.loadSPNuHome = function() {
         const page = $scope.currentPageNu - 1
-        $http.get(`http://localhost:8080/api/san-pham/show-nu?page=${page}`)
+        $http.get(`http://localhost:8080/api/ol/san-pham/show-nu?page=${page}`)
             .then(resp => {
                 $scope.sanPhamNu = resp.data.content;
                 // Tổng số bản ghi

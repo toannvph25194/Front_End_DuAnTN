@@ -44,7 +44,7 @@ app.controller('shopController', function ($scope, $http) {
 
     // Load sp shop lên trang shop
     $scope.loadSPShop = function () {
-        $http.get(`http://localhost:8080/api/san-pham-shop/load?page=${$scope.currentPage - 1}`).then(resp => {
+        $http.get(`http://localhost:8080/api/ol/san-pham-shop/load?page=${$scope.currentPage - 1}`).then(resp => {
             $scope.sanPhamShop = resp.data.content;
             console.log("Load SPShop :", $scope.sanPhamShop);
 
@@ -68,7 +68,7 @@ app.controller('shopController', function ($scope, $http) {
     // Load danh mục sản phẩm shop
     $scope.getAllDanhMucSPShop = function () {
         $http
-            .get("http://localhost:8080/api/san-pham-shop/load-danh-muc")
+            .get("http://localhost:8080/api/ol/san-pham-shop/load-danh-muc")
             .then(function (response) {
                 $scope.listDanhMuc = response.data;
                 console.log("ListDM :", $scope.listDanhMuc);
@@ -79,7 +79,7 @@ app.controller('shopController', function ($scope, $http) {
     // Load màu sắc sản phẩm shop
     $scope.getAllMauSacSPShop = function () {
         $http
-            .get("http://localhost:8080/api/san-pham-shop/load-mau-sac")
+            .get("http://localhost:8080/api/ol/san-pham-shop/load-mau-sac")
             .then(function (response) {
                 $scope.listMauSac = response.data;
                 console.log("ListMS :", $scope.listMauSac);
@@ -90,7 +90,7 @@ app.controller('shopController', function ($scope, $http) {
     // Load danh mục sản phẩm shop
     $scope.getAllSizeSPShop = function () {
         $http
-            .get("http://localhost:8080/api/san-pham-shop/load-size")
+            .get("http://localhost:8080/api/ol/san-pham-shop/load-size")
             .then(function (response) {
                 $scope.listSize = response.data;
                 // Sắp xếp dữ liệu theo thứ tự mong muốn (S, M, L, XL, XXL)
@@ -130,7 +130,7 @@ app.controller('shopController', function ($scope, $http) {
         var key2 = sliderrange.slider("values", 1);
 
         $http.get(
-            "http://localhost:8080/api/san-pham-shop/loc/khoang-gia?pageNumber=" + $scope.pageNumber + "&pageSize=" + $scope.pageSize +
+            "http://localhost:8080/api/ol/san-pham-shop/loc/khoang-gia?pageNumber=" + $scope.pageNumber + "&pageSize=" + $scope.pageSize +
             "&key1=" + key1 +
             "&key2=" + key2
         )
@@ -154,7 +154,7 @@ app.controller('shopController', function ($scope, $http) {
             console.log("Gọi Hàm LoadSPShop");
         } else {
             $http.get(
-                "http://localhost:8080/api/san-pham-shop/loc/ten-san-pham?pageNumber=" + $scope.pageNumber + "&pageSize=" + $scope.pageSize +
+                "http://localhost:8080/api/ol/san-pham-shop/loc/ten-san-pham?pageNumber=" + $scope.pageNumber + "&pageSize=" + $scope.pageSize +
                 "&tensp=" + tensanpham 
             )
                 .then(function (response) {
@@ -185,7 +185,7 @@ app.controller('shopController', function ($scope, $http) {
             console.log("Gọi Hàm LoadSPShop");
         } else {
             $http.get(
-                "http://localhost:8080/api/san-pham-shop/loc/san-pham?pageNumber=" + $scope.pageNumber + "&pageSize=" + $scope.pageSize +
+                "http://localhost:8080/api/ol/san-pham-shop/loc/san-pham?pageNumber=" + $scope.pageNumber + "&pageSize=" + $scope.pageSize +
                 "&tendanhmuc=" + tendm + "&tenmausac=" + tenms + "&tensize=" + tens
             )
                 .then(function (response) {

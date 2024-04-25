@@ -11,7 +11,7 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
     // Load top 4 spct new 
     $scope.getAllSPCTNew = function () {
 
-        $http.get('http://localhost:8080/api/san-pham-chi-tiet/load/san-pham-new')
+        $http.get('http://localhost:8080/api/ol/san-pham-chi-tiet/load/san-pham-new')
             .then(function (response) {
                 $scope.sanPhamNewCTSP = response.data;
                 console.log('Data SP New CTSP :', $scope.sanPhamNewCTSP);
@@ -25,7 +25,7 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
     // detail spct theo idsp 
     $scope.getDetailProduct = function () {
 
-        $http.get('http://localhost:8080/api/san-pham-chi-tiet/findbyid/san-pham?idsp=' + idsanpham)
+        $http.get('http://localhost:8080/api/ol/san-pham-chi-tiet/findbyid/san-pham?idsp=' + idsanpham)
             .then(function (response) {
                 $scope.detailProduct = response.data;
                 console.log('Data load SPCT :', $scope.detailProduct);
@@ -41,7 +41,7 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
     // load list image sp
     $scope.loadListImageSP = function () {
 
-        $http.get('http://localhost:8080/api/san-pham-chi-tiet/load-list/image-san-pham?idsp=' + idsanpham)
+        $http.get('http://localhost:8080/api/ol/san-pham-chi-tiet/load-list/image-san-pham?idsp=' + idsanpham)
             .then(function (response) {
                 $scope.loadlistImgSP = response.data;
                 $scope.selectedImage = $scope.detailProduct.imagedefaul;
@@ -65,7 +65,7 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
     // tính tổng số lượng tồn spct theo idsp
     $scope.getTongSoLuongSP = function () {
 
-        $http.get('http://localhost:8080/api/san-pham-chi-tiet/tong-so-luong-ton/san-pham?idsp=' + idsanpham)
+        $http.get('http://localhost:8080/api/ol/san-pham-chi-tiet/tong-so-luong-ton/san-pham?idsp=' + idsanpham)
             .then(function (response) {
                 $scope.tongSoLuongTonSP = response.data;
                 console.log('Tổng Số Lượng SP :', $scope.tongSoLuongTonSP);
@@ -81,7 +81,7 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
     // Load MauSac theo idsp
     $scope.loadMauSacByIdSP = function () {
 
-        $http.get('http://localhost:8080/api/san-pham-chi-tiet/load-mau-sac?idsp=' + idsanpham)
+        $http.get('http://localhost:8080/api/ol/san-pham-chi-tiet/load-mau-sac?idsp=' + idsanpham)
             .then(function (response) {
                 $scope.detailMauSac = response.data;
                 console.log('Load MauSac theo idsp :', $scope.detailMauSac);
@@ -100,7 +100,7 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
     // Load size theo idsp
     $scope.loadSizeByIdSP = function () {
 
-        $http.get('http://localhost:8080/api/san-pham-chi-tiet/load-size?idsp=' + idsanpham)
+        $http.get('http://localhost:8080/api/ol/san-pham-chi-tiet/load-size?idsp=' + idsanpham)
             .then(function (response) {
                 $scope.detailSize = response.data;
                 console.log('Load Size theo idsp :', $scope.detailSize);
@@ -144,7 +144,7 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
         if (selectedSize && selectedSize.isActive) {
             var idsize = selectedSize.id;
             console.log('IdSize đang chọn để tìm kiếm màu sắc : ' + idsize);
-            $http.get('http://localhost:8080/api/san-pham-chi-tiet/finby-mau-sac?idsp=' + idsanpham + '&idsize=' + idsize)
+            $http.get('http://localhost:8080/api/ol/san-pham-chi-tiet/finby-mau-sac?idsp=' + idsanpham + '&idsize=' + idsize)
                 .then(function (response) {
 
                     // Lấy danh sách màu sắc từ server
@@ -200,7 +200,7 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
         if (selectedMauSac && selectedMauSac.isActive) {
             var idmausac = selectedMauSac.id;
             console.log('IdMauSac đang chọn để tìm kiếm size :' + idmausac);
-            $http.get('http://localhost:8080/api/san-pham-chi-tiet/finby-size?idsp=' + idsanpham + '&idmausac=' + idmausac)
+            $http.get('http://localhost:8080/api/ol/san-pham-chi-tiet/finby-size?idsp=' + idsanpham + '&idmausac=' + idmausac)
                 .then(function (response) {
 
                     // Lấy danh sách size từ server
@@ -262,7 +262,7 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
             console.log('IdMauSac để tìm Idspct :', idMauSac);
             console.log('IdSize để tìm Idspct :', idSize);
 
-            $http.get('http://localhost:8080/api/san-pham-chi-tiet/finby-idspct-soluongton?idsp=' + idsanpham + '&idmausac=' + idMauSac + '&idsize=' + idSize)
+            $http.get('http://localhost:8080/api/ol/san-pham-chi-tiet/finby-idspct-soluongton?idsp=' + idsanpham + '&idmausac=' + idMauSac + '&idsize=' + idSize)
                 .then(function (response) {
 
                     $scope.chiTietSP = response.data;
