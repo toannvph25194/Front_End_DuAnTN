@@ -28,16 +28,20 @@
               <tbody>
                 <tr ng-repeat="cart in cartS">
                   <td class="image product-thumbnail">
-                    <img src="assets/imgs/shop/product-1-2.jpg" alt="#" />
+                    <img src="{{cart.imagedefaul}}" alt="#" />
                   </td>
                   <td class="product-des product-name">
                     <h5 class="product-name">
-                      <a href="product-details.html">J.Crew Mercantile Women's Short-Sleeve</a>
+                      <a ng-href="#/product-details/{{cart.idsp}}">{{cart.tensp}} - {{cart.tenmausac}} - {{cart.tensize}}</a>
                     </h5>
-                    <p class="font-xs">{{cart.tensp}}</p>
+                    <p class="font-xs">Quần Áo Thời Trang 2TH-Shop</p>
                   </td>
                   <td class="price" data-title="Price">
-                    <span>{{cart.giaban}}</span>
+                    <span ng-if="cart.dongiakhigiam == null" style="color: #F15412; font-size: 1.1em" class="old-price">{{cart.dongia | number}} đ</span>
+                    <span ng-if="cart.dongiakhigiam !== null" style="text-decoration: line-through; opacity: 0.8; display: block;" 
+                          class="old-price">{{cart.dongia | number}} đ
+                    </span>
+                    <span ng-if="cart.dongiakhigiam !== null" style="color: #F15412; font-size: 1.1em">{{cart.dongiakhigiam | number}} đ</span> 
                   </td>
                   <td class="text-center" data-title="Stock">
 
@@ -59,10 +63,10 @@
 
                   </td>
                   <td class="text-right" data-title="Cart">
-                    <span>{{cart.giaban * cart.soluong}}</span>
+                    <span>{{(cart.dongiakhigiam ? cart.dongiakhigiam : cart.dongia) * cart.soluong}}</span>
                   </td>
                   <td class="action" data-title="Remove">
-                    <a class="text-muted"><i ng-click="deleteCart(cart.id)" class="fi-rs-trash"></i></a>
+                    <a class="text-muted"><i ng-click="deleteCart(cart.idghct)" class="fi-rs-trash"></i></a>
                   </td>
                 </tr>
                 <tr>

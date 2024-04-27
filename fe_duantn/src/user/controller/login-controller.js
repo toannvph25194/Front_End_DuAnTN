@@ -66,27 +66,27 @@ app.controller("registerController", function ($scope, $http, $window) {
           });
 
           // Lấy IdTK sau khi đăng nhập
-          // var idtaikhoantimkiem = localStorage.getItem('idtk');
-          // console.log("IdTKDangNhap :", idtaikhoantimkiem);
-          // // Hàm tìm kiếm id giỏ hàng của người dùng khi đăng nhập
-          // $scope.finByIdGioHang = function () {
+          var idtaikhoantimkiem = localStorage.getItem('idtk');
+          console.log("IdTKDangNhap :", idtaikhoantimkiem);
+          // Hàm tìm kiếm id giỏ hàng của người dùng khi đăng nhập
+          $scope.finByIdGioHang = function () {
 
-          //   $http.get('http://localhost:8080/api/gio-hang/tim-kiem/gio-hang?idtk=' + idtaikhoantimkiem)
-          //     .then(resp => {
-          //       $scope.timKiemIdGH = resp.data;
+            $http.get('http://localhost:8080/api/ol/gio-hang/tim-kiem/gio-hang?idkh=' + idtaikhoantimkiem)
+              .then(resp => {
+                $scope.timKiemIdGH = resp.data;
 
-          //       if ($scope.timKiemIdGH && $scope.timKiemIdGH.id !== null && $scope.timKiemIdGH.id !== "") {
-          //         localStorage.setItem("idgiohang", $scope.timKiemIdGH.id);
-          //         console.log("Đã Tìm Thấy IdGH :", resp)
-          //       } else {
-          //         console.log("K Tìm Thấy IdGH Hoặc Chưa Tạo !");
-          //       }
+                if ($scope.timKiemIdGH && $scope.timKiemIdGH.id !== null && $scope.timKiemIdGH.id !== "") {
+                  localStorage.setItem("idgiohang", $scope.timKiemIdGH.id);
+                  console.log("Đã Tìm Thấy IdGH :", resp)
+                } else {
+                  console.log("K Tìm Thấy IdGH Hoặc Chưa Tạo !");
+                }
 
-          //     }).catch(error => {
-          //       console.log("Lỗi K Load DC IDGH !")
-          //     });
-          // }
-          // $scope.finByIdGioHang();
+              }).catch(error => {
+                console.log("Lỗi K Load DC IDGH !")
+              });
+          }
+          $scope.finByIdGioHang();
 
           // Tải lại trang sau 1.5 giây khi thông báo biến mất
           setTimeout(function () {
@@ -137,7 +137,7 @@ app.controller("registerController", function ($scope, $http, $window) {
       $scope.taikhoanRegisValid = true;
       $scope.taikhoanRegisForcus = true;
       return;
-    } else if (!taikhoanRegexp.test($scope.taikhoan)){
+    } else if (!taikhoanRegexp.test($scope.taikhoan)) {
       $scope.taikhoanRegisForcus = false;
       $scope.taikhoanRegisLeng = true;
       $scope.taikhoanRegisValid = true;
@@ -162,11 +162,11 @@ app.controller("registerController", function ($scope, $http, $window) {
     if (!$scope.matkhau) {
       $scope.matkhauRegisLeng = true;
       $scope.matkhauRegisValid = false;
-    } else if($scope.matkhau.length < 6 || $scope.matkhau.length > 15){
+    } else if ($scope.matkhau.length < 6 || $scope.matkhau.length > 15) {
       $scope.matkhauRegisValid = true;
       $scope.matkhauRegisLeng = false;
       return;
-    } else { 
+    } else {
       $scope.matkhauRegisValid = true;
       $scope.matkhauRegisLeng = true;
     }
@@ -175,7 +175,7 @@ app.controller("registerController", function ($scope, $http, $window) {
     if (
       !$scope.taikhoanRegisValid ||
       !$scope.matkhauRegisValid ||
-      !$scope.emailRegisValid 
+      !$scope.emailRegisValid
     ) {
       // Swal.fire({
       //   title: "Warning",

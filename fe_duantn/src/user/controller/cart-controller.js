@@ -1,13 +1,8 @@
 app.controller('cartController', function ($scope, $http, $window, $routeParams, $route, $location, $timeout) {
 
-    // Lấy id của chi tiết sản phẩm qua $routeParams
-    // var idctspandsl = $routeParams.id;
-    // console.log('IdCTSP And SL:', idctspandsl);
-
-    // Lấy idGioHang từ localStorage
+    // Lấy idGioHang và Idtk từ localStorage
     var IdGioHang = localStorage.getItem('idgiohang');
     console.log("ID GioHang LocalStor :", IdGioHang);
-
     var IdTK = localStorage.getItem('idtk');
     console.log("ID TK :" , IdTK);
 
@@ -16,51 +11,41 @@ app.controller('cartController', function ($scope, $http, $window, $routeParams,
     // Tạo biến lấy tentk trên localStorage để hiển thị khi dn;
     $scope.tenTK = localStorage.getItem('taikhoan');
 
-    // Lấy soluongton từ localStorage
-    // var soLuongTon = localStorage.getItem('soluongton');
-    // console.log("SoLuongTon LocalStor :", soLuongTon);
-
-
-    // Load ghct 
+    // Load giỏ hàng chi tiết
     $scope.loadCart = function () {
-
         // Check id giỏ hàng
         if (IdGioHang !== null) {
-            $http.get('http://localhost:8080/api/ghct/show?idgiohang=' + IdGioHang)
+            $http.get('http://localhost:8080/api/ol/gio-hang-chi-tiet/load?idgh=' + IdGioHang)
                 .then(resp => {
                     $scope.cartS = resp.data;
                     console.log("Data Cart :", resp.data);
-
                     // Truy cập soluongton của từng phần tử trong danh sách
                     for (let i = 0; i < $scope.cartS.length; i++) {
                         console.log("Số Lượng Tồn Click:", $scope.cartS[i].soluongton);
                     }
                     // Đếm số lượng sản phẩm
                     $scope.soLuongSanPham = $scope.cartS.length;
-
                     $scope.thanhtien = 0;
                     for (var i = 0; i < $scope.cartS.length; i++) {
-                        $scope.thanhtien += parseFloat($scope.cartS[i].soluong * $scope.cartS[i].giaban);
+                        if ($scope.cartS[i].dongiakhigiam) {
+                            $scope.thanhtien += parseFloat($scope.cartS[i].soluong * $scope.cartS[i].dongiakhigiam);
+                        } else {
+                            $scope.thanhtien += parseFloat($scope.cartS[i].soluong * $scope.cartS[i].dongia);
+                        }
                     }
-
-
                 }).catch(error => {
                     console.log("Lỗi K load đc sp :", error);
                 });
-
-
         } else {
             $scope.soLuongSanPham = 0;
             console.log('Chưa tạo giỏ Hàng');
         }
     }
-
     $scope.loadCart();
 
-    // ---------- Xử lý cộng trừ số lượng ---------- //
+    // Xử lý cộng trừ số lượng 
     $scope.changeQuantity = function (product, change) {
         if (change === 'qty-up') {
-
             if (product.soluongton > 0) {
                 product.soluong++;
 
@@ -75,14 +60,13 @@ app.controller('cartController', function ($scope, $http, $window, $routeParams,
                     timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
                 })
             }
-
         } else if (change === 'qty-down' && product.soluong > 1) {
             product.soluong--;
         }
         // Gọi API để cập nhật số lượng
-        console.log(product.id)
+        console.log(product.idghct)
         console.log(product.soluong)
-        updateQuantity(product.id, product.soluong);
+        updateQuantity(product.idghct, product.soluong);
     };
 
 
@@ -112,14 +96,14 @@ app.controller('cartController', function ($scope, $http, $window, $routeParams,
     // Xử lý nhập số lượng mới bằng tay
     $scope.handleBlur = function (product) {
         // Gọi API để cập nhật số lượng
-        console.log(product.id);
+        console.log(product.idghct);
         console.log(product.soluong);
-        updateQuantity(product.id, product.soluong);
+        updateQuantity(product.idghct, product.soluong);
     };
 
     // Hàm gọi API cập nhật số lượng
-    function updateQuantity(productId, newQuantity) {
-        var apiURL = 'http://localhost:8080/api/ghct/update-so-luong?idghct=' + productId + '&soluong=' + newQuantity;
+    function updateQuantity(idghct, newQuantity) {
+        var apiURL = 'http://localhost:8080/api/ol/gio-hang-chi-tiet/update-so-luong?idghct=' + idghct + '&soluong=' + newQuantity;
         $http({
             url: apiURL,
             method: 'PUT',
@@ -137,9 +121,9 @@ app.controller('cartController', function ($scope, $http, $window, $routeParams,
         });
     }
 
-    // Delete Giỏ hàng
+    // Delete 1 sp Giỏ hàng chi tiết
     $scope.deleteCart = function (idghct) {
-        var apiURL = 'http://localhost:8080/api/ghct/delete-san-pham?idghct=' + idghct;
+        var apiURL = 'http://localhost:8080/api/ol/gio-hang-chi-tiet/delete-san-pham?idghct=' + idghct;
         Swal.fire({
             title: "Xác nhận xóa?",
             text: "Bạn có chắc chắn muốn xóa sản phẩm khỏi giỏ hàng?",
@@ -169,7 +153,7 @@ app.controller('cartController', function ($scope, $http, $window, $routeParams,
     }
 
 
-    //delete all product
+    //delete tất cả sp trong giỏ hàng chi tiết
     $scope.clearCart = function () {
         Swal.fire({
             title: "Xác nhận xóa?",
@@ -182,7 +166,7 @@ app.controller('cartController', function ($scope, $http, $window, $routeParams,
             cancelButtonText: "Hủy",
         }).then((result) => {
             if (result.isConfirmed) {
-                var apiURL = 'http://localhost:8080/api/ghct/delete-all-san-pham?idgiohang=' + IdGioHang;
+                var apiURL = 'http://localhost:8080/api/ol/gio-hang-chi-tiet/delete-all-san-pham?idgh=' + IdGioHang;
                 $http({
                     url: apiURL,
                     method: 'DELETE',
@@ -206,35 +190,9 @@ app.controller('cartController', function ($scope, $http, $window, $routeParams,
 
     // Reload checkout cart
     $scope.reloadCheckoutCart = function () {
-
         $location.path('/checkout');
         $timeout(reload, 500);
-
     }
-
-
-    // Check Đăng Nhập Chưa
-    // $scope.checkLogin = function(){
-    //     if(IdTK != null){
-    //         $location.path('/cart/id');
-    //     }else{
-    //         Swal.fire({
-    //             title: "Đăng Nhập",
-    //             text: "Bạn Cần Phải Đăng Nhập !",
-    //             icon: "warning",
-    //             showCancelButton: true,
-    //             confirmButtonColor: "#3085d6",
-    //             cancelButtonColor: "#d33",
-    //             confirmButtonText: "Đăng Nhập",
-    //             cancelButtonText: "Cancel",
-    //         }).then((result) => {
-                
-    //             if(result.isConfirmed){
-    //                 $window.location.href = "/src/Page/Login.html";
-    //             }
-    //         });
-    //     }
-    // }
 
     // Đăng Xuất
     $scope.logout = function () {

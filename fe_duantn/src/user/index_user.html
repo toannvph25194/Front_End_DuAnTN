@@ -109,15 +109,16 @@
 
                                                 <div class="shopping-cart-img">
                                                     <a href=""><img alt="Surfside Media"
-                                                            src="assets/imgs/shop/thumbnail-3.jpg"></a>
+                                                            src="{{ci.imagedefaul}}"></a>
                                                 </div>
                                                 <div class="shopping-cart-title">
-                                                    <h4><a>{{ci.tensp}}</a></h4>
-                                                    <h4><span>{{ci.soluong}} × {{ci.giaban}}</span></h4>
-                                                    <h4><span>Thành Tiền : {{ci.soluong * ci.giaban}}</span></h4>
+                                                    <h4><a ng-href="#/product-details/{{ci.idsp}}">{{ci.tensp}}</a></h4>
+                                                    <h4><span>{{ci.soluong}} × {{(ci.dongiakhigiam ? ci.dongiakhigiam : ci.dongia) * ci.soluong}}</span></h4>
+                                                    <h4><span>Thành Tiền : <span>{{(ci.dongiakhigiam ? ci.dongiakhigiam : ci.dongia) * ci.soluong}}</span>
+                                                    </span></h4>
                                                 </div>
                                                 <div class="shopping-cart-delete">
-                                                    <a><i ng-click="deleteCart(ci.id)"
+                                                    <a><i ng-click="deleteCart(ci.idghct)"
                                                             class="fi-rs-cross-small"></i></a>
                                                 </div>
                                             </li>
