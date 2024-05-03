@@ -1,1 +1,261 @@
-<h1>thongke</h1>
+<head>
+  <link rel="stylesheet" href="assets/css/Thongke/feather.css" />
+  <link rel="stylesheet" href="assets/css/Thongke/dropzone.css" />
+  <link rel="stylesheet" href="assets/css/Thongke/select2.css" />
+  <link rel="stylesheet" href="assets/css/Thongke/combobox.css" />
+</head>
+<style>
+  .larger-icon {
+    font-size: 2em;
+  }
+</style>
+<div class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto" ng-controller="thongKeController">
+  <div class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto">
+    <div class="flex flex-col gap-2 py-4 md:flex-row md:items-center print:hidden">
+      <div class="grow">
+        <h5 class="text-16">Thống kê</h5>
+      </div>
+      <ul class="flex items-center gap-2 text-sm font-normal shrink-0">
+        <li
+          class="relative before:content-['\ea54'] before:font-remix ltr:before:-right-1 rtl:before:-left-1 before:absolute before:text-[18px] before:-top-[3px] ltr:pr-4 rtl:pl-4 before:text-slate-400 dark:text-zink-200">
+          <a href="#!" class="text-slate-400 dark:text-zink-200">Quản lý thống kê</a>
+        </li>
+        <li class="text-slate-700 dark:text-zink-100">thống kê</li>
+      </ul>
+    </div>
+    <div class="grid grid-cols-12 2xl:grid-cols-12 gap-x-5">
+      <!--end col-->
+      <div
+        class="col-span-12 card md:col-span-6 lg:col-span-3 2xl:col-span-3 bg-green-100 dark:bg-green-500/20 card 2xl:col-span-2 group-data-[skin=bordered]:border-green-500/20 relative overflow-hidden">
+        <div class="card-body">
+          <i data-lucide="kanban"
+            class="absolute top-0 stroke-1 size-32 text-green-200/50 dark:text-green-500/20 ltr:-right-10 rtl:-left-10"></i>
+          <div class="flex items-center justify-center bg-green-500 rounded-md size-12 text-15 text-green-50">
+            <i class="ri-money-euro-circle-line larger-icon"></i>
+          </div>
+          <h5 class="mt-5 mb-2">
+            <span class="counter-value" data-target="15876">{{tongtienhomnay.toLocaleString('vi-VN')}}đ</span>
+          </h5>
+          <p class="text-slate-500 dark:text-slate-200">
+            Tổng số đơn: {{tongSoDonHnay}}
+          </p>
+          <p class="text-slate-500 dark:text-slate-200">
+            Tổng số đơn hủy: {{soDonHuyHnay}}
+          </p>
+          <p class="text-slate-500 dark:text-slate-200">
+            Số sản phẩm bán ra: {{soSanPhamBanRaHomNay}}
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="col-span-12 card md:col-span-6 lg:col-span-3 2xl:col-span-3 bg-orange-100 dark:bg-orange-500/20 card 2xl:col-span-2 group-data-[skin=bordered]:border-orange-500/20 relative overflow-hidden">
+        <div class="card-body">
+          <i data-lucide="list-filter"
+            class="absolute top-0 stroke-1 size-32 text-orange-200/50 dark:text-orange-500/20 ltr:-right-10 rtl:-left-10"></i>
+          <div class="flex items-center justify-center bg-orange-500 rounded-md size-12 text-15 text-orange-50">
+            <i class="ri-money-euro-circle-line larger-icon"></i>
+          </div>
+          <h5 class="mt-5 mb-2">
+            <span class="counter-value" data-target="103.15">{{tongtientuannay.toLocaleString('vi-VN')}}đ</span>
+          </h5>
+          <p class="text-slate-500 dark:text-slate-200">
+            Tổng số đơn: {{tongSoDonTuanNay}}
+          </p>
+          <p class="text-slate-500 dark:text-slate-200">
+            Tổng số đơn hủy: {{soDonHuyTuanNay}}
+          </p>
+          <p class="text-slate-500 dark:text-slate-200">
+            Số sản phẩm bán ra: {{soSanPhamBanRaTuanNay}}
+          </p>
+        </div>
+      </div>
+      <!--end col-->
+
+      <div
+        class="col-span-12 card md:col-span-6 lg:col-span-3 2xl:col-span-3 bg-sky-100 dark:bg-sky-500/20 card 2xl:col-span-2 group-data-[skin=bordered]:border-sky-500/20 relative overflow-hidden">
+        <div class="card-body">
+          <i data-lucide="list-filter"
+            class="absolute top-0 stroke-1 size-32 text-sky-200/50 dark:text-sky-500/20 ltr:-right-10 rtl:-left-10"></i>
+          <div class="flex items-center justify-center rounded-md size-12 bg-sky-500 text-15 text-sky-50">
+            <i class="ri-money-euro-circle-line larger-icon"></i>
+          </div>
+          <h5 class="mt-5 mb-2">
+            <span class="counter-value" data-target="1">{{tongtienthangnay.toLocaleString('vi-VN')}}đ</span>
+          </h5>
+          <p class="text-slate-500 dark:text-slate-200">
+            Tổng số đơn: {{tongSoDonThangNay}}
+          </p>
+          <p class="text-slate-500 dark:text-slate-200">
+            Tổng số đơn hủy: {{soDonHuyThangNay}}
+          </p>
+          <p class="text-slate-500 dark:text-slate-200">
+            Số sản phẩm bán ra: {{soSanPhamBanRaThangNay}}
+          </p>
+        </div>
+      </div>
+      <!--end col-->
+      <div
+        class="col-span-12 card md:col-span-6 lg:col-span-3 2xl:col-span-3 bg-purple-100 dark:bg-purple-500/20 card 2xl:col-span-2 group-data-[skin=bordered]:border-purple-500/20 relative overflow-hidden">
+        <div class="card-body">
+          <i data-lucide="kanban"
+            class="absolute top-0 stroke-1 size-32 text-purple-200/50 dark:text-purple-500/20 ltr:-right-10 rtl:-left-10"></i>
+          <div class="flex items-center justify-center bg-purple-500 rounded-md size-12 text-15 text-purple-50">
+            <i class="ri-money-euro-circle-line larger-icon"></i>
+          </div>
+          <h5 class="mt-5 mb-2">
+            <span class="counter-value" data-target="49.77">{{tongtiennamnay.toLocaleString('vi-VN')}}đ</span>
+          </h5>
+          <p class="text-slate-500 dark:text-slate-200">
+            Tổng số đơn: {{tongSoDonNamNay}}
+          </p>
+          <p class="text-slate-500 dark:text-slate-200">
+            Tổng số đơn hủy: {{soDonHuyNamNay}}
+          </p>
+          <p class="text-slate-500 dark:text-slate-200">
+            Số sản phẩm bán ra: {{soSanPhamBanRaNamNay}}
+          </p>
+        </div>
+      </div>
+
+      <!--end col-->
+      <!-- biểu đồ -->
+      <div class="col-span-12 card 2xl:col-span-8">
+        <div class="card-body">
+          <div class="flex flex-col gap-4 mb-4 md:mb-3 md:items-center md:flex-row">
+            <h6 class="grow text-15">Biểu đồ thống kê</h6>
+          </div>
+
+          <div class="flex flex-col gap-4 mb-4 md:mb-3 md:items-center md:flex-row">
+            <!-- Input cho ngày bắt đầu và ngày kết thúc -->
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="start-date" class="txt-text">Ngày bắt đầu</label>
+
+                <input type="date"
+                  class="ltr:pl-10 rtl:pr-10 form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  placeholder="Ngày bắt đầu" ng-model="startDate" ng-change="updateChart()" />
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="end-date" class="txt-text">Ngày kết thúc</label>
+
+                <input type="date"
+                  class="ltr:pl-10 rtl:pr-10 form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  placeholder="Ngày kết thúc" ng-model="endDate" ng-change="updateChart()" />
+              </div>
+            </div>
+          </div>
+
+          <canvas id="myBarChart"></canvas>
+        </div>
+      </div>
+      <!--end col-->
+      <div class="col-span-12 2xl:col-span-4">
+        <div class="grid grid-cols-12 gap-x-5">
+          <!--end col-->
+          <div class="col-span-12 card lg:col-span-6 2xl:col-span-12">
+            <div class="card-body">
+              <div class="card shadow mb-4">
+                <div class="card-body">
+                  <div class="col">
+                    <h6>Trạng thái hóa đơn</h6>
+                  </div>
+                  <div>
+                    <canvas id="myChart"></canvas>
+                  </div>
+                </div>
+                <!-- .card-body -->
+              </div>
+            </div>
+          </div>
+          <!--end col-->
+        </div>
+        <!--end grid-->
+      </div>
+      <!--end col-->
+      <div class="col-span-12 card 2xl:col-span-12">
+        <div class="card-body">
+          <div class="grid items-center grid-cols-1 gap-3 mb-5 2xl:grid-cols-12">
+            <div class="2xl:col-span-3">
+              <h6 class="text-15">Top 10 sản phẩm bán chạy nhất</h6>
+            </div>
+            <!--end col-->
+          </div>
+          <!--end grid-->
+          <div class="overflow-x-auto">
+            <table class="w-full whitespace-nowrap" id="productTable">
+              <thead class="ltr:text-left rtl:text-right bg-slate-100 dark:bg-zink-600">
+                <tr>
+                  <th
+                    class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_code"
+                    data-sort="product_code">
+                    STT
+                  </th>
+                  <th
+                    class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_name"
+                    data-sort="product_name">
+                    Ảnh
+                  </th>
+                  <th
+                    class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_name"
+                    data-sort="product_name">
+                    Tên sản phẩm
+                  </th>
+                  <th
+                    class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_name"
+                    data-sort="product_name">
+                    Giá Bán
+                  </th>
+                  <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort category"
+                    data-sort="category">
+                    Số lượng
+                  </th>
+                  <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort category"
+                    data-sort="category">
+                    Doanh thu
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="list">
+                <tr ng-repeat="sp in listSanPhamBanChay">
+                  <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
+                    <a href="#!"
+                      class="transition-all duration-150 ease-linear product_code text-custom-500 hover:text-custom-600"
+                      scope="row">{{$index + 1}}</a>
+                  </td>
+                  <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 product_name">
+                    <a href="apps-ecommerce-product-overview.html" class="flex items-center gap-2">
+
+                      <img src="{{sp[0]}}" alt="Product images" class="h-20" />
+                    </a>
+                  </td>
+                  <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 product_name">
+                    <a href="apps-ecommerce-product-overview.html" class="flex items-center gap-2">
+
+                      <h6 class="product_name">{{sp[1]}}</h6>
+                    </a>
+                  </td>
+                  <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 price">
+                    {{sp[2] | number}}
+                  </td>
+                  <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 price">
+                    {{sp[3]}}
+                  </td>
+                  <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 price">
+                    {{sp[4] | number}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!--end col-->
+    </div>
+    <!--end grid-->
+  </div>
+
+  <!-- main -->
+</div>
