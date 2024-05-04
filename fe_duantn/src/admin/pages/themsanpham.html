@@ -1,0 +1,283 @@
+
+<div
+  class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto"
+  ng-controller="ThemSanPhamController"
+>
+  <body>
+    <div
+      class="flex flex-col gap-2 py-4 md:flex-row md:items-center print:hidden"
+    >
+      <div class="grow">
+        <h5 class="text-16">Thêm sản phẩm mới</h5>
+      </div>
+      <ul class="flex items-center gap-2 text-sm font-normal shrink-0">
+        <li
+          class="relative before:content-['\ea54'] before:font-remix ltr:before:-right-1 rtl:before:-left-1 before:absolute before:text-[18px] before:-top-[3px] ltr:pr-4 rtl:pl-4 before:text-slate-400 dark:text-zink-200"
+        >
+          <a href="#!" class="text-slate-400 dark:text-zink-200">Sản phẩm</a>
+        </li>
+        <li class="text-slate-700 dark:text-zink-100">Thêm sản phẩm mới</li>
+      </ul>
+    </div>
+    <div class="card" id="employeeTable">
+      <div class="xl:col-span-9">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="mb-4 text-15">Thêm sản phẩm</h6>
+
+            <form>
+              <div
+                class="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-12"
+              >
+                <div class="xl:col-span-6">
+                  <label
+                    for="productNameInput"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Tên sản phẩm</label
+                  >
+                  <input
+                    type="text"
+                    id="productNameInput"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    placeholder="Tên sản phẩm"
+                    ng-model="selectedtenSP"
+                  />
+                  <p class="mt-1 text-sm text-slate-400 dark:text-zink-200">
+                    Không quá 20 ký tự khi nhập tên sản phẩm.
+                  </p>
+                  <span class="error-message" ng-if="errorMessage.tensp"
+                    >{{errorMessage.tensp}}</span
+                  >
+                </div>
+                <!--end col-->
+                <div class="xl:col-span-6">
+                  <label
+                    for="productCodeInput"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Mã sản phẩm</label
+                  >
+                  <div class="flex items-center">
+                    <span
+                      class="inline-block px-3 py-2 border ltr:border-r-0 rtl:border-l-0 border-slate-200 bg-slate-100 dark:border-zink-500 dark:bg-zink-600 ltr:rounded-l-md rtl:rounded-r-md"
+                      ng-click="generateProductCode()"
+                      >+</span
+                    >
+                    <input
+                      type="text"
+                      id="inputText"
+                      class="ltr:rounded-l-none rtl:rounded-r-none form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                      placeholder="@Mã Sản Phẩm"
+                      ng-model="selectedmaSP"
+                      disabled=""
+                    />
+                  </div>
+                  <span class="error-message" ng-if="errorMessage.masp"
+                    >{{errorMessage.masp}}</span
+                  >
+                </div>
+                <div class="xl:col-span-4">
+                  <label
+                    for="categorySelect"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Chất liệu</label
+                  >
+                  <select
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    data-choices=""
+                    data-choices-search-false=""
+                    name="categorySelect"
+                    id="categorySelect"
+                    ng-model="selectedChatLieu"
+                    ng-options="chatLieu.id as chatLieu.tenchatlieu for chatLieu in chatLieus"
+                  >
+                    <option value="">Chọn chất liệu</option>
+                  </select>
+                  <span class="error-message" ng-if="errorMessage.chatlieu"
+                    >{{errorMessage.chatlieu}}</span
+                  >
+                </div>
+                <!--end col-->
+                <div class="xl:col-span-4">
+                  <label
+                    for="productTypeSelect"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Danh mục
+                  </label>
+                  <select
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    data-choices=""
+                    data-choices-search-false=""
+                    name="productTypeSelect"
+                    id="productTypeSelect"
+                    ng-model="selectedDanhMuc"
+                    ng-options="danhmuc.id as danhmuc.tendanhmuc for danhmuc in danhmucs"
+                  >
+                    <option value="">Chọn danh mục</option>
+                  </select>
+                  <span class="error-message" ng-if="errorMessage.danhmuc"
+                    >{{errorMessage.danhmuc}}</span
+                  >
+                </div>
+                <!--end col-->
+                <div class="xl:col-span-4">
+                  <label
+                    for="genderSelect"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Thương hiệu</label
+                  >
+                  <select
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    data-choices=""
+                    data-choices-search-false=""
+                    name="genderSelect"
+                    id="genderSelect"
+                    ng-model="selectedThuongHieu"
+                    ng-options="thuongHieu.id as thuongHieu.tenthuonghieu for thuongHieu in thuongHieus"
+                  >
+                    <option value="">Chọn thương hiệu</option>
+                  </select>
+                  <span class="error-message" ng-if="errorMessage.thuonghieu"
+                    >{{errorMessage.thuonghieu}}</span
+                  >
+                </div>
+                <div class="xl:col-span-4">
+                  <label
+                    for="genderSelect"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Xuất xứ</label
+                  >
+                  <select
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    data-choices=""
+                    data-choices-search-false=""
+                    name="genderSelect"
+                    id="genderSelect"
+                    ng-model="selectedXuatXu"
+                    ng-options="xuatXu.id as xuatXu.tenxuatxu for xuatXu in xuatxus"
+                  >
+                    <option value="">Chọn xuất xứ</option>
+                  </select>
+                  <span class="error-message" ng-if="errorMessage.xuatxu"
+                    >{{errorMessage.xuatxu}}</span
+                  >
+                </div>
+                <div class="xl:col-span-4">
+                  <label
+                    for="genderSelect"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Thể loại</label
+                  >
+                  <select
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    data-choices=""
+                    data-choices-search-false=""
+                    name="genderSelect"
+                    id="genderSelect"
+                    ng-model="selectedTheLoai"
+                  >
+                    <option value="">Chọn thể loại</option>
+                    <option value="1">Nam</option>
+                    <option value="0">Nữ</option>
+                  </select>
+                  <span class="error-message" ng-if="errorMessage.theloai"
+                    >{{errorMessage.theloai}}</span
+                  >
+                </div>
+                <div class="lg:col-span-2 xl:col-span-12">
+                  <div>
+                    <label
+                      for="productDescription"
+                      class="inline-block mb-2 text-base font-medium"
+                      >Ghi chú</label
+                    >
+                    <textarea
+                      class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                      id="productDescription"
+                      placeholder="Enter Description"
+                      rows="5"
+                      ng-model="selectedMoTasp"
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="xl:col-span-4">
+                  <label
+                    for="productPrice"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Giá Bán</label
+                  >
+                  <input
+                    type="number"
+                    id="productPrice"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    placeholder="0đ"
+                    ng-model="selectedGiaBan"
+                  />
+                  <span class="error-message" ng-if="errorMessage.giaban"
+                    >{{errorMessage.giaban}}</span
+                  >
+                </div>
+                <!--end col-->
+                <div class="xl:col-span-4">
+                  <label
+                    for="productDiscounts"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Giá nhập</label
+                  >
+                  <input
+                    type="number"
+                    id="productDiscounts"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    placeholder="0đ"
+                    ng-model="selectedGiaNhap"
+                  />
+                  <span class="error-message" ng-if="errorMessage.gianhap"
+                    >{{errorMessage.gianhap}}</span
+                  >
+                </div>
+                <!-- up load file -->
+                <div class="lg:col-span-2 xl:col-span-12">
+                  <label
+                    for="genderSelect"
+                    class="block text-base font-medium mb-2"
+                    >Thêm ảnh sản phẩm</label
+                  >
+                  <div>
+                    <input
+                      type="file"
+                      id="fileInput"
+                      class="cursor-pointer form-file form-file-sm border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500"
+                      placeholder="Chọn ảnh sản phẩm"
+                      onchange="angular.element(this).scope().handleFileSelect(event)"
+                      ng-model="selectedImageName"
+                    />
+                  </div>
+                  <span class="error-message" ng-if="errorMessage.tenSP"
+                    >{{errorMessage.imagedefaul}}</span
+                  >
+                </div>
+              </div>
+              <div class="flex justify-end gap-2 mt-4">
+                <button
+                  type="reset"
+                  id="refreshButton"
+                  class="text-red-500 bg-white btn hover:text-red-500 hover:bg-red-100 focus:text-red-500 focus:bg-red-100 active:text-red-500 active:bg-red-100 dark:bg-zink-700 dark:hover:bg-red-500/10 dark:focus:bg-red-500/10 dark:active:bg-red-500/10"
+                >
+                  Làm mới
+                </button>
+                <button
+                  type="submit"
+                  class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20"
+                  ng-click="addSanPhamMoi()"
+                >
+                  Thêm sản phẩm
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!--end card-->
+      </div>
+      <!--end col-->
+    </div>
+  </body>
+</div>

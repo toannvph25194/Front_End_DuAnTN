@@ -1,1 +1,475 @@
-<h1>sản phẩm</h1>
+<head>
+  <!-- Sử dụng CDN -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.10.0/nouislider.min.css"
+  />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.10.0/nouislider.min.js"></script>
+</head>
+<div
+  class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto"
+  ng-controller="QuanLySanPhamController"
+>
+  <div
+    class="flex flex-col gap-2 py-4 md:flex-row md:items-center print:hidden"
+  >
+    <div class="grow">
+      <h5 class="text-16">Sản phẩm</h5>
+    </div>
+    <ul class="flex items-center gap-2 text-sm font-normal shrink-0">
+      <li
+        class="relative before:content-['\ea54'] before:font-remix ltr:before:-right-1 rtl:before:-left-1 before:absolute before:text-[18px] before:-top-[3px] ltr:pr-4 rtl:pl-4 before:text-slate-400 dark:text-zink-200"
+      >
+        <a href="#!" class="text-slate-400 dark:text-zink-200"
+          >Quản lý sản phẩm</a
+        >
+      </li>
+      <li class="text-slate-700 dark:text-zink-100">Sản phẩm</li>
+    </ul>
+  </div>
+  <div class="grid grid-cols-1 2xl:grid-cols-12 gap-x-5">
+    <div class="hidden 2xl:col-span-3 2xl:block">
+      <form action="">
+      <div class="card">
+        <div class="card-body">
+          <div class="flex items-center gap-3">
+            <h6 class="text-15 grow">Lọc sản phẩm</h6>
+            <div class="shrink-0">
+              <button
+              type="reset"
+                class="underline transition-all duration-200 ease-linear hover:text-custom-500"
+                ng-click="ShowSP()"
+                >Làm mới</
+              >
+            </div>
+          </div>
+
+          <div class="relative mt-4">
+            <input
+              type="text"
+              class="ltr:pl-8 rtl:pr-8 search form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+              placeholder="Tìm kiếm ..."
+              ng-model="tensp"
+              ng-change="locTenSPShop()"
+            />
+            <i
+              data-lucide="search"
+              class="inline-block size-4 absolute ltr:left-2.5 rtl:right-2.5 top-2.5 text-slate-500 dark:text-zink-200 fill-slate-100 dark:fill-zink-600"
+            ></i>
+          </div>
+
+          <div class="mt-4 collapsible">
+            <button
+              class="flex items-center w-full text-left collapsible-header group"
+            >
+              <h6 class="underline grow">Danh mục</h6>
+              <div class="shrink-0 text-slate-500 dark:text-zink-200">
+                <i
+                  data-lucide="chevron-down"
+                  class="hidden size-4 group-[.show]:inline-block"
+                ></i>
+                <i
+                  data-lucide="chevron-up"
+                  class="inline-block size-4 group-[.show]:hidden"
+                ></i>
+              </div>
+            </button>
+            <div class="mt-4 collapsible-content">
+              <select
+                class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                data-choices=""
+                data-choices-search-false=""
+                name="productTypeSelect"
+                id="productTypeSelect"
+                ng-model="tendanhmuc"
+                ng-change="locSPShopNhieuTC()"
+              >
+                <option value="">Tất cả</option>
+                <option
+                  ng-repeat="danhmuc in danhmucs"
+                  value="{{danhmuc.tendanhmuc}}"
+                >
+                  {{danhmuc.tendanhmuc}}
+                </option>
+              </select>
+            </div>
+          </div>
+        
+          <div class="mt-4 collapsible">
+            <button
+              class="flex items-center w-full text-left collapsible-header group"
+            >
+              <h6 class="underline grow">Màu sắc</h6>
+              <div class="shrink-0 text-slate-500 dark:text-zink-200">
+                <i
+                  data-lucide="chevron-down"
+                  class="hidden size-4 group-[.show]:inline-block"
+                ></i>
+                <i
+                  data-lucide="chevron-up"
+                  class="inline-block size-4 group-[.show]:hidden"
+                ></i>
+              </div>
+            </button>
+            <div class="mt-4 collapsible-content">
+              <div class="flex flex-wrap items-center gap-2">
+                <select
+                  class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  data-choices=""
+                  data-choices-search-false=""
+                  name="taxApplicable"
+                  id="taxApplicable"
+                  ng-model="tenmausac"
+                  ng-change="locSPShopNhieuTC()"
+                >
+                  <option value="">Tất cả</option>
+                  <option
+                    ng-repeat="mausac in MauSacs"
+                    value="{{mausac.tenmausac}}"
+                  >
+                    {{mausac.tenmausac}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 collapsible">
+            <button
+              class="flex items-center w-full text-left collapsible-header group"
+            >
+              <h6 class="underline grow">Size</h6>
+              <div class="shrink-0 text-slate-500 dark:text-zink-200">
+                <i
+                  data-lucide="chevron-down"
+                  class="hidden size-4 group-[.show]:inline-block"
+                ></i>
+                <i
+                  data-lucide="chevron-up"
+                  class="inline-block size-4 group-[.show]:hidden"
+                ></i>
+              </div>
+            </button>
+            <div class="mt-4 collapsible-content">
+              <select
+                class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                data-choices=""
+                data-choices-search-false=""
+                name="taxApplicable"
+                id="taxApplicable"
+                ng-model="tensize"
+                ng-change="locSPShopNhieuTC()"
+              >
+                <option value="">Tất cả</option>
+                <option ng-repeat="size in Sizes" value="{{size.tensize}}">
+                  {{size.tensize}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-4 collapsible">
+            <button
+              class="flex items-center w-full text-left collapsible-header group"
+            >
+              <h6 class="underline grow">Chất liệu</h6>
+              <div class="shrink-0 text-slate-500 dark:text-zink-200">
+                <i
+                  data-lucide="chevron-down"
+                  class="hidden size-4 group-[.show]:inline-block"
+                ></i>
+                <i
+                  data-lucide="chevron-up"
+                  class="inline-block size-4 group-[.show]:hidden"
+                ></i>
+              </div>
+            </button>
+            <div class="mt-4 collapsible-content">
+              <select
+                class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                data-choices=""
+                data-choices-search-false=""
+                name="taxApplicable"
+                id="taxApplicable"
+                ng-model="tenchatlieu"
+                ng-change="locSPShopNhieuTC()"
+              >
+                <option value="">Tất cả</option>
+                <option ng-repeat="chatlieu in Chatlieus" value="{{chatlieu.tenchatlieu}}">
+                  {{chatlieu.tenchatlieu}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-4 collapsible">
+            <button
+              class="flex items-center w-full text-left collapsible-header group"
+            >
+              <h6 class="underline grow">Thương hiệu</h6>
+              <div class="shrink-0 text-slate-500 dark:text-zink-200">
+                <i
+                  data-lucide="chevron-down"
+                  class="hidden size-4 group-[.show]:inline-block"
+                ></i>
+                <i
+                  data-lucide="chevron-up"
+                  class="inline-block size-4 group-[.show]:hidden"
+                ></i>
+              </div>
+            </button>
+            <div class="mt-4 collapsible-content">
+              <select
+                class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                data-choices=""
+                data-choices-search-false=""
+                name="taxApplicable"
+                id="taxApplicable"
+                ng-model="tenthuonghieu"
+                ng-change="locSPShopNhieuTC()"
+              >
+                <option value="">Tất cả</option>
+                <option ng-repeat="thuonghieu in thuongHieus" value="{{thuonghieu.tenthuonghieu}}">
+                  {{thuonghieu.tenthuonghieu}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-4 collapsible">
+            <button
+              class="flex items-center w-full text-left collapsible-header group"
+            >
+              <h6 class="underline grow">Xuất xứ</h6>
+              <div class="shrink-0 text-slate-500 dark:text-zink-200">
+                <i
+                  data-lucide="chevron-down"
+                  class="hidden size-4 group-[.show]:inline-block"
+                ></i>
+                <i
+                  data-lucide="chevron-up"
+                  class="inline-block size-4 group-[.show]:hidden"
+                ></i>
+              </div>
+            </button>
+            <div class="mt-4 collapsible-content">
+              <select
+                class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                data-choices=""
+                data-choices-search-false=""
+                name="taxApplicable"
+                id="taxApplicable"
+                ng-model="tenxuatxu"
+                ng-change="locSPShopNhieuTC()">
+                <option value="">Tất cả</option>
+                <option ng-repeat="xuatxu in xuatXus" value="{{xuatxu.tenxuatxu}}">
+                  {{xuatxu.tenxuatxu}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    </div>
+    <!--end col-->
+    <!-- phải -->
+    <div class="2xl:col-span-9">
+      <div class="card" id="productListTable">
+        <div class="card-body">
+          <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-12">
+            <!--end col-->
+            <div
+              class="lg:col-span-2 ltr:lg:text-right rtl:lg:text-left xl:col-span-2 xl:col-start-11"
+            >
+              <a
+                href="#/themsanpham"
+                type="button"
+                class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20"
+              >
+                <span class="align-middle">Thêm sản phẩm</span></a
+              >
+            </div>
+          </div>
+          <!--end grid-->
+        </div>
+        <div class="!pt-1 card-body">
+          <div class="overflow-x-auto">
+            <table class="w-full whitespace-nowrap" id="productTable">
+              <thead
+                class="ltr:text-left rtl:text-right bg-slate-100 dark:bg-zink-600"
+              >
+                <tr>
+                  <th
+                    class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_code"
+                    data-sort="product_code"
+                  >
+                    Mã sản phẩm
+                  </th>
+                  <th
+                    class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_name"
+                    data-sort="product_name"
+                  >
+                    Tên sản phẩm
+                  </th>
+                  <th
+                    class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_name"
+                    data-sort="product_name"
+                  >
+                    Thể loại
+                  </th>
+                  <th
+                    class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort category"
+                    data-sort="category"
+                  >
+                    Giá bán
+                  </th>
+                  <th
+                    class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort category"
+                    data-sort="category"
+                  >
+                    Giá nhập
+                  </th>
+                  <th
+                    class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort price"
+                    data-sort="price"
+                  >
+                    Ngày thêm
+                  </th>
+                  <th
+                    class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort status"
+                    data-sort="status"
+                  >
+                    Trạng thái
+                  </th>
+                  <th
+                    class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 action"
+                  >
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="list">
+                <tr ng-repeat="sanPham in sanPhamLoadPhanTrang">
+                  <td
+                    class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                  >
+                    <a
+                      href="#!"
+                      class="transition-all duration-150 ease-linear product_code text-custom-500 hover:text-custom-600"
+                      >{{sanPham.masp}}</a
+                    >
+                  </td>
+                  <td
+                    class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 product_name"
+                  >
+                    <a
+                      href="apps-ecommerce-product-overview.html"
+                      class="flex items-center gap-2"
+                    >
+                      <img
+                        src="/src/fileanh/{{sanPham.imagedefaul}}"
+                        alt="Product images"
+                        class="h-10"
+                      />
+                      <h6 class="product_name">{{sanPham.tensp}}</h6>
+                    </a>
+                  </td>
+                  <td
+                    class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 category"
+                  >
+                    <span
+                      class="category px-2.5 py-0.5 text-xs inline-block font-medium rounded border bg-slate-100 border-slate-200 text-slate-500 dark:bg-slate-500/20 dark:border-slate-500/20 dark:text-zink-200"
+                      >{{sanPham.theloai == 1 ?"Nam":"Nữ"}}</span
+                    >
+                  </td>
+                  <td
+                    class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 price"
+                  >
+                    {{sanPham.giaban}}
+                  </td>
+                  <td
+                    class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 price"
+                  >
+                    {{sanPham.gianhap}}
+                  </td>
+                  <td
+                    class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 price"
+                  >
+                    {{ sanPham.ngaythem | date:'dd/MM/yyyy' }}
+                  </td>
+                  <td
+                    class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 status"
+                  >
+                    <span
+                      class="status px-2.5 py-0.5 inline-block text-xs font-medium rounded border 
+                      {{ sanPham.trangthai == 1 ? 'bg-green-100 text-green-500 dark:bg-green-500/20 dark:text-green-500' : 'bg-red-100 text-red-500 dark:bg-red-500/20 dark:text-red-500' }}"
+                    >
+                      {{ sanPham.trangthai == 1 ? 'Đang Bán' : 'Dừng bán' }}
+                    </span>
+                  </td>
+                  <td
+                    class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                  >
+                    <div class="flex gap-2">
+                      <a
+                        href="#/updatesanpham"
+                        class="flex items-center justify-center transition-all duration-200 ease-linear rounded-md size-8 text-slate-500 bg-slate-100 hover:text-white hover:bg-slate-500 dark:bg-zink-600 dark:text-zink-200 dark:hover:text-white dark:hover:bg-zink-500"
+                        ng-click="redirectToProductDetails(sanPham.id)"
+                        ><i class="ri-pencil-line"></i
+                      ></a>
+                     
+                      <a
+                      ng-click="updateTrangthai(sanPham)"
+                        data-modal-target="deleteModal"
+                        class="flex items-center justify-center text-red-500 transition-all duration-200 ease-linear bg-red-100 rounded-md size-8 hover:text-white hover:bg-red-500 dark:bg-red-500/20 dark:hover:bg-red-500"
+                        ><i class="ri-arrow-left-right-line"></i
+                          ></a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div
+            class="flex flex-col items-center gap-4 px-4 mt-4 md:flex-row"
+            id="pagination-element"
+          >
+            <div class="mb-4 grow md:mb-0">
+              <p class="text-slate-500 dark:text-zink-200">
+                Số trang <b>{{currentPage}}</b> trên <b>{{totalPages}}</b> trang
+              </p>
+            </div>
+            <ul class="flex flex-wrap items-center gap-2 shrink-0">
+              <li>
+                <a
+                  ng-click="previousPage()"
+                  class="inline-flex items-center justify-center bg-white dark:bg-zink-700 h-8 px-3 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 [&.active]:text-white dark:[&.active]:text-white [&.active]:bg-custom-500 dark:[&.active]:bg-custom-500 [&.active]:border-custom-500 dark:[&.active]:border-custom-500 [&.active]:hover:text-custom-700 dark:[&.active]:hover:text-custom-700 [&.disabled]:text-slate-400 dark:[&.disabled]:text-zink-300 [&.disabled]:cursor-auto"
+                >
+                  Prev</a
+                >
+              </li>
+              <li>
+                <input
+                  ng-model="currentPage"
+                  min="1"
+                  max="{{totalPages}}"
+                  class="inline-flex items-center justify-center bg-white dark:bg-zink-700 w-8 h-8 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 [&.active]:text-white dark:[&.active]:text-white [&.active]:bg-custom-500 dark:[&.active]:bg-custom-500 [&.active]:border-custom-500 dark:[&.active]:border-custom-500 [&.active]:hover:text-custom-700 dark:[&.active]:hover:text-custom-700 [&.disabled]:text-slate-400 dark:[&.disabled]:text-zink-300 [&.disabled]:cursor-auto"
+                  style="text-align: center; line-height: 1.5"
+                  readonly
+                />
+              </li>
+              <li>
+                <a
+                  ng-click="nextPage()"
+                  class="inline-flex items-center justify-center bg-white dark:bg-zink-700 h-8 px-3 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 [&.active]:text-white dark:[&.active]:text-white [&.active]:bg-custom-500 dark:[&.active]:bg-custom-500 [&.active]:border-custom-500 dark:[&.active]:border-custom-500 [&.active]:hover:text-custom-700 dark:[&.active]:hover:text-custom-700 [&.disabled]:text-slate-400 dark:[&.disabled]:text-zink-300 [&.disabled]:cursor-auto"
+                  ng-show="showNextButton"
+                  >Next
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--end col-->
+  </div>
+</div>

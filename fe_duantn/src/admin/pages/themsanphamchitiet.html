@@ -1,0 +1,339 @@
+<style>
+  /* Định dạng phần dropzone */
+  .dropzone {
+    border: 2px dashed #718096; /* Màu viền đứt gạch */
+    padding: 20px; /* Khoảng cách bên trong */
+  }
+
+  /* Định dạng cho phần fallback (nơi input file nằm trong trường hợp không hỗ trợ) */
+  .fallback {
+    display: none; /* Ẩn fallback mặc định */
+  }
+
+  /* Định dạng cho phần message trong dropzone */
+  .dz-message {
+    text-align: center; /* Căn giữa nội dung */
+  }
+
+  /* Định dạng cho nút duyệt file */
+  .input-file {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #4a5568;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .input-file:hover {
+    background-color: #2d3748;
+  }
+</style>
+<div
+  class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto"
+  ng-controller="ThemSanPhamChiTietController"
+>
+  <div
+    class="flex flex-col gap-2 py-4 md:flex-row md:items-center print:hidden"
+  >
+    <div class="grow">
+      <h5 class="text-16">Thêm sản phẩm chi tiết</h5>
+    </div>
+    <ul class="flex items-center gap-2 text-sm font-normal shrink-0">
+      <li
+        class="relative before:content-['\ea54'] before:font-remix ltr:before:-right-1 rtl:before:-left-1 before:absolute before:text-[18px] before:-top-[3px] ltr:pr-4 rtl:pl-4 before:text-slate-400 dark:text-zink-200"
+      >
+        <a href="#!" class="text-slate-400 dark:text-zink-200">Sản phẩm</a>
+      </li>
+      <li class="text-slate-700 dark:text-zink-100">Thêm sản phẩm chi tiết</li>
+    </ul>
+  </div>
+  <div class="grid grid-cols-1 xl:grid-cols-12 gap-x-5">
+    <div class="xl:col-span-9">
+  <div class="card" id="employeeTable">
+    <div class="xl:col-span-9">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="mb-4 text-15">Thêm sản phẩm chi tiết</h6>
+          <form action="">
+            <div class="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-12">
+              <!--end col-->
+
+              <div class="xl:col-span-4">
+                <label
+                  for="taxApplicable"
+                  class="inline-block mb-2 text-base font-medium"
+                  >Size</label
+                >
+                <select
+                  class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  data-choices=""
+                  data-choices-search-false=""
+                  name="taxApplicable"
+                  id="taxApplicable"
+                  ng-model="selectedSiZe"
+                  ng-options="size.id as size.tensize for size in Sizes"
+                >
+                  <option value="">Chọn size</option>
+                </select>
+                <span class="error-message" ng-if="errorMessage.SiZe"
+                  >{{errorMessage.SiZe}}</span
+                >
+              </div>
+              <div class="xl:col-span-4">
+                <label
+                  for="productPrice"
+                  class="inline-block mb-2 text-base font-medium"
+                  >Số lượng</label
+                >
+                <input
+                  type="number"
+                  id="productPrice"
+                  class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  placeholder="000"
+                  required=""
+                  ng-model="selectedsoluongton"
+                /><span class="error-message" ng-if="errorMessage.soluongton"
+                  >{{errorMessage.soluongton}}</span
+                >
+              </div>
+
+              <div class="xl:col-span-4">
+                <label
+                  for="taxApplicable"
+                  class="inline-block mb-2 text-base font-medium"
+                  >Màu sắc</label
+                >
+                <select
+                  class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  data-choices=""
+                  data-choices-search-false=""
+                  name="taxApplicable"
+                  id="taxApplicable"
+                  ng-model="selectedMauSac"
+                  ng-options="mausac.id as mausac.tenmausac for mausac in MauSacs"
+                >
+                  <option value="">Chọn màu sắc</option>
+                </select>
+                <span class="error-message" ng-if="errorMessage.MauSac"
+                  >{{errorMessage.MauSac}}</span
+                >
+              </div>
+            </div>
+            <div class="lg:col-span-2 xl:col-span-12">
+              <div>
+                <label
+                  for="productDescription"
+                  class="inline-block mb-2 text-base font-medium"
+                  >Ghi chú</label
+                >
+                <textarea
+                  class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  id="productDescription"
+                  placeholder="Chi tiết sản phẩm"
+                  rows="5"
+                  ng-model="selectedmota"
+                ></textarea>
+              </div>
+            </div>
+            <div class="flex justify-end gap-2 mt-4">
+              <button
+                type="button"
+                class="text-yellow-500 bg-white border-yellow-500 btn hover:text-white hover:bg-yellow-600 hover:border-yellow-600 focus:text-white focus:bg-yellow-600 focus:border-yellow-600 focus:ring focus:ring-yellow-100 active:text-white active:bg-yellow-600 active:border-yellow-600 active:ring active:ring-yellow-100 dark:bg-zink-700 dark:hover:bg-yellow-500 dark:ring-yellow-400/20 dark:focus:bg-yellow-500"
+                ng-click="addSanPhamCT()"
+              >
+                Thêm chi tiết
+              </button>
+            </div>
+          </form>
+          <div class="card-body">
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead class="ltr:text-left rtl:text-right">
+                  <tr>
+                    <th
+                      class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                    >
+                      Idct sản phẩm
+                    </th>
+                    <th
+                      class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                    >
+                      Màu sắc
+                    </th>
+                    <th
+                      class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                    >
+                      Size
+                    </th>
+                    <th
+                      class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                    >
+                      Số lượng
+                    </th>
+                    <th
+                      class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                    >
+                      Trạng thái
+                    </th>
+                    <th
+                      class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                    >
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    class="even:bg-slate-50 hover:bg-slate-50 even:hover:bg-slate-100 dark:even:bg-zink-600/50 dark:hover:bg-zink-600 dark:even:hover:bg-zink-600"
+                    ng-repeat="sanPham in sanPhamCTList"
+                  >
+                    <td
+                      class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                    >
+                      <a
+                        href="#!"
+                        class="transition-all duration-150 ease-linear text-custom-500 hover:text-custom-600"
+                        >{{sanPham.id}}</a
+                      >
+                    </td>
+                    <td
+                      class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                    >
+                      {{sanPham.tenmausac}}
+                    </td>
+                    <td
+                      class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                    >
+                      {{sanPham.tensize}}
+                    </td>
+                    <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
+                      <!-- 
+                      <input type="number" class="form-control rounded" ng-model="sanPham.soluongton" ng-keypress="onKeyPress($event, sanPhamCT)" width="5px" />
+                      -->
+                      <input type="number"
+                             class="text-center rtl:pr-2 w-13 h-7 products-quantity dark:bg-zink-700 focus:shadow-none"
+                             ng-model="sanPham.soluongton"
+                             ng-change="updateCTSPSoluong(sanPham.id, sanPham.soluongton)"
+                             min="0"
+                             max="10000"
+                      >
+                  </td>
+                  
+                    <td
+                      class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 status"
+                    >
+                      <span
+                        class="status px-2.5 py-0.5 inline-block text-xs font-medium rounded border 
+                        {{ sanPham.trangthai == 1 ? 'bg-green-100 text-green-500 dark:bg-green-500/20 dark:text-green-500' : 'bg-red-100 text-red-500 dark:bg-red-500/20 dark:text-red-500' }}"
+                      >
+                        {{ sanPham.trangthai == 1 ? 'Đang Bán' : 'Dừng bán' }}
+                      </span>
+                    </td>
+                    <td
+                      class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                    >
+                      <div class="flex gap-2">
+                        <a
+                          ng-click="updateCTSPTrangthaiS(sanPham)"
+                          class="flex items-center justify-center text-red-500 transition-all duration-200 ease-linear bg-red-100 rounded-md size-8 hover:text-white hover:bg-red-500 dark:bg-red-500/20 dark:hover:bg-red-500"
+                          ><i class="ri-arrow-left-right-line"></i
+                        ></a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!--end card-->
+      </div>
+      <!--end col-->
+    </div>
+  </div>
+  <div class="card" id="employeeTable">
+    <div class="xl:col-span-9">
+      <div class="card">
+        <div class="card-body">
+          <div class="lg:col-span-2 xl:col-span-12">
+            <label for="genderSelect" class="block text-base font-medium mb-2"
+              >Thêm ảnh sản phẩm</label
+            >
+            <form action="">
+            <div>
+              <input
+                type="file"
+                id="fileInput"
+                class="cursor-pointer form-file form-file-sm border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500"
+                placeholder="Chọn ảnh sản phẩm"
+                onchange="angular.element(this).scope().handleFileSelect(event)"
+                ng-model="selectedImageName"
+                multiple
+              />
+              <span class="error-message" ng-if="errorMessage.image"
+              >{{errorMessage.image}}</span
+            >
+            </div>
+          </div>
+          <ul class="flex flex-wrap mb-0 gap-x-5" id="dropzone-preview2">
+            <li class="mt-5" id="dropzone-preview-list2" ng-repeat="image in ImageDL">
+                <!-- This is used as the file preview template -->
+                <div class="border rounded border-slate-200 dark:border-zink-500">
+                    <div class="p-5 text-center">
+                        <img class="p-2 mx-auto rounded-md size-14 bg-slate-100 dark:bg-zink-600" src="/src/fileanh/{{image.tenimage}}" alt="Dropzone-Image">
+                        <div class="mt-2">
+                            <!-- Thêm sự kiện ng-click để gọi hàm xóa ảnh -->
+                            <button ng-click="deleteImage(image.id)" class="px-2 py-1.5 text-xs text-white bg-red-500 border-red-500 btn hover:text-white hover:bg-red-600 hover:border-red-600 focus:text-white focus:bg-red-600 focus:border-red-600 focus:ring focus:ring-red-100 active:text-white active:bg-red-600 active:border-red-600 active:ring active:ring-red-100 dark:ring-custom-400/20">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        
+          <div class="flex justify-end gap-2 mt-4">
+            <button
+              type="button"
+              class="text-purple-500 bg-white border-purple-500 btn hover:text-white hover:bg-purple-600 hover:border-purple-600 focus:text-white focus:bg-purple-600 focus:border-purple-600 focus:ring focus:ring-purple-100 active:text-white active:bg-purple-600 active:border-purple-600 active:ring active:ring-purple-100 dark:bg-zink-700 dark:hover:bg-purple-500 dark:ring-purple-400/20 dark:focus:bg-purple-500"
+            
+              ng-click="themAnh()"  >
+              Thêm ảnh
+            </button>
+          </div>
+        </form>
+        
+        </div>
+      </div>
+    </div>
+
+    <!-- //modal -->
+  </div>
+</div>
+<div class="xl:col-span-3">
+  <div class="card sticky top-[calc(theme('spacing.header')_*_1.3)]">
+      <div class="card-body" ng-init="sanPhamTheoId">
+          <h6 class="mb-4 text-15">Sản Phẩm</h6>
+
+          <div class="px-5 py-8 rounded-md bg-sky-50 dark:bg-zink-600">
+              <img src="/src/fileanh/{{sanPhamTheoId.imagedefaul}}" alt="" class="block mx-auto h-44">
+          </div>
+
+          <div class="mt-3">
+              <h5 class="mb-2">{{sanPhamTheoId.giaban | number:0}} vnđ</h5>
+              <h6 class="mb-1 text-15">{{sanPhamTheoId.tensp}}</h6>
+              <p class="text-slate-500 dark:text-zink-200">{{sanPhamTheoId.motasp}}</p>
+          </div>
+          <div class="flex gap-2 mt-4">
+            <a type="button" class="w-full bg-white border-dashed text-custom-500 btn border-custom-500 hover:text-custom-500 hover:bg-custom-50 hover:border-custom-600 focus:text-custom-600 focus:bg-custom-50 focus:border-custom-600 active:text-custom-600 active:bg-custom-50 active:border-custom-600 dark:bg-zink-700 dark:ring-custom-400/20 dark:hover:bg-custom-800/20 dark:focus:bg-custom-800/20 dark:active:bg-custom-800/20"  href="#/themsanpham" >Thêm sản phẩm</a>
+          
+        </div>
+      </div>
+  </div><!--end card-->
+</div>
+
+
+</div>
+
+</div>
