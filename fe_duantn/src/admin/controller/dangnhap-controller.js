@@ -1,4 +1,3 @@
-var app = angular.module("Myapp", []);
 app.controller("loginController", function ($scope, $http, $window) {
     $scope.authenticate = function () {
         // Kiểm tra xem tài khoản và mật khẩu có bị bỏ trống không

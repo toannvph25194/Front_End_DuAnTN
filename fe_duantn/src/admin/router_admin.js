@@ -8,6 +8,8 @@ app.config(function ($routeProvider,  $locationProvider){
         templateUrl:'pages/sanpham.html'
     }).when('/hoadon',{
         templateUrl:'pages/hoadon.html'
+    }).when('/login',{
+        templateUrl:'pages/dangnhap.html'
     }).otherwise({
         redirectTo: '/' 
     });
