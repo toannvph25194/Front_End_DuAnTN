@@ -111,10 +111,7 @@ app.controller('cartController', function ($scope, $http, $window, $routeParams,
                 function () {
                     // Gọi lại hàm loadCart để cập nhật lại listcart trên localstorage
                     $scope.loadCart();
-                    // Gọi lại hàm loadTongSoTien() để cập nhật lại tổng số tiền trên localstorage
-                    // loadTongSoTien();
-                    // $window.location.reload();
-
+                    $window.location.reload();
                 }
             ]
 
@@ -140,11 +137,9 @@ app.controller('cartController', function ($scope, $http, $window, $routeParams,
                     method: 'DELETE',
                     transformResponse: [
                         function () {
-
                             // Gọi lại hàm loadCart để cập nhật lại listcart trên localstorage
                             $scope.loadCart();
                             $window.location.reload();
-                            $route.reload();
                         }
                     ]
                 });
@@ -175,7 +170,6 @@ app.controller('cartController', function ($scope, $http, $window, $routeParams,
                             // Gọi lại hàm loadCart để cập nhật lại listcart trên localstorage
                             $scope.loadCart();
                             $window.location.reload();
-
                         }
                     ]
                 });
@@ -210,17 +204,16 @@ app.controller('cartController', function ($scope, $http, $window, $routeParams,
             if (result.isConfirmed) {
                 // Xóa các thông tin liên quan đến người dùng khỏi localStorage
                 // $window.localStorage.clear();
-
-                $window.localStorage.removeItem("taikhoan");
                 $window.localStorage.removeItem("idtk");
-                $window.localStorage.removeItem("listCart");
+                $window.localStorage.removeItem("taikhoan");
+                $window.localStorage.removeItem("listghct");
                 $window.localStorage.removeItem("tongsotien");
                 $window.localStorage.removeItem("idgiohang");
-                $window.localStorage.removeItem("idVoucher");
+                $window.localStorage.removeItem("idvoucher");
                 $window.localStorage.removeItem("giatrigiam");
-                $window.localStorage.removeItem("maVoucher");
+                $window.localStorage.removeItem("mavoucher");
                 $window.localStorage.removeItem("hinhthucgiam");
-                $window.localStorage.removeItem("giatritoithieuhoadon");
+                $window.localStorage.removeItem("dieukientoithieuhoadon");
 
                 // Chuyển hướng người dùng đến trang đăng nhập
                 $window.location.href = '/src/user/pages/Login.html';

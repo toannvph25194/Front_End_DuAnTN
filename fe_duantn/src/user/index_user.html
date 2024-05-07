@@ -113,8 +113,8 @@
                                                 </div>
                                                 <div class="shopping-cart-title">
                                                     <h4><a ng-href="#/product-details/{{ci.idsp}}">{{ci.tensp}}</a></h4>
-                                                    <h4><span>{{ci.soluong}} × {{(ci.dongiakhigiam ? ci.dongiakhigiam : ci.dongia) * ci.soluong}}</span></h4>
-                                                    <h4><span>Thành Tiền : <span>{{(ci.dongiakhigiam ? ci.dongiakhigiam : ci.dongia) * ci.soluong}}</span>
+                                                    <h4><span>{{ci.soluong}} × {{(ci.dongiakhigiam ? ci.dongiakhigiam : ci.dongia) * ci.soluong | number}} đ</span></h4>
+                                                    <h4><span>Thành Tiền : <span>{{(ci.dongiakhigiam ? ci.dongiakhigiam : ci.dongia) * ci.soluong | number}} đ</span>
                                                     </span></h4>
                                                 </div>
                                                 <div class="shopping-cart-delete">
@@ -126,7 +126,7 @@
                                         </ul>
                                         <div class="shopping-cart-footer">
                                             <div class="shopping-cart-total">
-                                                <h4>Tổng Tiền <span>{{thanhtien}}</span></h4>
+                                                <h4>Tổng Tiền <span>{{thanhtien | number}} đ</span></h4>
                                             </div>
                                             <div class="shopping-cart-button">
                                                 <a href="#/cart/id" class="outline">View cart</a>
