@@ -24,39 +24,39 @@
             <h4>Thông tin khách hàng</h4>
           </div>
             <div class="form-group">
-              <!-- <span style="color: red;" ng-show="!hovatenValid">Vui Lòng Nhập Họ Và Tên !</span> -->
+              <span style="color: red;" ng-show="!hovatenValid">Vui Lòng Nhập Họ Và Tên !</span>
               <input type="text" name="fname" placeholder="Họ tên" ng-model="hovaten">
             </div>
             
             <div class="form-group">
-              <!-- <span style="color: red;" ng-show="!sodienthoaiValid">Vui Lòng Nhập SĐT !</span> -->
-              <!-- <span style="color: red;" ng-show="!sodienthoaiFomart">Số Điện Thoại Không Đúng Định Dạng !</span> -->
+              <span style="color: red;" ng-show="!sodienthoaiValid">Vui Lòng Nhập SĐT !</span>
+              <span style="color: red;" ng-show="!sodienthoaiFomart">Số Điện Thoại Không Đúng Định Dạng !</span>
               <input type="text" required="" name="lname" placeholder="Số điện thoại" ng-model="sodienthoai">
             </div>
             
             <div class="form-group">
-              <!-- <span style="color: red;" ng-show="!emailValid">Vui Lòng Nhập Email !</span> -->
-              <!-- <span style="color: red;" ng-show="!emailFomart">Email Không Đúng Định Dạng !</span> -->
+              <span style="color: red;" ng-show="!emailValid">Vui Lòng Nhập Email !</span>
+              <span style="color: red;" ng-show="!emailFomart">Email Không Đúng Định Dạng !</span>
               <input required="" type="text" name="cname" placeholder="Email" ng-model="email">
             </div>
 
             <div class="form-group">
-              <!-- <span style="color: red;" ng-show="!diachiValid">Vui Lòng Nhập Địa Chỉ Cụ Thể !</span> -->
+              <span style="color: red;" ng-show="!diachiValid">Vui Lòng Nhập Địa Chỉ Cụ Thể !</span>
               <input required="" type="text" name="fname" placeholder="Địa Chỉ Chi Tiết" ng-model="diachi">
             </div>
 
             <div class="form-group">
-              <!-- <span style="color: red;" ng-show="!diachiValid">Vui Lòng Nhập Địa Chỉ Cụ Thể !</span> -->
+              <span style="color: red;" ng-show="!xaValid">Vui Lòng Nhập Phường / Xã !</span>
               <input required="" type="text" name="fname" placeholder="Phường / Xã" ng-model="xa">
             </div>
 
             <div class="form-group">
-              <!-- <span style="color: red;" ng-show="!diachiValid">Vui Lòng Nhập Địa Chỉ Cụ Thể !</span> -->
+              <span style="color: red;" ng-show="!huyenValid">Vui Lòng Nhập Quận / Huyện !</span>
               <input required="" type="text" name="fname" placeholder="Quận / Huyện" ng-model="huyen">
             </div>
 
             <div class="form-group">
-              <!-- <span style="color: red;" ng-show="!diachiValid">Vui Lòng Nhập Địa Chỉ Cụ Thể !</span> -->
+              <span style="color: red;" ng-show="!thanhphoValid">Vui Lòng Nhập Tỉnh / Thành !</span>
               <input required="" type="text" name="fname" placeholder="Tỉnh / Thành" ng-model="thanhpho">
             </div>
 
@@ -207,20 +207,20 @@
               <div class="payment_option">
                 <div class="custome-radio">
                   <input class="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios3"
-                    value="1" ng-model="phuongThucThanhToan" ng-init="phuongThucThanhToan = '1'">
+                    value="1" ng-model="phuongthucthanhtoan" ng-init="phuongthucthanhtoan = '1'">
                   <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse"
                     data-target="#cashOnDelivery" aria-controls="cashOnDelivery">Thanh Toán khi Nhận Hàng</label><img style=" vertical-align: middle;" src="/src/user/assets/imgs/logo/icon-tt-nhan-hang.jpg" width="30px" alt="">
                 </div>
                 <div class="custome-radio">
                   <input class="form-check-input" type="radio" name="payment_option" id="exampleRadios4"
-                    value="2" ng-model="phuongThucThanhToan">
+                    value="2" ng-model="phuongthucthanhtoan">
                   <label class="form-check-label" for="exampleRadios4" data-bs-toggle="collapse"
                     data-target="#cardPayment" aria-controls="cardPayment">Thanh Toán VNPay</label><img style=" vertical-align: middle;" src="/src/user/assets/imgs/logo/icon-logovnpay.png" width="40px" alt="">
                 </div>
               </div>
             </div>
-            <a class="btn btn-fill-out btn-block mt-30" ng-click="thanhToan()" ng-if="phuongThucThanhToan === '1'">Thanh Toán</a>
-            <a class="btn btn-fill-out btn-block mt-30" ng-click="thanhToanVNPay()" ng-if="phuongThucThanhToan === '2'">Thanh Toán</a>
+            <a class="btn btn-fill-out btn-block mt-30" ng-click="thanhToan()" ng-if="phuongthucthanhtoan === '1'">Thanh Toán</a>
+            <a class="btn btn-fill-out btn-block mt-30" ng-click="thanhToanVNPay()" ng-if="phuongthucthanhtoan === '2'">Thanh Toán</a>
           </div>
         </div>
       </div>
