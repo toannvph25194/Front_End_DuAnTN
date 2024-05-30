@@ -1,0 +1,74 @@
+.bordermenu {
+    width: 1400px;
+    height: 90%;
+    margin: 0 auto;
+    border: 1px solid rgba(208, 201, 201, 0);
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(174, 177, 177, 0.912);
+    padding: 20px;
+    background-color: #ffffff;
+    margin-top: 50px;
+}
+.boder-thongtin {
+    width: 1300px;
+    height: 90%;
+    margin: 0 auto;
+    border: 4px solid white;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #ffffff;
+    margin-top: 30px;
+}
+.bodyimg {
+    width: 250px;
+    height: auto;
+    margin: 10px auto 0 auto;
+    border: 1px solid rgb(255, 119, 81);
+    border-radius: 15px;
+    box-shadow: none;
+    padding: 20px;
+}
+.border-img {
+    width: 100px;
+    height: 100px;
+    border: 1px solid rgb(194, 232, 247);
+    border-radius: 100%;
+    background-color: rgb(194, 232, 247);
+    margin: 0 auto;
+}
+.border-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+.boder-diachi {
+    width: 1300px;
+    height: 90%;
+    margin: 0 auto;
+    border: 4px solid white;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #ffffff;
+    margin-top: 50px;
+}
+.border-listdc {
+    width: 1200px;
+    height: 90%;
+    margin: 0 auto;
+    border: 1px solid rgb(173, 168, 167);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #ffffff;
+    margin-top: 10px;
+}
+.btn-md {
+    border: 1px solid rgb(255, 119, 81);
+    color: rgb(255, 119, 81);
+    border-radius: 50px;
+    padding: 5px;
+}
