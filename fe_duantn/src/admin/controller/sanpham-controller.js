@@ -98,6 +98,7 @@ app.controller(
           });
       };
       $scope.$watch("currentPage", $scope.ShowSP);
+      
       $scope.locTenSPShop = function () {
         var token = localStorage.getItem("accessToken");
 

@@ -1,0 +1,519 @@
+<style>
+  .larger-icon {
+    font-size: 1.2em;
+  }
+</style>
+<div
+  class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto"
+  ng-controller="updatehoadonController"
+  ng-init="HoaDonTheoId"
+>
+  <div
+    class="flex flex-col gap-2 py-4 md:flex-row md:items-center print:hidden"
+  >
+    <div class="grow">
+      <h5 class="text-16">Update hoá đơn</h5>
+    </div>
+    <ul class="flex items-center gap-2 text-sm font-normal shrink-0">
+      <li
+        class="relative before:content-['\ea54'] before:font-remix ltr:before:-right-1 rtl:before:-left-1 before:absolute before:text-[18px] before:-top-[3px] ltr:pr-4 rtl:pl-4 before:text-slate-400 dark:text-zink-200"
+      >
+        <a href="#!" class="text-slate-400 dark:text-zink-200"
+          >Quản lý hoá đơn</a
+        >
+      </li>
+      <li class="text-slate-700 dark:text-zink-100">Update hoá đơn</li>
+    </ul>
+  </div>
+  <div class="grid grid-cols-1 2xl:grid-cols-12 gap-x-5">
+    <div class="2xl:col-span-4">
+      <div class="card">
+        <div class="card-body">
+          <div
+            class="flex items-center justify-center bg-purple-100 rounded-md size-12 dark:bg-purple-500/20 ltr:float-right rtl:float-left"
+          >
+            <i
+              data-lucide="truck"
+              class="ri-truck-line text-purple-500 fill-purple-200 dark:fill-purple-500/30 larger-icon1"
+            ></i>
+          </div>
+          <h6 class="mb-4 text-15">Địa chỉ ship hàng</h6>
+
+          <h6 class="mb-1">{{HoaDonTheoId.tennguoinhan}}</h6>
+          <p class="text-slate-500 dark:text-zink-200">
+            Phí ship: <b>{{HoaDonTheoId.tiengiaohang | number:0}}vnđ</b>
+          </p>
+          <p class="mb-1 text-slate-500 dark:text-zink-200">
+            địa chỉ: <b>{{HoaDonTheoId.diachinhanhang}}</b>
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--end col-->
+    <div class="2xl:col-span-4" ng-repeat="HTTT in HinhThucThanhToanList">
+      <div class="card">
+        <div class="card-body">
+          <div
+            class="flex items-center justify-center rounded-md size-12 ltr:float-right rtl:float-left bg-sky-100 dark:bg-sky-500/20"
+          >
+            <i
+              class="ri-money-dollar-circle-line text-sky-500 fill-sky-200 dark:fill-sky-500/30 larger-icon1"
+            ></i>
+          </div>
+          <h6 class="mb-4 text-15">Thông tin thanh toán</h6>
+
+          <h6 class="mb-1">
+            Mã: {{HTTT.magiaodich == null ? "Đơn hàng thanh toán khinhận": HTTT.magiaodich}}
+          </h6>
+          <p class="mb-1 text-slate-500 dark:text-zink-200">
+            Hình thức:
+            <b
+              >{{HTTT.hinhthucthanhtoan == 1? "Thanh toán khi nhận hàng":" Thanhtoán online "}}</b
+            >
+          </p>
+          <p class="mb-1 text-slate-500 dark:text-zink-200">
+            Ghi chú:
+            <b
+              >{{HTTT.ghichu == null ? "Khách hàng chưa thanh toán":
+              HTTT.ghichu}}</b
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--end col-->
+    <div class="2xl:col-span-4">
+      <div class="card">
+        <div class="card-body">
+          <div
+            class="bg-yellow-100 rounded-md size-12 ltr:float-right rtl:float-left dark:bg-yellow-500/20"
+          >
+            <img
+              src="assets/images/avatar-4.png"
+              alt=""
+              class="h-12 rounded-md"
+            />
+          </div>
+          <h6 class="mb-4 text-15">Thông tin khách hàng</h6>
+
+          <h6 class="mb-1">{{HoaDonTheoId.tennguoinhan}}</h6>
+          <p class="mb-1 text-slate-500 dark:text-zink-200">
+            {{HoaDonTheoId.emailnguoinhan}}
+          </p>
+          <p class="text-slate-500 dark:text-zink-200">
+            {{HoaDonTheoId.sdtnguoinhan}}
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--end col-->
+  </div>
+  <!--end grid-->
+  <div class="grid grid-cols-1 2xl:grid-cols-12 gap-x-5">
+    <div class="2xl:col-span-9">
+      <div class="grid grid-cols-1 2xl:grid-cols-4 gap-x-4">
+        <div>
+          <div class="card">
+            <div class="text-center card-body">
+              <h6 class="mb-1 underline">{{HoaDonTheoId.mahoadon}}</h6>
+              <p class="uppercase text-slate-500 dark:text-zink-200">
+                Mã hoá đơn
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--end col-->
+        <div>
+          <div class="card">
+            <div class="text-center card-body">
+              <h6 class="mb-1">{{HoaDonTheoId.ngaytao | date:'dd/MM/yyyy'}}</h6>
+              <p class="uppercase text-slate-500 dark:text-zink-200">
+                Ngày tạo
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--end col-->
+        <div>
+          <div class="card">
+            <div class="text-center card-body">
+              <h6>
+                <h6>
+                  {{ HoaDonTheoId.ngaythanhtoan == null ? 'Chưa thanh toán' :
+                  HoaDonTheoId.ngaythanhtoan | date:'dd/MM/yyyy' }}
+                </h6>
+              </h6>
+              <p class="uppercase text-slate-500 dark:text-zink-200">
+                Ngày thanh toán
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--end col-->
+        <div>
+          <div class="card">
+            <div class="text-center card-body">
+              <span
+                class="delivery_status px-2.5 py-0.5 text-xs inline-block font-medium rounded border bg-green-100 border-green-200 text-green-500 dark:bg-green-500/20 dark:border-green-500/20"
+              >
+                {{HoaDonTheoId.trangthai == 5? "Hoàn thành":""}}</span
+              >
+              <p class="uppercase text-slate-500 dark:text-zink-200">
+                Trạng thái
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--end col-->
+      </div>
+      <!--end grid-->
+      <div class="card">
+        <div class="card-body">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <tbody>
+                <tr ng-repeat="hoaDon in HoaDonCTList">
+                  <td
+                    class="px-3.5 py-4 border-b border-dashed first:pl-0 last:pr-0 border-slate-200 dark:border-zink-500"
+                  >
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="flex items-center justify-center rounded-md size-12 bg-slate-100 shrink-0"
+                      >
+                        <img
+                          src="assets/images/img-04.png"
+                          alt=""
+                          class="h-8"
+                        />
+                      </div>
+                      <div class="grow">
+                        <h6 class="mb-1 text-15">
+                          <a
+                            href="apps-ecommerce-product-overview.html"
+                            class="transition-all duration-300 ease-linear hover:text-custom-500"
+                            >{{hoaDon.tensp}}</a
+                          >
+                        </h6>
+
+                        <p class="mb-1 text-slate-500 dark:text-zink-200">
+                          Giá:
+                          <span>
+                            {{ hoaDon.dongiakhigiam == null ? (hoaDon.dongia |
+                            number:0) : (hoaDon.dongiakhigiam | number:0) }} vnđ
+                          </span>
+                          <small
+                            class="font-normal line-through text-slate-500 dark:text-zink-200"
+                          >
+                            {{ hoaDon.dongiakhigiam == null ? "" :
+                            (hoaDon.dongia | number:0) }} vnđ
+                          </small>
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td
+                    class="px-3.5 py-4 border-b border-dashed first:pl-0 last:pr-0 border-slate-200 dark:border-zink-500 ltr:text-right rtl:text-left"
+                  >
+                    <input
+                      type="number"
+                      class="text-center rtl:pr-2 w-19 h-7 products-quantity dark:bg-zink-700 focus:shadow-none"
+                      value="{{hoaDon.soluong}}"
+                      min="0"
+                      max="10000"
+                    />
+                  </td>
+                  <td
+                    class="px-3.5 py-4 border-b border-dashed first:pl-0 last:pr-0 border-slate-200 dark:border-zink-500 ltr:text-right rtl:text-left"
+                  >
+                    {{ hoaDon.dongiakhigiam == null ? (hoaDon.dongia *
+                    hoaDon.soluong | number:0) : (hoaDon.dongiakhigiam *
+                    hoaDon.soluong | number:0) }} vnđ
+                  </td>
+                  <td
+                    class="px-3.5 py-4 border-b border-dashed first:pl-0 last:pr-0 border-slate-200 dark:border-zink-500 ltr:text-right rtl:text-left"
+                  >
+                    <a
+                      class="inline-flex items-center justify-center text-red-500 transition-all duration-200 ease-linear bg-red-100 rounded-md w-8 h-8 hover:text-white hover:bg-red-500 dark:bg-red-500/20 dark:hover:bg-red-500"
+                    >
+                      <i class="ri-delete-bin-line"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!--end card-->
+      <div class="card">
+        <div class="card-body">
+          <div class="flex items-center gap-3 mb-4">
+            <h6 class="text-15 grow">Lịch sử đơn hàng</h6>
+          </div>
+          <div>
+            <div
+              class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
+            >
+              <div class="flex gap-4">
+                <div class="grow">
+                  <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
+                    Order Placed
+                  </h6>
+                  <p class="text-gray-400 dark:text-zink-200">
+                    Your order has been successfully submitted.
+                  </p>
+                </div>
+                <p class="text-sm text-gray-400 dark:text-zink-200 shrink-0">
+                  02 Nov, 2023
+                </p>
+              </div>
+            </div>
+            <div
+              class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
+            >
+              <div class="flex gap-4">
+                <div class="grow">
+                  <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
+                    Order Processing
+                  </h6>
+                  <p class="text-gray-400 dark:text-zink-200">
+                    Once the order is received, it goes through the processing
+                    stage. During this time, the items are gathered, and the
+                    order is prepared for shipment.
+                  </p>
+                </div>
+                <p class="text-sm text-gray-400 dark:text-zink-200 shrink-0">
+                  02 Nov, 2023
+                </p>
+              </div>
+            </div>
+            <div
+              class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
+            >
+              <div class="flex gap-4">
+                <div class="grow">
+                  <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
+                    Shipped Order
+                  </h6>
+                  <p class="text-gray-400 dark:text-zink-200">
+                    The order is shipped out to the customer's designated
+                    delivery address.
+                  </p>
+                </div>
+                <p class="text-sm text-gray-400 dark:text-zink-200 shrink-0">
+                  04 Nov, 2023
+                </p>
+              </div>
+            </div>
+            <div
+              class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
+            >
+              <div class="flex gap-4">
+                <div class="grow">
+                  <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
+                    Out for Delivery
+                  </h6>
+                  <p class="text-gray-400 dark:text-zink-200">
+                    This status indicates that the order is currently out for
+                    delivery by the shipping or courier company.
+                  </p>
+                </div>
+                <p class="text-sm text-gray-400 dark:text-zink-200 shrink-0">
+                  06 Nov, 2023
+                </p>
+              </div>
+            </div>
+            <div
+              class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
+            >
+              <div class="flex gap-4">
+                <div class="grow">
+                  <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
+                    Delivered
+                  </h6>
+                  <p class="text-gray-400 dark:text-zink-200">
+                    Finally, when the order successfully reaches the customer's
+                    address and is handed over, the status changes to
+                    "Delivered."
+                  </p>
+                </div>
+                <p class="text-sm text-gray-400 dark:text-zink-200 shrink-0">
+                  09 Nov, 2023
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="2xl:col-span-3">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="mb-4 text-15">Trạng thái hoá đơn</h6>
+          <div>
+            <div
+              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500"
+            >
+              <div class="relative flex gap-2">
+                <div
+                  class="size-8 p-0.5 bg-white text-gray-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700"
+                >
+                  <i class="ri-file-text-line size-4.5"></i>
+                </div>
+
+                <div>
+                  <h6 class="mb-1">Chờ xác nhận</h6>
+                  <p class="text-sm text-slate-500 dark:text-zink-200">
+                    05:57 AM Today
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500"
+            >
+              <div class="relative flex gap-2">
+                <div
+                  class="size-8 p-0.5 bg-white text-blue-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700"
+                >
+                  <i class="ri-newspaper-line size-4.5"></i>
+                </div>
+
+                <div>
+                  <h6 class="mb-1">Đã xác nhận</h6>
+                  <p class="text-sm text-slate-500 dark:text-zink-200">
+                    25 Dec, 2023
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500"
+            >
+              <div class="relative flex gap-2">
+                <div
+                  class="size-8 p-0.5 bg-white text-yellow-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700"
+                >
+                  <i class="ri-loader-2-line size-4.5"></i>
+                </div>
+
+                <div>
+                  <h6 class="mb-1">Đang chờ giao hàng</h6>
+                  <p class="text-sm text-slate-500 dark:text-zink-200">
+                    12 Dec, 2023
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500"
+            >
+              <div class="relative flex gap-2">
+                <div
+                  class="size-8 p-0.5 bg-white text-purple-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700"
+                >
+                  <i class="ri-truck-line size-4.5"></i>
+                </div>
+
+                <div>
+                  <h6 class="mb-1">Đang giao</h6>
+                  <p class="text-sm text-slate-500 dark:text-zink-200">
+                    12 Dec, 2023
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="relative">
+              <div class="relative flex gap-2">
+                <div
+                  class="size-8 p-0.5 bg-white text-green-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700"
+                >
+                  <i class="ri-shopping-bag-3-line size-4.5"></i>
+                </div>
+                <div>
+                  <h6 class="mb-1">Hoàn thành</h6>
+                  <p class="text-sm text-slate-500 dark:text-zink-200">
+                    12 Dec, 2023
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <tbody>
+                <tr>
+                  <td
+                    class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
+                    Tổng tiền
+                  </td>
+                  <td
+                    class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
+                    {{HoaDonTheoId.thanhtien + HoaDonTheoId.giatrigiam | number:0}} vnđ
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
+                    Số tiền được giảm giá
+                  </td>
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
+                    {{HoaDonTheoId.giatrigiam | number:0}} vnđ
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
+                    Số tiền sau khi giảm
+                  </td>
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
+                    {{HoaDonTheoId.thanhtien | number:0}} vnđ
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
+                    Phí ship
+                  </td>
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
+                    {{HoaDonTheoId.tiengiaohang | number:0}} vnđ
+                  </td>
+                </tr>
+                <tr class="font-semibold">
+                  <td
+                    class="px-3.5 pt-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
+                    Tổng tiền khách trả (vnđ)
+                  </td>
+                  <td
+                    class="px-3.5 pt-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
+                    {{ (HoaDonTheoId.thanhtien + HoaDonTheoId.tiengiaohang) |
+                    number:0 }} vnđ
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--end col-->
+  </div>
+  <!--end grid-->
+</div>

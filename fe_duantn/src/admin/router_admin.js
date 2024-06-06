@@ -59,11 +59,33 @@ app.config(function ($routeProvider, $locationProvider) {
     })
     .when("/updatexuatxu", {
       templateUrl: "pages/updatexuatxu.html",
+    }).when("/showsanpham", {
+      templateUrl: "pages/showsanpham.html",
+    })
+    .when("/showsanphamchitiet", {
+      templateUrl: "pages/chitietsanthemhoadon.html",
+    })
+    .when("/updatehoadonchoxacnhan", {
+      templateUrl: "pages/updatehoadonchoxacnhan.html",
+    })
+    .when("/updatehoadondaxacnhan", {
+      templateUrl: "pages/updatehoadondaxacnhan.html",
+    })
+    .when("/updatehoadonchogiao", {
+      templateUrl: "pages/updatehoadonchogiao.html",
+    })
+    .when("/updatehoadondanggiao", {
+      templateUrl: "pages/updatehoadondanggiao.html",
+    })
+    .when("/updatehoadonhoanthanh", {
+      templateUrl: "pages/updatehoadonhoanthanh.html",
+    })
+    .when("/updatehoadonhuy", {
+      templateUrl: "pages/updatehoadonhuy.html",
+    }).when("/bantaiquay", {
+      templateUrl: "pages/bantaiquay.html",
     })
     .otherwise({
       redirectTo: "/",
     });
 });
-
-
-
