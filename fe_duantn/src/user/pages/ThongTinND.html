@@ -30,7 +30,7 @@
             <div class="col-md-3">
                 <div class="bodyimg">
                     <div class="border-img">
-                        <img src="/src/fileanh/avatar-10.png" alt="">
+                        <img src="/src/fileanh/{{ttTaiKhoan.image}}" alt="">
                     </div>
                     <hr>
                     <br>
@@ -38,7 +38,7 @@
                         <div class="relative inline-block w-10 align-middle transition duration-200 ease-in ltr:mr-2 rtl:ml-2">
                             <input type="checkbox" name="orangeIconSwitch" id="orangeIconSwitch"
                                    class="absolute block size-5 transition duration-300 ease-linear border-2 border-slate-200 dark:border-zink-500 rounded-full appearance-none cursor-pointer bg-white/80 dark:bg-zink-600 peer/published checked:bg-white dark:checked:bg-white ltr:checked:right-0 rtl:checked:left-0 checked:bg-none checked:border-orange-500 dark:checked:border-orange-500 arrow-none after:absolute after:text-slate-500 dark:after:text-zink-200 after:content-['\eb99'] after:text-xs after:inset-0 after:flex after:items-center after:justify-center after:font-remix after:leading-none checked:after:text-orange-500 dark:checked:after:text-orange-500 checked:after:content-['\eb7b']"
-                                   ng-model="chinhsua">
+                                   ng-model="chinhsua" ng-click="finByTaiKhoanND()">
                             <label for="orangeIconSwitch"
                                    class="block h-5 overflow-hidden duration-300 ease-linear border rounded-full cursor-pointer cursor-pointertransition border-slate-200 dark:border-zink-500 bg-slate-200 dark:bg-zink-600 peer-checked/published:bg-orange-500 peer-checked/published:border-orange-500"></label>
                         </div>
@@ -55,7 +55,7 @@
                                 class="text-red-500"> * </span>UserName : </label>
                         <input type="text" id="firstNameInput"
                                class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                               placeholder="username" disabled>
+                               placeholder="username" ng-model="ttTaiKhoan.taikhoan" disabled>
                         <p id="firstNameError" class="mt-1 text-sm text-red-500"></p>
                     </div>
                     <div class="col-md-6">
@@ -63,7 +63,7 @@
                                 class="text-red-500"> * </span>Họ Và Tên : </label>
                         <input type="text" id="lastNameInput"
                                class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                               placeholder="họ và tên" ng-disabled="!chinhsua">
+                               placeholder="họ và tên" ng-model="ttTaiKhoan.hovatenkh" ng-disabled="!chinhsua">
                         <p id="lastNameError" class="mt-1 text-sm text-red-500"></p>
                     </div>
                 </div>
@@ -72,9 +72,9 @@
                     <div class="col-md-6">
                         <label for="firstNameInput" class="inline-block mb-2 text-base font-medium"><span
                                 class="text-red-500"> * </span>Email : </label>
-                        <input type="email" id="emailInput"
+                        <input type="text" id="emailInput"
                                class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                               placeholder="example@gmail.com" ng-disabled="!chinhsua">
+                               placeholder="example@gmail.com" ng-model="ttTaiKhoan.email" ng-disabled="!chinhsua">
                         <p id="emailError" class="mt-1 text-sm text-red-500"></p>
                     </div>
                     <div class="col-md-6">
@@ -82,7 +82,7 @@
                                 class="text-red-500"> * </span>Số Điện Thoại : </label>
                         <input type="text" id="phoneNumberInput"
                                class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                               placeholder="+(254) 0123 456 789" ng-disabled="!chinhsua">
+                               placeholder="+(254) 0123 456 789" ng-model="ttTaiKhoan.sodienthoai" ng-disabled="!chinhsua">
                         <p id="phoneNumberError" class="mt-1 text-sm text-red-500"></p>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                                 class="text-red-500"> * </span>Ngày Sinh : </label>
                         <input type="date" id="phoneNumberInput"
                                class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                               placeholder="+(254) 0123 456 789" ng-disabled="!chinhsua">
+                               placeholder="+(254) 0123 456 789" ng-model="ttTaiKhoan.ngaysinh" ng-disabled="!chinhsua">
                         <p id="phoneNumberError" class="mt-1 text-sm text-red-500"></p>
                     </div>
                     <div class="col-md-6">
@@ -103,24 +103,25 @@
                             <div class="flex items-center gap-2">
                                 <input id="radioInline3" name="InlineRadio" ng-disabled="!chinhsua"
                                        class="border rounded-full appearance-none cursor-pointer size-4 bg-slate-100 border-slate-200 dark:bg-zink-600 dark:border-zink-500 checked:bg-orange-500 checked:border-orange-500 dark:checked:bg-orange-500 dark:checked:border-orange-500"
-                                       type="radio" value="" checked>
+                                       type="radio" ng-value="true" ng-model="ttTaiKhoan.gioitinh"  checked>
                                 <label for="radioInline3" class="align-middle">Nam</label>
                             </div>
                             <div class="flex items-center gap-2">
                                 <input id="radioInline4" name="InlineRadio" ng-disabled="!chinhsua"
                                        class="border rounded-full appearance-none cursor-pointer size-4 bg-slate-100 border-slate-200 dark:bg-zink-600 dark:border-zink-500 checked:bg-purple-500 checked:border-purple-500 dark:checked:bg-purple-500 dark:checked:border-purple-500"
-                                       type="radio" value="">
+                                       type="radio" ng-value="false" ng-model="ttTaiKhoan.gioitinh">
                                 <label for="radioInline4" class="align-middle">Nữ</label>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="mt-3">
-                    <button type="button" class="btn btn-outline-danger" ng-show="chinhsua">Hủy</button>
+                    <button type="button" class="btn btn-outline-danger" ng-show="chinhsua" ng-click="isHuy()">Hủy</button>
                     <label class="btn btn-outline-secondary" ng-show="chinhsua">
-                        <i class="bi bi-upload"></i> Upload <input type="file" hidden>
+                        <i class="bi bi-upload"></i> Upload 
+                        <input type="file" id="fileInput" hidden ng-model="selectedImageName" onchange="angular.element(this).scope().handleFileSelect(this)">
                     </label>
-                    <button type="button" class="btn btn-outline-primary" ng-show="chinhsua">Lưu</button>
+                    <button type="button" class="btn btn-outline-primary" ng-show="chinhsua" ng-click="updateTTTaiKhoan()">Lưu</button>
                 </div>
             </div>
         </div>
@@ -131,83 +132,41 @@
         <button type="button" class="btn btn-outline-primary" style="margin-left: 1110px; margin-bottom: 10px;"
                 data-bs-toggle="modal" data-bs-target="#modalnew" data-bs-whatever="@mdo">Thêm địa chỉ
         </button>
-        <div class="border-listdc">
+        <div class="border-listdc" ng-repeat="dc in dcTaiKhoan">
             <div class="row">
-                <div class="col-4">
+                <div class="col-5">
                     <label for="phoneNumberInput" class="inline-block mb-2 text-base font-medium">
-                        <span class="text-red-500"> * </span> Họ Và Tên : Toản
+                        <span class="text-red-500"> * </span> Họ Và Tên : {{dc.hovatenkh}}
                     </label><br>
                     <label for="phoneNumberInput" class="inline-block mb-2 text-base font-medium">
-                        <span class="text-red-500"> * </span> Số Điện Thoại : 0982544290
+                        <span class="text-red-500"> * </span> Số Điện Thoại : {{dc.sodienthoai}}
                     </label><br>
                     <label for="phoneNumberInput" class="inline-block mb-2 text-base font-medium">
-                        <span class="text-red-500"> * </span> Địa Chỉ Chi Tiết : Xóm ô - Ngọc Mỹ
+                        <span class="text-red-500"> * </span> Địa Chỉ Chi Tiết : {{dc.diachichitiet}}
                     </label>
                 </div>
                 <div class="col-4">
                     <label for="phoneNumberInput" class="inline-block mb-2 text-base font-medium">
-                        <span class="text-red-500"> * </span> Phường / Xã : Ngọc Mỹ
+                        <span class="text-red-500"> * </span> Phường / Xã : {{dc.phuongxa}}
                     </label><br>
                     <label for="phoneNumberInput" class="inline-block mb-2 text-base font-medium">
-                        <span class="text-red-500"> * </span> Quận / Huyện : Quốc Oai
+                        <span class="text-red-500"> * </span> Quận / Huyện : {{dc.quanhuyen}}
                     </label><br>
                     <label for="phoneNumberInput" class="inline-block mb-2 text-base font-medium">
-                        <span class="text-red-500"> * </span> Tỉnh / Thành : Hà Nội
+                        <span class="text-red-500"> * </span> Tỉnh / Thành : {{dc.tinhthanh}}
                     </label>
                 </div>
                 <!-- <div class="col-3">d</div> -->
-                <div class="col-4">
-                    <button type="button" class="btn-md">Mặc định</button>
-                    <button type="button" class="btn btn-outline-secondary">Chọn mặc định</button>
-                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                            data-bs-target="#modalupdate" data-bs-whatever="@mdo">Cập Nhật
-                    </button>
+                <div class="col-3">
+                    <button type="button" class="btn-md" ng-show="dc.trangthai == 1">Mặc định</button>
+                    <button type="button" class="btn btn-outline-secondary" ng-show="dc.trangthai == 2" ng-click="updateTrangThaiDC(dc.id)">Chọn mặc định</button>
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalupdate" data-bs-whatever="@mdo" ng-click="detailDiaChi(dc)">Cập Nhật</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modal thêm mới địa chỉ -->
-    <div class="modal fade" id="modalnew" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm Mới Địa Chỉ</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Họ Và Tên :</label>
-                            <input type="text" class="form-control" disabled>
-                        </div>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Phường / Xã :</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Quận / Huyện :</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Tỉnh / Thành :</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Địa Chỉ Chi Tiết :</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Hủy</button>
-                    <button type="button" class="btn btn-outline-primary">Lưu</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal update địa chỉ -->
     <div class="modal fade" id="modalupdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -218,26 +177,66 @@
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Họ Và Tên :</label>
+                            <input type="text" class="form-control" disabled ng-model="hovatenkhDetail">
+                        </div>
+                        <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Phường / Xã :</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" ng-model="phuongxaDetail">
                         </div>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Quận / Huyện :</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" ng-model="quanhuyenDetail">
                         </div>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Tỉnh / Thành :</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" ng-model="tinhthanhDetail">
                         </div>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Địa Chỉ Chi Tiết :</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" ng-model="diachictDetail">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Hủy</button>
-                    <button type="button" class="btn btn-outline-primary">Lưu</button>
+                    <button type="button" class="btn btn-outline-primary" ng-click="updateDiaChiTK()">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal update địa chỉ -->
+    <div class="modal fade" id="modalnew" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm Mới Địa Chỉ</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Phường / Xã :</label>
+                            <input type="text" class="form-control" ng-model="newphuongxa">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Quận / Huyện :</label>
+                            <input type="text" class="form-control" ng-model="newquanhuyen">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Tỉnh / Thành :</label>
+                            <input type="text" class="form-control" ng-model="newtinhthanh">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Địa Chỉ Chi Tiết :</label>
+                            <input type="text" class="form-control" ng-model="newdiachict">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-outline-primary" ng-click="addDiaChiTK()">Lưu</button>
                 </div>
             </div>
         </div>
@@ -248,4 +247,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <script src="/src/user/controller/thongtin-nd-controller.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 </html>
