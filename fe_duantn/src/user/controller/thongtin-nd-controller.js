@@ -243,7 +243,7 @@ app.controller('thongtinndController', function ($scope, $http, $window) {
         // check trống các trường thuộc tính
         if (!$scope.phuongxaDetail || !$scope.quanhuyenDetail || !$scope.tinhthanhDetail || !$scope.diachictDetail) {
             Swal.fire({
-                title: "Warning",
+                title: "Thông Báo",
                 text: "Vui lòng điền đủ thông tin",
                 icon: "warning",
                 position: "top-end",
