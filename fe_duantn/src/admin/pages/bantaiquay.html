@@ -124,7 +124,7 @@
               <div class="ltr:lg:text-right rtl:lg:text-left">
                 <button type="button" ng-click="openModal02()"
                   class="text-orange-500 bg-orange-100 btn hover:text-white hover:bg-orange-600 focus:text-white focus:bg-orange-600 focus:ring focus:ring-orange-100 active:text-white active:bg-orange-600 active:ring active:ring-orange-100 dark:bg-orange-500/20 dark:text-orange-500 dark:hover:bg-orange-500 dark:hover:text-white dark:focus:bg-orange-500 dark:focus:text-white dark:active:bg-orange-500 dark:active:text-white dark:ring-orange-400/20">
-                  Thêm sản phẩm
+                  Chọn sản phẩm
                 </button>
               </div>
             </div>
@@ -634,37 +634,25 @@
                         <div class="flex items-center gap-3">
                           <h6 class="text-15 grow">Lọc sản phẩm</h6>
                           <div class="shrink-0">
-                            <button type="reset"
-                              class="underline transition-all duration-200 ease-linear hover:text-custom-500"
-                              ng-click="ShowSP()">
-                              Làm mới
-                            </button>
+                            <a ng-click="LamMoiTKSPBanTaiQuay()" class="px-2.5 py-0.5 text-xs font-medium inline-block rounded border transition-all duration-200 ease-linear bg-slate-100 border-transparent text-slate-500 hover:bg-slate-200 dark:text-zink-200 dark:bg-slate-400/20 dark:hover:bg-slate-400/30 dark:border-transparent">Làm mới</a>
                           </div>
                         </div>
 
                         <div class="relative mt-4">
                           <input type="text"
                             class="ltr:pl-8 rtl:pr-8 search form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                            placeholder="Tìm kiếm ..." ng-model="tensp" ng-change="locTenSPShop()" />
+                            placeholder="Tìm kiếm ..." ng-model="tensp" ng-change="TimKiemTenSPBanTaiQuay()" />
                           <i data-lucide="search"
                             class="inline-block size-4 absolute ltr:left-2.5 rtl:right-2.5 top-2.5 text-slate-500 dark:text-zink-200 fill-slate-100 dark:fill-zink-600"></i>
                         </div>
 
                         <div class="mt-4 collapsible">
-                          <button class="flex items-center w-full text-left collapsible-header group">
-                            <h6 class="underline grow">Danh mục</h6>
-                            <div class="shrink-0 text-slate-500 dark:text-zink-200">
-                              <i data-lucide="chevron-down" class="hidden size-4 group-[.show]:inline-block"></i>
-                              <i data-lucide="chevron-up" class="inline-block size-4 group-[.show]:hidden"></i>
-                            </div>
-                          </button>
+                          <h6 class="underline grow">Danh mục</h6>
                           <div class="mt-4 collapsible-content">
-                            <select
-                              class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                              data-choices="" data-choices-search-false="" name="productTypeSelect"
-                              id="productTypeSelect" ng-model="tendanhmuc" ng-change="locSPShopNhieuTC()">
+                            <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" 
+                            ng-model="tendanhmuc" ng-change="TimKiemSPNhieuTieuChiBanTaiQuay()">
                               <option value="">Tất cả</option>
-                              <option ng-repeat="danhmuc in danhmucs" value="{{danhmuc.tendanhmuc}}">
+                              <option ng-repeat="danhmuc in loadDMTaiQuay" value="{{danhmuc.tendanhmuc}}">
                                 {{danhmuc.tendanhmuc}}
                               </option>
                             </select>
@@ -672,107 +660,74 @@
                         </div>
 
                         <div class="mt-4 collapsible">
-                          <button class="flex items-center w-full text-left collapsible-header group">
-                            <h6 class="underline grow">Màu sắc</h6>
-                            <div class="shrink-0 text-slate-500 dark:text-zink-200">
-                              <i data-lucide="chevron-down" class="hidden size-4 group-[.show]:inline-block"></i>
-                              <i data-lucide="chevron-up" class="inline-block size-4 group-[.show]:hidden"></i>
-                            </div>
-                          </button>
+                          <h6 class="underline grow">Màu sắc</h6>
                           <div class="mt-4 collapsible-content">
                             <div class="flex flex-wrap items-center gap-2">
-                              <select
-                                class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                                data-choices="" data-choices-search-false="" name="taxApplicable" id="taxApplicable"
-                                ng-model="tenmausac" ng-change="locSPShopNhieuTC()">
+                              <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                                ng-model="tenmausac" ng-change="TimKiemSPNhieuTieuChiBanTaiQuay()">
                                 <option value="">Tất cả</option>
-                                <option ng-repeat="mausac in MauSacs" value="{{mausac.tenmausac}}">
+                                <option ng-repeat="mausac in loadMSTaiQuay" value="{{mausac.tenmausac}}">
                                   {{mausac.tenmausac}}
                                 </option>
                               </select>
                             </div>
                           </div>
                         </div>
+
                         <div class="mt-4 collapsible">
-                          <button class="flex items-center w-full text-left collapsible-header group">
-                            <h6 class="underline grow">Size</h6>
-                            <div class="shrink-0 text-slate-500 dark:text-zink-200">
-                              <i data-lucide="chevron-down" class="hidden size-4 group-[.show]:inline-block"></i>
-                              <i data-lucide="chevron-up" class="inline-block size-4 group-[.show]:hidden"></i>
-                            </div>
-                          </button>
+                          <h6 class="underline grow">Size</h6>
                           <div class="mt-4 collapsible-content">
-                            <select
-                              class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                              data-choices="" data-choices-search-false="" name="taxApplicable" id="taxApplicable"
-                              ng-model="tensize" ng-change="locSPShopNhieuTC()">
+                            <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                              ng-model="tensize" ng-change="TimKiemSPNhieuTieuChiBanTaiQuay()">
                               <option value="">Tất cả</option>
-                              <option ng-repeat="size in Sizes" value="{{size.tensize}}">
+                              <option ng-repeat="size in loadSizeTaiQuay" value="{{size.tensize}}">
                                 {{size.tensize}}
                               </option>
                             </select>
                           </div>
                         </div>
-                        <div class="mt-4 collapsible">
-                          <button class="flex items-center w-full text-left collapsible-header group">
-                            <h6 class="underline grow">Chất liệu</h6>
-                            <div class="shrink-0 text-slate-500 dark:text-zink-200">
-                              <i data-lucide="chevron-down" class="hidden size-4 group-[.show]:inline-block"></i>
-                              <i data-lucide="chevron-up" class="inline-block size-4 group-[.show]:hidden"></i>
-                            </div>
+
+                        <div class="mt-4 collapsible">  
+                          <h6 class="underline grow">Chất liệu</h6>
                           </button>
                           <div class="mt-4 collapsible-content">
-                            <select
-                              class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                              data-choices="" data-choices-search-false="" name="taxApplicable" id="taxApplicable"
-                              ng-model="tenchatlieu" ng-change="locSPShopNhieuTC()">
+                            <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                              ng-model="tenchatlieu" ng-change="TimKiemSPNhieuTieuChiBanTaiQuay()">
                               <option value="">Tất cả</option>
-                              <option ng-repeat="chatlieu in Chatlieus" value="{{chatlieu.tenchatlieu}}">
+                              <option ng-repeat="chatlieu in loadCLTaiQuay" value="{{chatlieu.tenchatlieu}}">
                                 {{chatlieu.tenchatlieu}}
                               </option>
                             </select>
                           </div>
                         </div>
+
                         <div class="mt-4 collapsible">
-                          <button class="flex items-center w-full text-left collapsible-header group">
-                            <h6 class="underline grow">Thương hiệu</h6>
-                            <div class="shrink-0 text-slate-500 dark:text-zink-200">
-                              <i data-lucide="chevron-down" class="hidden size-4 group-[.show]:inline-block"></i>
-                              <i data-lucide="chevron-up" class="inline-block size-4 group-[.show]:hidden"></i>
-                            </div>
-                          </button>
+                          <h6 class="underline grow">Thương hiệu</h6>
                           <div class="mt-4 collapsible-content">
-                            <select
-                              class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                              data-choices="" data-choices-search-false="" name="taxApplicable" id="taxApplicable"
-                              ng-model="tenthuonghieu" ng-change="locSPShopNhieuTC()">
+                            <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                              ng-model="tenthuonghieu" ng-change="TimKiemSPNhieuTieuChiBanTaiQuay()">
                               <option value="">Tất cả</option>
-                              <option ng-repeat="thuonghieu in thuongHieus" value="{{thuonghieu.tenthuonghieu}}">
+                              <option ng-repeat="thuonghieu in loadTHTaiQuay" value="{{thuonghieu.tenthuonghieu}}">
                                 {{thuonghieu.tenthuonghieu}}
                               </option>
                             </select>
                           </div>
                         </div>
+
                         <div class="mt-4 collapsible">
-                          <button class="flex items-center w-full text-left collapsible-header group">
-                            <h6 class="underline grow">Xuất xứ</h6>
-                            <div class="shrink-0 text-slate-500 dark:text-zink-200">
-                              <i data-lucide="chevron-down" class="hidden size-4 group-[.show]:inline-block"></i>
-                              <i data-lucide="chevron-up" class="inline-block size-4 group-[.show]:hidden"></i>
-                            </div>
+                          <h6 class="underline grow">Xuất xứ</h6>
                           </button>
                           <div class="mt-4 collapsible-content">
-                            <select
-                              class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                              data-choices="" data-choices-search-false="" name="taxApplicable" id="taxApplicable"
-                              ng-model="tenxuatxu" ng-change="locSPShopNhieuTC()">
+                            <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                              ng-model="tenxuatxu" ng-change="TimKiemSPNhieuTieuChiBanTaiQuay()">
                               <option value="">Tất cả</option>
-                              <option ng-repeat="xuatxu in xuatXus" value="{{xuatxu.tenxuatxu}}">
+                              <option ng-repeat="xuatxu in loadXXTaiQuay" value="{{xuatxu.tenxuatxu}}">
                                 {{xuatxu.tenxuatxu}}
                               </option>
                             </select>
                           </div>
                         </div>
+                        
                       </div>
                     </div>
                   </form>
@@ -786,82 +741,47 @@
                         <table class="w-full whitespace-nowrap" id="productTable">
                           <thead class="ltr:text-left rtl:text-right bg-slate-100 dark:bg-zink-600">
                             <tr>
-                              <th
-                                class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_code"
-                                data-sort="product_code">
-                                Mã sản phẩm
-                              </th>
-                              <th
-                                class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_name"
-                                data-sort="product_name">
-                                Tên sản phẩm
-                              </th>
-                              <th
-                                class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_name"
-                                data-sort="product_name">
-                                Thể loại
-                              </th>
-                              <th
-                                class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort category"
-                                data-sort="category">
-                                Giá bán
-                              </th>
-                              <th
-                                class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort category"
-                                data-sort="category">
-                                màu sắc
-                              </th>
-                              <th
-                                class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort price"
-                                data-sort="price">
-                                size
-                              </th>
-                              <th
-                                class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort status"
-                                data-sort="status">
-                                Trạng thái
-                              </th>
-                              <th
-                                class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 action">
-                                Action
-                              </th>
+                              <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_code">STT</th>
+                              <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_code">Ảnh</th>
+                              <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_code">Tên sản phẩm</th>
+                              <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_code">Thể loại</th>
+                              <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_code">Số lượng</th>
+                              <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_code">Giá bán</th>
+                              <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_code">Trạng thái</th>
+                              <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_code">Action</th>
                             </tr>
                           </thead>
-                          <tbody class="list">
+                          <tbody class="list" ng-repeat="ttsp in loadTTSanPham">
                             <tr>
+                              <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">{{$index + 1}}</td>
                               <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
-                                <a href="#!"
-                                  class="transition-all duration-150 ease-linear product_code text-custom-500 hover:text-custom-600">huy</a>
+                                <a class="flex items-center gap-2"><img src="/src/fileanh/anh1.jpg" alt="Product images" class="h-16" ></a>
                               </td>
-                              <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 product_name">
-                                <a href="apps-ecommerce-product-overview.html" class="flex items-center gap-2">
-                                  <img src="/src/fileanh/avatar-2.png" alt="Product images" class="h-10" />
-                                  <h6 class="product_name">huy</h6>
-                                </a>
+                              <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">{{ttsp.tensp}} <br> {{ttsp.tenmausac}} <br> {{ttsp.tensize}}</td>
+                              <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
+                                <span class="category px-2.5 py-0.5 text-xs inline-block font-medium rounded border bg-slate-100 border-slate-200 text-slate-500 dark:bg-slate-500/20 dark:border-slate-500/20 dark:text-zink-200">{{ttsp.theloai == 1 ? "Nam":"Nữ"}}</span>
                               </td>
-                              <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 category">
-                                <span
-                                  class="category px-2.5 py-0.5 text-xs inline-block font-medium rounded border bg-slate-100 border-slate-200 text-slate-500 dark:bg-slate-500/20 dark:border-slate-500/20 dark:text-zink-200">huy</span>
+                              <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500" style=" align-items: center; justify-content: center;">
+                                  <input style="width: 70px; height: 30px; color: rgb(58, 183, 255); margin-left: 25px;" 
+                                  type="number" class="text-center rtl:pr-2 w-25 h-10 products-quantity dark:bg-zink-700 focus:shadow-none" value="1" min="1">
+                                  <div>
+                                    <span style="color: red;"> Còn {{ttsp.soluongton}} Sản Phẩm </span>
+                                  </div>
                               </td>
-                              <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 price">
-                                huy
-                              </td>
-                              <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 price">
-                                huy
-                              </td>
-                              <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 price">
-                                huy
+                              <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
+                                <span ng-show="ttsp.dongiakhigiam == null">{{ttsp.giaban | number}} đ</span>
+                                <span ng-show="ttsp.dongiakhigiam != null" style="color: tomato;">{{ttsp.dongiakhigiam | number}} đ |</span>
+                                <span ng-show="ttsp.dongiakhigiam != null" style="text-decoration: line-through; opacity: 0.6;" >{{ttsp.giaban | number}} đ</span>
                               </td>
                               <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 status">
-                                <span class="status px-2.5 py-0.5 inline-block text-xs font-medium rounded border">
-                                  huy
-                                </span>
+                                <span ng-show="ttsp.trangthai == 1" class="px-2.5 py-0.5 text-xs inline-block font-medium rounded border bg-green-100 border-green-200 text-green-500 dark:bg-green-500/20 dark:border-green-500/20">Đang bán</span>
+                                <span ng-show="ttsp.trangthai == 0" class="px-2.5 py-0.5 text-xs inline-block font-medium rounded border bg-red-100 border-red-200 text-red-500 dark:bg-red-500/20 dark:border-red-500/20">Ngừng bán</span>
                               </td>
                               <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
                                 <div class="flex gap-2">
-                                  <a
-                                    class="flex items-center justify-center text-green-500 transition-all duration-200 ease-linear bg-green-100 rounded-md size-8 hover:text-white hover:bg-green-500 dark:bg-green-500/20 dark:hover:bg-green-500"><i
-                                      class="ri-add-line"></i></a>
+                                  <button type="button" class="bg-white text-custom-500 btn border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:bg-zink-700 dark:hover:bg-custom-500 dark:ring-custom-400/20 dark:focus:bg-custom-500">
+                                    <i class="ri-add-line"></i> Thêm
+                                  </button>
                                 </div>
                               </td>
                             </tr>
@@ -872,23 +792,22 @@
                       <div class="flex flex-col items-center gap-4 px-4 mt-4 md:flex-row" id="pagination-element">
                         <div class="mb-4 grow md:mb-0">
                           <p class="text-slate-500 dark:text-zink-200">
-                            Số trang <b>1</b> trên <b>2</b> trang
+                            Số trang <b>{{currentPage}}</b> trên <b>{{totalPages}}</b> trang
                           </p>
                         </div>
                         <ul class="flex flex-wrap items-center gap-2 shrink-0">
                           <li>
-                            <a
-                              class="inline-flex items-center justify-center bg-white dark:bg-zink-700 h-8 px-3 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 [&.active]:text-white dark:[&.active]:text-white [&.active]:bg-custom-500 dark:[&.active]:bg-custom-500 [&.active]:border-custom-500 dark:[&.active]:border-custom-500 [&.active]:hover:text-custom-700 dark:[&.active]:hover:text-custom-700 [&.disabled]:text-slate-400 dark:[&.disabled]:text-zink-300 [&.disabled]:cursor-auto">
-                              Prev</a>
+                            <a ng-click="previousPage()" class="inline-flex items-center justify-center bg-white dark:bg-zink-700 h-8 px-3 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 [&.active]:text-white dark:[&.active]:text-white [&.active]:bg-custom-500 dark:[&.active]:bg-custom-500 [&.active]:border-custom-500 dark:[&.active]:border-custom-500 [&.active]:hover:text-custom-700 dark:[&.active]:hover:text-custom-700 [&.disabled]:text-slate-400 dark:[&.disabled]:text-zink-300 [&.disabled]:cursor-auto">
+                              Prev
+                            </a>
                           </li>
                           <li>
-                            <input ng-model="currentPage" min="1" max="1"
-                              class="inline-flex items-center justify-center bg-white dark:bg-zink-700 w-8 h-8 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 [&.active]:text-white dark:[&.active]:text-white [&.active]:bg-custom-500 dark:[&.active]:bg-custom-500 [&.active]:border-custom-500 dark:[&.active]:border-custom-500 [&.active]:hover:text-custom-700 dark:[&.active]:hover:text-custom-700 [&.disabled]:text-slate-400 dark:[&.disabled]:text-zink-300 [&.disabled]:cursor-auto"
-                              style="text-align: center; line-height: 1.5" readonly />
+                            <input class="inline-flex items-center justify-center bg-white dark:bg-zink-700 w-8 h-8 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 [&.active]:text-white dark:[&.active]:text-white [&.active]:bg-custom-500 dark:[&.active]:bg-custom-500 [&.active]:border-custom-500 dark:[&.active]:border-custom-500 [&.active]:hover:text-custom-700 dark:[&.active]:hover:text-custom-700 [&.disabled]:text-slate-400 dark:[&.disabled]:text-zink-300 [&.disabled]:cursor-auto"
+                              style="text-align: center; line-height: 1.5" readonly  ng-model="currentPage" min="1"/>
                           </li>
                           <li>
-                            <a
-                              class="inline-flex items-center justify-center bg-white dark:bg-zink-700 h-8 px-3 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 [&.active]:text-white dark:[&.active]:text-white [&.active]:bg-custom-500 dark:[&.active]:bg-custom-500 [&.active]:border-custom-500 dark:[&.active]:border-custom-500 [&.active]:hover:text-custom-700 dark:[&.active]:hover:text-custom-700 [&.disabled]:text-slate-400 dark:[&.disabled]:text-zink-300 [&.disabled]:cursor-auto">Next
+                            <a ng-click="nextPage()" ng-show="showNextButton" class="inline-flex items-center justify-center bg-white dark:bg-zink-700 h-8 px-3 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 [&.active]:text-white dark:[&.active]:text-white [&.active]:bg-custom-500 dark:[&.active]:bg-custom-500 [&.active]:border-custom-500 dark:[&.active]:border-custom-500 [&.active]:hover:text-custom-700 dark:[&.active]:hover:text-custom-700 [&.disabled]:text-slate-400 dark:[&.disabled]:text-zink-300 [&.disabled]:cursor-auto">
+                              Next
                             </a>
                           </li>
                         </ul>

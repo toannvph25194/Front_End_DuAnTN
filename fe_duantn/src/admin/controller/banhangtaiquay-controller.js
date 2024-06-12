@@ -193,6 +193,224 @@ app.controller("BanHangTaiQuayController", function ($http, $scope, $window) {
   }
 
 
+  // Xử lý load danh mục combobox
+  $scope.LoadDanhMucBanTaiQuay = function () {
+    if (token != null) {
+      var url = 'http://localhost:8080/api/admin/san-pham-chi-tiet-tai-quay/load-danh-muc';
+      $http.get(url, config).then(resp => {
+        $scope.loadDMTaiQuay = resp.data;
+        console.log('Load danh mục bán tại quầy :', $scope.loadDMTaiQuay);
+      }).catch(error => {
+        console.log("Lỗi load danh mục bán tại quầy :", error);
+      });
+    } else {
+      console.log('Chưa đăng nhập !');
+    }
+  }
+  $scope.LoadDanhMucBanTaiQuay();
+
+  // Xử lý load màu sắc combobox
+  $scope.LoadMauSacBanTaiQuay = function () {
+    if (token != null) {
+      var url = 'http://localhost:8080/api/admin/san-pham-chi-tiet-tai-quay/load-mau-sac';
+      $http.get(url, config).then(resp => {
+        $scope.loadMSTaiQuay = resp.data;
+        console.log('Load màu sắc bán tại quầy :', $scope.loadMSTaiQuay);
+      }).catch(error => {
+        console.log("Lỗi load màu sắc bán tại quầy :", error);
+      });
+    } else {
+      console.log('Chưa đăng nhập !');
+    }
+  }
+  $scope.LoadMauSacBanTaiQuay();
+
+  // Xử lý load size combobox
+  $scope.LoadSizeBanTaiQuay = function () {
+    if (token != null) {
+      var url = 'http://localhost:8080/api/admin/san-pham-chi-tiet-tai-quay/load-size';
+      $http.get(url, config).then(resp => {
+        $scope.loadSizeTaiQuay = resp.data;
+        console.log('Load size bán tại quầy :', $scope.loadSizeTaiQuay);
+      }).catch(error => {
+        console.log("Lỗi load size bán tại quầy :", error);
+      });
+    } else {
+      console.log('Chưa đăng nhập !');
+    }
+  }
+  $scope.LoadSizeBanTaiQuay();
+
+  // Xử lý load chất liệu combobox
+  $scope.LoadChatLieuBanTaiQuay = function () {
+    if (token != null) {
+      var url = 'http://localhost:8080/api/admin/san-pham-chi-tiet-tai-quay/load-chat-lieu';
+      $http.get(url, config).then(resp => {
+        $scope.loadCLTaiQuay = resp.data;
+        console.log('Load chất liệu bán tại quầy :', $scope.loadCLTaiQuay);
+      }).catch(error => {
+        console.log("Lỗi load chất liệu bán tại quầy :", error);
+      });
+    } else {
+      console.log('Chưa đăng nhập !');
+    }
+  }
+  $scope.LoadChatLieuBanTaiQuay();
+
+  // Xử lý load thương hiệu combobox
+  $scope.LoadThuongHieuBanTaiQuay = function () {
+    if (token != null) {
+      var url = 'http://localhost:8080/api/admin/san-pham-chi-tiet-tai-quay/load-thuong-hieu';
+      $http.get(url, config).then(resp => {
+        $scope.loadTHTaiQuay = resp.data;
+        console.log('Load thương hiệu bán tại quầy :', $scope.loadTHTaiQuay);
+      }).catch(error => {
+        console.log("Lỗi load thương hiệu bán tại quầy :", error);
+      });
+    } else {
+      console.log('Chưa đăng nhập !');
+    }
+  }
+  $scope.LoadThuongHieuBanTaiQuay();
+
+  // Xử lý load xuất xứ combobox
+  $scope.LoadXuatXuBanTaiQuay = function () {
+    if (token != null) {
+      var url = 'http://localhost:8080/api/admin/san-pham-chi-tiet-tai-quay/load-xuat-xu';
+      $http.get(url, config).then(resp => {
+        $scope.loadXXTaiQuay = resp.data;
+        console.log('Load xuất xứ bán tại quầy :', $scope.loadXXTaiQuay);
+      }).catch(error => {
+        console.log("Lỗi load xuất xứ bán tại quầy :", error);
+      });
+    } else {
+      console.log('Chưa đăng nhập !');
+    }
+  }
+  $scope.LoadXuatXuBanTaiQuay();
+
+
+  // Khai báo biến lấy giá trị trang đầu
+  $scope.currentPage = 1;
+  // Xử lý sự kiện trang trước
+  // Số lượng bản ghi trên mỗi trang
+  $scope.itemsPerPage = 20;
+
+  $scope.previousPage = function () {
+    if ($scope.currentPage > 1) {
+      $scope.currentPage--;
+    }
+  };
+  // Xử lý sự kiện trang tiếp theo
+  $scope.nextPage = function () {
+    if ($scope.currentPage < $scope.totalPages) {
+      $scope.currentPage++;
+    }
+  };
+
+  // Xử lý load thồng tin sản phẩm thêm và giỏ hàng
+  $scope.LoaTTSanPhamBanTaiQuay = function () {
+    if (token != null) {
+      var url = 'http://localhost:8080/api/admin/san-pham-chi-tiet-tai-quay/load?page=' + ($scope.currentPage - 1);
+      $http.get(url, config).then(resp => {
+        $scope.loadTTSanPham = resp.data.content;
+        console.log('Load sản phẩm tại quầy :', $scope.loadTTSanPham);
+        // Tổng số bản ghi
+        $scope.totalItems = resp.data.totalElements;
+        // Tổng số trang
+        $scope.totalPages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+        // console.log("TST :", $scope.totalItems);
+        if ($scope.currentPage == $scope.totalPages) {
+          $scope.showNextButton = false;
+        } else {
+          $scope.showNextButton = true;
+        }
+      }).catch(error => {
+        console.log("Lỗi load sản phẩm tại quầy :", error);
+      });
+    } else {
+      console.log('Chưa đăng nhập !');
+    }
+  }
+  $scope.$watch('currentPage', $scope.LoaTTSanPhamBanTaiQuay);
+
+  // Xử lý chức năng làm mới 
+  $scope.LamMoiTKSPBanTaiQuay = function () {
+    $scope.tensp = '';
+    $scope.LoaTTSanPhamBanTaiQuay();
+  }
+
+  // Tìm kiếm theo tên sản phẩm bán tại quầy
+  $scope.TimKiemTenSPBanTaiQuay = function () {
+    if (token != null) {
+      var url = 'http://localhost:8080/api/admin/san-pham-chi-tiet-tai-quay/loc-ten-sp?page=' + ($scope.currentPage - 1) + '&tensp=' + $scope.tensp;
+      $http.get(url, config).then(resp => {
+        $scope.loadTTSanPham = resp.data.content;
+        console.log('Tìm kiếm theo tên sp bán tại quầy :', $scope.loadTTSanPham);
+        // Tổng số bản ghi
+        $scope.totalItems = resp.data.totalElements;
+        // Tổng số trang
+        $scope.totalPages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+        // console.log("TST :", $scope.totalItems);
+        if ($scope.currentPage == $scope.totalPages) {
+          $scope.showNextButton = false;
+        } else {
+          $scope.showNextButton = true;
+        }
+      }).catch(error => {
+        console.log("Lỗi tìm kiếm theo tên sp bán tại quầy :", error);
+      });
+    } else {
+      console.log('Chưa đăng nhập !');
+    }
+  }
+
+  // Tìm kiếm sản phẩm theo nhiều tiêu chí bán tại quầy
+  $scope.tendanhmuc = "";
+  $scope.tenmausac = "";
+  $scope.tensize = "";
+  $scope.tenchatlieu = "";
+  $scope.tenthuonghieu = "";
+  $scope.tenxuatxu = "";
+
+  $scope.TimKiemSPNhieuTieuChiBanTaiQuay = function () {
+    var tendm = $scope.tendanhmuc;
+    var tenms = $scope.tenmausac;
+    var tens = $scope.tensize;
+    var tencl = $scope.tenchatlieu;
+    var tenth = $scope.tenthuonghieu;
+    var tenxx = $scope.tenxuatxu;
+
+    if (tendm == "" && tenms == "" && tens == "" && tencl == "" && tenth == "" && tenxx == "") {
+      $scope.LoaTTSanPhamBanTaiQuay();
+    } else {
+      if (token != null) {
+        var url = 'http://localhost:8080/api/admin/san-pham-chi-tiet-tai-quay/loc-tieu-chi-sp?page=' + ($scope.currentPage - 1) +
+          '&tendanhmuc=' + $scope.tendanhmuc + '&tenmausac=' + $scope.tenmausac + '&tensize=' + $scope.tensize +
+          '&tenchatlieu=' + $scope.tenchatlieu + '&tenthuonghieu=' + $scope.tenthuonghieu + '&tenxuatxu=' + $scope.tenxuatxu
+        $http.get(url, config).then(resp => {
+          $scope.loadTTSanPham = resp.data.content;
+          console.log('Lọc sp theo nhiều tiêu chí bán tại quầy :', $scope.loadTTSanPham);
+          // Tổng số bản ghi
+          $scope.totalItems = resp.data.totalElements;
+          // Tổng số trang
+          $scope.totalPages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+          // console.log("TST :", $scope.totalItems);
+          if ($scope.currentPage == $scope.totalPages) {
+            $scope.showNextButton = false;
+          } else {
+            $scope.showNextButton = true;
+          }
+        }).catch(error => {
+          console.log("Lỗi lọc sp theo nhiều tiêu chí bán tại quầy :", error);
+        });
+      } else {
+        console.log('Chưa đăng nhập !');
+      }
+    }
+  }
+
+
 
 
 
