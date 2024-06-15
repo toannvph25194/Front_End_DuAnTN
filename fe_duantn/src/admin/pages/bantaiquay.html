@@ -92,7 +92,7 @@
                   <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">{{hdtq.trangthai = 1 ? "Chờ Thanh Toán":""}}</td>
                   <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
                     <div class="flex gap-2">
-                      <a ng-click="ChonHoaDonTaiQuay(hdtq.id, hdtq.idkh)" class="flex items-center justify-center text-green-500 transition-all duration-200 ease-linear bg-green-100 rounded-md size-8 hover:text-white hover:bg-green-500 dark:bg-green-500/20 dark:hover:bg-green-500">
+                      <a ng-click="ChonHoaDonTaiQuay(hdtq.id, hdtq.idkh, hdtq.mahoadon)" class="flex items-center justify-center text-green-500 transition-all duration-200 ease-linear bg-green-100 rounded-md size-8 hover:text-white hover:bg-green-500 dark:bg-green-500/20 dark:hover:bg-green-500">
                         <i class="ri-add-line"></i>
                       </a>
                       <a ng-click="HuyHoaDonTaiQuay(hdtq.id)" class="flex items-center justify-center text-red-500 transition-all duration-200 ease-linear bg-red-100 rounded-md size-8 hover:text-white hover:bg-red-500 dark:bg-red-500/20 dark:hover:bg-red-500">
@@ -117,7 +117,7 @@
         <div class="card-body">
           <div class="grid grid-cols-1 gap-4 lg:grid-cols-12">
             <div class="lg:col-span-3">
-              <span><h6>Mã hoá đơn: HD4646</h6></span>
+              <span><h6> Mã Hóa Đơn : {{mahdchon}}</h6></span>
             </div>
             <!--end col-->
             <div class="lg:col-span-2 lg:col-start-11">
@@ -148,14 +148,18 @@
                 <tr>
                   <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 price">{{$index + 1}}</td>
                   <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 product_name">
-                    <a href="apps-ecommerce-product-overview.html" class="flex items-center gap-2">
+                    <a class="flex items-center gap-2">
                       <img src="/src/fileanh/{{hdct.imagedefaul}}" alt="Product images" class="h-20" />
                     </a>
                   </td>
-                  <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 price">{{hdct.tensp}}</td>
+                  <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 price">
+                    {{hdct.tensp}} - {{hdct.tenchatlieu}}<br>
+                    {{hdct.tenmausac}} - Size {{hdct.tensize}}
+                  </td>
                   <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
                     <a class="transition-all duration-150 ease-linear product_code text-custom-500 hover:text-custom-600">
-                      <input type="number" ng-model="hdct.soluong" class="text-center rtl:pr-2 w-25 h-10 products-quantity dark:bg-zink-700 focus:shadow-none" value="2" min="0" max="10000" />
+                      <input style="width: 100px; height: 40px; text-align: center;" 
+                       type="number" ng-model="hdct.soluong" ng-change="validateSoLuongCN(hdct)" ng-blur="UpdateHDCTKHBanTaiQuay(hdct.idhdct, hdct.soluong)" min="1">
                     </a>
                   </td>
                   <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 price">
@@ -168,7 +172,7 @@
                   </td>
                   <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
                     <div class="flex gap-2">
-                      <a ng-click="DeleteHDCTKHBanTaiQuay()" class="flex items-center justify-center text-red-500 transition-all duration-200 ease-linear bg-red-100 rounded-md size-8 hover:text-white hover:bg-red-500 dark:bg-red-500/20 dark:hover:bg-red-500">
+                      <a ng-click="DeleteHDCTKHBanTaiQuay(hdct)" class="flex items-center justify-center text-red-500 transition-all duration-200 ease-linear bg-red-100 rounded-md size-8 hover:text-white hover:bg-red-500 dark:bg-red-500/20 dark:hover:bg-red-500">
                         <i class="ri-delete-bin-line"></i>
                       </a>
                     </div>
@@ -177,6 +181,15 @@
               </tbody>
             </table>
           </div>
+        </div>
+
+        <div ng-show="loadHDCTKH.length == 0">
+            <div style="display: flex; justify-content: center; align-items: center;">
+              <img src="/src/admin/assets/images/small/image-hdct-trong.jpg">
+            </div>
+            <p style="text-align: center; padding-bottom: 20px; color: rgb(255, 153, 44); font-size: 18px;">
+              Không có sản phẩm nào trong hóa đơn !
+            </p>
         </div>
       </div>
     </div>
@@ -763,13 +776,13 @@
                               <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
                                 <a class="flex items-center gap-2"><img src="/src/fileanh/anh1.jpg" alt="Product images" class="h-16" ></a>
                               </td>
-                              <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">{{ttsp.tensp}} <br> {{ttsp.tenmausac}} <br> {{ttsp.tensize}}</td>
+                              <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">{{ttsp.tensp}} - {{ttsp.tenchatlieu}} <br> {{ttsp.tenmausac}} - Size {{ttsp.tensize}}</td>
                               <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
                                 <span class="category px-2.5 py-0.5 text-xs inline-block font-medium rounded border bg-slate-100 border-slate-200 text-slate-500 dark:bg-slate-500/20 dark:border-slate-500/20 dark:text-zink-200">{{ttsp.theloai == 1 ? "Nam":"Nữ"}}</span>
                               </td>
                               <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500" style=" align-items: center; justify-content: center;">
-                                  <input style="width: 70px; height: 30px; color: rgb(58, 183, 255); margin-left: 25px;" 
-                                  type="number" class="text-center rtl:pr-2 w-25 h-10 products-quantity dark:bg-zink-700 focus:shadow-none" value="1" min="1">
+                                  <input style="width: 70px; height: 30px; color: rgb(58, 183, 255); margin-left: 25px;" ng-init="ttsp.soluong = 1"
+                                  type="number" ng-model="ttsp.soluong" ng-change="ValidateSoLuongThem(ttsp)" class="text-center rtl:pr-2 w-25 h-10 products-quantity dark:bg-zink-700 focus:shadow-none" value="ttsp.soluong = 1" min="1">
                                   <div>
                                     <span style="color: red;"> Còn {{ttsp.soluongton}} Sản Phẩm </span>
                                   </div>
@@ -785,7 +798,7 @@
                               </td>
                               <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
                                 <div class="flex gap-2">
-                                  <button ng-click="ThemGHCTKHBanTaiQuay(ttsp)" type="button" class="bg-white text-custom-500 btn border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:bg-zink-700 dark:hover:bg-custom-500 dark:ring-custom-400/20 dark:focus:bg-custom-500">
+                                  <button ng-click="ThemHDCTKHBanTaiQuay(ttsp)" type="button" class="bg-white text-custom-500 btn border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:bg-zink-700 dark:hover:bg-custom-500 dark:ring-custom-400/20 dark:focus:bg-custom-500">
                                     <i class="ri-add-line"></i> Thêm
                                   </button>
                                 </div>

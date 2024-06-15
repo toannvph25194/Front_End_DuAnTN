@@ -1,4 +1,4 @@
-app.controller("BanHangTaiQuayController", function ($http, $scope, $window) {
+app.controller("BanHangTaiQuayController", function ($http, $scope, $window, $route) {
 
   // Lấy token trên localStorage sau khi đăng nhập
   var token = localStorage.getItem("accessToken");
@@ -108,7 +108,7 @@ app.controller("BanHangTaiQuayController", function ($http, $scope, $window) {
                 timer: 1500,
               });
               setTimeout(function () {
-                $window.location.reload();
+                $route.reload();
               }, 1500);
             }).catch(error => {
               console.log("Lỗi tạo hóa đơn tại quầy :", error);
@@ -162,7 +162,7 @@ app.controller("BanHangTaiQuayController", function ($http, $scope, $window) {
               timer: 1500,
             });
             setTimeout(function () {
-              $window.location.reload();
+              $route.reload();
             }, 1500);
           }).catch(error => {
             console.log("Lỗi hủy hóa đơn tại quầy :", error);
@@ -175,10 +175,11 @@ app.controller("BanHangTaiQuayController", function ($http, $scope, $window) {
   }
 
   // Xử lý hàm chọn hóa đơn để xử dụng
-  $scope.ChonHoaDonTaiQuay = function (idhdtqchon, idkhchon) {
+  $scope.ChonHoaDonTaiQuay = function (idhdtqchon, idkhchon, mahoadonchon) {
     if (token != null) {
       localStorage.setItem("idhoadontq", idhdtqchon);
       localStorage.setItem("idkhtq", idkhchon);
+      localStorage.setItem("mahoadontq", mahoadonchon);
       Swal.fire({
         title: "Thành Công",
         text: "Đã chọn hóa đơn này",
@@ -188,11 +189,13 @@ app.controller("BanHangTaiQuayController", function ($http, $scope, $window) {
         showConfirmButton: false,
         timer: 1500,
       });
+      setTimeout(function () {
+        $route.reload();
+      }, 1500);
     } else {
       console.log('Chưa đăng nhập !');
     }
   }
-
 
   // Xử lý load danh mục combobox
   $scope.LoadDanhMucBanTaiQuay = function () {
@@ -411,7 +414,9 @@ app.controller("BanHangTaiQuayController", function ($http, $scope, $window) {
     }
   }
 
-  // Load hdct của khách hàng bán tại quầy
+  // Lấy mã hóa đơn sau khi chọn
+  $scope.mahdchon = localStorage.getItem("mahoadontq");
+  // Load hóa đơn chi tiết của khách hàng bán tại quầy
   $scope.LoadHDCTKHBanTaiQuay = function () {
     if (token != null) {
       var url = 'http://localhost:8080/api/admin/hoa-don-chi-tiet/ban-tai-quay/load-hdct?idhoadon=' + idhdtq;
@@ -427,63 +432,119 @@ app.controller("BanHangTaiQuayController", function ($http, $scope, $window) {
   }
   $scope.LoadHDCTKHBanTaiQuay();
 
-  // Xử lý thêm sản phẩm cho khách hàng vào giỏ hàng chi tiết bán tại quầy
-  $scope.ThemGHCTKHBanTaiQuay = function (spct) {
-    Swal.fire({
-      title: "Xác Nhận",
-      text: "Bạn có muốn thêm sản phẩm vào hóa đơn không ?",
-      icon: "question",
-      showCancelButton: true,
-      cancelButtonText: "Hủy Bỏ",
-      cancelButtonColor: "#d33",
-      confirmButtonColor: "#3085d6",
-      confirmButtonText: "Xác Nhận",
-      reverseButtons: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        if (token != null) {
-          var url = 'http://localhost:8080/api/admin/hoa-don-chi-tiet/ban-tai-quay/them-san-pham-hdct?idhoadon=' + idhdtq + '$idspct=' + spct.idspct +
-            '&soluong=' + spct.soluong + '&dongiakhigiam=' + spct.dongiakhigiam;
-          $http.post(url, {}, config).then(resp => {
-            $scope.addHDCTKH = resp.data;
-            console.log('Thêm sp vào hdct cho khách hàng bán tại quầy :', $scope.addHDCTKH);
-            Swal.fire({
-              title: "Thành Công",
-              text: "Thêm sản phẩm vào hóa đơn thành công",
-              icon: "success",
-              position: "top-end",
-              toast: true,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            setTimeout(function () {
-              $window.location.reload();
-            }, 1500);
-          }).catch(error => {
-            console.log("Lỗi thêm sp vào hdct cho khách hàng bán tại quầy :", error);
-          });
-        } else {
-          console.log('Chưa đăng nhập !');
-        }
-      }
-    });
+  // Validate ô nhập số lượng thêm sản phẩm vào hóa đơn chi tiết
+  $scope.ValidateSoLuongThem = function (ttsp) {
+    if (isNaN(ttsp.soluong) || ttsp.soluong < 1) {
+      ttsp.soluong = 1;
+    }
+    if (ttsp.soluong > ttsp.soluongton) {
+      Swal.fire({
+        title: "Thông Báo",
+        text: "Số lượng sản phẩm tồn không đủ",
+        icon: "warning",
+        position: "top-end",
+        toast: true,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      ttsp.soluong = 1;
+    }
   }
 
-  // Xử lý nhập số lượng mới bằng tay
-  $scope.handleBlur = function (hdct) {
-    // Gọi API để cập nhật số lượng
-    console.log(hdct.idghct);
-    console.log(hdct.soluong);
-    UpdateHDCTKHBanTaiQuay(hdct.idghct, hdct.soluong);
-  };
+  // Xử lý thêm sản phẩm cho khách hàng vào hóa đơn chi tiết bán tại quầy
+  $scope.ThemHDCTKHBanTaiQuay = function (spct) {
+    if (idhdtq != null) {
+      var dongiakhigiam = spct.dongiakhigiam != null ? spct.dongiakhigiam : "";
+      Swal.fire({
+        title: "Xác Nhận",
+        text: "Bạn có muốn thêm sản phẩm vào hóa đơn không ?",
+        icon: "question",
+        showCancelButton: true,
+        cancelButtonText: "Hủy Bỏ",
+        cancelButtonColor: "#d33",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Xác Nhận",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (token != null) {
+            var url = 'http://localhost:8080/api/admin/hoa-don-chi-tiet/ban-tai-quay/them-san-pham-hdct?idhoadon=' + idhdtq + '&idspct=' + spct.id +
+              '&soluong=' + spct.soluong + '&dongiakhigiam=' + dongiakhigiam;
+            $http.post(url, {}, config).then(resp => {
+              $scope.addHDCTKH = resp.data;
+              console.log('Thêm sp vào hdct cho khách hàng bán tại quầy :', $scope.addHDCTKH);
+              Swal.fire({
+                title: "Thành Công",
+                text: "Thêm sản phẩm vào hóa đơn thành công",
+                icon: "success",
+                position: "top-end",
+                toast: true,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              setTimeout(function () {
+                $route.reload();
+              }, 1500);
+            }).catch(error => {
+              console.log("Lỗi thêm sp vào hdct cho khách hàng bán tại quầy :", error);
+            });
+          } else {
+            console.log('Chưa đăng nhập !');
+          }
+        }
+      });
+    } else {
+      Swal.fire({
+        title: "Thông Báo",
+        text: "Bạn cần chọn hóa đơn muốn thêm sản phẩm",
+        icon: "warning",
+        position: "top-end",
+        toast: true,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
 
-  // update số lượng hdct của khách hàng bán tại quầy
+  }
+
+  // Validte cập nhật số lượng mới hóa đơn chi tiết 
+  $scope.validateSoLuongCN = function (hdct) {
+    if (isNaN(hdct.soluong) || hdct.soluong < 1) {
+      hdct.soluong = 1;
+    }
+    if (hdct.soluong > hdct.soluongton) {
+      Swal.fire({
+        title: "Thông Báo",
+        text: "Số lượng sản phẩm tồn không đủ",
+        icon: "warning",
+        position: "top-end",
+        toast: true,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      hdct.soluong = 1;
+    }
+  }
+
+  // update số lượng hóa đơn chi tiết của khách hàng bán tại quầy
   $scope.UpdateHDCTKHBanTaiQuay = function (idhdct, soluongmoi) {
     if (token != null) {
       var url = 'http://localhost:8080/api/admin/hoa-don-chi-tiet/ban-tai-quay/update-so-luong-hdct?idhdct=' + idhdct + '&soluong=' + soluongmoi;
-      $http.push(url,{},config).then(resp => {
+      $http.put(url, {}, config).then(resp => {
         $scope.updateHDCTCTKH = resp.data;
         console.log('Update hdct khách hàng bán tại quầy :', $scope.updateHDCTCTKH);
+        Swal.fire({
+          title: "Thành Công",
+          text: "Cập nhật sản phẩm thành công",
+          icon: "success",
+          position: "top-end",
+          toast: true,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setTimeout(function () {
+          $route.reload();
+        }, 1500);
       }).catch(error => {
         console.log("Lỗi update hdct khách hàng bán tại quầy :", error);
       });
@@ -492,8 +553,8 @@ app.controller("BanHangTaiQuayController", function ($http, $scope, $window) {
     }
   }
 
-  // Xóa hdct của khách hàng bán tại quầy
-  $scope.DeleteHDCTKHBanTaiQuay = function (idhdct) {
+  // Xóa hóa đơn chi tiết của khách hàng bán tại quầy
+  $scope.DeleteHDCTKHBanTaiQuay = function (hdct) {
     Swal.fire({
       title: "Xác Nhận",
       text: "Bạn có muốn xóa sản phẩm khỏi hóa đơn không ?",
@@ -507,13 +568,13 @@ app.controller("BanHangTaiQuayController", function ($http, $scope, $window) {
     }).then((result) => {
       if (result.isConfirmed) {
         if (token != null) {
-          var url = 'http://localhost:8080/api/admin/hoa-don-chi-tiet/ban-tai-quay/delete-sp-hdct?idhdct=' + idhdct;
+          var url = 'http://localhost:8080/api/admin/hoa-don-chi-tiet/ban-tai-quay/delete-sp-hdct?idhdct=' + hdct.idhdct;
           $http.delete(url, config).then(resp => {
             $scope.deleteHDCTKH = resp.data;
             console.log('Delete hdct khách hàng bán tại quầy :', $scope.deleteHDCTKH);
             Swal.fire({
               title: "Thành Công",
-              text: " sản phẩm khỏi hóa đơn tại quầy thành công",
+              text: "Xóa sản phẩm khỏi hóa đơn tại quầy thành công",
               icon: "success",
               position: "top-end",
               toast: true,
@@ -521,7 +582,7 @@ app.controller("BanHangTaiQuayController", function ($http, $scope, $window) {
               timer: 1500,
             });
             setTimeout(function () {
-              $window.location.reload();
+              $route.reload();
             }, 1500);
           }).catch(error => {
             console.log("Lỗi delete hdct khách hàng bán tại quầy :", error);
