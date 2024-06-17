@@ -87,7 +87,8 @@
                   <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">{{hdtq.mahoadon}}</td>
                   <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">{{hdtq.hovatennv}}</td>
                   <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">{{hdtq.ngaytao}}</td>
-                  <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">{{hdtq.tennguoinhan}}</td>
+                  <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
+                    {{ hdtq.tenkhachhang ? hdtq.tenkhachhang : hdtq.tennguoinhan }}
                   <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">{{hdtq.loaihoadon = 2 ? "Tại Quầy":""}}</td>
                   <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">{{hdtq.trangthai = 1 ? "Chờ Thanh Toán":""}}</td>
                   <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
@@ -204,7 +205,7 @@
               <label for="streetAddressInput" class="inline-block mb-2 text-base font-medium">Tên khách hàng</label>
               <input type="text" id="streetAddressInput"
                 class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                placeholder="Tên khách hàng" disabled="" />
+                placeholder="Tên khách hàng" ng-model="KhachHangTheoId.hovatenkh" disabled />
             </div>
             <div class="flex items-end">
               <button type="button" ng-click="openModal01()"
@@ -219,28 +220,49 @@
                 <label for="firstNameInput" class="inline-block mb-2 text-base font-medium">Họ và tên</label>
                 <input type="text" id="firstNameInput"
                   class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                  placeholder="Họ và tên" />
+                  placeholder="Họ và tên" ng-model="KhachHangTheoId.hovatenkh"/>
               </div>
               <!--end col-->
               <div class="xl:col-span-6">
                 <label for="middleNameInput" class="inline-block mb-2 text-base font-medium">Số điện thoại</label>
                 <input type="text" id="middleNameInput"
                   class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                  placeholder="Số điện thoại" />
+                  placeholder="Số điện thoại" ng-model="KhachHangTheoId.sodienthoai"/>
+              </div>
+              <div class="xl:col-span-6">
+                <label for="diachinha" class="inline-block mb-2 text-base font-medium">Địa chỉ</label>
+                <input type="text" id="diachinha"
+                  class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  placeholder="Địa chỉ nhà" ng-model="KhachHangTheoId.diachichitiet"/>
+                  <!-- placeholder="Địa chỉ nhà" ng-model="DiaChiDayDu"/>-->
               </div>
               <!--end col-->
-              <div class="xl:col-span-12">
-                <label for="streetAddressInput" class="inline-block mb-2 text-base font-medium">Địa chỉ</label>
-                <input type="text" id="streetAddressInput"
+              <div class="xl:col-span-6">
+                <label for="phuongxa" class="inline-block mb-2 text-base font-medium">Phường xá</label>
+                <input type="text" id="diachinha"
                   class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                  placeholder="Địa chỉ" />
+                  placeholder="Phường xá" ng-model="KhachHangTheoId.phuongxa"/>
+              </div>
+              <!--end col-->
+              <div class="xl:col-span-6">
+                <label for="quanhuyen" class="inline-block mb-2 text-base font-medium">Quận huyện</label>
+                <input type="text" id="quanhuyen"
+                  class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  placeholder="Quận huyện" ng-model="KhachHangTheoId.quanhuyen"/>
+              </div>
+              <!--end col-->
+              <div class="xl:col-span-6">
+                <label for="tinhthanh" class="inline-block mb-2 text-base font-medium">Tỉnh thành</label>
+                <input type="text" id="tinhthanh"
+                  class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  placeholder="Tỉnh thành" ng-model="KhachHangTheoId.tinhthanh"/>
               </div>
               <!--end col-->
               <div class="xl:col-span-12">
                 <label for="townCityInput" class="inline-block mb-2 text-base font-medium">Email</label>
                 <input type="text" id="townCityInput"
                   class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                  placeholder="Email" />
+                  placeholder="Email" ng-model="KhachHangTheoId.email"/>
               </div>
 
               <!--end col-->
@@ -518,9 +540,10 @@
                   <form ng-submit="searchNhanVien()">
                     <div class="grid grid-cols-1 gap-x-5 xl:grid-cols-12">
                       <div class="relative xl:col-span-6">
-                        <input type="text" ng-model="searchText"
-                          class="ltr:pl-8 rtl:pr-8 search form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                          placeholder="Tìm kiếm ...." autocomplete="off" />
+                        <input type="text" ng-model="keywordTimKiem"
+                        class="ltr:pl-8 rtl:pr-8 search form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                        placeholder="Tìm kiếm ...." autocomplete="off" 
+                        ng-change="getLoadtheotenKhachHang(currentPage1)"/>
                         <i
                           class="ri-search-line inline-block size-4 absolute ltr:left-2.5 rtl:right-2.5 top-2.5 text-slate-500 dark:text-zink-200 fill-slate-100 dark:fill-zink-600"></i>
                       </div>
@@ -567,29 +590,31 @@
                         </tr>
                       </thead>
                       <tbody class="list">
-                        <tr>
+                        <tr ng-repeat="khachHang in khachHangList">
                           <td class="px-3.5 py-2.5 first:pl-5 last:pr-5">
-                            1
+                            {{$index + 1}}
                           </td>
                           <td class="px-3.5 py-2.5 first:pl-5 last:pr-5">
-                            huy
+                            {{khachHang.hovatenkh}}
                           </td>
 
                           <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 phone-number">
-                            huy
+                            {{ buildAddress(khachHang) }}
                           </td>
                           <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 joining-date">
-                            huy
+                            {{khachHang.email}}
                           </td>
                           <td class="px-3.5 py-2.5 first:pl-5 last:pr-5">
-                            huy
+                            {{khachHang.sodienthoai}}
                           </td>
 
                           <td class="px-3.5 py-2.5 first:pl-5 last:pr-5">
                             <div class="flex gap-2">
                               <a
-                                class="flex items-center justify-center text-green-500 transition-all duration-200 ease-linear bg-green-100 rounded-md size-8 hover:text-white hover:bg-green-500 dark:bg-green-500/20 dark:hover:bg-green-500"><i
-                                  class="ri-add-line"></i></a>
+                                ng-click="themKhachHangVaoHD(khachHang)"
+                                class="flex items-center justify-center text-green-500 transition-all duration-200 ease-linear bg-green-100 rounded-md size-8 hover:text-white hover:bg-green-500 dark:bg-green-500/20 dark:hover:bg-green-500">
+                                <i class="ri-add-line"></i>
+                              </a>
                             </div>
                           </td>
                         </tr>
@@ -599,30 +624,29 @@
                   </div>
                   <div class="flex flex-col items-center mt-8 md:flex-row">
                     <div class="mb-4 grow md:mb-0">
-                      <p class="text-slate-500 dark:text-zink-200">
-                        Trang <b>1</b> / <b>2</b>
-                      </p>
+                        <p class="text-slate-500 dark:text-zink-200">
+                            Trang <b>{{currentPage1}}</b> / <b>{{totalPages1}}</b>
+                        </p>
                     </div>
                     <ul class="flex flex-wrap items-center gap-2 shrink-0">
-                      <li>
-                        <button ng-click="previousPage()" ng-disabled="currentPage === 1"
-                          class="inline-flex items-center justify-center bg-white dark:bg-zink-700 h-8 px-3 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 disabled:text-slate-400 dark:disabled:text-zink-300 disabled:cursor-auto">
-                          Prev
-                        </button>
-                      </li>
-                      <li>
-                        <input
-                          class="inline-flex items-center justify-center bg-white dark:bg-zink-700 w-8 h-8 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 text-center">
-                        </input>
-                      </li>
-                      <li>
-                        <button
-                          class="inline-flex items-center justify-center bg-white dark:bg-zink-700 h-8 px-3 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 disabled:text-slate-400 dark:disabled:text-zink-300 disabled:cursor-auto">
-                          Next
-                        </button>
-                      </li>
+                        <li>
+                            <button ng-click="previousPage1()" ng-disabled="currentPage1 === 1"
+                                class="inline-flex items-center justify-center bg-white dark:bg-zink-700 h-8 px-3 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 disabled:text-slate-400 dark:disabled:text-zink-300 disabled:cursor-auto">
+                                Prev
+                            </button>
+                        </li>
+                        <li>
+                            <input ng-model="currentPage1" type="number" min="1" ng-change="getLoadKhachHang(currentPage1)"
+                                class="inline-flex items-center justify-center bg-white dark:bg-zink-700 w-12 h-8 px-2 py-1 text-sm text-center text-gray-700 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:bg-white dark:text-gray-300 dark:border-gray-700 dark:focus:bg-gray-800 dark:focus:border-gray-700">
+                        </li>
+                        <li>
+                            <button ng-click="nextPage1()" ng-disabled="currentPage1 === totalPages1"
+                                class="inline-flex items-center justify-center bg-white dark:bg-zink-700 h-8 px-3 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 disabled:text-slate-400 dark:disabled:text-zink-300 disabled:cursor-auto">
+                                Next
+                            </button>
+                        </li>
                     </ul>
-                  </div>
+                </div>
                 </div>
               </div>
             </div>
