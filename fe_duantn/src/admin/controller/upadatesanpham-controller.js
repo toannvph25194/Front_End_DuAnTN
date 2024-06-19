@@ -718,6 +718,53 @@ app.controller(
         }
       });
     };
+
+    $scope.getLoadKhachHangTheoID = function () {
+      var tokenID = localStorage.getItem("idkhtq");
+      var apiUrl = "http://localhost:8080/api/auth/khachhangbantaiquay/hienthikhtheoid";
+  
+  
+      // Thêm các tham số phân trang vào URL
+      var params = {
+        trangthai: tokenID,
+      };
+      $http.apiUrl(apiUrl, params ,config)
+              .then(function (data) {
+                console.log("Sản phẩm đã được cập nhật thành công:", data);
+                if (data && data.length > 0) {
+                  // Nếu có dữ liệu sản phẩm chi tiết, gán sản phẩm vào biến $scope để hiển thị trên giao diện
+                  $scope.sanPhamTheoId = data[0]; // Lấy sản phẩm đầu tiên (giả sử chỉ có một sản phẩm có cùng IdSP)
+                  console.log("Thông tin chi tiết sản phẩm:", $scope.sanPhamTheoId);
+                } else {
+                  console.error("Không tìm thấy sản phẩm với IdSP:", maspInput);
+                  // Xử lý tình huống không tìm thấy sản phẩm
+                  // Ví dụ: hiển thị thông báo cho người dùng
+                }
+                // Hiển thị thông báo thành công
+                Swal.fire({
+                  title: "Cập nhật thành công!",
+                  text: "Sản phẩm đã được cập nhật thành công.",
+                  icon: "success",
+                }).then(() => {
+                  // Tải lại trang sau khi cập nhật thành công
+                  $window.location.reload();
+                });
+              })
+              .catch(function (error) {
+                console.error("Lỗi khi cập nhật sản phẩm:", error);
+                // Hiển thị thông báo lỗi
+                Swal.fire({
+                  title: "Lỗi!",
+                  text: "Đã xảy ra lỗi khi cập nhật sản phẩm.",
+                  icon: "error",
+                });
+              });
+  
+      
+    };
+
+
+
   }
 }
 );

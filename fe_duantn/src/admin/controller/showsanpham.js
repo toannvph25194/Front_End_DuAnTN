@@ -27,7 +27,7 @@ app.controller(
         // Khai báo biến lấy giá trị trang đầu
         $scope.currentPage = 1;
         // Số lượng bản ghi trên mỗi trang
-        $scope.itemsPerPage = 8;
+        $scope.itemsPerPage = 10;
         // Biến mảng
         $scope.sanPhamLoadPhanTrang = [];
         $scope.listDanhMuc = [];
@@ -39,7 +39,7 @@ app.controller(
   
         // khai báo 2 biến cho các hàm tìm kiếm
         $scope.pageNumber = 0;
-        $scope.pageSize = 8;
+        $scope.pageSize = 10;
   
         // Xử lý sự kiện trang trước
         $scope.previousPage = function () {
@@ -71,7 +71,7 @@ app.controller(
           };
           $http
             .get(
-              `http://localhost:8080/api/admin-sanpham/hienthisanphamthemhoadon?page=${
+              `http://localhost:8080/api/admin/hoadonchitiet/load?page=${
                 $scope.currentPage - 1
               }`,
               config
@@ -120,7 +120,7 @@ app.controller(
           } else {
             $http
               .get(
-                "http://localhost:8080/api/admin-sanpham/loc/ten-san-pham-them-hd?pageNumber=" +
+                "http://localhost:8080/api/admin/hoadonchitiet/loc-ten-sp?pageNumber=" +
                   ($scope.currentPage - 1) + // Giảm 1 vì API tính pageNumber từ 0
                   "&pageSize=" +
                   $scope.pageSize +
@@ -271,6 +271,7 @@ app.controller(
               console.log("ListSize :", $scope.listSize);
             });
         };
+       
         $scope.getAllSizeSPShop();
         var token = localStorage.getItem("accessToken");
   
@@ -305,7 +306,7 @@ app.controller(
           } else {
             $http
               .get(
-                "http://localhost:8080/api/admin-sanpham/loc/san-pham-themhd?pageNumber=" +
+                "http://localhost:8080/api/admin/hoadonchitiet/loc-tieu-chi-sp?pageNumber=" +
                   ($scope.currentPage - 1) + // Giảm 1 vì API tính pageNumber từ 0
                   "&pageSize=" +
                   $scope.pageSize +
@@ -345,56 +346,6 @@ app.controller(
         $scope.redirectToProductDetails = function (productId) {
           // Lưu id vào localStorage hoặc sử dụng biến trong controller
           localStorage.setItem("IDSanPhamUpdate", productId);
-        };
-        // Cập nhật số lượng sản phẩm
-        $scope.updateTrangthai = function (sanPham) {
-          var token = localStorage.getItem("accessToken");
-  
-          if (!sanPham || !sanPham.id || !sanPham.trangthai) {
-            console.error("Thông tin sản phẩm không hợp lệ");
-            return;
-          }
-  
-          var newTrangThai = sanPham.trangthai === 1 ? 2 : 1;
-  
-          var config = {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          };
-  
-          var url = `http://localhost:8080/api/admin-sanpham/update-sp-trangthai?idsp=${sanPham.id}&trangthai=${newTrangThai}`;
-  
-          $http
-            .put(url, {}, config) // Sử dụng {} để gửi dữ liệu trống nếu không cần gửi dữ liệu cụ thể
-            .then(function (response) {
-              Swal.fire({
-                title: "Success",
-                text: "cập nhật thành công",
-                icon: "success",
-                position: "top-end",
-                toast: true,
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              sanPham.trangthai = newTrangThai;
-            })
-            .catch(function (error) {
-              Swal.fire({
-                title: "Success",
-                text: "cập nhật thành công",
-                icon: "success",
-                position: "top-end",
-                toast: true,
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              sanPham.trangthai = newTrangThai;
-            });
-        };
-        $scope.redirectToProductDetails = function (productId) {
-          // Lưu id vào localStorage hoặc sử dụng biến trong controller
-          localStorage.setItem("IDSanPhamLayChiTiet", productId);
         };
       }
     }

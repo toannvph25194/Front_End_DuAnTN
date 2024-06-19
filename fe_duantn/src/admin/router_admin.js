@@ -84,6 +84,9 @@ app.config(function ($routeProvider, $locationProvider) {
       templateUrl: "pages/updatehoadonhuy.html",
     }).when("/bantaiquay", {
       templateUrl: "pages/bantaiquay.html",
+    }).when("/vnpaydone", {
+      templateUrl: "pages/vnpaydone.html",
+      controller: "BanHangTaiQuayController"
     })
     .otherwise({
       redirectTo: "/",

@@ -116,3 +116,89 @@
 .modal-sm {
   width: 300px;
 }
+/* Định dạng cho lớp phủ */
+/* CSS cho overlay và modal */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* màu nền xám mờ */
+  z-index: 1040;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.overlay.active {
+  opacity: 1;
+}
+.modal01 {
+  display: none;
+  position: fixed;
+  z-index: 1050;
+  left: 50%;
+  top: 50%;
+  width: auto;
+  height: auto;
+  max-height: 90%;
+  overflow: auto;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal01.active {
+  display: block;
+  opacity: 1;
+}
+.modal02 {
+  display: none;
+  position: fixed;
+  z-index: 1050;
+  left: 50%;
+  top: 50%;
+  width: 600px;
+  height: auto;
+  max-height: 90%;
+  overflow: auto;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal02.active {
+  display: block;
+  opacity: 1;
+}
+.modal03 {
+  display: none;
+  position: fixed;
+  z-index: 1050;
+  left: 50%;
+  top: 50%;
+  width: 1350px;
+  height: auto;
+  max-height: 90%;
+  overflow: auto;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal03.active {
+  display: block;
+  opacity: 1;
+}
+
+

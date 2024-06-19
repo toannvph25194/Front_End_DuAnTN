@@ -2,6 +2,9 @@
   .larger-icon {
     font-size: 1.2em;
   }
+  .larger-icon1 {
+    font-size: 2em;
+  }
 </style>
 <div
   class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto"
@@ -30,6 +33,30 @@
       <div class="card">
         <div class="card-body">
           <div
+            class="bg-yellow-100 rounded-md size-12 ltr:float-right rtl:float-left dark:bg-yellow-500/20"
+          >
+            <img
+              src="assets/images/avatar-4.png"
+              alt=""
+              class="h-12 rounded-md"
+            />
+          </div>
+          <h6 class="mb-4 text-15">Thông tin khách hàng</h6>
+
+          <h6 class="mb-1">Họ tên: {{HoaDonTheoId.tennguoinhan}}</h6>
+          <p class="mb-1 text-slate-500 dark:text-zink-200">
+            Email: {{HoaDonTheoId.emailnguoinhan}}
+          </p>
+          <p class="text-slate-500 dark:text-zink-200">
+            Số điện thoại: {{HoaDonTheoId.sdtnguoinhan}}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="2xl:col-span-4">
+      <div class="card">
+        <div class="card-body">
+          <div
             class="flex items-center justify-center bg-purple-100 rounded-md size-12 dark:bg-purple-500/20 ltr:float-right rtl:float-left"
           >
             <i
@@ -39,18 +66,41 @@
           </div>
           <h6 class="mb-4 text-15">Địa chỉ ship hàng</h6>
 
-          <h6 class="mb-1">{{HoaDonTheoId.tennguoinhan}}</h6>
+          <h6 class="mb-1">Họ tên: {{HoaDonTheoId.tennguoinhan}}</h6>
           <p class="text-slate-500 dark:text-zink-200">
-            Phí ship: <b>{{HoaDonTheoId.tiengiaohang | number:0}}vnđ</b>
+            Số điện thoại: <b>{{HoaDonTheoId.sdtnguoinhan}}</b>
           </p>
           <p class="mb-1 text-slate-500 dark:text-zink-200">
-            địa chỉ: <b>{{HoaDonTheoId.diachinhanhang}}</b>
+            Địa chỉ: <b>{{HoaDonTheoId.diachinhanhang}}</b>
           </p>
         </div>
       </div>
     </div>
-    <!--end col-->
-    <div class="2xl:col-span-4" ng-repeat="HTTT in HinhThucThanhToanList">
+    <div class="2xl:col-span-4">
+      <div class="card">
+        <div class="card-body">
+          <div
+            class="flex items-center justify-center rounded-md size-12 ltr:float-right rtl:float-left bg-sky-100 dark:bg-sky-500/20"
+          >
+            <i
+              class="ri-money-dollar-circle-line text-sky-500 fill-sky-200 dark:fill-sky-500/30 larger-icon1"
+            ></i>
+          </div>
+          <h6 class="mb-4 text-15">Thông tin tiền hoá đơn</h6>
+          <h6 class="mb-1">
+            Tổng tiền: {{ (HoaDonTheoId.thanhtien + HoaDonTheoId.tiengiaohang) |
+            number:0 }} vnđ
+          </h6>
+          <p class="mb-1 text-slate-500 dark:text-zink-200">
+            Tiền đơn hàng: <b>{{HoaDonTheoId.thanhtien | number:0}} vnđ</b>
+          </p>
+          <p class="mb-1 text-slate-500 dark:text-zink-200">
+            Phí ship: <b>{{HoaDonTheoId.tiengiaohang | number:0}} vnđ</b>
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="2xl:col-span-4" ng-repeat="HTTT in HinhThucThanhToanList">
       <div class="card">
         <div class="card-body">
           <div
@@ -63,12 +113,14 @@
           <h6 class="mb-4 text-15">Thông tin thanh toán</h6>
 
           <h6 class="mb-1">
-            Mã: {{HTTT.magiaodich == null ? "Đơn hàng thanh toán khinhận": HTTT.magiaodich}}
+            Mã: {{HTTT.magiaodich == null ? "Đơn hàng thanh toán
+            khinhận":HTTT.magiaodich}}
           </h6>
           <p class="mb-1 text-slate-500 dark:text-zink-200">
             Hình thức:
             <b
-              >{{HTTT.hinhthucthanhtoan == 1? "Thanh toán khi nhận hàng":" Thanhtoán online "}}</b
+              >{{HTTT.hinhthucthanhtoan == 1? "Thanh toán khi nhận hàng":"Thanh
+              toán online"}}</b
             >
           </p>
           <p class="mb-1 text-slate-500 dark:text-zink-200">
@@ -80,34 +132,135 @@
           </p>
         </div>
       </div>
-    </div>
-    <!--end col-->
-    <div class="2xl:col-span-4">
-      <div class="card">
-        <div class="card-body">
-          <div
-            class="bg-yellow-100 rounded-md size-12 ltr:float-right rtl:float-left dark:bg-yellow-500/20"
-          >
-            <img
-              src="assets/images/avatar-4.png"
-              alt=""
-              class="h-12 rounded-md"
-            />
-          </div>
-          <h6 class="mb-4 text-15">Thông tin khách hàng</h6>
-
-          <h6 class="mb-1">{{HoaDonTheoId.tennguoinhan}}</h6>
-          <p class="mb-1 text-slate-500 dark:text-zink-200">
-            {{HoaDonTheoId.emailnguoinhan}}
-          </p>
-          <p class="text-slate-500 dark:text-zink-200">
-            {{HoaDonTheoId.sdtnguoinhan}}
-          </p>
-        </div>
-      </div>
-    </div>
+    </div> -->
     <!--end col-->
   </div>
+  <div class="xl:col-span-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead class="ltr:text-left rtl:text-right">
+              <tr>
+                <th
+                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                >
+                  STT
+                </th>
+                <th
+                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                >
+                  Mã giao dịnh
+                </th>
+                <th
+                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                >
+                  Thời gian tạo
+                </th>
+                <th
+                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                >
+                  Số tiền
+                </th>
+                <th
+                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                >
+                  Thời gian thanh toán
+                </th>
+                <th
+                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                >
+                  Hình thức thanh toán
+                </th>
+                <th
+                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                >
+                  Ghi chú
+                </th>
+                <th
+                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                >
+                  Người xác nhận
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                class="even:bg-slate-50 hover:bg-slate-50 even:hover:bg-slate-100 dark:even:bg-zink-600/50 dark:hover:bg-zink-600 dark:even:hover:bg-zink-600"
+                ng-repeat="HTTT in HinhThucThanhToanList"
+              >
+                <td
+                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                >
+                  <a
+                    href="#!"
+                    class="transition-all duration-150 ease-linear text-custom-500 hover:text-custom-600"
+                  >
+                    {{ $index + 1}}
+                  </a>
+                </td>
+                <td
+                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                >
+                  {{ HTTT.magiaodich == null ?"Khách hàng chưa thanh
+                  toán":HTTT.magiaodich}}
+                </td>
+                <td
+                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                >
+                  {{ HTTT.ngaytao | date:'dd/MM/yyyy HH:mm:ss'}}
+                </td>
+                <td
+                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                >
+                  {{ HTTT.sotientra | number:0}}
+                </td>
+
+                <td
+                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                >
+                  {{ HTTT.ngaythanhtoan == null?"Khách chưa
+                  thanhtoán":HTTT.ngaythanhtoan|date:'dd/MM/yyyy HH:mm:ss'}}
+                </td>
+                <td
+                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                >
+                  {{ HTTT.hinhthucthanhtoan == 1 ? "Tiền mặt" :
+                  (HTTT.hinhthucthanhtoan == 2 ? "Chuyển khoản" :
+                  (HTTT.hinhthucthanhtoan == 3 ? "Hoàn tiền cho khách" : "")) }}
+                </td>
+                <td
+                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                >
+                  {{ HTTT.ghichu}}
+                </td>
+                <td
+                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                >
+                  {{ HTTT.taikhoan}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="flex justify-end gap-2 mt-5">
+          <button
+            type="button"
+            ng-click="openModal04()"
+            style="margin-right: 16px"
+            class="text-yellow-500 bg-white border-yellow-500 btn hover:text-white hover:bg-yellow-600 hover:border-yellow-600 focus:text-white focus:bg-yellow-600 focus:border-yellow-600 focus:ring focus:ring-yellow-100 active:text-white active:bg-yellow-600 active:border-yellow-600 active:ring active:ring-yellow-100 dark:bg-zink-700 dark:hover:bg-yellow-500 dark:ring-yellow-400/20 dark:focus:bg-yellow-500"
+          >
+            Chọn nhân viên
+          </button>
+        </div>
+      </div>
+      <br />
+    </div>
+  </div>
+
+
   <!--end grid-->
   <div class="grid grid-cols-1 2xl:grid-cols-12 gap-x-5">
     <div class="2xl:col-span-9">
@@ -139,8 +292,8 @@
             <div class="text-center card-body">
               <h6>
                 <h6>
-                  {{ HoaDonTheoId.ngaythanhtoan == null ? 'Chưa thanh toán' :
-                  HoaDonTheoId.ngaythanhtoan | date:'dd/MM/yyyy' }}
+                  {{ HoaDonTheoId.ngaythanhtoan == null ? 'Chưa thanh
+                  toán':HoaDonTheoId.ngaythanhtoan | date:'dd/MM/yyyy' }}
                 </h6>
               </h6>
               <p class="uppercase text-slate-500 dark:text-zink-200">
@@ -181,7 +334,7 @@
                         class="flex items-center justify-center rounded-md size-12 bg-slate-100 shrink-0"
                       >
                         <img
-                          src="assets/images/img-04.png"
+                          src="/src/fileanh/{{hoaDon.imagedefaul}}"
                           alt=""
                           class="h-8"
                         />
@@ -191,7 +344,8 @@
                           <a
                             href="apps-ecommerce-product-overview.html"
                             class="transition-all duration-300 ease-linear hover:text-custom-500"
-                            >{{hoaDon.tensp}}</a
+                            >p{{hoaDon.tensp}} - {{hoaDon.tensize}} -
+                            {{hoaDon.tenmausac}}</a
                           >
                         </h6>
 
@@ -214,13 +368,7 @@
                   <td
                     class="px-3.5 py-4 border-b border-dashed first:pl-0 last:pr-0 border-slate-200 dark:border-zink-500 ltr:text-right rtl:text-left"
                   >
-                    <input
-                      type="number"
-                      class="text-center rtl:pr-2 w-19 h-7 products-quantity dark:bg-zink-700 focus:shadow-none"
-                      value="{{hoaDon.soluong}}"
-                      min="0"
-                      max="10000"
-                    />
+                    {{hoaDon.soluong}}
                   </td>
                   <td
                     class="px-3.5 py-4 border-b border-dashed first:pl-0 last:pr-0 border-slate-200 dark:border-zink-500 ltr:text-right rtl:text-left"
@@ -228,15 +376,6 @@
                     {{ hoaDon.dongiakhigiam == null ? (hoaDon.dongia *
                     hoaDon.soluong | number:0) : (hoaDon.dongiakhigiam *
                     hoaDon.soluong | number:0) }} vnđ
-                  </td>
-                  <td
-                    class="px-3.5 py-4 border-b border-dashed first:pl-0 last:pr-0 border-slate-200 dark:border-zink-500 ltr:text-right rtl:text-left"
-                  >
-                    <a
-                      class="inline-flex items-center justify-center text-red-500 transition-all duration-200 ease-linear bg-red-100 rounded-md w-8 h-8 hover:text-white hover:bg-red-500 dark:bg-red-500/20 dark:hover:bg-red-500"
-                    >
-                      <i class="ri-delete-bin-line"></i>
-                    </a>
                   </td>
                 </tr>
               </tbody>
@@ -247,101 +386,73 @@
       <!--end card-->
       <div class="card">
         <div class="card-body">
-          <div class="flex items-center gap-3 mb-4">
-            <h6 class="text-15 grow">Lịch sử đơn hàng</h6>
-          </div>
-          <div>
-            <div
-              class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
-            >
-              <div class="flex gap-4">
-                <div class="grow">
-                  <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
-                    Order Placed
-                  </h6>
-                  <p class="text-gray-400 dark:text-zink-200">
-                    Your order has been successfully submitted.
-                  </p>
-                </div>
-                <p class="text-sm text-gray-400 dark:text-zink-200 shrink-0">
-                  02 Nov, 2023
-                </p>
-              </div>
-            </div>
-            <div
-              class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
-            >
-              <div class="flex gap-4">
-                <div class="grow">
-                  <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
-                    Order Processing
-                  </h6>
-                  <p class="text-gray-400 dark:text-zink-200">
-                    Once the order is received, it goes through the processing
-                    stage. During this time, the items are gathered, and the
-                    order is prepared for shipment.
-                  </p>
-                </div>
-                <p class="text-sm text-gray-400 dark:text-zink-200 shrink-0">
-                  02 Nov, 2023
-                </p>
-              </div>
-            </div>
-            <div
-              class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
-            >
-              <div class="flex gap-4">
-                <div class="grow">
-                  <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
-                    Shipped Order
-                  </h6>
-                  <p class="text-gray-400 dark:text-zink-200">
-                    The order is shipped out to the customer's designated
-                    delivery address.
-                  </p>
-                </div>
-                <p class="text-sm text-gray-400 dark:text-zink-200 shrink-0">
-                  04 Nov, 2023
-                </p>
-              </div>
-            </div>
-            <div
-              class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
-            >
-              <div class="flex gap-4">
-                <div class="grow">
-                  <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
-                    Out for Delivery
-                  </h6>
-                  <p class="text-gray-400 dark:text-zink-200">
-                    This status indicates that the order is currently out for
-                    delivery by the shipping or courier company.
-                  </p>
-                </div>
-                <p class="text-sm text-gray-400 dark:text-zink-200 shrink-0">
-                  06 Nov, 2023
-                </p>
-              </div>
-            </div>
-            <div
-              class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
-            >
-              <div class="flex gap-4">
-                <div class="grow">
-                  <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
-                    Delivered
-                  </h6>
-                  <p class="text-gray-400 dark:text-zink-200">
-                    Finally, when the order successfully reaches the customer's
-                    address and is handed over, the status changes to
-                    "Delivered."
-                  </p>
-                </div>
-                <p class="text-sm text-gray-400 dark:text-zink-200 shrink-0">
-                  09 Nov, 2023
-                </p>
-              </div>
-            </div>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <tbody>
+                <tr>
+                  <td
+                    class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
+                    Tổng tiền
+                  </td>
+                  <td
+                    class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
+                    {{HoaDonTheoId.thanhtien + HoaDonTheoId.giatrigiam |
+                    number:0}} vnđ
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
+                    Số tiền được giảm giá
+                  </td>
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
+                    {{HoaDonTheoId.giatrigiam | number:0}} vnđ
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
+                    Số tiền sau khi giảm
+                  </td>
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
+                    {{HoaDonTheoId.thanhtien | number:0}} vnđ
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
+                    Phí ship
+                  </td>
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
+                    {{HoaDonTheoId.tiengiaohang | number:0}} vnđ
+                  </td>
+                </tr>
+                <tr class="font-semibold">
+                  <td
+                    class="px-3.5 pt-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
+                    Tổng tiền khách trả (vnđ)
+                  </td>
+                  <td
+                    class="px-3.5 pt-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
+                    {{ (HoaDonTheoId.thanhtien + HoaDonTheoId.tiengiaohang) |
+                    number:0 }} vnđ
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -427,11 +538,12 @@
               <div class="relative flex gap-2">
                 <div
                   class="size-8 p-0.5 bg-white text-green-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700"
+                  style="color: #2ecc71; border-color: #2ecc71"
                 >
                   <i class="ri-shopping-bag-3-line size-4.5"></i>
                 </div>
                 <div>
-                  <h6 class="mb-1">Hoàn thành</h6>
+                  <h6 class="mb-1" style="color: #2ecc71">Hoàn thành</h6>
                   <p class="text-sm text-slate-500 dark:text-zink-200">
                     12 Dec, 2023
                   </p>
@@ -441,79 +553,74 @@
           </div>
         </div>
       </div>
-      <div class="card">
-        <div class="card-body">
-          <div class="overflow-x-auto">
-            <table class="w-full">
-              <tbody>
-                <tr>
-                  <td
-                    class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+    </div>
+    <!--end col-->
+  </div>
+  <div
+    id="overlay04"
+    class="overlay"
+    ng-class="{ 'active': isModalOpen }"
+    ng-click="closeModal04($event)"
+  >
+    <div id="myModal04" class="modal02">
+      <div class="modal-content01">
+        <div
+          class="w-full bg-white shadow rounded-md dark:bg-zink-600 flex flex-col h-full"
+        >
+          <div
+            class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-zink-500"
+          >
+            <h5 class="text-16">Chọn người xác nhận</h5>
+          </div>
+          <div
+            class="max-h-[calc(theme('height.screen')_-_180px)] p-4 overflow-y-auto"
+          >
+            <form>
+              <div class="grid grid-cols-1 gap-5 xl:grid-cols-12">
+                <div class="xl:col-span-12">
+                  <label
+                    for="createDateInput"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Nhân viên</label
                   >
-                    Tổng tiền
-                  </td>
-                  <td
-                    class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
-                  >
-                    {{HoaDonTheoId.thanhtien + HoaDonTheoId.giatrigiam | number:0}} vnđ
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
-                  >
-                    Số tiền được giảm giá
-                  </td>
-                  <td
-                    class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
-                  >
-                    {{HoaDonTheoId.giatrigiam | number:0}} vnđ
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
-                  >
-                    Số tiền sau khi giảm
-                  </td>
-                  <td
-                    class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
-                  >
-                    {{HoaDonTheoId.thanhtien | number:0}} vnđ
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
-                  >
-                    Phí ship
-                  </td>
-                  <td
-                    class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
-                  >
-                    {{HoaDonTheoId.tiengiaohang | number:0}} vnđ
-                  </td>
-                </tr>
-                <tr class="font-semibold">
-                  <td
-                    class="px-3.5 pt-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
-                  >
-                    Tổng tiền khách trả (vnđ)
-                  </td>
-                  <td
-                    class="px-3.5 pt-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
-                  >
-                    {{ (HoaDonTheoId.thanhtien + HoaDonTheoId.tiengiaohang) |
-                    number:0 }} vnđ
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                  <div>
+                    <select
+                      class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                      data-choices=""
+                      data-choices-search-false=""
+                      name="productTypeSelect"
+                      id="productTypeSelect"
+                      ng-model="selectedNhanVien"
+                      ng-options="nhanvien.idnv as nhanvien.taikhoan for nhanvien in NhanViens"
+                    >
+                      <option value="">Chọn nhân viên</option>
+                    </select>
+                    <span class="error-message" ng-if="errorMessage.nhanvien"
+                      >{{errorMessage.nhanvien}}</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex justify-end gap-2 mt-4">
+                <button
+                  type="submit"
+                  id="addNew"
+                  ng-click="updateNguoiXacNhan()"
+                  class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20"
+                >
+                  Cập nhật
+                </button>
+              </div>
+            </form>
+          </div>
+          <div
+            class="flex items-center justify-between p-4 mt-auto border-t border-slate-200 dark:border-zink-500"
+          >
+            <h5 class="text-16">Quần Áo Thời Trang</h5>
           </div>
         </div>
       </div>
     </div>
-    <!--end col-->
   </div>
-  <!--end grid-->
 </div>

@@ -2,6 +2,9 @@
   .larger-icon {
     font-size: 1.2em;
   }
+  .larger-icon1 {
+    font-size: 2em;
+  }
 </style>
 <div
   class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto"
@@ -30,6 +33,30 @@
       <div class="card">
         <div class="card-body">
           <div
+            class="bg-yellow-100 rounded-md size-12 ltr:float-right rtl:float-left dark:bg-yellow-500/20"
+          >
+            <img
+              src="assets/images/avatar-4.png"
+              alt=""
+              class="h-12 rounded-md"
+            />
+          </div>
+          <h6 class="mb-4 text-15">Thông tin khách hàng</h6>
+
+          <h6 class="mb-1">Họ tên: {{HoaDonTheoId.tennguoinhan}}</h6>
+          <p class="mb-1 text-slate-500 dark:text-zink-200">
+            Email: {{HoaDonTheoId.emailnguoinhan}}
+          </p>
+          <p class="text-slate-500 dark:text-zink-200">
+            Số điện thoại: {{HoaDonTheoId.sdtnguoinhan}}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="2xl:col-span-4">
+      <div class="card">
+        <div class="card-body">
+          <div
             class="flex items-center justify-center bg-purple-100 rounded-md size-12 dark:bg-purple-500/20 ltr:float-right rtl:float-left"
           >
             <i
@@ -39,18 +66,41 @@
           </div>
           <h6 class="mb-4 text-15">Địa chỉ ship hàng</h6>
 
-          <h6 class="mb-1">{{HoaDonTheoId.tennguoinhan}}</h6>
+          <h6 class="mb-1">Họ tên: {{HoaDonTheoId.tennguoinhan}}</h6>
           <p class="text-slate-500 dark:text-zink-200">
-            Phí ship: <b>{{HoaDonTheoId.tiengiaohang | number:0}}vnđ</b>
+            Số điện thoại: <b>{{HoaDonTheoId.sdtnguoinhan}}</b>
           </p>
           <p class="mb-1 text-slate-500 dark:text-zink-200">
-            địa chỉ: <b>{{HoaDonTheoId.diachinhanhang}}</b>
+            Địa chỉ: <b>{{HoaDonTheoId.diachinhanhang}}</b>
           </p>
         </div>
       </div>
     </div>
-    <!--end col-->
-    <div class="2xl:col-span-4" ng-repeat="HTTT in HinhThucThanhToanList">
+    <div class="2xl:col-span-4">
+      <div class="card">
+        <div class="card-body">
+          <div
+            class="flex items-center justify-center rounded-md size-12 ltr:float-right rtl:float-left bg-sky-100 dark:bg-sky-500/20"
+          >
+            <i
+              class="ri-money-dollar-circle-line text-sky-500 fill-sky-200 dark:fill-sky-500/30 larger-icon1"
+            ></i>
+          </div>
+          <h6 class="mb-4 text-15">Thông tin tiền hoá đơn</h6>
+          <h6 class="mb-1">
+            Tổng tiền: {{ (HoaDonTheoId.thanhtien + HoaDonTheoId.tiengiaohang) |
+            number:0 }} vnđ
+          </h6>
+          <p class="mb-1 text-slate-500 dark:text-zink-200">
+            Tiền đơn hàng: <b>{{HoaDonTheoId.thanhtien | number:0}} vnđ</b>
+          </p>
+          <p class="mb-1 text-slate-500 dark:text-zink-200">
+            Phí ship: <b>{{HoaDonTheoId.tiengiaohang | number:0}} vnđ</b>
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="2xl:col-span-4" ng-repeat="HTTT in HinhThucThanhToanList">
       <div class="card">
         <div class="card-body">
           <div
@@ -63,191 +113,164 @@
           <h6 class="mb-4 text-15">Thông tin thanh toán</h6>
 
           <h6 class="mb-1">
-            Mã: {{HTTT.magiaodich == null ? "Đơn hàng thanh toán khinhận":HTTT.magiaodich}}
+            Mã: {{HTTT.magiaodich == null ? "Đơn hàng thanh toán
+            khinhận":HTTT.magiaodich}}
           </h6>
           <p class="mb-1 text-slate-500 dark:text-zink-200">
             Hình thức:
             <b
-              >{{HTTT.hinhthucthanhtoan == 1? "Thanh toán khi nhận hàng":"Thanh toán online"}}</b
+              >{{HTTT.hinhthucthanhtoan == 1? "Thanh toán khi nhận hàng":"Thanh
+              toán online"}}</b
             >
           </p>
           <p class="mb-1 text-slate-500 dark:text-zink-200">
             Ghi chú:
             <b
-              >{{HTTT.ghichu == null ? "Khách hàng chưa thanh toán": HTTT.ghichu}}</b
+              >{{HTTT.ghichu == null ? "Khách hàng chưa thanh toán":
+              HTTT.ghichu}}</b
             >
           </p>
         </div>
       </div>
-    </div>
-    <!--end col-->
-    <div class="2xl:col-span-4">
-      <div class="card">
-        <div class="card-body">
-          <div
-            class="bg-yellow-100 rounded-md size-12 ltr:float-right rtl:float-left dark:bg-yellow-500/20"
-          >
-            <img
-              src="assets/images/avatar-4.png"
-              alt=""
-              class="h-12 rounded-md"
-            />
-          </div>
-          <h6 class="mb-4 text-15">Thông tin khách hàng</h6>
-
-          <h6 class="mb-1">{{HoaDonTheoId.tennguoinhan}}</h6>
-          <p class="mb-1 text-slate-500 dark:text-zink-200">
-            {{HoaDonTheoId.emailnguoinhan}}
-          </p>
-          <p class="text-slate-500 dark:text-zink-200">
-            {{HoaDonTheoId.sdtnguoinhan}}
-          </p>
-        </div>
-      </div>
-    </div>
+    </div> -->
     <!--end col-->
   </div>
-  <div class="card">
-    <div class="card-body">
-      <form>
-        <h6 class="my-5 underline text-16">Cập nhật hoá đơn:</h6>
-        <div>
-          <div class="flex justify-end gap-2 mt-5">
-            <button
-              type="button"
-              class="text-white btn bg-red-500 border-red-500 hover:text-white hover:bg-red-600 hover:border-red-600 focus:text-white focus:bg-red-600 focus:border-red-600 focus:ring focus:ring-red-100 active:text-white active:bg-red-600 active:border-red-600 active:ring active:ring-red-100 dark:bg-red-700 dark:hover:bg-red-600 dark:border-red-700 dark:hover:border-red-600 dark:text-white dark:ring-red-400/50"
-            >
-              <i
-                class="ri-delete-bin-line inline-block mr-1 size-4 larger-icon"
-              ></i>
-              <span class="align-middle">Huỷ</span>
-            </button>
-            <button
-              type="button"
-              class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20"
-              ng-click="updateTrangThaiHoaDon()"
-            >
-              <i class="ri-save-line inline-block mr-1 size-4 larger-icon"></i>
-              <span class="align-middle">Cập nhật</span>
-            </button>
-
-            <button
-              type="button"
-              class="text-white bg-green-500 border-green-500 btn hover:text-white hover:bg-green-600 hover:border-green-600 focus:text-white focus:bg-green-600 focus:border-green-600 focus:ring focus:ring-green-100 active:text-white active:bg-green-600 active:border-green-600 active:ring active:ring-green-100 dark:ring-green-400/10"
-            >
-              <i
-                class="ri-folder-download-line inline-block mr-1 size-4 larger-icon"
-              ></i>
-              <span class="align-middle">Download</span>
-            </button>
-          </div>
-          <div class="grid grid-cols-1 gap-5 xl:grid-cols-12 changeAddress">
-            <div class="xl:col-span-12">
-              <label
-                for="addressShippingInput"
-                class="inline-block mb-2 text-base font-medium"
-                >Ghi chú</label
+  <div class="xl:col-span-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead class="ltr:text-left rtl:text-right">
+              <tr>
+                <th
+                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                >
+                  STT
+                </th>
+                <th
+                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                >
+                  Mã giao dịnh
+                </th>
+                <th
+                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                >
+                  Thời gian tạo
+                </th>
+                <th
+                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                >
+                  Số tiền
+                </th>
+                <th
+                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                >
+                  Thời gian thanh toán
+                </th>
+                <th
+                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                >
+                  Hình thức thanh toán
+                </th>
+                <th
+                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                >
+                  Ghi chú
+                </th>
+                <th
+                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                >
+                  Người xác nhận
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                class="even:bg-slate-50 hover:bg-slate-50 even:hover:bg-slate-100 dark:even:bg-zink-600/50 dark:hover:bg-zink-600 dark:even:hover:bg-zink-600"
+                ng-repeat="HTTT in HinhThucThanhToanList"
               >
-              <textarea
-                class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                placeholder="Ghi chú"
-                id="addressShippingInput"
-                ng-model="GhiChu"
-                rows="3"
-              ></textarea>
-            </div>
-            <!--end col-->
-          </div>
-        </div>
-        <!--end grid-->
+                <td
+                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                >
+                  <a
+                    href="#!"
+                    class="transition-all duration-150 ease-linear text-custom-500 hover:text-custom-600"
+                  >
+                    {{ $index + 1}}
+                  </a>
+                </td>
+                <td
+                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                >
+                  {{HTTT.magiaodich == null ? "Chưa thanh toán":HTTT.magiaodich}}
+                </td>
+                <td
+                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                >
+                  {{ HTTT.ngaytao | date:'dd/MM/yyyy HH:mm:ss'}}
+                </td>
+                <td
+                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                >
+                  {{ HTTT.sotientra | number:0}}
+                </td>
 
-        <div class="flex items-center mt-5">
-          <!-- Thêm ID cho nút 'showFormButton' -->
+                <td
+                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                >
+                  {{ HTTT.ngaythanhtoan == null ?"Chưa thanh
+                  toán":HTTT.ngaythanhtoan| date:'dd/MM/yyyy HH:mm:ss'}}
+                </td>
+                <td
+                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                >
+                  {{ HTTT.hinhthucthanhtoan == 1?"Tiền mặt":"Chuyển khoản"}}
+                </td>
+                <td
+                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                >
+                  {{ HTTT.ghichu}}
+                </td>
+                <td
+                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                >
+                {{ HTTT.taikhoan}}
+              </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="flex justify-end gap-2 mt-5">
           <button
-            id="showFormButton"
-            class="text-slate-500 btn bg-slate-200 border-slate-200 hover:text-slate-600 hover:bg-slate-300 hover:border-slate-300 focus:text-slate-600 focus:bg-slate-300 focus:border-slate-300 focus:ring focus:ring-slate-100 active:text-slate-600 active:bg-slate-300 active:border-slate-300 active:ring active:ring-slate-100 dark:bg-zink-600 dark:hover:bg-zink-500 dark:border-zink-600 dark:hover:border-zink-500 dark:text-zink-200 dark:ring-zink-400/50"
+            type="button"
+            ng-click="openModal02()"
+            class="text-red-500 bg-white border-red-500 btn hover:text-white hover:bg-red-600 hover:border-red-600 focus:text-white focus:bg-red-600 focus:border-red-600 focus:ring focus:ring-red-100 active:text-white active:bg-red-600 active:border-red-600 active:ring active:ring-red-100 dark:bg-zink-700 dark:hover:bg-red-500 dark:ring-red-400/20 dark:focus:bg-red-500"
           >
-            <i class="ri-edit-line inline-block mr-1 size-4 larger-icon"></i>
-            <span class="align-middle">Chỉnh sửa thông tin</span>
+            Huỷ hoá đơn
+          </button>
+
+          <button
+            type="button"
+            class="bg-white text-custom-500 btn border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:bg-zink-700 dark:hover:bg-custom-500 dark:ring-custom-400/20 dark:focus:bg-custom-500"
+            ng-click="openModal01()"
+          >
+            Xác nhận
+          </button>
+          <button
+            type="button"
+            class="bg-white text-sky-500 btn border-sky-500 hover:text-white hover:bg-sky-600 hover:border-sky-600 focus:text-white focus:bg-sky-600 focus:border-sky-600 focus:ring focus:ring-sky-100 active:text-white active:bg-sky-600 active:border-sky-600 active:ring active:ring-sky-100 dark:bg-zink-700 dark:hover:bg-sky-500 dark:ring-sky-400/20 dark:focus:bg-sky-500"
+            style="margin-right: 16px"
+            ng-click="openModal()"
+          >
+            Cập nhật
           </button>
         </div>
-        <div id="editForm" class="hidden">
-          <h6 class="my-5 underline text-16">Chỉnh sửa thông tin:</h6>
-          <div class="grid grid-cols-1 gap-5 xl:grid-cols-12">
-            <div class="xl:col-span-4">
-              <label
-                for="fullNameBillingInput"
-                class="inline-block mb-2 text-base font-medium"
-                >Số điện thoại</label
-              >
-              <input
-                type="text"
-                id="fullNameBillingInput"
-                ng-model="HoaDonTheoId.sdtnguoinhan"
-                class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-              />
-            </div>
-            <!--end col-->
-            <div class="xl:col-span-4">
-              <label
-                for="phoneNoBillingInput"
-                class="inline-block mb-2 text-base font-medium"
-                >Email</label
-              >
-              <input
-                type="text"
-                id="phoneNoBillingInput"
-                ng-model="HoaDonTheoId.emailnguoinhan"
-                class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-              />
-            </div>
-            <!--end col-->
-            <div class="xl:col-span-4">
-              <label
-                for="alternativeNoBillingInput"
-                class="inline-block mb-2 text-base font-medium"
-                >Tiền ship</label
-              >
-              <input
-                type="text"
-                id="alternativeNoBillingInput"
-                ng-model="HoaDonTheoId.tiengiaohang "
-                class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-              />
-            </div>
-            <!--end col-->
-
-            <div class="xl:col-span-12">
-              <label
-                for="addressBillingInput"
-                class="inline-block mb-2 text-base font-medium"
-                >Địa chỉ</label
-              >
-              <textarea
-                ng-model="HoaDonTheoId.diachinhanhang"
-                class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                id="addressBillingInput"
-                rows="3"
-              ></textarea>
-            </div>
-            <!--end col-->
-          </div>
-          <!--end grid-->
-          <div class="flex justify-end gap-2 mt-5">
-            <button
-              type="button"
-              ng-click="updateThongTinHoaDon()"
-              class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20"
-            >
-              <i class="ri-save-line inline-block mr-1 size-4 larger-icon"></i>
-              <span class="align-middle">Cập nhật</span>
-            </button>
-          </div>
-        </div>
-      </form>
+      </div>
+      <br />
     </div>
   </div>
-
   <div class="grid grid-cols-1 2xl:grid-cols-12 gap-x-5">
     <div class="2xl:col-span-9">
       <div class="grid grid-cols-1 2xl:grid-cols-4 gap-x-4">
@@ -309,7 +332,10 @@
         <div class="card-body">
           <div class="flex items-center gap-3 mb-4">
             <h6 class="text-15 grow">Hoá đơn</h6>
-            <a href="#/showsanpham" class="text-green-500 underline shrink-0"
+            <a
+              href=""
+              class="text-green-500 underline shrink-0"
+              ng-click="openModal03()"
               >Thêm sản phẩm</a
             >
           </div>
@@ -325,7 +351,7 @@
                         class="flex items-center justify-center rounded-md size-12 bg-slate-100 shrink-0"
                       >
                         <img
-                          src="assets/images/img-04.png"
+                          src="/src/fileanh/{{hoaDon.imagedefaul}}"
                           alt=""
                           class="h-8"
                         />
@@ -335,7 +361,8 @@
                           <a
                             href="apps-ecommerce-product-overview.html"
                             class="transition-all duration-300 ease-linear hover:text-custom-500"
-                            >{{hoaDon.tensp}}</a
+                            >p{{hoaDon.tensp}} - {{hoaDon.tensize}} -
+                            {{hoaDon.tenmausac}}</a
                           >
                         </h6>
 
@@ -361,10 +388,12 @@
                     <input
                       type="number"
                       class="text-center rtl:pr-2 w-19 h-7 products-quantity dark:bg-zink-700 focus:shadow-none"
-                      value="{{hoaDon.soluong}}"
+                      ng-model="hoaDon.soluong"
                       min="0"
                       max="10000"
+                      ng-blur="updateSoLuong01(hoaDon)"
                     />
+                   
                   </td>
                   <td
                     class="px-3.5 py-4 border-b border-dashed first:pl-0 last:pr-0 border-slate-200 dark:border-zink-500 ltr:text-right rtl:text-left"
@@ -378,6 +407,7 @@
                   >
                     <a
                       class="inline-flex items-center justify-center text-red-500 transition-all duration-200 ease-linear bg-red-100 rounded-md w-8 h-8 hover:text-white hover:bg-red-500 dark:bg-red-500/20 dark:hover:bg-red-500"
+                      ng-click="deleteHoaDonCHiTiet(hoaDon)"
                     >
                       <i class="ri-delete-bin-line"></i>
                     </a>
@@ -388,104 +418,75 @@
           </div>
         </div>
       </div>
-      <!--end card-->
       <div class="card">
         <div class="card-body">
-          <div class="flex items-center gap-3 mb-4">
-            <h6 class="text-15 grow">Lịch sử đơn hàng</h6>
-          </div>
-          <div>
-            <div
-              class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
-            >
-              <div class="flex gap-4">
-                <div class="grow">
-                  <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
-                    Order Placed
-                  </h6>
-                  <p class="text-gray-400 dark:text-zink-200">
-                    Your order has been successfully submitted.
-                  </p>
-                </div>
-                <p class="text-sm text-gray-400 dark:text-zink-200 shrink-0">
-                  02 Nov, 2023
-                </p>
-              </div>
-            </div>
-            <div
-              class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
-            >
-              <div class="flex gap-4">
-                <div class="grow">
-                  <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
-                    Order Processing
-                  </h6>
-                  <p class="text-gray-400 dark:text-zink-200">
-                    Once the order is received, it goes through the processing
-                    stage. During this time, the items are gathered, and the
-                    order is prepared for shipment.
-                  </p>
-                </div>
-                <p class="text-sm text-gray-400 dark:text-zink-200 shrink-0">
-                  02 Nov, 2023
-                </p>
-              </div>
-            </div>
-            <div
-              class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
-            >
-              <div class="flex gap-4">
-                <div class="grow">
-                  <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
-                    Shipped Order
-                  </h6>
-                  <p class="text-gray-400 dark:text-zink-200">
-                    The order is shipped out to the customer's designated
-                    delivery address.
-                  </p>
-                </div>
-                <p class="text-sm text-gray-400 dark:text-zink-200 shrink-0">
-                  04 Nov, 2023
-                </p>
-              </div>
-            </div>
-            <div
-              class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
-            >
-              <div class="flex gap-4">
-                <div class="grow">
-                  <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
-                    Out for Delivery
-                  </h6>
-                  <p class="text-gray-400 dark:text-zink-200">
-                    This status indicates that the order is currently out for
-                    delivery by the shipping or courier company.
-                  </p>
-                </div>
-                <p class="text-sm text-gray-400 dark:text-zink-200 shrink-0">
-                  06 Nov, 2023
-                </p>
-              </div>
-            </div>
-            <div
-              class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
-            >
-              <div class="flex gap-4">
-                <div class="grow">
-                  <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
-                    Delivered
-                  </h6>
-                  <p class="text-gray-400 dark:text-zink-200">
-                    Finally, when the order successfully reaches the customer's
-                    address and is handed over, the status changes to
-                    "Delivered."
-                  </p>
-                </div>
-                <p class="text-sm text-gray-400 dark:text-zink-200 shrink-0">
-                  09 Nov, 2023
-                </p>
-              </div>
-            </div>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <tbody>
+                <tr>
+                  <td
+                    class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
+                    Tổng tiền
+                  </td>
+                  <td
+                    class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
+                    {{HoaDonTheoId.thanhtien + HoaDonTheoId.giatrigiam |
+                    number:0}} vnđ
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
+                    Số tiền được giảm giá
+                  </td>
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
+                    {{HoaDonTheoId.giatrigiam | number:0}} vnđ
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
+                    Số tiền sau khi giảm
+                  </td>
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
+                    {{HoaDonTheoId.thanhtien | number:0}} vnđ
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
+                    Phí ship
+                  </td>
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
+                    {{HoaDonTheoId.tiengiaohang | number:0}} vnđ
+                  </td>
+                </tr>
+                <tr class="font-semibold">
+                  <td
+                    class="px-3.5 pt-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
+                    Tổng tiền khách trả (vnđ)
+                  </td>
+                  <td
+                    class="px-3.5 pt-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
+                    {{ (HoaDonTheoId.thanhtien + HoaDonTheoId.tiengiaohang) |
+                    number:0 }} vnđ
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -497,19 +498,88 @@
           <h6 class="mb-4 text-15">Trạng thái hoá đơn</h6>
           <div>
             <div
-              class="before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500"
+              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500"
             >
               <div class="relative flex gap-2">
                 <div
                   class="size-8 p-0.5 bg-white text-gray-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700"
+                  style="color: #808080; border-color: #808080"
                 >
                   <i class="ri-file-text-line size-4.5"></i>
                 </div>
+                <div>
+                  <h6 class="mb-1" style="color: #808080">Chờ xác nhận</h6>
+                  <p class="text-sm text-slate-500 dark:text-zink-200">
+                    05:57 AM Today
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500"
+            >
+              <div class="relative flex gap-2">
+                <div
+                  class="size-8 p-0.5 text-blue-500 flex items-center justify-center border rounded-full shrink-0"
+                >
+                  <i class="ri-newspaper-line size-4.5"></i>
+                </div>
 
                 <div>
-                  <h6 class="mb-1">Chờ xác nhận</h6>
+                  <h6 class="mb-1">Đã xác nhận</h6>
                   <p class="text-sm text-slate-500 dark:text-zink-200">
-                    {{HoaDonTheoId.mahoadon}}
+                    25 Dec, 2023
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500"
+            >
+              <div class="relative flex gap-2">
+                <div
+                  class="size-8 p-0.5 bg-white text-yellow-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700"
+                >
+                  <i class="ri-loader-2-line size-4.5"></i>
+                </div>
+
+                <div>
+                  <h6 class="mb-1">Đang chờ giao hàng</h6>
+                  <p class="text-sm text-slate-500 dark:text-zink-200">
+                    12 Dec, 2023
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500"
+            >
+              <div class="relative flex gap-2">
+                <div
+                  class="size-8 p-0.5 bg-white text-purple-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700"
+                >
+                  <i class="ri-truck-line size-4.5"></i>
+                </div>
+
+                <div>
+                  <h6 class="mb-1">Đang giao</h6>
+                  <p class="text-sm text-slate-500 dark:text-zink-200">
+                    12 Dec, 2023
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="relative">
+              <div class="relative flex gap-2">
+                <div
+                  class="size-8 p-0.5 bg-white text-green-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700"
+                >
+                  <i class="ri-shopping-bag-3-line size-4.5"></i>
+                </div>
+                <div>
+                  <h6 class="mb-1">Hoàn thành</h6>
+                  <p class="text-sm text-slate-500 dark:text-zink-200">
+                    12 Dec, 2023
                   </p>
                 </div>
               </div>
@@ -517,79 +587,682 @@
           </div>
         </div>
       </div>
-      <div class="card">
-                <div class="card-body">
+    </div>
+    <!--end col-->
+  </div>
+  <div
+    id="overlay"
+    class="overlay"
+    ng-class="{ 'active': isModalOpen }"
+    ng-click="closeModal($event)"
+  >
+    <div id="myModal" class="modal01">
+      <div class="modal-content01">
+        <div
+          class="w-full bg-white shadow rounded-md dark:bg-zink-600 flex flex-col h-full"
+        >
+          <div
+            class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-zink-500"
+          >
+            <h5 class="text-16">Cập nhật thông tin khách hàng</h5>
+          </div>
+          <div
+            class="max-h-[calc(theme('height.screen')_-_180px)] p-4 overflow-y-auto"
+          >
+            <form>
+              <div class="grid grid-cols-1 gap-5 xl:grid-cols-12">
+                <div class="xl:col-span-4">
+                  <label
+                    for="createDateInput"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Số điện thoại</label
+                  >
+                  <input
+                    type="text"
+                    id="createDateInput"
+                    ng-model="HoaDonTheoId.sdtnguoinhan"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  />
+                </div>
+                <div class="xl:col-span-4">
+                  <label
+                    for="createDateInput"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Email</label
+                  >
+                  <input
+                    type="text"
+                    id="createDateInput"
+                    ng-model="HoaDonTheoId.emailnguoinhan"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  />
+                </div>
+                <div class="xl:col-span-4">
+                  <label
+                    for="createDateInput"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Tiền giao hàng</label
+                  >
+                  <input
+                    type="number"
+                    id="createDateInput"
+                    ng-model="HoaDonTheoId.tiengiaohang "
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  />
+                </div>
+
+                <div class="xl:col-span-12">
+                  <div>
+                    <label
+                      for="textArea"
+                      class="inline-block mb-2 text-base font-medium"
+                      >Địa chỉ</label
+                    >
+                    <textarea
+                      class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                      id="textArea"
+                      ng-model="HoaDonTheoId.diachinhanhang"
+                      rows="4"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex justify-end gap-2 mt-4">
+                <button
+                  type="submit"
+                  id="addNew"
+                  ng-click="updateThongTinHoaDonchoxacnhan()"
+                  class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20"
+                >
+                  Cập nhật
+                </button>
+              </div>
+            </form>
+          </div>
+          <div
+            class="flex items-center justify-between p-4 mt-auto border-t border-slate-200 dark:border-zink-500"
+          >
+            <h5 class="text-16">Quần Áo Thời Trang</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    id="overlay01"
+    class="overlay"
+    ng-class="{ 'active': isModalOpen }"
+    ng-click="closeModal01($event)"
+  >
+    <div id="myModal01" class="modal02">
+      <div class="modal-content01">
+        <div
+          class="w-full bg-white shadow rounded-md dark:bg-zink-600 flex flex-col h-full"
+        >
+          <div
+            class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-zink-500"
+          >
+            <h5 class="text-16">Cập nhật trạng thái hoá đơn</h5>
+          </div>
+          <div
+            class="max-h-[calc(theme('height.screen')_-_180px)] p-4 overflow-y-auto"
+          >
+            <form>
+              <div class="grid grid-cols-1 gap-5 xl:grid-cols-12">
+                <div class="xl:col-span-12">
+                  <div>
+                    <label
+                      for="textArea"
+                      class="inline-block mb-2 text-base font-medium"
+                      >Ghi chú</label
+                    >
+                    <textarea
+                      class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                      id="textArea"
+                      ng-model="GhiChu"
+                      rows="4"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex justify-end gap-2 mt-4">
+                <button
+                  type="submit"
+                  id="addNew"
+                  ng-click="updateTrangThaiHoaDonChoXacNhan()"
+                  class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20"
+                >
+                  Cập nhật
+                </button>
+              </div>
+            </form>
+          </div>
+          <div
+            class="flex items-center justify-between p-4 mt-auto border-t border-slate-200 dark:border-zink-500"
+          >
+            <h5 class="text-16">Quần Áo Thời Trang</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    id="overlay02"
+    class="overlay"
+    ng-class="{ 'active': isModalOpen }"
+    ng-click="closeModal02($event)"
+  >
+    <div id="myModal02" class="modal02">
+      <div class="modal-content01">
+        <div
+          class="w-full bg-white shadow rounded-md dark:bg-zink-600 flex flex-col h-full"
+        >
+          <div
+            class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-zink-500"
+          >
+            <h5 class="text-16">Cập nhật trạng thái hoá đơn</h5>
+          </div>
+          <div
+            class="max-h-[calc(theme('height.screen')_-_180px)] p-4 overflow-y-auto"
+          >
+            <form>
+              <div class="grid grid-cols-1 gap-5 xl:grid-cols-12">
+                <div class="xl:col-span-12">
+                  <div>
+                    <label
+                      for="textArea"
+                      class="inline-block mb-2 text-base font-medium"
+                      >Ghi chú</label
+                    >
+                    <textarea
+                      class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                      id="textArea"
+                      ng-model="GhiChu"
+                      rows="4"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex justify-end gap-2 mt-4">
+                <button
+                  type="submit"
+                  id="addNew"
+                  ng-click="updateTrangThaiHoaDonHuy()"
+                  class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20"
+                >
+                  Cập nhật
+                </button>
+              </div>
+            </form>
+          </div>
+          <div
+            class="flex items-center justify-between p-4 mt-auto border-t border-slate-200 dark:border-zink-500"
+          >
+            <h5 class="text-16">Quần Áo Thời Trang</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    id="overlay03"
+    class="overlay"
+    ng-class="{ 'active': isModalOpen }"
+    ng-click="closeModal03($event)"
+    ng-controller="ShowSanPhamController"
+  >
+    <div id="myModal03" class="modal03">
+      <div class="modal-content01">
+        <div
+          class="w-full bg-white shadow rounded-md dark:bg-zink-600 flex flex-col h-full"
+        >
+          <div
+            class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-zink-500"
+          >
+            <h5 class="text-16">Thêm sản phẩm</h5>
+          </div>
+
+          <div class="grid grid-cols-1 2xl:grid-cols-12 gap-x-5">
+            <div class="hidden 2xl:col-span-3 2xl:block">
+              <form action="">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="flex items-center gap-3">
+                      <h6 class="text-15 grow">Lọc sản phẩm</h6>
+                      <div class="shrink-0">
+                        <button
+                          type="reset"
+                          class="underline transition-all duration-200 ease-linear hover:text-custom-500"
+                          ng-click="ShowSP()"
+                        >
+                          Làm mới
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="relative mt-4">
+                      <input
+                        type="text"
+                        class="ltr:pl-8 rtl:pr-8 search form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                        placeholder="Tìm kiếm ..."
+                        ng-model="tensp"
+                        ng-change="locTenSPShop()"
+                      />
+                      <i
+                        data-lucide="search"
+                        class="inline-block size-4 absolute ltr:left-2.5 rtl:right-2.5 top-2.5 text-slate-500 dark:text-zink-200 fill-slate-100 dark:fill-zink-600"
+                      ></i>
+                    </div>
+
+                    <div class="mt-4 collapsible">
+                      <button
+                        class="flex items-center w-full text-left collapsible-header group"
+                      >
+                        <h6 class="underline grow">Danh mục</h6>
+                        <div class="shrink-0 text-slate-500 dark:text-zink-200">
+                          <i
+                            data-lucide="chevron-down"
+                            class="hidden size-4 group-[.show]:inline-block"
+                          ></i>
+                          <i
+                            data-lucide="chevron-up"
+                            class="inline-block size-4 group-[.show]:hidden"
+                          ></i>
+                        </div>
+                      </button>
+                      <div class="mt-4 collapsible-content">
+                        <select
+                          class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                          data-choices=""
+                          data-choices-search-false=""
+                          name="productTypeSelect"
+                          id="productTypeSelect"
+                          ng-model="tendanhmuc"
+                          ng-change="locSPShopNhieuTC()"
+                        >
+                          <option value="">Tất cả</option>
+                          <option
+                            ng-repeat="danhmuc in danhmucs"
+                            value="{{danhmuc.tendanhmuc}}"
+                          >
+                            {{danhmuc.tendanhmuc}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="mt-4 collapsible">
+                      <button
+                        class="flex items-center w-full text-left collapsible-header group"
+                      >
+                        <h6 class="underline grow">Màu sắc</h6>
+                        <div class="shrink-0 text-slate-500 dark:text-zink-200">
+                          <i
+                            data-lucide="chevron-down"
+                            class="hidden size-4 group-[.show]:inline-block"
+                          ></i>
+                          <i
+                            data-lucide="chevron-up"
+                            class="inline-block size-4 group-[.show]:hidden"
+                          ></i>
+                        </div>
+                      </button>
+                      <div class="mt-4 collapsible-content">
+                        <div class="flex flex-wrap items-center gap-2">
+                          <select
+                            class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                            data-choices=""
+                            data-choices-search-false=""
+                            name="taxApplicable"
+                            id="taxApplicable"
+                            ng-model="tenmausac"
+                            ng-change="locSPShopNhieuTC()"
+                          >
+                            <option value="">Tất cả</option>
+                            <option
+                              ng-repeat="mausac in MauSacs"
+                              value="{{mausac.tenmausac}}"
+                            >
+                              {{mausac.tenmausac}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mt-4 collapsible">
+                      <button
+                        class="flex items-center w-full text-left collapsible-header group"
+                      >
+                        <h6 class="underline grow">Size</h6>
+                        <div class="shrink-0 text-slate-500 dark:text-zink-200">
+                          <i
+                            data-lucide="chevron-down"
+                            class="hidden size-4 group-[.show]:inline-block"
+                          ></i>
+                          <i
+                            data-lucide="chevron-up"
+                            class="inline-block size-4 group-[.show]:hidden"
+                          ></i>
+                        </div>
+                      </button>
+                      <div class="mt-4 collapsible-content">
+                        <select
+                          class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                          data-choices=""
+                          data-choices-search-false=""
+                          name="taxApplicable"
+                          id="taxApplicable"
+                          ng-model="tensize"
+                          ng-change="locSPShopNhieuTC()"
+                        >
+                          <option value="">Tất cả</option>
+                          <option
+                            ng-repeat="size in Sizes"
+                            value="{{size.tensize}}"
+                          >
+                            {{size.tensize}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="mt-4 collapsible">
+                      <button
+                        class="flex items-center w-full text-left collapsible-header group"
+                      >
+                        <h6 class="underline grow">Chất liệu</h6>
+                        <div class="shrink-0 text-slate-500 dark:text-zink-200">
+                          <i
+                            data-lucide="chevron-down"
+                            class="hidden size-4 group-[.show]:inline-block"
+                          ></i>
+                          <i
+                            data-lucide="chevron-up"
+                            class="inline-block size-4 group-[.show]:hidden"
+                          ></i>
+                        </div>
+                      </button>
+                      <div class="mt-4 collapsible-content">
+                        <select
+                          class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                          data-choices=""
+                          data-choices-search-false=""
+                          name="taxApplicable"
+                          id="taxApplicable"
+                          ng-model="tenchatlieu"
+                          ng-change="locSPShopNhieuTC()"
+                        >
+                          <option value="">Tất cả</option>
+                          <option
+                            ng-repeat="chatlieu in Chatlieus"
+                            value="{{chatlieu.tenchatlieu}}"
+                          >
+                            {{chatlieu.tenchatlieu}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="mt-4 collapsible">
+                      <button
+                        class="flex items-center w-full text-left collapsible-header group"
+                      >
+                        <h6 class="underline grow">Thương hiệu</h6>
+                        <div class="shrink-0 text-slate-500 dark:text-zink-200">
+                          <i
+                            data-lucide="chevron-down"
+                            class="hidden size-4 group-[.show]:inline-block"
+                          ></i>
+                          <i
+                            data-lucide="chevron-up"
+                            class="inline-block size-4 group-[.show]:hidden"
+                          ></i>
+                        </div>
+                      </button>
+                      <div class="mt-4 collapsible-content">
+                        <select
+                          class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                          data-choices=""
+                          data-choices-search-false=""
+                          name="taxApplicable"
+                          id="taxApplicable"
+                          ng-model="tenthuonghieu"
+                          ng-change="locSPShopNhieuTC()"
+                        >
+                          <option value="">Tất cả</option>
+                          <option
+                            ng-repeat="thuonghieu in thuongHieus"
+                            value="{{thuonghieu.tenthuonghieu}}"
+                          >
+                            {{thuonghieu.tenthuonghieu}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="mt-4 collapsible">
+                      <button
+                        class="flex items-center w-full text-left collapsible-header group"
+                      >
+                        <h6 class="underline grow">Xuất xứ</h6>
+                        <div class="shrink-0 text-slate-500 dark:text-zink-200">
+                          <i
+                            data-lucide="chevron-down"
+                            class="hidden size-4 group-[.show]:inline-block"
+                          ></i>
+                          <i
+                            data-lucide="chevron-up"
+                            class="inline-block size-4 group-[.show]:hidden"
+                          ></i>
+                        </div>
+                      </button>
+                      <div class="mt-4 collapsible-content">
+                        <select
+                          class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                          data-choices=""
+                          data-choices-search-false=""
+                          name="taxApplicable"
+                          id="taxApplicable"
+                          ng-model="tenxuatxu"
+                          ng-change="locSPShopNhieuTC()"
+                        >
+                          <option value="">Tất cả</option>
+                          <option
+                            ng-repeat="xuatxu in xuatXus"
+                            value="{{xuatxu.tenxuatxu}}"
+                          >
+                            {{xuatxu.tenxuatxu}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!--end col-->
+            <!-- phải -->
+            <div class="2xl:col-span-9">
+              <div class="card" id="productListTable">
+                <div class="!pt-1 card-body">
                   <div class="overflow-x-auto">
-                    <table class="w-full">
-                      <tbody>
+                    <table class="w-full whitespace-nowrap" id="productTable">
+                      <thead
+                        class="ltr:text-left rtl:text-right bg-slate-100 dark:bg-zink-600"
+                      >
                         <tr>
-                          <td
-                            class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                          <th
+                            class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_code"
+                            data-sort="product_code"
                           >
-                            Tổng tiền
-                          </td>
-                          <td
-                            class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                            Mã sản phẩm
+                          </th>
+                          <th
+                            class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_name"
+                            data-sort="product_name"
                           >
-                            {{HoaDonTheoId.thanhtien + HoaDonTheoId.giatrigiam | number:0}} vnđ
-                          </td>
+                            Tên sản phẩm
+                          </th>
+                          <th
+                            class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_name"
+                            data-sort="product_name"
+                          >
+                            Số lượng tồn
+                          </th>
+                          <th
+                            class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort category"
+                            data-sort="category"
+                          >
+                            Giá bán
+                          </th>
+                          <th
+                            class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort category"
+                            data-sort="category"
+                          >
+                            Màu sắc
+                          </th>
+                          <th
+                            class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort price"
+                            data-sort="price"
+                          >
+                            Size
+                          </th>
+
+                          <th
+                            class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 action"
+                          >
+                            Action
+                          </th>
                         </tr>
-                        <tr>
+                      </thead>
+                      <tbody class="list">
+                        <tr ng-repeat="sanPham in sanPhamLoadPhanTrang">
                           <td
-                            class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                            class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
                           >
-                            Số tiền được giảm giá
+                            <a
+                              href=""
+                              class="transition-all duration-150 ease-linear product_code text-custom-500 hover:text-custom-600"
+                              >{{ $index + 1}}</a
+                            >
                           </td>
                           <td
-                            class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                            class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 product_name"
                           >
-                            {{HoaDonTheoId.giatrigiam | number:0}} vnđ
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
-                          >
-                            Số tiền sau khi giảm
-                          </td>
-                          <td
-                            class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
-                          >
-                            {{HoaDonTheoId.thanhtien | number:0}} vnđ
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
-                          >
-                            Phí ship
+                            <a
+                              href="apps-ecommerce-product-overview.html"
+                              class="flex items-center gap-2"
+                            >
+                              <img
+                                src="/src/fileanh/{{sanPham.imagedefaul}}"
+                                alt="Product images"
+                                class="h-10"
+                              />
+                              <h6 class="product_name">{{sanPham.tensp}}</h6>
+                            </a>
                           </td>
                           <td
-                            class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                            class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 category"
                           >
-                            {{HoaDonTheoId.tiengiaohang | number:0}} vnđ
-                          </td>
-                        </tr>
-                        <tr class="font-semibold">
-                          <td
-                            class="px-3.5 pt-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
-                          >
-                            Tổng tiền khách trả (vnđ)
+                            <span
+                              class="category px-2.5 py-0.5 text-xs inline-block font-medium rounded border bg-slate-100 border-slate-200 text-slate-500 dark:bg-slate-500/20 dark:border-slate-500/20 dark:text-zink-200"
+                              >{{sanPham.soluongton}}</span
+                            >
                           </td>
                           <td
-                            class="px-3.5 pt-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                            class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 price"
                           >
-                            {{ (HoaDonTheoId.thanhtien + HoaDonTheoId.tiengiaohang) |
-                            number:0 }} vnđ
+                            <span>
+                              {{ sanPham.dongiakhigiam == null ? (sanPham.giaban
+                              | number:0) : ( sanPham.dongiakhigiam | number:0)
+                              }} vnđ
+                            </span>
+                            <small
+                              class="font-normal line-through text-slate-500 dark:text-zink-200"
+                            >
+                              {{ sanPham.dongiakhigiam == null ? "" :
+                              (sanPham.giaban | number:0) }} vnđ
+                            </small>
+                          </td>
+                          <td
+                            class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 price"
+                          >
+                            {{sanPham.tenmausac}}
+                          </td>
+                          <td
+                            class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 price"
+                          >
+                            {{ sanPham.tensize }}
+                          </td>
+                          <td
+                            class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                          >
+                            <div class="flex gap-2">
+                              <a
+                                class="flex items-center justify-center text-green-500 transition-all duration-200 ease-linear bg-green-100 rounded-md size-8 hover:text-white hover:bg-green-500 dark:bg-green-500/20 dark:hover:bg-green-500"
+                                ng-click="addSanPham(sanPham)"
+                                ><i class="ri-add-line"></i
+                              ></a>
+                            </div>
                           </td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
+
+                  <div
+                    class="flex flex-col items-center gap-4 px-4 mt-4 md:flex-row"
+                    id="pagination-element"
+                  >
+                    <div class="mb-4 grow md:mb-0">
+                      <p class="text-slate-500 dark:text-zink-200">
+                        Số trang <b>{{currentPage}}</b> trên
+                        <b>{{totalPages}}</b> trang
+                      </p>
+                    </div>
+                    <ul class="flex flex-wrap items-center gap-2 shrink-0">
+                      <li>
+                        <a
+                          ng-click="previousPage()"
+                          class="inline-flex items-center justify-center bg-white dark:bg-zink-700 h-8 px-3 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 [&.active]:text-white dark:[&.active]:text-white [&.active]:bg-custom-500 dark:[&.active]:bg-custom-500 [&.active]:border-custom-500 dark:[&.active]:border-custom-500 [&.active]:hover:text-custom-700 dark:[&.active]:hover:text-custom-700 [&.disabled]:text-slate-400 dark:[&.disabled]:text-zink-300 [&.disabled]:cursor-auto"
+                        >
+                          Prev</a
+                        >
+                      </li>
+                      <li>
+                        <input
+                          ng-model="currentPage"
+                          min="1"
+                          max="{{totalPages}}"
+                          class="inline-flex items-center justify-center bg-white dark:bg-zink-700 w-8 h-8 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 [&.active]:text-white dark:[&.active]:text-white [&.active]:bg-custom-500 dark:[&.active]:bg-custom-500 [&.active]:border-custom-500 dark:[&.active]:border-custom-500 [&.active]:hover:text-custom-700 dark:[&.active]:hover:text-custom-700 [&.disabled]:text-slate-400 dark:[&.disabled]:text-zink-300 [&.disabled]:cursor-auto"
+                          style="text-align: center; line-height: 1.5"
+                          readonly
+                        />
+                      </li>
+                      <li>
+                        <a
+                          ng-click="nextPage()"
+                          class="inline-flex items-center justify-center bg-white dark:bg-zink-700 h-8 px-3 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 [&.active]:text-white dark:[&.active]:text-white [&.active]:bg-custom-500 dark:[&.active]:bg-custom-500 [&.active]:border-custom-500 dark:[&.active]:border-custom-500 [&.active]:hover:text-custom-700 dark:[&.active]:hover:text-custom-700 [&.disabled]:text-slate-400 dark:[&.disabled]:text-zink-300 [&.disabled]:cursor-auto"
+                          ng-show="showNextButton"
+                          >Next
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
+            </div>
+
+            <!--end col-->
+          </div>
+
+          <div
+            class="flex items-center justify-between p-4 mt-auto border-t border-slate-200 dark:border-zink-500"
+          >
+            <h5 class="text-16">Quần Áo Thời Trang</h5>
+          </div>
+        </div>
+      </div>
     </div>
-    <!--end col-->
   </div>
-  
 </div>
