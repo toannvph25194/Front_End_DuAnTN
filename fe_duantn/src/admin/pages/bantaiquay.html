@@ -534,10 +534,10 @@
                       </div>
                       <div class="relative xl:col-span-6">
                         <div class="shrink-0">
-                          <a href="#/themnv" type="button"
-                            class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">
-                            <span class="align-middle">Thêm mới khách hàng</span>
-                          </a>
+                          <button type="button" ng-click="openModal06()"
+                            class="text-green-500 bg-green-100 btn hover:text-white hover:bg-green-600 focus:text-white focus:bg-green-600 focus:ring focus:ring-green-100 active:text-white active:bg-green-600 active:ring active:ring-green-100 dark:bg-green-500/20 dark:text-green-400 dark:hover:bg-green-500 dark:hover:text-white dark:focus:bg-green-500 dark:focus:text-white dark:active:bg-green-500 dark:active:text-white dark:ring-green-400/20">
+                            Thêm mới khách hàng
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -983,7 +983,146 @@
       </div>
     </div>
       <!-- thêm khách hàng -->
+      <div id="myModal06" class="modal">
+        <div class="modal-content">
+          <div class="w-3/4 max-w-screen-md bg-white shadow-md rounded-md dark:bg-gray-800">
+            <!-- Header của modal -->
+            <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+              <h5 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Thêm khách hàng mới</h5>
+              <button class="text-gray-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-500 close" ng-click="closeModal06()">
+                <i class="ri-close-line size-5"></i>
+              </button>
+            </div>
+            
+            <div
+          class="w-full bg-white shadow rounded-md dark:bg-zink-600 flex flex-col h-full"
+        >
+          
+          <div
+            class="max-h-[calc(theme('height.screen')_-_180px)] p-4 overflow-y-auto"
+          >
+            <form>
+              <div class="grid grid-cols-1 gap-5 xl:grid-cols-12">
+                <div class="xl:col-span-4">
+                  <label
+                    for="createDateInput"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Họ và tên</label
+                  >
+                  <input
+                    type="text"
+                    id="hovatenkh"
+                    ng-model="khachHang.hovatenkh"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  />
+                </div>
+                <div class="xl:col-span-4">
+                  <label
+                    for="createDateInput"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Số điện thoại</label
+                  >
+                  <input
+                    type="number"
+                    id="sodienthoai"
+                    ng-model="khachHang.sodienthoai"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  />
+                </div>
 
+                <div class="xl:col-span-4">
+                  <label
+                    for="createDateInput"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Email</label
+                  >
+                  <input
+                    type="text"
+                    id="Email"
+                    ng-model="khachHang.email"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  />
+                </div>
+                <div class="xl:col-span-4">
+                  <label
+                    for="createDateInput"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Địa chỉ chi tiết</label
+                  >
+                  <input
+                    type="text"
+                    id="diachichitiet"
+                    ng-model="diaChi.diachichitiet"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  />
+                </div>
+                <div class="xl:col-span-4">
+                  <label
+                    for="createDateInput"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Phường/Xã</label
+                  >
+                  <input
+                    type="text"
+                    id="phuongxa"
+                    ng-model="diaChi.phuongxa"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  />
+                </div>
+                <div class="xl:col-span-4">
+                  <label
+                    for="createDateInput"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Quận/Huyện</label
+                  >
+                  <input
+                    type="text"
+                    id="quanhuyen"
+                    ng-model="diaChi.quanhuyen"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  />
+                </div>
+                <div class="xl:col-span-4">
+                  <label
+                    for="createDateInput"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Tỉnh/Thành</label
+                  >
+                  <input
+                    type="text"
+                    id="tinhthanh"
+                    ng-model="diaChi.tinhthanh"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                  />
+                </div>
+            
+              </div>
+
+              <div class="flex justify-end gap-2 mt-4">
+                <button
+                  type="submit"
+                  id="addNew"
+                  ng-click="addKhachHang()"
+                  class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20"
+                >
+                  Thêm mới
+                </button>
+              </div>
+            </form>
+          </div>
+          <div
+            class="flex items-center justify-between p-4 mt-auto border-t border-slate-200 dark:border-zink-500"
+          >
+            <h5 class="text-16">Quần Áo Thời Trang</h5>
+          </div>
+        </div>
+            
+  
+       
+            
+          </div>
+        </div>
+      </div>
       <!--end card-->
     </div>
     <!--end col-->

@@ -777,6 +777,10 @@ app.controller(
       var modal = document.getElementById("myModal04");
       modal.style.display = "block";
     };
+    $scope.openModal06 = function () {
+      var modal = document.getElementById("myModal06");
+      modal.style.display = "block";
+    };
 
     // Đóng modal
     $scope.closeModal = function () {
@@ -799,246 +803,12 @@ app.controller(
       var modal = document.getElementById("myModal04");
       modal.style.display = "none";
     };
-
-    /// Hùng làm
-
-    $scope.itemsPerPage1 = 10; // Số lượng khách hàng mỗi trang
-    $scope.currentPage1 = 1; // Khởi tạo trang hiện tại
-
-    $scope.khachHangList = [];
-    $scope.sodienthoaitimkiem = "";
-
-    $scope.getLoadKhachHang = function (page) {
-      var apiUrl =
-        "http://localhost:8080/api/auth/khachhangbantaiquay/khachhang";
-
-      // Thêm các tham số phân trang vào URL
-      var params = {
-        trangthai: 1,
-        page: (page || 1) - 1, // Chuyển đổi sang trang bắt đầu từ 0
-        size: $scope.itemsPerPage1,
-      };
-
-      // Yêu cầu GET HTTP sử dụng $http
-      $http
-        .get(apiUrl, {
-          params: params,
-          headers: { Authorization: "Bearer " + token },
-        })
-        .then(function (response) {
-          // Xử lý dữ liệu nhận được nếu yêu cầu thành công
-          $scope.khachHangList = response.data.content;
-          $scope.totalItems1 = response.data.totalElements;
-
-          // Tính toán số trang dựa trên số lượng phần tử thực tế
-          $scope.totalPages1 = Math.ceil(
-            $scope.totalItems1 / $scope.itemsPerPage1
-          );
-          console.log("Thành Công");
-        })
-        .catch(function (error) {
-          // Xử lý lỗi nếu yêu cầu thất bại
-          console.error("Error:", error);
-        });
+    $scope.closeModal06 = function () {
+      var modal = document.getElementById("myModal06");
+      modal.style.display = "none";
     };
 
-    $scope.getLoadtheotenKhachHang = function (page) {
-      var apiUrl =
-        "http://localhost:8080/api/auth/khachhangbantaiquay/khachhangtimkiem";
-
-      // Thêm các tham số phân trang vào URL
-      var params = {
-        keyword: $scope.keywordTimKiem, // Đổi tên tham số từ sodienthoai thành keyword
-        page: (page || 1) - 1, // Chuyển đổi sang trang bắt đầu từ 0
-        size: $scope.itemsPerPage1,
-      };
-
-      // Yêu cầu GET HTTP sử dụng $http
-      $http
-        .get(apiUrl, {
-          params: params,
-          headers: { Authorization: "Bearer " + token },
-        })
-        .then(function (response) {
-          // Xử lý dữ liệu nhận được nếu yêu cầu thành công
-          $scope.khachHangList = response.data.content;
-          $scope.totalItems1 = response.data.totalElements;
-
-          // Tính toán số trang dựa trên số lượng phần tử thực tế
-          $scope.totalPages1 = Math.ceil(
-            $scope.totalItems1 / $scope.itemsPerPage1
-          );
-          console.log("Thành Công");
-        })
-        .catch(function (error) {
-          // Xử lý lỗi nếu yêu cầu thất bại
-          console.error("Error:", error);
-        });
-    };
-
-    // Hàm để chuyển đến trang trước
-    $scope.previousPage1 = function () {
-      if ($scope.currentPage1 > 1) {
-        $scope.currentPage1--;
-        $scope.keywordTimKiem
-          ? $scope.getLoadtheotenKhachHang($scope.currentPage1)
-          : $scope.getLoadKhachHang($scope.currentPage1);
-      }
-    };
-
-    // Hàm để chuyển đến trang tiếp theo
-    $scope.nextPage1 = function () {
-      if ($scope.currentPage1 < $scope.totalPages1) {
-        $scope.currentPage1++;
-        $scope.keywordTimKiem
-          ? $scope.getLoadtheotenKhachHang($scope.currentPage1)
-          : $scope.getLoadKhachHang($scope.currentPage1);
-      }
-    };
-
-    // Load dữ liệu cho trang đầu tiên khi trang được khởi tạo
-    $scope.getLoadKhachHang($scope.currentPage1);
-
-    $scope.themKhachHangVaoHD = function (khachHang) {
-      // Lưu id vào localStorage hoặc sử dụng biến trong controller
-      localStorage.setItem("idkhtq", khachHang.idkh);
-      console.log(khachHang);
-      var idhoakhoanTaiQuay = localStorage.getItem("idhoadontq");
-      console.log(idhoakhoanTaiQuay);
-    };
-
-    //Hùng làm phần update thông tin khách hàng vào hóa đơn
-    $scope.selectedCustomerName = "";
-    $scope.themKhachHangVaoHD = function (khachHang) {
-      localStorage.setItem("idkhtq", khachHang.idkh);
-      localStorage.setItem("tenkhachhang", khachHang.hovatenkh);
-      $scope.selectedCustomerName = khachHang.hovatenkh;
-      $scope.updateKhachHang(khachHang);
-    };
-
-    $scope.updateKhachHang = function (hovatenkh) {
-      var idhoadon = localStorage.getItem("idhoadontq");
-      var idkh = localStorage.getItem("idkhtq");
-      var url =
-        "http://localhost:8080/api/auth/khachhangbantaiquay/updateKhachHang";
-      var data = {
-        idhoadon: idhoadon,
-        idkh: idkh,
-        hovatenkh: hovatenkh.hovatenkh,
-      };
-
-      $http
-        .put(url, data, config)
-        .then(function (response) {
-          if (response.status === 200) {
-            $scope.loadHoaDonTaiQuay.forEach(function (hdtq) {
-              if (hdtq.id == idhoadon) {
-                hdtq.tenkhachhang = hovatenkh.hovatenkh;
-                hdtq.tennguoinhan = hovatenkh.hovatenkh; // Cập nhật tennguoinhan
-              }
-            });
-
-            Swal.fire({
-              title: "Thành Công",
-              text: "Cập nhật khách hàng thành công",
-              icon: "success",
-              position: "top-end",
-              toast: true,
-              showConfirmButton: false,
-              timer: 1500,
-            }).then(() => {
-              // Reload trang sau khi thông báo hoàn tất
-              $window.location.reload();
-            });
-          } else {
-            console.log("Lỗi xảy ra trong quá trình cập nhật khách hàng.");
-          }
-        })
-        .catch(function (error) {
-          console.log("Lỗi kết nối:", error);
-        });
-    };
-
-    //Hùng làm phần load hiển thị thông tin Giao Hàng
-    $scope.getLoadKhachHangTheoID = function () {
-      var Idkh = localStorage.getItem("idkhtq");
-      var apiUrl =
-        "http://localhost:8080/api/auth/khachhangbantaiquay/hienthikhtheoid";
-
-      var params = { Idkh: Idkh };
-      var token = localStorage.getItem("accessToken");
-
-      var config = {
-        params: params,
-        headers: { Authorization: "Bearer " + token },
-      };
-
-      $http
-        .get(apiUrl, config)
-        .then(function (response) {
-          if (response.data) {
-            $scope.KhachHangTheoId = response.data;
-            console.log("Dữ liệu khách hàng từ API:", $scope.KhachHangTheoId);
-
-            // Gán dữ liệu địa chỉ
-            $scope.DiaChi = {
-              diachichitiet: $scope.KhachHangTheoId.diachichitiet,
-              phuongxa: $scope.KhachHangTheoId.phuongxa,
-              quanhuyen: $scope.KhachHangTheoId.quanhuyen,
-              tinhthanh: $scope.KhachHangTheoId.tinhthanh,
-              quocgia: $scope.KhachHangTheoId.quocgia,
-            };
-
-            // Tạo chuỗi địa chỉ đầy đủ mới
-            $scope.DiaChiDayDu = [
-              $scope.DiaChi.diachichitiet,
-              $scope.DiaChi.phuongxa,
-              $scope.DiaChi.quanhuyen,
-              $scope.DiaChi.tinhthanh,
-              $scope.DiaChi.quocgia,
-            ]
-              .filter(Boolean)
-              .join(", ");
-
-            console.log("Địa chỉ đầy đủ mới:", $scope.DiaChiDayDu);
-          } else {
-            console.error("API không trả về dữ liệu.");
-          }
-        })
-        .catch(function (error) {
-          console.error("Lỗi khi gọi API:", error);
-        });
-    };
-
-    $scope.getLoadKhachHangTheoID();
-
-    //Hùng làm phẩn hiển thị địa chỉ
-    $scope.buildAddress = function (khachHang) {
-      if (!khachHang) {
-        return "Không Có Địa Chỉ";
-      }
-
-      // Lấy các phần của địa chỉ
-      var parts = [
-        khachHang.diachichitiet,
-        khachHang.phuongxa,
-        khachHang.quanhuyen,
-        khachHang.tinhthanh,
-        khachHang.quocgia,
-      ];
-
-      // Lọc các phần có giá trị và nối chúng lại với dấu phẩy
-      var filteredParts = parts.filter(function (part) {
-        return part && part.trim().length > 0;
-      });
-
-      // Nếu không có phần tử nào thỏa mãn điều kiện, trả về "Không Có Địa Chỉ"
-      if (filteredParts.length === 0) {
-        return "Không có địa chỉ";
-      }
-
-      return filteredParts.join(", ");
-    };
+    
     //huy làm
     $scope.loadTongtien = function () {
       var idHD = localStorage.getItem("idhoadontq");
@@ -1366,7 +1136,7 @@ app.controller(
       if ($scope.TienKhachTra.tienkhachtra == null) {
         $scope.TienKhachTra.tienkhachtra = 0;
       }
-    
+
       // Kiểm tra nếu tiền khách trả đủ hoặc hơn tiền cuối cùng
       if ($scope.TienKhachTra.tienkhachtra >= tongTienAmount) {
         Swal.fire({
@@ -1380,7 +1150,7 @@ app.controller(
         });
         return;
       }
-    
+
       $scope.congTTVNPay(tongTienAmount)
         .then(function (url) {
           // Chỉ cần trả về URL để chuyển hướng sau khi gọi congTTVNPay
@@ -1393,7 +1163,7 @@ app.controller(
           console.log("Lỗi trong quá trình thanh toán:", error);
         });
     };
-    
+
 
     $scope.Updatetehoanthanh = function (TienCuoiCung, TienDuocGiam) {
       // Kiểm tra nếu tiền khách trả đủ hoặc hơn tiền cuối cùng
@@ -1506,10 +1276,10 @@ app.controller(
         });
         return;
       }
-      
+
       // Regular expression for validating phone number
       var phoneRegex = /^0\d{9}$/;
-      
+
       if (!phoneRegex.test($scope.KhachHangTheoId.sodienthoai)) {
         Swal.fire({
           title: "Lỗi",
@@ -1522,10 +1292,10 @@ app.controller(
         });
         return;
       }
-      
+
       // Regular expression for validating email format
       var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      
+
       if (!emailRegex.test($scope.KhachHangTheoId.email)) {
         Swal.fire({
           title: "Lỗi",
@@ -1538,9 +1308,9 @@ app.controller(
         });
         return;
       }
-      
+
       // Continue with the rest of your logic
-      
+
 
       var IDHD = localStorage.getItem("idhoadontq");
       var Idgg = localStorage.getItem("idvoucher");
@@ -1615,5 +1385,403 @@ app.controller(
           throw error;
         });
     };
-  }
-);
+
+
+
+
+
+
+    //Hùng làm
+    $scope.itemsPerPage1 = 10; // Số lượng khách hàng mỗi trang
+    $scope.currentPage1 = 1; // Khởi tạo trang hiện tại
+
+    $scope.khachHangList = [];
+    $scope.sodienthoaitimkiem = '';
+
+    $scope.getLoadKhachHang = function (page) {
+      var apiUrl = "http://localhost:8080/api/auth/khachhangbantaiquay/khachhang";
+
+      // Thêm các tham số phân trang vào URL
+      var params = {
+        trangthai: 1,
+        page: (page || 1) - 1, // Chuyển đổi sang trang bắt đầu từ 0
+        size: $scope.itemsPerPage1,
+      };
+
+      // Yêu cầu GET HTTP sử dụng $http
+      $http
+        .get(apiUrl, {
+          params: params,
+          headers: { Authorization: "Bearer " + token },
+        })
+        .then(function (response) {
+          // Xử lý dữ liệu nhận được nếu yêu cầu thành công
+          $scope.khachHangList = response.data.content;
+          $scope.totalItems1 = response.data.totalElements;
+
+          // Tính toán số trang dựa trên số lượng phần tử thực tế
+          $scope.totalPages1 = Math.ceil(
+            $scope.totalItems1 / $scope.itemsPerPage1
+          );
+          console.log("Thành Công");
+        })
+        .catch(function (error) {
+          // Xử lý lỗi nếu yêu cầu thất bại
+          console.error("Error:", error);
+        });
+    };
+
+    $scope.getLoadtheotenKhachHang = function (page) {
+      var apiUrl = "http://localhost:8080/api/auth/khachhangbantaiquay/khachhangtimkiem";
+
+      // Thêm các tham số phân trang vào URL
+      var params = {
+        keyword: $scope.keywordTimKiem, // Đổi tên tham số từ sodienthoai thành keyword
+        page: (page || 1) - 1, // Chuyển đổi sang trang bắt đầu từ 0
+        size: $scope.itemsPerPage1,
+      };
+
+      // Yêu cầu GET HTTP sử dụng $http
+      $http
+        .get(apiUrl, {
+          params: params,
+          headers: { Authorization: "Bearer " + token },
+        })
+        .then(function (response) {
+          // Xử lý dữ liệu nhận được nếu yêu cầu thành công
+          $scope.khachHangList = response.data.content;
+          $scope.totalItems1 = response.data.totalElements;
+
+          // Tính toán số trang dựa trên số lượng phần tử thực tế
+          $scope.totalPages1 = Math.ceil(
+            $scope.totalItems1 / $scope.itemsPerPage1
+          );
+          console.log("Thành Công");
+        })
+        .catch(function (error) {
+          // Xử lý lỗi nếu yêu cầu thất bại
+          console.error("Error:", error);
+        });
+    };
+
+    // Hàm để chuyển đến trang trước
+    $scope.previousPage1 = function () {
+      if ($scope.currentPage1 > 1) {
+        $scope.currentPage1--;
+        $scope.keywordTimKiem ? $scope.getLoadtheotenKhachHang($scope.currentPage1) : $scope.getLoadKhachHang($scope.currentPage1);
+      }
+    };
+
+    // Hàm để chuyển đến trang tiếp theo
+    $scope.nextPage1 = function () {
+      if ($scope.currentPage1 < $scope.totalPages1) {
+        $scope.currentPage1++;
+        $scope.keywordTimKiem ? $scope.getLoadtheotenKhachHang($scope.currentPage1) : $scope.getLoadKhachHang($scope.currentPage1);
+      }
+    };
+
+    // Load dữ liệu cho trang đầu tiên khi trang được khởi tạo
+    $scope.getLoadKhachHang($scope.currentPage1);
+
+
+    $scope.themKhachHangVaoHD = function (khachHang) {
+      // Lưu id vào localStorage hoặc sử dụng biến trong controller
+      localStorage.setItem("idkhtq", khachHang.idkh);
+      console.log(khachHang);
+      var idhoakhoanTaiQuay = localStorage.getItem("idhoadontq");
+      console.log(idhoakhoanTaiQuay);
+    };
+
+
+
+    //Hùng làm phần update thông tin khách hàng vào hóa đơn
+    $scope.selectedCustomerName = "";
+    $scope.themKhachHangVaoHD = function (khachHang) {
+      localStorage.setItem("idkhtq", khachHang.idkh);
+      localStorage.setItem("tenkhachhang", khachHang.hovatenkh);
+      $scope.selectedCustomerName = khachHang.hovatenkh;
+      $scope.updateKhachHang(khachHang);
+    };
+
+    $scope.updateKhachHang = function (hovatenkh) {
+      var idhoadon = localStorage.getItem("idhoadontq");
+      var idkh = localStorage.getItem("idkhtq");
+      var url =
+        "http://localhost:8080/api/auth/khachhangbantaiquay/updateKhachHang";
+      var data = {
+        idhoadon: idhoadon,
+        idkh: idkh,
+        hovatenkh: hovatenkh.hovatenkh,
+      };
+
+      $http
+        .put(url, data, config)
+        .then(function (response) {
+          if (response.status === 200) {
+            $scope.loadHoaDonTaiQuay.forEach(function (hdtq) {
+              if (hdtq.id == idhoadon) {
+                hdtq.tenkhachhang = hovatenkh.hovatenkh;
+                hdtq.tennguoinhan = hovatenkh.hovatenkh; // Cập nhật tennguoinhan
+              }
+            });
+
+            Swal.fire({
+              title: "Thành Công",
+              text: "Cập nhật khách hàng thành công",
+              icon: "success",
+              position: "top-end",
+              toast: true,
+              showConfirmButton: false,
+              timer: 1500,
+            }).then(() => {
+              // Reload trang sau khi thông báo hoàn tất
+              $window.location.reload();
+            });
+          } else {
+            console.log("Lỗi xảy ra trong quá trình cập nhật khách hàng.");
+          }
+        })
+        .catch(function (error) {
+          console.log("Lỗi kết nối:", error);
+        });
+    };
+
+
+    //Hùng làm phần load hiển thị thông tin Giao Hàng
+    $scope.getLoadKhachHangTheoID = function () {
+      var Idkh = localStorage.getItem("idkhtq");
+      var apiUrl = "http://localhost:8080/api/auth/khachhangbantaiquay/hienthikhtheoid";
+
+      var params = { Idkh: Idkh };
+      var token = localStorage.getItem("accessToken");
+
+      var config = {
+        params: params,
+        headers: { Authorization: "Bearer " + token },
+      };
+
+      $http.get(apiUrl, config)
+        .then(function (response) {
+          if (response.data) {
+            $scope.KhachHangTheoId = response.data;
+            console.log("Dữ liệu khách hàng từ API:", $scope.KhachHangTheoId);
+
+            // Gán dữ liệu địa chỉ
+            $scope.DiaChi = {
+              diachichitiet: $scope.KhachHangTheoId.diachichitiet,
+              phuongxa: $scope.KhachHangTheoId.phuongxa,
+              quanhuyen: $scope.KhachHangTheoId.quanhuyen,
+              tinhthanh: $scope.KhachHangTheoId.tinhthanh,
+              quocgia: $scope.KhachHangTheoId.quocgia
+            };
+
+            // Tạo chuỗi địa chỉ đầy đủ mới
+            $scope.DiaChiDayDu = [
+              $scope.DiaChi.diachichitiet,
+              $scope.DiaChi.phuongxa,
+              $scope.DiaChi.quanhuyen,
+              $scope.DiaChi.tinhthanh,
+              $scope.DiaChi.quocgia
+            ].filter(Boolean).join(', ');
+
+            console.log("Địa chỉ đầy đủ mới:", $scope.DiaChiDayDu);
+          } else {
+            console.error("API không trả về dữ liệu.");
+          }
+        })
+        .catch(function (error) {
+          console.error("Lỗi khi gọi API:", error);
+        });
+    };
+
+    $scope.getLoadKhachHangTheoID();
+
+    //Hùng làm phẩn hiển thị địa chỉ
+    $scope.buildAddress = function (khachHang) {
+      if (!khachHang) {
+        return 'Không Có Địa Chỉ';
+      }
+      // Lấy các phần của địa chỉ
+      var parts = [
+        khachHang.diachichitiet,
+        khachHang.phuongxa,
+        khachHang.quanhuyen,
+        khachHang.tinhthanh,
+        khachHang.quocgia
+      ];
+      // Lọc các phần có giá trị và nối chúng lại với dấu phẩy
+      var filteredParts = parts.filter(function (part) {
+        return part && part.trim().length > 0;
+      });
+      // Nếu không có phần tử nào thỏa mãn điều kiện, trả về "Không Có Địa Chỉ"
+      if (filteredParts.length === 0) {
+        return 'Không có địa chỉ';
+      }
+      return filteredParts.join(', ');
+    };
+
+    //Hùng làm thêm kh
+    // Hàm sinh mật khẩu ngẫu nhiên
+    function generateRandomPassword() {
+      var password = Math.random().toString(36).slice(-8);  // Mật khẩu có độ dài 8 ký tự
+      return password;
+    }
+
+    // Hàm sinh tài khoản ngẫu nhiên
+    function generateRandomUsername() {
+      var username = "TKKH" + Math.floor(Math.random() * 10000);
+      return username;
+    }
+
+    // Hàm kiểm tra định dạng email
+    function isValidEmail(email) {
+      var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return regex.test(email);
+    }
+
+    // Hàm kiểm tra định dạng số điện thoại
+    function isValidPhone(phone) {
+      var regex = /^[0-9]{10}$/;
+      return regex.test(phone);
+    }
+
+    // Hàm kiểm tra trùng email
+    function checkEmailExists(email) {
+      return $http.get('http://localhost:8080/api/auth/khachhangbantaiquay/check-email', {
+        params: { email: email }
+      }).then(function (response) {
+        return response.data;
+      });
+    }
+
+    // Hàm kiểm tra trùng số điện thoại
+    function checkPhoneExists(phone) {
+      return $http.get('http://localhost:8080/api/auth/khachhangbantaiquay/check-phone', {
+        params: { phone: phone }
+      }).then(function (response) {
+        return response.data;
+      });
+    }
+
+    // Khởi tạo đối tượng khachHang và diaChi
+    $scope.khachHang = {};
+    $scope.diaChi = {};
+    $scope.khachHang = {
+      trangthai: 1  // Khởi tạo trạng thái mặc định cho khách hàng
+    };
+    $scope.diaChi = {
+      trangthaiDiaChi: 1  // Khởi tạo trạng thái mặc định cho địa chỉ
+    };
+
+    // Hàm kiểm tra các trường trống
+    function validateFields() {
+      if (!$scope.khachHang.hovatenkh) {
+        Swal.fire("Lỗi", "Vui lòng điền họ và tên khách hàng", "error");
+        return false;
+      }
+      if (!$scope.diaChi.diachichitiet) {
+        Swal.fire("Lỗi", "Vui lòng điền địa chỉ chi tiết", "error");
+        return false;
+      }
+      if (!$scope.diaChi.phuongxa) {
+        Swal.fire("Lỗi", "Vui lòng điền phường/xã", "error");
+        return false;
+      }
+      if (!$scope.diaChi.quanhuyen) {
+        Swal.fire("Lỗi", "Vui lòng điền quận/huyện", "error");
+        return false;
+      }
+      if (!$scope.diaChi.tinhthanh) {
+        Swal.fire("Lỗi", "Vui lòng điền tỉnh/thành", "error");
+        return false;
+      }
+      if (!$scope.khachHang.sodienthoai) {
+        Swal.fire("Lỗi", "Vui lòng điền số điện thoại", "error");
+        return false;
+      }
+      if (!$scope.khachHang.email) {
+        Swal.fire("Lỗi", "Vui lòng điền email", "error");
+        return false;
+      }
+      return true;
+    }
+
+    $scope.addKhachHang = function () {
+      console.log('khachHang:', $scope.khachHang);
+      console.log('diaChi:', $scope.diaChi);
+
+      // Tạo tài khoản và mật khẩu tự động
+      $scope.khachHang.taikhoan = generateRandomUsername();
+      $scope.khachHang.matkhau = generateRandomPassword();
+
+      // Kiểm tra các trường trống
+      if (!validateFields()) {
+        return;
+      }
+
+      // Kiểm tra định dạng email và số điện thoại
+      if (!isValidEmail($scope.khachHang.email)) {
+        Swal.fire("Lỗi", "Email không đúng định dạng", "error");
+        return;
+      }
+
+      if (!isValidPhone($scope.khachHang.sodienthoai)) {
+        Swal.fire("Lỗi", "Số điện thoại không đúng định dạng", "error");
+        return;
+      }
+
+      // Kiểm tra trùng email và số điện thoại
+      checkEmailExists($scope.khachHang.email).then(function (emailExists) {
+        if (emailExists) {
+          Swal.fire("Lỗi", "Email đã tồn tại", "error");
+          return;
+        }
+
+        checkPhoneExists($scope.khachHang.sodienthoai).then(function (phoneExists) {
+          if (phoneExists) {
+            Swal.fire("Lỗi", "Số điện thoại đã tồn tại", "error");
+            return;
+          }
+
+          // Tiếp tục thêm khách hàng nếu không trùng
+          var url = "http://localhost:8080/api/auth/khachhangbantaiquay/addkhachhang";
+          var data = {
+            diachichitiet: $scope.diaChi.diachichitiet,
+            phuongxa: $scope.diaChi.phuongxa,
+            quanhuyen: $scope.diaChi.quanhuyen,
+            tinhthanh: $scope.diaChi.tinhthanh,
+            trangthaiDiaChi: $scope.diaChi.trangthaiDiaChi,
+            hovatenkh: $scope.khachHang.hovatenkh,
+            taikhoan: $scope.khachHang.taikhoan,
+            matkhau: $scope.khachHang.matkhau,
+            trangthai: $scope.khachHang.trangthai,
+            sodienthoai: $scope.khachHang.sodienthoai,
+            email: $scope.khachHang.email
+          };
+
+          $http.post(url, data)
+            .then(function (response) {
+              if (response.status === 200) {
+                Swal.fire({
+                  title: "Thành Công",
+                  text: "Thêm khách hàng thành công",
+                  icon: "success",
+                  position: "top-end",
+                  toast: true,
+                  showConfirmButton: false,
+                  timer: 1500,
+                }).then(() => {
+                  // Reload trang sau khi thông báo hoàn tất
+                  $window.location.reload();
+                });
+              } else {
+                console.log("Lỗi xảy ra trong quá trình thêm khách hàng.");
+              }
+            })
+            .catch(function (error) {
+              console.log("Lỗi kết nối:", error);
+            });
+        });
+      });
+    };
+  });
