@@ -191,9 +191,9 @@ app.controller("ThemSanPhamController",function ($scope, themsanPhamService, $wi
       if (!$scope.selectedTheLoai) {
         $scope.errorMessage.theloai = "Vui lòng không bỏ trống";
       }
-      if (!$scope.selectedGiaNhap) {
-        $scope.errorMessage.gianhap = "Vui lòng không bỏ trống";
-      }
+      // if (!$scope.selectedGiaNhap) {
+      //   $scope.errorMessage.gianhap = "Vui lòng không bỏ trống";
+      // }
       if (!$scope.selectedGiaBan) {
         $scope.errorMessage.giaban = "Vui lòng không bỏ trống";
       }
@@ -214,9 +214,9 @@ app.controller("ThemSanPhamController",function ($scope, themsanPhamService, $wi
       }
       
       // Kiểm tra điều kiện nhập số âm cho giá nhập và giá bán
-      if ($scope.selectedGiaNhap <= 0) {
-        $scope.errorMessage.gianhap = "Giá nhập phải là số dương và lớn hơn 0";
-      }
+      // if ($scope.selectedGiaNhap <= 0) {
+      //   $scope.errorMessage.gianhap = "Giá nhập phải là số dương và lớn hơn 0";
+      // }
       if ($scope.selectedGiaBan <= 0) {
         $scope.errorMessage.giaban = "Giá bán phải là số dương và lớn hơn 0";
       }
@@ -259,7 +259,7 @@ app.controller("ThemSanPhamController",function ($scope, themsanPhamService, $wi
             theloai: $scope.selectedTheLoai,
             motasp: $scope.selectedMoTasp,
             trangthai: 1,
-            gianhap: $scope.selectedGiaNhap,
+            // gianhap: $scope.selectedGiaNhap,
             giaban: $scope.selectedGiaBan,
             danhmuc: $scope.selectedDanhMuc,
             chatlieu: $scope.selectedChatLieu,

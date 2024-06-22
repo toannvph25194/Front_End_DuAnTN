@@ -1001,7 +1001,7 @@ app.controller(
       if (tienkhachdua == null || isNaN(tienkhachdua)) {
         Swal.fire({
           title: "Error",
-          text: "Không được bỏ trống",
+          text: "Bạn cần nhập số tiền",
           icon: "error",
           position: "top-end",
           toast: true,
@@ -1131,14 +1131,14 @@ app.controller(
         });
     };
 
-    $scope.executePaymentProcess = function (tongTienAmount) {
+    $scope.executePaymentProcess = function (tongTienAmount,tiencheck) {
       // Khởi tạo tienkhachtra nếu chưa khởi tạo
       if ($scope.TienKhachTra.tienkhachtra == null) {
         $scope.TienKhachTra.tienkhachtra = 0;
       }
 
       // Kiểm tra nếu tiền khách trả đủ hoặc hơn tiền cuối cùng
-      if ($scope.TienKhachTra.tienkhachtra >= tongTienAmount) {
+      if ($scope.TienKhachTra.tienkhachtra >= tiencheck) {
         Swal.fire({
           title: "Lỗi",
           text: "Bạn đã thanh toán đủ tiền",
@@ -1170,7 +1170,7 @@ app.controller(
       if ($scope.TienKhachTra.tienkhachtra < TienCuoiCung) {
         Swal.fire({
           title: "Lỗi",
-          text: "Bạn phải thanh toán trước",
+          text: "Bạn phải thanh toán tiền trước",
           icon: "error",
           position: "top-end",
           toast: true,
@@ -1230,7 +1230,7 @@ app.controller(
           console.log("Lỗi thanh toán hoá đơn:", error);
           Swal.fire({
             title: "Lỗi",
-            text: "Thanh toán hoá đơn không thành công",
+            text: "Bạn cần thêm sản phẩm và thanh toán",
             icon: "error",
             position: "top-end",
             toast: true,
@@ -1375,7 +1375,7 @@ app.controller(
           console.log("Lỗi xác nhận hoá đơn:", error);
           Swal.fire({
             title: "Lỗi",
-            text: "Xác nhận hoá đơn không thành công",
+            text: "Bạn cần thêm sản phẩm và thanh toán",
             icon: "error",
             position: "top-end",
             toast: true,
