@@ -233,6 +233,28 @@ app.service("updateshoadonService", function ($http) {
         return Promise.reject(error.response.data);
       });
   };
+  var token = localStorage.getItem("accessToken");
+
+  
+
+  this.generatePDF = function (id) {
+    // Thêm token vào header của yêu cầu
+  var config01 = {
+      headers: {
+          Authorization: "Bearer " + token,
+      },
+      responseType: 'arraybuffer' // Đặt responseType là 'arraybuffer' để nhận dữ liệu PDF
+  };
+      return $http
+          .get("http://localhost:8080/api/v1/pdf/pdf/generate/" + id, config01)
+          .then(function (response) {
+              return response.data;
+          })
+          .catch(function (error) {
+              console.error("Failed to generate PDF:", error);
+              throw error; // Ném lỗi để xử lý ở controller hoặc view
+          });
+  };
 });
 
 // Khai báo controller
@@ -1247,6 +1269,30 @@ app.controller(
             });
           });
       };
+      // in hoa don
+      // Hàm generatePDF đã được định nghĩa ở trước
+      $scope.generatePDF = function () {
+        var id = localStorage.getItem("IDHoaDonUpdate");
+
+        if (id) {
+            updateshoadonService.generatePDF(id)
+            .then(function (pdfData) {
+                var file = new Blob([pdfData], { type: "application/pdf" });
+                var fileURL = URL.createObjectURL(file);
+                window.open(fileURL, "_blank");
+            })
+            .catch(function (error) {
+                console.error("Failed to generate PDF:", error);
+                // Xử lý lỗi khi không thể tải PDF
+                // Ví dụ: thông báo cho người dùng biết là không thể tải PDF
+                // hoặc log lỗi để theo dõi và xử lý sau này
+            });
+        } else {
+            console.error("IDHoaDonUpdate is not available.");
+            // Xử lý khi không có IDHoaDonUpdate trong localStorage
+            // Ví dụ: thông báo lỗi cho người dùng
+        }
+    };
     }
   }
 );

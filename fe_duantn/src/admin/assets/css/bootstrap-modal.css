@@ -22,13 +22,12 @@
   border-radius: 6px;
   outline: 0;
   box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-  width: 100%; 
+  width: 100%;
   height: 100%;
   max-width: 1600px;
   max-height: 100%;
   overflow-y: auto;
 }
-
 
 /* Style cho nút đóng modal */
 .close {
@@ -62,7 +61,7 @@
 .modal-dialog {
   position: relative;
   margin: auto;
-  top: 50%; 
+  top: 50%;
   transform: translateY(-50%);
 }
 
@@ -200,5 +199,8 @@
   display: block;
   opacity: 1;
 }
+
+
+
 
 

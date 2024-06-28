@@ -781,6 +781,10 @@ app.controller(
       var modal = document.getElementById("myModal06");
       modal.style.display = "block";
     };
+    $scope.openModal07 = function () {
+      var modal = document.getElementById("myModal07");
+      modal.style.display = "block";
+    };
 
     // Đóng modal
     $scope.closeModal = function () {
@@ -807,8 +811,10 @@ app.controller(
       var modal = document.getElementById("myModal06");
       modal.style.display = "none";
     };
-
-    
+    $scope.closeModal07 = function () {
+      var modal = document.getElementById("myModal07");
+      modal.style.display = "none";
+    };
     //huy làm
     $scope.loadTongtien = function () {
       var idHD = localStorage.getItem("idhoadontq");
@@ -1131,7 +1137,7 @@ app.controller(
         });
     };
 
-    $scope.executePaymentProcess = function (tongTienAmount,tiencheck) {
+    $scope.executePaymentProcess = function (tongTienAmount, tiencheck) {
       // Khởi tạo tienkhachtra nếu chưa khởi tạo
       if ($scope.TienKhachTra.tienkhachtra == null) {
         $scope.TienKhachTra.tienkhachtra = 0;
@@ -1151,7 +1157,8 @@ app.controller(
         return;
       }
 
-      $scope.congTTVNPay(tongTienAmount)
+      $scope
+        .congTTVNPay(tongTienAmount)
         .then(function (url) {
           // Chỉ cần trả về URL để chuyển hướng sau khi gọi congTTVNPay
           return url;
@@ -1163,7 +1170,6 @@ app.controller(
           console.log("Lỗi trong quá trình thanh toán:", error);
         });
     };
-
 
     $scope.Updatetehoanthanh = function (TienCuoiCung, TienDuocGiam) {
       // Kiểm tra nếu tiền khách trả đủ hoặc hơn tiền cuối cùng
@@ -1210,8 +1216,9 @@ app.controller(
             position: "top-end",
             toast: true,
             showConfirmButton: false,
-            timer: 1500,
+            timer: 2500,
           });
+          $scope.generatePDF();
           localStorage.removeItem("idvoucher");
           localStorage.removeItem("mavoucher");
           localStorage.removeItem("tenvoucher");
@@ -1311,7 +1318,6 @@ app.controller(
 
       // Continue with the rest of your logic
 
-
       var IDHD = localStorage.getItem("idhoadontq");
       var Idgg = localStorage.getItem("idvoucher");
       var url =
@@ -1359,6 +1365,7 @@ app.controller(
             showConfirmButton: false,
             timer: 1500,
           });
+          $scope.generatePDF();
           localStorage.removeItem("idvoucher");
           localStorage.removeItem("mavoucher");
           localStorage.removeItem("tenvoucher");
@@ -1386,20 +1393,16 @@ app.controller(
         });
     };
 
-
-
-
-
-
     //Hùng làm
     $scope.itemsPerPage1 = 10; // Số lượng khách hàng mỗi trang
     $scope.currentPage1 = 1; // Khởi tạo trang hiện tại
 
     $scope.khachHangList = [];
-    $scope.sodienthoaitimkiem = '';
+    $scope.sodienthoaitimkiem = "";
 
     $scope.getLoadKhachHang = function (page) {
-      var apiUrl = "http://localhost:8080/api/auth/khachhangbantaiquay/khachhang";
+      var apiUrl =
+        "http://localhost:8080/api/auth/khachhangbantaiquay/khachhang";
 
       // Thêm các tham số phân trang vào URL
       var params = {
@@ -1432,7 +1435,8 @@ app.controller(
     };
 
     $scope.getLoadtheotenKhachHang = function (page) {
-      var apiUrl = "http://localhost:8080/api/auth/khachhangbantaiquay/khachhangtimkiem";
+      var apiUrl =
+        "http://localhost:8080/api/auth/khachhangbantaiquay/khachhangtimkiem";
 
       // Thêm các tham số phân trang vào URL
       var params = {
@@ -1468,7 +1472,9 @@ app.controller(
     $scope.previousPage1 = function () {
       if ($scope.currentPage1 > 1) {
         $scope.currentPage1--;
-        $scope.keywordTimKiem ? $scope.getLoadtheotenKhachHang($scope.currentPage1) : $scope.getLoadKhachHang($scope.currentPage1);
+        $scope.keywordTimKiem
+          ? $scope.getLoadtheotenKhachHang($scope.currentPage1)
+          : $scope.getLoadKhachHang($scope.currentPage1);
       }
     };
 
@@ -1476,13 +1482,14 @@ app.controller(
     $scope.nextPage1 = function () {
       if ($scope.currentPage1 < $scope.totalPages1) {
         $scope.currentPage1++;
-        $scope.keywordTimKiem ? $scope.getLoadtheotenKhachHang($scope.currentPage1) : $scope.getLoadKhachHang($scope.currentPage1);
+        $scope.keywordTimKiem
+          ? $scope.getLoadtheotenKhachHang($scope.currentPage1)
+          : $scope.getLoadKhachHang($scope.currentPage1);
       }
     };
 
     // Load dữ liệu cho trang đầu tiên khi trang được khởi tạo
     $scope.getLoadKhachHang($scope.currentPage1);
-
 
     $scope.themKhachHangVaoHD = function (khachHang) {
       // Lưu id vào localStorage hoặc sử dụng biến trong controller
@@ -1491,8 +1498,6 @@ app.controller(
       var idhoakhoanTaiQuay = localStorage.getItem("idhoadontq");
       console.log(idhoakhoanTaiQuay);
     };
-
-
 
     //Hùng làm phần update thông tin khách hàng vào hóa đơn
     $scope.selectedCustomerName = "";
@@ -1546,11 +1551,11 @@ app.controller(
         });
     };
 
-
     //Hùng làm phần load hiển thị thông tin Giao Hàng
     $scope.getLoadKhachHangTheoID = function () {
       var Idkh = localStorage.getItem("idkhtq");
-      var apiUrl = "http://localhost:8080/api/auth/khachhangbantaiquay/hienthikhtheoid";
+      var apiUrl =
+        "http://localhost:8080/api/auth/khachhangbantaiquay/hienthikhtheoid";
 
       var params = { Idkh: Idkh };
       var token = localStorage.getItem("accessToken");
@@ -1560,7 +1565,8 @@ app.controller(
         headers: { Authorization: "Bearer " + token },
       };
 
-      $http.get(apiUrl, config)
+      $http
+        .get(apiUrl, config)
         .then(function (response) {
           if (response.data) {
             $scope.KhachHangTheoId = response.data;
@@ -1572,7 +1578,7 @@ app.controller(
               phuongxa: $scope.KhachHangTheoId.phuongxa,
               quanhuyen: $scope.KhachHangTheoId.quanhuyen,
               tinhthanh: $scope.KhachHangTheoId.tinhthanh,
-              quocgia: $scope.KhachHangTheoId.quocgia
+              quocgia: $scope.KhachHangTheoId.quocgia,
             };
 
             // Tạo chuỗi địa chỉ đầy đủ mới
@@ -1581,8 +1587,10 @@ app.controller(
               $scope.DiaChi.phuongxa,
               $scope.DiaChi.quanhuyen,
               $scope.DiaChi.tinhthanh,
-              $scope.DiaChi.quocgia
-            ].filter(Boolean).join(', ');
+              $scope.DiaChi.quocgia,
+            ]
+              .filter(Boolean)
+              .join(", ");
 
             console.log("Địa chỉ đầy đủ mới:", $scope.DiaChiDayDu);
           } else {
@@ -1599,7 +1607,7 @@ app.controller(
     //Hùng làm phẩn hiển thị địa chỉ
     $scope.buildAddress = function (khachHang) {
       if (!khachHang) {
-        return 'Không Có Địa Chỉ';
+        return "Không Có Địa Chỉ";
       }
       // Lấy các phần của địa chỉ
       var parts = [
@@ -1607,7 +1615,7 @@ app.controller(
         khachHang.phuongxa,
         khachHang.quanhuyen,
         khachHang.tinhthanh,
-        khachHang.quocgia
+        khachHang.quocgia,
       ];
       // Lọc các phần có giá trị và nối chúng lại với dấu phẩy
       var filteredParts = parts.filter(function (part) {
@@ -1615,15 +1623,15 @@ app.controller(
       });
       // Nếu không có phần tử nào thỏa mãn điều kiện, trả về "Không Có Địa Chỉ"
       if (filteredParts.length === 0) {
-        return 'Không có địa chỉ';
+        return "Không có địa chỉ";
       }
-      return filteredParts.join(', ');
+      return filteredParts.join(", ");
     };
 
     //Hùng làm thêm kh
     // Hàm sinh mật khẩu ngẫu nhiên
     function generateRandomPassword() {
-      var password = Math.random().toString(36).slice(-8);  // Mật khẩu có độ dài 8 ký tự
+      var password = Math.random().toString(36).slice(-8); // Mật khẩu có độ dài 8 ký tự
       return password;
     }
 
@@ -1647,30 +1655,34 @@ app.controller(
 
     // Hàm kiểm tra trùng email
     function checkEmailExists(email) {
-      return $http.get('http://localhost:8080/api/auth/khachhangbantaiquay/check-email', {
-        params: { email: email }
-      }).then(function (response) {
-        return response.data;
-      });
+      return $http
+        .get("http://localhost:8080/api/auth/khachhangbantaiquay/check-email", {
+          params: { email: email },
+        })
+        .then(function (response) {
+          return response.data;
+        });
     }
 
     // Hàm kiểm tra trùng số điện thoại
     function checkPhoneExists(phone) {
-      return $http.get('http://localhost:8080/api/auth/khachhangbantaiquay/check-phone', {
-        params: { phone: phone }
-      }).then(function (response) {
-        return response.data;
-      });
+      return $http
+        .get("http://localhost:8080/api/auth/khachhangbantaiquay/check-phone", {
+          params: { phone: phone },
+        })
+        .then(function (response) {
+          return response.data;
+        });
     }
 
     // Khởi tạo đối tượng khachHang và diaChi
     $scope.khachHang = {};
     $scope.diaChi = {};
     $scope.khachHang = {
-      trangthai: 1  // Khởi tạo trạng thái mặc định cho khách hàng
+      trangthai: 1, // Khởi tạo trạng thái mặc định cho khách hàng
     };
     $scope.diaChi = {
-      trangthaiDiaChi: 1  // Khởi tạo trạng thái mặc định cho địa chỉ
+      trangthaiDiaChi: 1, // Khởi tạo trạng thái mặc định cho địa chỉ
     };
 
     // Hàm kiểm tra các trường trống
@@ -1707,8 +1719,8 @@ app.controller(
     }
 
     $scope.addKhachHang = function () {
-      console.log('khachHang:', $scope.khachHang);
-      console.log('diaChi:', $scope.diaChi);
+      console.log("khachHang:", $scope.khachHang);
+      console.log("diaChi:", $scope.diaChi);
 
       // Tạo tài khoản và mật khẩu tự động
       $scope.khachHang.taikhoan = generateRandomUsername();
@@ -1737,14 +1749,17 @@ app.controller(
           return;
         }
 
-        checkPhoneExists($scope.khachHang.sodienthoai).then(function (phoneExists) {
+        checkPhoneExists($scope.khachHang.sodienthoai).then(function (
+          phoneExists
+        ) {
           if (phoneExists) {
             Swal.fire("Lỗi", "Số điện thoại đã tồn tại", "error");
             return;
           }
 
           // Tiếp tục thêm khách hàng nếu không trùng
-          var url = "http://localhost:8080/api/auth/khachhangbantaiquay/addkhachhang";
+          var url =
+            "http://localhost:8080/api/auth/khachhangbantaiquay/addkhachhang";
           var data = {
             diachichitiet: $scope.diaChi.diachichitiet,
             phuongxa: $scope.diaChi.phuongxa,
@@ -1756,10 +1771,11 @@ app.controller(
             matkhau: $scope.khachHang.matkhau,
             trangthai: $scope.khachHang.trangthai,
             sodienthoai: $scope.khachHang.sodienthoai,
-            email: $scope.khachHang.email
+            email: $scope.khachHang.email,
           };
 
-          $http.post(url, data)
+          $http
+            .post(url, data)
             .then(function (response) {
               if (response.status === 200) {
                 Swal.fire({
@@ -1784,4 +1800,23 @@ app.controller(
         });
       });
     };
-  });
+
+    // in hoa don
+    $scope.generatePDF = function () {
+      var id = localStorage.getItem("idhoadontq");
+      $http
+          .get("http://localhost:8080/api/v1/pdf/pdf/generate/" + id, {
+              responseType: "arraybuffer",
+              headers: config.headers, // Thêm headers vào request
+          })
+          .then(function (response) {
+              var file = new Blob([response.data], {
+                  type: "application/pdf",
+              });
+              var fileURL = URL.createObjectURL(file);
+              window.open(fileURL, "_blank");
+          });
+  };
+  
+  }
+);

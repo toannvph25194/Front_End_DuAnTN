@@ -202,7 +202,8 @@
                 <td
                   class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
                 >
-                  {{HTTT.magiaodich == null ? "Chưa thanh toán":HTTT.magiaodich}}
+                  {{HTTT.magiaodich == null ? "Chưa thanh
+                  toán":HTTT.magiaodich}}
                 </td>
                 <td
                   class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
@@ -234,8 +235,8 @@
                 <td
                   class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
                 >
-                {{ HTTT.taikhoan}}
-              </td>
+                  {{ HTTT.taikhoan}}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -243,6 +244,14 @@
       </div>
       <div>
         <div class="flex justify-end gap-2 mt-5">
+          <button
+            type="button"
+            class="text-orange-500 bg-white border-orange-500 btn hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:text-white focus:bg-orange-600 focus:border-orange-600 focus:ring focus:ring-orange-100 active:text-white active:bg-orange-600 active:border-orange-600 active:ring active:ring-orange-100 dark:bg-zink-700 dark:hover:bg-orange-500 dark:ring-orange-400/20 dark:focus:bg-orange-500"
+            ng-click="generatePDF()"
+          >
+            In hoá đơn
+          </button>
+
           <button
             type="button"
             ng-click="openModal02()"
@@ -393,7 +402,6 @@
                       max="10000"
                       ng-blur="updateSoLuong01(hoaDon)"
                     />
-                   
                   </td>
                   <td
                     class="px-3.5 py-4 border-b border-dashed first:pl-0 last:pr-0 border-slate-200 dark:border-zink-500 ltr:text-right rtl:text-left"
