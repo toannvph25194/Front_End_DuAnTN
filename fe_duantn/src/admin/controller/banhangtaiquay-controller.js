@@ -108,16 +108,10 @@ app.controller(
                 .post(url, {}, config)
                 .then((resp) => {
                   $scope.hoadonTaiQuay = resp.data;
-                  console.log(
-                    "Hóa đơn tại quầy vừa tạo :",
-                    $scope.hoadonTaiQuay
-                  );
-                  localStorage.setItem(
-                    "idhoadontq",
-                    $scope.hoadonTaiQuay.idhoadon
-                  );
+                  console.log("Hóa đơn tại quầy vừa tạo :",$scope.hoadonTaiQuay);
+                  localStorage.setItem("idhoadontq",$scope.hoadonTaiQuay.idhoadon);
                   localStorage.setItem("idkhtq", $scope.hoadonTaiQuay.idkh);
-
+                  localStorage.setItem("mahoadontq", $scope.hoadonTaiQuay.mahoadon);
                   Swal.fire({
                     title: "Thành Công",
                     text: "Tạo hóa đơn tại quầy thành công",
@@ -1228,7 +1222,7 @@ app.controller(
           localStorage.removeItem("idhoadontq");
           localStorage.removeItem("mahoadontq");
           localStorage.removeItem("idkhtq");
-
+          localStorage.removeItem("tenkhachhang");
           $route.reload();
 
           return response; // Trả về response để tiếp tục chuỗi promise
@@ -1375,6 +1369,7 @@ app.controller(
           localStorage.removeItem("idhoadontq");
           localStorage.removeItem("mahoadontq");
           localStorage.removeItem("idkhtq");
+          localStorage.removeItem("tenkhachhang");
           $route.reload();
           return response.data;
         })

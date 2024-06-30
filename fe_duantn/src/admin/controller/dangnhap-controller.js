@@ -81,7 +81,12 @@ app.controller("loginController", function ($scope, $http, $window) {
     // Xóa token khỏi localStorage
     window.location.href = "#/login";
     $window.localStorage.removeItem("accessToken");
+    $window.localStorage.removeItem("username");
     $window.localStorage.removeItem("role");
+    $window.localStorage.removeItem("idhoadontq");
+    $window.localStorage.removeItem("idkhtq");
+    $window.localStorage.removeItem("mahoadontq");
+    $window.localStorage.removeItem("tenkhachhang");
     $scope.isLoggedIn = false;
   };
 });
