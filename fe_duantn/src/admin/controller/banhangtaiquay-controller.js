@@ -101,7 +101,7 @@ app.controller(
       }).then((result) => {
         if (result.isConfirmed) {
           if (token != null) {
-            if ($scope.loadHoaDonTaiQuay.length < 5) {
+            if ($scope.loadHoaDonTaiQuay.length < 10) {
               var url =
                 "http://localhost:8080/api/admin/hoa-don/ban-tai-quay/tao-hoa-don";
               $http
@@ -131,7 +131,7 @@ app.controller(
             } else {
               Swal.fire({
                 title: "Thông Báo",
-                text: "Chỉ được tạo tối đa 5 hóa đơn !",
+                text: "Chỉ được tạo tối đa 10 hóa đơn !",
                 icon: "warning",
                 position: "top-end",
                 toast: true,
