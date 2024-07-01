@@ -23,274 +23,241 @@ app.controller(
       }
     }
     getRole();
+    if (role === "ADMIN" || role === "NHANVIEN") {
+     // Initialize variables for pagination and search
+$scope.currentPage = 1;
+$scope.itemsPerPage = 9;
+$scope.pageNumber = 0;
+$scope.pageSize = 9;
+$scope.HoaDonLoadPhanTrang = [];
+$scope.activeFilter = null; // Track the active filter
+$scope.filterParams = {}; // Store parameters for the active filter
 
-    if ($scope.isAdmin) {
-      // Khai báo biến lấy giá trị trang đầu
-      $scope.currentPage = 1;
-      // Số lượng bản ghi trên mỗi trang
-      $scope.itemsPerPage = 9;
-      // Biến lưu trạng thái lọc
-      $scope.filterCriteria = {
-        trangthai: "",
-        mahoadon: "",
-        loaihoadon: "",
-      };
+// Handle previous page event
+$scope.previousPage = function () {
+  if ($scope.currentPage > 1) {
+    $scope.currentPage--;
+    $scope.loadData();
+  }
+};
 
-      // Xử lý sự kiện trang trước
-      $scope.previousPage = function () {
-        if ($scope.currentPage > 1) {
-          $scope.currentPage--;
-          $scope.loadHoaDon();
-        }
-      };
+// Handle next page event
+$scope.nextPage = function () {
+  if ($scope.currentPage < $scope.totalPages) {
+    $scope.currentPage++;
+    $scope.loadData();
+  }
+};
 
-      // Xử lý sự kiện trang tiếp theo
-      $scope.nextPage = function () {
-        if ($scope.currentPage < $scope.totalPages) {
-          $scope.currentPage++;
-          $scope.loadHoaDon();
-        }
-      };
+// Get total pages
+$scope.getTotalPages = function () {
+  return Math.ceil($scope.totalItems / $scope.itemsPerPage);
+};
 
-      // Hàm lấy tổng số trang
-      $scope.getTotalPages = function () {
-        return Math.ceil($scope.totalItems / $scope.itemsPerPage);
-      };
+// Load data based on active filter
+$scope.loadData = function () {
+  switch ($scope.activeFilter) {
+    case 'trangthai':
+      $scope.locTrangThai($scope.filterParams.trangthai, true);
+      break;
+    case 'mahoadon':
+      $scope.locMaHoaDon(true);
+      break;
+    case 'loaihoadon':
+      $scope.locLoaiHoaDon(true);
+      break;
+    default:
+      $scope.ShowHoaDon();
+  }
+};
 
-      // Hàm để load dữ liệu hoá đơn
-      $scope.loadHoaDon = function () {
-        var token = localStorage.getItem("accessToken");
+// Fetch total counts for different invoice statuses
+function fetchTotalCount(apiEndpoint, scopeVariable) {
+  var token = localStorage.getItem("accessToken");
+  var config = {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  };
 
-        var config = {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        };
+  $http
+    .get(apiEndpoint, config)
+    .then(function (response) {
+      $scope[scopeVariable] = response.data; // Assign response data to scope variable
+    })
+    .catch(function (error) {
+      console.log("Error fetching data:", error);
+      $scope[scopeVariable] = 0; // Default to 0 in case of error
+    });
+}
 
-        var url =
-          "http://localhost:8080/api/admin/hoadon/hienthihoadon?page=" +
-          ($scope.currentPage - 1) +
-          "&pageSize=" +
-          $scope.itemsPerPage;
+// Call functions to fetch total counts
+fetchTotalCount("http://localhost:8080/api/admin/hoadon/tongSoHoaDonChoXacNhan", "TongSoHoaDonChoXacNhan");
+fetchTotalCount("http://localhost:8080/api/admin/hoadon/tongSoHoaDonXacNhan", "TongSoHoaDonXacNhan");
+fetchTotalCount("http://localhost:8080/api/admin/hoadon/tongSoHoaDonChoGiao", "TongSoHoaDonChoGiao");
+fetchTotalCount("http://localhost:8080/api/admin/hoadon/tongSoHoaDonDangGiao", "TongSoHoaDonDangGiao");
+fetchTotalCount("http://localhost:8080/api/admin/hoadon/tongSoHoaDonHoanThanh", "TongSoHoaDonHoanThanh");
+fetchTotalCount("http://localhost:8080/api/admin/hoadon/tongSoHoaDonHuy", "TongSoHoaDonHuy");
 
-        if ($scope.filterCriteria.trangthai) {
-          url =
-            "http://localhost:8080/api/admin/hoadon/loc/trangthaihoadon?pageNumber=" +
-            ($scope.currentPage - 1) +
-            "&pageSize=" +
-            $scope.itemsPerPage +
-            "&trangthai=" +
-            $scope.filterCriteria.trangthai;
-        } else if ($scope.filterCriteria.mahoadon) {
-          url =
-            "http://localhost:8080/api/admin/hoadon/loc/mahoadon?pageNumber=" +
-            ($scope.currentPage - 1) +
-            "&pageSize=" +
-            $scope.itemsPerPage +
-            "&mahoadon=" +
-            $scope.filterCriteria.mahoadon;
-        } else if ($scope.filterCriteria.loaihoadon) {
-          url =
-            "http://localhost:8080/api/admin/hoadon/loc/loaihoadon?pageNumber=" +
-            ($scope.currentPage - 1) +
-            "&pageSize=" +
-            $scope.itemsPerPage +
-            "&loaihoadon=" +
-            $scope.filterCriteria.loaihoadon;
-        }
+// Load invoices with pagination
+$scope.ShowHoaDon = function () {
+  var token = localStorage.getItem("accessToken");
+  var config = {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  };
 
-        $http
-          .get(url, config)
-          .then((resp) => {
-            $scope.HoaDonLoadPhanTrang = resp.data.content;
-            $scope.totalItems = resp.data.totalElements;
-            $scope.totalPages = Math.ceil(
-              $scope.totalItems / $scope.itemsPerPage
-            );
-            $scope.showNextButton =
-              $scope.HoaDonLoadPhanTrang.length >= $scope.itemsPerPage;
-          })
-          .catch((error) => {
-            console.log("Lỗi Load HĐ", error);
-          });
-      };
+  $http
+    .get(`http://localhost:8080/api/admin/hoadon/hienthihoadon?page=${$scope.currentPage - 1}&size=${$scope.itemsPerPage}`, config)
+    .then((resp) => {
+      $scope.HoaDonLoadPhanTrang = resp.data.content;
+      console.log("Load HĐ :", $scope.HoaDonLoadPhanTrang);
 
-      $scope.TongSoHoaDonChoXacNhan = function () {
-        var token = localStorage.getItem("accessToken");
+      // Total items and pages
+      $scope.totalItems = resp.data.totalElements;
+      $scope.totalPages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+      $scope.showNextButton = $scope.HoaDonLoadPhanTrang.length >= $scope.pageSize;
+    })
+    .catch((error) => {
+      console.log("Lỗi Load HĐ", error);
+    });
+};
 
-        var config = {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        };
+// Watch for changes in currentPage to reload data
+$scope.$watch("currentPage", function() {
+  $scope.loadData();
+});
 
-        $http
-          .get(
-            "http://localhost:8080/api/admin/hoadon/tongSoHoaDonChoXacNhan",
-            config
-          )
-          .then(function (response) {
-            $scope.TongSoHoaDonChoXacNhan = response.data; // Gán dữ liệu trả về vào biến $scope
-          })
-          .catch(function (error) {
-            console.log("Error fetching data:", error);
-            $scope.TongSoHoaDonChoXacNhan = 0; // Gán mặc định là 0 nếu có lỗi
-          });
-      };
+// Filter invoices by status
+$scope.locTrangThai = function (trangthaiValue, isPageChange = false) {
+  var token = localStorage.getItem("accessToken");
+  var config = {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  };
 
-      // Gọi hàm để thực hiện request
-      $scope.TongSoHoaDonChoXacNhan();
+  var trangthai = trangthaiValue || ""; // Use passed value
 
-      $scope.TongSoHoaDonXacNhan = function () {
-        var token = localStorage.getItem("accessToken");
+  if (!isPageChange) {
+    // Reset currentPage before making API call
+    $scope.currentPage = 1;
+  }
 
-        var config = {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        };
+  if (!trangthai) {
+    $scope.ShowHoaDon();
+    console.log("Gọi Hàm LoadHĐ");
+  } else {
+    $scope.activeFilter = 'trangthai'; // Set active filter
+    $scope.filterParams = { trangthai: trangthai }; // Store filter params
 
-        $http
-          .get(
-            "http://localhost:8080/api/admin/hoadon/tongSoHoaDonXacNhan",
-            config
-          )
-          .then(function (response) {
-            $scope.TongSoHoaDonXacNhan = response.data; // Gán dữ liệu trả về vào biến $scope
-          })
-          .catch(function (error) {
-            console.log("Error fetching data:", error);
-            $scope.TongSoHoaDonXacNhan = 0; // Gán mặc định là 0 nếu có lỗi
-          });
-      };
+    $http
+      .get(`http://localhost:8080/api/admin/hoadon/loc/trangthaihoadon?pageNumber=${$scope.currentPage - 1}&pageSize=${$scope.pageSize}&trangthai=${trangthai}`, config)
+      .then(function (response) {
+        $scope.HoaDonLoadPhanTrang = response.data.content;
+        console.log("Lọc SP Theo Nhiều Tiêu Chí:", $scope.HoaDonLoadPhanTrang);
 
-      // Gọi hàm để thực hiện request
-      $scope.TongSoHoaDonXacNhan();
+        $scope.totalItems = response.data.totalElements;
+        $scope.totalPages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+        $scope.showNextButton = $scope.HoaDonLoadPhanTrang.length >= $scope.pageSize;
+      })
+      .catch(function (error) {
+        console.log("Lỗi khi tìm kiếm sản phẩm", error);
+      });
+  }
+};
 
-      $scope.TongSoHoaDonChoGiao = function () {
-        var token = localStorage.getItem("accessToken");
+// Filter invoices by invoice number
+$scope.locMaHoaDon = function (isPageChange = false) {
+  var token = localStorage.getItem("accessToken");
+  var config = {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  };
 
-        var config = {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        };
+  var mahoadon = $scope.mahoadonTK;
 
-        $http
-          .get(
-            "http://localhost:8080/api/admin/hoadon/tongSoHoaDonChoGiao",
-            config
-          )
-          .then(function (response) {
-            $scope.TongSoHoaDonChoGiao = response.data; // Gán dữ liệu trả về vào biến $scope
-          })
-          .catch(function (error) {
-            console.log("Error fetching data:", error);
-            $scope.TongSoHoaDonChoGiao = 0; // Gán mặc định là 0 nếu có lỗi
-          });
-      };
+  if (!isPageChange) {
+    // Reset currentPage before making API call
+    $scope.currentPage = 1;
+  }
 
-      // Gọi hàm để thực hiện request
-      $scope.TongSoHoaDonChoGiao();
+  if (!mahoadon) {
+    $scope.ShowHoaDon();
+    console.log("Gọi Hàm LoadHĐ");
+  } else {
+    $scope.activeFilter = 'mahoadon'; // Set active filter
+    $scope.filterParams = { mahoadon: mahoadon }; // Store filter params
 
-      $scope.TongSoHoaDonDangGiao = function () {
-        var token = localStorage.getItem("accessToken");
+    $http
+      .get(`http://localhost:8080/api/admin/hoadon/loc/mahoadon?pageNumber=${$scope.currentPage - 1}&pageSize=${$scope.pageSize}&mahoadon=${mahoadon}`, config)
+      .then(function (response) {
+        $scope.HoaDonLoadPhanTrang = response.data.content;
+        console.log("Lọc Hoa đơn theo ma :", $scope.HoaDonLoadPhanTrang);
 
-        var config = {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        };
+        $scope.totalItems = response.data.totalElements;
+        $scope.totalPages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+        $scope.showNextButton = $scope.HoaDonLoadPhanTrang.length >= $scope.pageSize;
+      })
+      .catch(function (error) {
+        console.log("Lỗi khi tìm kiếm sản phẩm", error);
+      });
+  }
+};
 
-        $http
-          .get(
-            "http://localhost:8080/api/admin/hoadon/tongSoHoaDonDangGiao",
-            config
-          )
-          .then(function (response) {
-            $scope.TongSoHoaDonDangGiao = response.data; // Gán dữ liệu trả về vào biến $scope
-          })
-          .catch(function (error) {
-            console.log("Error fetching data:", error);
-            $scope.TongSoHoaDonDangGiao = 0; // Gán mặc định là 0 nếu có lỗi
-          });
-      };
+// Filter invoices by type
+$scope.locLoaiHoaDon = function (isPageChange = false) {
+  var token = localStorage.getItem("accessToken");
+  var config = {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  };
 
-      // Gọi hàm để thực hiện request
-      $scope.TongSoHoaDonDangGiao();
+  var loaihoadon = $scope.loaihoadon;
 
-      $scope.TongSoHoaDonHoanThanh = function () {
-        var token = localStorage.getItem("accessToken");
+  if (!isPageChange) {
+    // Reset currentPage before making API call
+    $scope.currentPage = 1;
+  }
 
-        var config = {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        };
+  if (!loaihoadon) {
+    $scope.ShowHoaDon();
+    console.log("Gọi Hàm LoadHĐ");
+  } else {
+    $scope.activeFilter = 'loaihoadon'; // Set active filter
+    $scope.filterParams = { loaihoadon: loaihoadon }; // Store filter params
 
-        $http
-          .get(
-            "http://localhost:8080/api/admin/hoadon/tongSoHoaDonHoanThanh",
-            config
-          )
-          .then(function (response) {
-            $scope.TongSoHoaDonHoanThanh = response.data; // Gán dữ liệu trả về vào biến $scope
-          })
-          .catch(function (error) {
-            console.log("Error fetching data:", error);
-            $scope.TongSoHoaDonHoanThanh = 0; // Gán mặc định là 0 nếu có lỗi
-          });
-      };
+    $http
+      .get(`http://localhost:8080/api/admin/hoadon/loc/loaihoadon?pageNumber=${$scope.currentPage - 1}&pageSize=${$scope.pageSize}&loaihoadon=${loaihoadon}`, config)
+      .then(function (response) {
+        $scope.HoaDonLoadPhanTrang = response.data.content;
+        console.log("Lọc Hoa đơn theo loai :", $scope.HoaDonLoadPhanTrang);
 
-      // Gọi hàm để thực hiện request
-      $scope.TongSoHoaDonHoanThanh();
+        $scope.totalItems = response.data.totalElements;
+        $scope.totalPages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+        $scope.showNextButton = $scope.HoaDonLoadPhanTrang.length >= $scope.pageSize;
+      })
+      .catch(function (error) {
+        console.log("Lỗi khi tìm kiếm sản phẩm", error);
+      });
+  }
+};
 
-      $scope.TongSoHoaDonHuy = function () {
-        var token = localStorage.getItem("accessToken");
+// Redirect to invoice details
+$scope.redirectToHoaDonDetails = function (hoaDonId) {
+  localStorage.setItem("IDHoaDonUpdate", hoaDonId);
+};
 
-        var config = {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        };
+// Initialize selectedTab variable
+$scope.selectedTab = 0;
 
-        $http
-          .get("http://localhost:8080/api/admin/hoadon/tongSoHoaDonHuy", config)
-          .then(function (response) {
-            $scope.TongSoHoaDonHuy = response.data; // Gán dữ liệu trả về vào biến $scope
-          })
-          .catch(function (error) {
-            console.log("Error fetching data:", error);
-            $scope.TongSoHoaDonHuy = 0; // Gán mặc định là 0 nếu có lỗi
-          });
-      };
+// Initial load
+$scope.ShowHoaDon();
 
-      // Gọi hàm để thực hiện request
-      $scope.TongSoHoaDonHuy();
 
-      // lọc hoá đơn theo trạng thái
-      $scope.locTrangThai = function (trangthaiValue) {
-        $scope.filterCriteria.trangthai = trangthaiValue || "";
-        $scope.currentPage = 1;
-        $scope.loadHoaDon();
-      };
-
-      $scope.locMaHoaDon = function () {
-        $scope.filterCriteria.mahoadon = $scope.mahoadonTK || "";
-        $scope.currentPage = 1;
-        $scope.loadHoaDon();
-      };
-
-      $scope.locLoaiHoaDon = function () {
-        $scope.filterCriteria.loaihoadon = $scope.loaihoadon || "";
-        $scope.currentPage = 1;
-        $scope.loadHoaDon();
-      };
-
-      $scope.redirectToHoaDonDetails = function (hoaDonId) {
-        // Lưu id vào localStorage hoặc sử dụng biến trong controller
-        localStorage.setItem("IDHoaDonUpdate", hoaDonId);
-      };
       // Hàm chọn tab
       $scope.selectTab = function (tabIndex) {
         $scope.selectedTab = tabIndex;
@@ -300,9 +267,6 @@ app.controller(
       $scope.isSelected = function (tabIndex) {
         return $scope.selectedTab === tabIndex;
       };
-
-      $scope.selectedTab = 0; // Mục đang được chọn ban đầu
-
       $scope.getUpdateHoaDonUrl = function (trangthai) {
         switch (trangthai) {
           case 1:
@@ -321,9 +285,6 @@ app.controller(
             return "#/hoadon"; // Provide a default URL if needed
         }
       };
-
-      // Gọi hàm để thực hiện request
-      $scope.loadHoaDon();
     }
   }
 );

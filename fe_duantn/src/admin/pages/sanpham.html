@@ -282,6 +282,12 @@
               >
                 <tr>
                   <th
+                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_code"
+                  data-sort="product_code"
+                >
+                  STT
+                </th>
+                  <th
                     class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_code"
                     data-sort="product_code"
                   >
@@ -332,6 +338,11 @@
               </thead>
               <tbody class="list">
                 <tr ng-repeat="sanPham in sanPhamLoadPhanTrang">
+                  <td
+                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 price"
+                >
+                {{$index + 1}}
+                </td>
                   <td
                     class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
                   >

@@ -339,7 +339,7 @@
                         class="flex items-center justify-center rounded-md size-12 bg-slate-100 shrink-0"
                       >
                         <img
-                          src="/src/fileanh/{{hoaDon.imagedefaul}}"
+                          src="/src/fileanh/img-sanpham/{{hoaDon.imagedefaul}}"
                           alt=""
                           class="h-8"
                         />
@@ -468,88 +468,19 @@
           <h6 class="mb-4 text-15">Trạng thái hoá đơn</h6>
           <div>
             <div
-              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500"
+              class="before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500"
             >
-              <div class="relative flex gap-2">
+              <div class="flex gap-2">
                 <div
-                  class="size-8 p-0.5 bg-white text-gray-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700"
-                  style="color: #808080; border-color: #808080"
+                  class="size-8 p-0.5 bg-white text-red-500 flex items-center justify-center border rounded-full shrink-0 border-red-500 dark:border-red-500 dark:bg-red-700"
+                  style="color: #ff0000; border-color: #ff0000"
                 >
-                  <i class="ri-file-text-line size-4.5"></i>
+                  <i class="ri-delete-bin-2-line size-4.5"></i>
                 </div>
                 <div>
-                  <h6 class="mb-1" style="color: #808080">Chờ xác nhận</h6>
-                  <p class="text-sm text-slate-500 dark:text-zink-200">
+                  <h6 class="mb-1" style="color: #ff0000">Hoá đơn huỷ</h6>
+                  <p class="text-sm text-red-500 dark:text-red-200">
                     05:57 AM Today
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div
-              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500"
-            >
-              <div class="relative flex gap-2">
-                <div
-                  class="size-8 p-0.5 text-blue-500 flex items-center justify-center border rounded-full shrink-0"
-                >
-                  <i class="ri-newspaper-line size-4.5"></i>
-                </div>
-
-                <div>
-                  <h6 class="mb-1">Đã xác nhận</h6>
-                  <p class="text-sm text-slate-500 dark:text-zink-200">
-                    25 Dec, 2023
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div
-              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500"
-            >
-              <div class="relative flex gap-2">
-                <div
-                  class="size-8 p-0.5 bg-white text-yellow-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700"
-                >
-                  <i class="ri-loader-2-line size-4.5"></i>
-                </div>
-
-                <div>
-                  <h6 class="mb-1">Đang chờ giao hàng</h6>
-                  <p class="text-sm text-slate-500 dark:text-zink-200">
-                    12 Dec, 2023
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div
-              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500"
-            >
-              <div class="relative flex gap-2">
-                <div
-                  class="size-8 p-0.5 bg-white text-purple-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700"
-                >
-                  <i class="ri-truck-line size-4.5"></i>
-                </div>
-
-                <div>
-                  <h6 class="mb-1">Đang giao</h6>
-                  <p class="text-sm text-slate-500 dark:text-zink-200">
-                    12 Dec, 2023
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="relative">
-              <div class="relative flex gap-2">
-                <div
-                  class="size-8 p-0.5 bg-white text-green-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700"
-                >
-                  <i class="ri-shopping-bag-3-line size-4.5"></i>
-                </div>
-                <div>
-                  <h6 class="mb-1">Hoàn thành</h6>
-                  <p class="text-sm text-slate-500 dark:text-zink-200">
-                    12 Dec, 2023
                   </p>
                 </div>
               </div>
@@ -557,71 +488,71 @@
           </div>
         </div>
       </div>
+      <!--end col-->
     </div>
-    <!--end col-->
-  </div>
-  <div
-    id="overlay04"
-    class="overlay"
-    ng-class="{ 'active': isModalOpen }"
-    ng-click="closeModal04($event)"
-  >
-    <div id="myModal04" class="modal02">
-      <div class="modal-content01">
-        <div
-          class="w-full bg-white shadow rounded-md dark:bg-zink-600 flex flex-col h-full"
-        >
+    <div
+      id="overlay04"
+      class="overlay"
+      ng-class="{ 'active': isModalOpen }"
+      ng-click="closeModal04($event)"
+    >
+      <div id="myModal04" class="modal02">
+        <div class="modal-content01">
           <div
-            class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-zink-500"
+            class="w-full bg-white shadow rounded-md dark:bg-zink-600 flex flex-col h-full"
           >
-            <h5 class="text-16">Chọn người xác nhận</h5>
-          </div>
-          <div
-            class="max-h-[calc(theme('height.screen')_-_180px)] p-4 overflow-y-auto"
-          >
-            <form>
-              <div class="grid grid-cols-1 gap-5 xl:grid-cols-12">
-                <div class="xl:col-span-12">
-                  <label
-                    for="createDateInput"
-                    class="inline-block mb-2 text-base font-medium"
-                    >Nhân viên</label
-                  >
-                  <div>
-                    <select
-                      class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                      data-choices=""
-                      data-choices-search-false=""
-                      name="productTypeSelect"
-                      id="productTypeSelect"
-                      ng-model="selectedNhanVien"
-                      ng-options="nhanvien.idnv as nhanvien.taikhoan for nhanvien in NhanViens"
+            <div
+              class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-zink-500"
+            >
+              <h5 class="text-16">Chọn người xác nhận</h5>
+            </div>
+            <div
+              class="max-h-[calc(theme('height.screen')_-_180px)] p-4 overflow-y-auto"
+            >
+              <form>
+                <div class="grid grid-cols-1 gap-5 xl:grid-cols-12">
+                  <div class="xl:col-span-12">
+                    <label
+                      for="createDateInput"
+                      class="inline-block mb-2 text-base font-medium"
+                      >Nhân viên</label
                     >
-                      <option value="">Chọn nhân viên</option>
-                    </select>
-                    <span class="error-message" ng-if="errorMessage.nhanvien"
-                      >{{errorMessage.nhanvien}}</span
-                    >
+                    <div>
+                      <select
+                        class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                        data-choices=""
+                        data-choices-search-false=""
+                        name="productTypeSelect"
+                        id="productTypeSelect"
+                        ng-model="selectedNhanVien"
+                        ng-options="nhanvien.idnv as nhanvien.taikhoan for nhanvien in NhanViens"
+                      >
+                        <option value="">Chọn nhân viên</option>
+                      </select>
+                      <span class="error-message" ng-if="errorMessage.nhanvien"
+                        >{{errorMessage.nhanvien}}</span
+                      >
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="flex justify-end gap-2 mt-4">
-                <button
-                  type="submit"
-                  id="addNew"
-                  ng-click="updateNguoiXacNhan()"
-                  class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20"
-                >
-                  Cập nhật
-                </button>
-              </div>
-            </form>
-          </div>
-          <div
-            class="flex items-center justify-between p-4 mt-auto border-t border-slate-200 dark:border-zink-500"
-          >
-            <h5 class="text-16">Quần Áo Thời Trang</h5>
+                <div class="flex justify-end gap-2 mt-4">
+                  <button
+                    type="submit"
+                    id="addNew"
+                    ng-click="updateNguoiXacNhan()"
+                    class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20"
+                  >
+                    Cập nhật
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div
+              class="flex items-center justify-between p-4 mt-auto border-t border-slate-200 dark:border-zink-500"
+            >
+              <h5 class="text-16">Quần Áo Thời Trang</h5>
+            </div>
           </div>
         </div>
       </div>

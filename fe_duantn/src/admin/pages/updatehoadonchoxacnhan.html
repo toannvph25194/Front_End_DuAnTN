@@ -360,7 +360,7 @@
                         class="flex items-center justify-center rounded-md size-12 bg-slate-100 shrink-0"
                       >
                         <img
-                          src="/src/fileanh/{{hoaDon.imagedefaul}}"
+                           src="/src/fileanh/img-sanpham/{{hoaDon.imagedefaul}}"
                           alt=""
                           class="h-8"
                         />
@@ -1103,7 +1103,7 @@
                             class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_code"
                             data-sort="product_code"
                           >
-                            Mã sản phẩm
+                            STT
                           </th>
                           <th
                             class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 sort product_name"
@@ -1146,13 +1146,9 @@
                       <tbody class="list">
                         <tr ng-repeat="sanPham in sanPhamLoadPhanTrang">
                           <td
-                            class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                            class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 category"
                           >
-                            <a
-                              href=""
-                              class="transition-all duration-150 ease-linear product_code text-custom-500 hover:text-custom-600"
-                              >{{ $index + 1}}</a
-                            >
+                           {{$index + 1}}
                           </td>
                           <td
                             class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 product_name"
@@ -1162,7 +1158,7 @@
                               class="flex items-center gap-2"
                             >
                               <img
-                                src="/src/fileanh/{{sanPham.imagedefaul}}"
+                                 src="/src/fileanh/img-sanpham/{{sanPham.imagedefaul}}"
                                 alt="Product images"
                                 class="h-10"
                               />
