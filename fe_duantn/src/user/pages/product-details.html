@@ -21,13 +21,13 @@
                                     <!-- MAIN SLIDES -->
                                     <div class="product-image-slider">
                                         <figure class="border-radius-10">
-                                            <img style="width: 471px; height: 510px;" src="{{selectedImage}}" alt="product image">
+                                            <img style="width: 471px; height: 510px;" src="/src/fileanh/img-sanpham/{{selectedImage}}" alt="product image">
                                         </figure>
                                     </div>
                                     <!-- THUMBNAILS -->
                                     <div class="slider-nav-thumbnails pl-15 pr-15">
                                         <span ng-repeat="list in loadlistImgSP" class="border border-secondary" ng-click="selectImage(list)">
-                                            <img style="width: 75px; height: 75px;" src="{{list.tenimage}}" alt="product image">
+                                            <img style="width: 75px; height: 75px;" src="/src/fileanh/img-sanpham/{{list.tenimage}}" alt="product image">
                                         </span>
                                     </div>
                                 </div>
@@ -343,7 +343,7 @@
                         </div>
                         <div ng-repeat="spn in sanPhamNewCTSP" class="single-post clearfix">
                             <div class="image">
-                                <img src="{{spn.imagedefaul}}" alt="#">
+                                <img src="/src/fileanh/img-sanpham/{{spn.imagedefaul}}" alt="#">
                             </div>
                             <div class="content pt-10">
                                 <h5><a ng-href="#/product-details/{{spn.id}}">{{spn.tensp}}</a></h5>
