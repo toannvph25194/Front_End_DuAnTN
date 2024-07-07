@@ -5,7 +5,7 @@
                 <a href="#/" rel="nofollow">Trang Chủ</a>
                 <span></span> Shop
                 <span></span> Chi tiết sản phẩm
-                
+
             </div>
         </div>
     </div>
@@ -14,20 +14,29 @@
             <div class="row">
                 <div class="col-lg-9">
                     <div class="product-detail accordion-detail">
-                        <div class="row mb-50">
+                        <div class="row mb-50" style="text-align: center" ng-show="tongSoLuongTonSP.tongsoluongtonsp <= 0">
+                            <h4 style="color: #F15412">
+                                Rất tiếc, sản phẩm hiện tại đã hết hàng. <br>
+                                2TH-SHOP Xin quý khách vui lòng quay lại sau !
+                            </h4>
+                        </div>
+                        <div class="row mb-50" ng-show="tongSoLuongTonSP.tongsoluongtonsp > 0">
                             <div class="col-md-6 col-sm-12 col-xs-12">
                                 <div class="detail-gallery">
                                     <span class="zoom-icon"><i class="fi-rs-search"></i></span>
                                     <!-- MAIN SLIDES -->
                                     <div class="product-image-slider">
                                         <figure class="border-radius-10">
-                                            <img style="width: 471px; height: 510px;" src="/src/fileanh/img-sanpham/{{selectedImage}}" alt="product image">
+                                            <img style="width: 471px; height: 510px;"
+                                                src="/src/fileanh/img-sanpham/{{selectedImage}}" alt="product image">
                                         </figure>
                                     </div>
                                     <!-- THUMBNAILS -->
                                     <div class="slider-nav-thumbnails pl-15 pr-15">
-                                        <span ng-repeat="list in loadlistImgSP" class="border border-secondary" ng-click="selectImage(list)">
-                                            <img style="width: 75px; height: 75px;" src="/src/fileanh/img-sanpham/{{list.tenimage}}" alt="product image">
+                                        <span ng-repeat="list in loadlistImgSP" class="border border-secondary"
+                                            ng-click="selectImage(list)">
+                                            <img style="width: 75px; height: 75px;"
+                                                src="/src/fileanh/img-sanpham/{{list.tenimage}}" alt="product image">
                                         </span>
                                     </div>
                                 </div>
@@ -51,10 +60,10 @@
                             </div>
 
                             <!-- Detail sp -->
-
                             <div class="col-md-6 col-sm-12 col-xs-12">
                                 <div class="detail-info">
-                                    <h2 class="title-detail">{{detailProduct.tensp}} - {{detailProduct.tenchatlieu}}</h2>
+                                    <h2 class="title-detail">{{detailProduct.tensp}} - {{detailProduct.tenchatlieu}}
+                                    </h2>
                                     <div class="product-detail-rating">
                                         <div class="pro-details-brand">
                                             <span> Sản phâm tương tự: <a href="#/shop">Tại đây</a></span>
@@ -69,9 +78,14 @@
                                     </div>
                                     <div class="clearfix product-price-cover">
                                         <div class="product-price primary-color float-left">
-                                            <ins ng-if="detailProduct.dongiakhigiam == null"><span class="text-brand">{{detailProduct.giaban | number}} đ</span></ins>
-                                            <ins ng-if="detailProduct.dongiakhigiam !== null"><span class="text-brand">{{detailProduct.dongiakhigiam | number}} đ</span></ins>
-                                            <ins ng-if="detailProduct.dongiakhigiam !== null"><span class="old-price font-md ml-15">{{detailProduct.giaban | number}} đ</span></ins>
+                                            <ins ng-if="detailProduct.dongiakhigiam == null"><span
+                                                    class="text-brand">{{detailProduct.giaban | number}} đ</span></ins>
+                                            <ins ng-if="detailProduct.dongiakhigiam !== null"><span
+                                                    class="text-brand">{{detailProduct.dongiakhigiam | number}}
+                                                    đ</span></ins>
+                                            <ins ng-if="detailProduct.dongiakhigiam !== null"><span
+                                                    class="old-price font-md ml-15">{{detailProduct.giaban | number}}
+                                                    đ</span></ins>
                                             <!-- <span class="save-price  font-md color3 ml-15">25% Off</span> -->
                                         </div>
                                     </div>
@@ -113,7 +127,8 @@
                                             <li ng-repeat="s in detailSize"
                                                 ng-class="{ 'active': s.isActive, 'muted-color-mausac': isMauSacSelected && !s.isSelectable }">
                                                 <a style="margin-right: 7px;"
-                                                    ng-click="FinMauSacByIdSPAndIdSize(s); finByIdSPCTAndSoLuongTon()"> {{
+                                                    ng-click="FinMauSacByIdSPAndIdSize(s); finByIdSPCTAndSoLuongTon()">
+                                                    {{
                                                     s.tensize }} </a>
                                             </li>
 
@@ -178,8 +193,8 @@
                                             <div class="product-img-action-wrap">
                                                 <div class="product-img product-img-zoom">
                                                     <a href="" tabindex="0">
-                                                        <img class="default-img"
-                                                            src="assets/imgs/shop/product-2-1.jpg" alt="">
+                                                        <img class="default-img" src="assets/imgs/shop/product-2-1.jpg"
+                                                            alt="">
                                                         <!-- <img class="hover-img"
                                                             src="assets/imgs/shop/product-2-2.jpg" alt=""> -->
                                                     </a>
@@ -190,9 +205,8 @@
                                                             class="fi-rs-search"></i></a>
                                                     <a aria-label="Add To Wishlist" class="action-btn small hover-up"
                                                         href="" tabindex="0"><i class="fi-rs-heart"></i></a>
-                                                    <a aria-label="Compare" class="action-btn small hover-up"
-                                                        href="" tabindex="0"><i
-                                                            class="fi-rs-shuffle"></i></a>
+                                                    <a aria-label="Compare" class="action-btn small hover-up" href=""
+                                                        tabindex="0"><i class="fi-rs-shuffle"></i></a>
                                                 </div>
                                                 <div class="product-badges product-badges-position product-badges-mrg">
                                                     <span class="hot">Mẫu</span>
@@ -217,8 +231,8 @@
                                             <div class="product-img-action-wrap">
                                                 <div class="product-img product-img-zoom">
                                                     <a href="" tabindex="0">
-                                                        <img class="default-img"
-                                                            src="assets/imgs/shop/product-3-1.jpg" alt="">
+                                                        <img class="default-img" src="assets/imgs/shop/product-3-1.jpg"
+                                                            alt="">
                                                         <!-- <img class="hover-img"
                                                             src="assets/imgs/shop/product-3-2.jpg" alt=""> -->
                                                     </a>
@@ -229,9 +243,8 @@
                                                             class="fi-rs-search"></i></a>
                                                     <a aria-label="Add To Wishlist" class="action-btn small hover-up"
                                                         href="" tabindex="0"><i class="fi-rs-heart"></i></a>
-                                                    <a aria-label="Compare" class="action-btn small hover-up"
-                                                        href="" tabindex="0"><i
-                                                            class="fi-rs-shuffle"></i></a>
+                                                    <a aria-label="Compare" class="action-btn small hover-up" href=""
+                                                        tabindex="0"><i class="fi-rs-shuffle"></i></a>
                                                 </div>
                                                 <div class="product-badges product-badges-position product-badges-mrg">
                                                     <span class="hot">Mẫu</span>
@@ -256,8 +269,8 @@
                                             <div class="product-img-action-wrap">
                                                 <div class="product-img product-img-zoom">
                                                     <a href="" tabindex="0">
-                                                        <img class="default-img"
-                                                            src="assets/imgs/shop/product-4-1.jpg" alt="">
+                                                        <img class="default-img" src="assets/imgs/shop/product-4-1.jpg"
+                                                            alt="">
                                                         <!-- <img class="hover-img"
                                                             src="assets/imgs/shop/product-4-2.jpg" alt=""> -->
                                                     </a>
@@ -268,9 +281,8 @@
                                                             class="fi-rs-search"></i></a>
                                                     <a aria-label="Add To Wishlist" class="action-btn small hover-up"
                                                         href="" tabindex="0"><i class="fi-rs-heart"></i></a>
-                                                    <a aria-label="Compare" class="action-btn small hover-up"
-                                                        href="" tabindex="0"><i
-                                                            class="fi-rs-shuffle"></i></a>
+                                                    <a aria-label="Compare" class="action-btn small hover-up" href=""
+                                                        tabindex="0"><i class="fi-rs-shuffle"></i></a>
                                                 </div>
                                                 <div class="product-badges product-badges-position product-badges-mrg">
                                                     <span class="hot">Mẫu</span>
@@ -306,9 +318,8 @@
                                                             class="fi-rs-search"></i></a>
                                                     <a aria-label="Add To Wishlist" class="action-btn small hover-up"
                                                         href="" tabindex="0"><i class="fi-rs-heart"></i></a>
-                                                    <a aria-label="Compare" class="action-btn small hover-up"
-                                                        href="" tabindex="0"><i
-                                                            class="fi-rs-shuffle"></i></a>
+                                                    <a aria-label="Compare" class="action-btn small hover-up" href=""
+                                                        tabindex="0"><i class="fi-rs-shuffle"></i></a>
                                                 </div>
                                                 <div class="product-badges product-badges-position product-badges-mrg">
                                                     <span class="hot">Mẫu</span>

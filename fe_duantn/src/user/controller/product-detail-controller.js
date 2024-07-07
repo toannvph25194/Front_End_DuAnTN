@@ -123,7 +123,7 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
     }
     $scope.loadSizeByIdSP();
 
-    
+
     // FinByMauSac theo idsp và id size
     // Biến theo dõi màu sắc nếu chưa chọn size thì sẽ mở khóa màu sắc
     $scope.isSizeSelected = false;
@@ -155,7 +155,7 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
                         // Kiểm tra xem màu sắc có trong danh sách nhận được từ server không
                         var matchingColor = mauSacFromServer.find(function (availableMs) {
                             // Điều này có thể phụ thuộc vào cách bạn so sánh màu sắc
-                            return availableMs.tenmausac === ms.tenmausac; 
+                            return availableMs.tenmausac === ms.tenmausac;
                         });
 
                         // Cập nhật isSelectable của màu sắc. Nếu màu sắc nào có theo size thì sẽ không bị khóa
@@ -211,7 +211,7 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
                         // Kiểm tra xem size có trong danh sách nhận được từ server không
                         var matchingSize = sizeFromServer.find(function (availableS) {
                             // Điều này có thể phụ thuộc vào cách bạn so sánh size
-                            return availableS.tensize === s.tensize; 
+                            return availableS.tensize === s.tensize;
                         });
 
                         // Cập nhật isSelectable của size. Nếu size nào có theo mausac thì sẽ không bị khóa
@@ -303,7 +303,7 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
                 // Nếu tăng số lượng vượt quá số lượng sản phẩm theo màu sắc và size thì nó sẽ thông báo
                 if ($scope.soluong > $scope.chiTietSP.soluongton) {
                     $scope.messageShowSoLuongTon = true;
-                    $scope.soluong = $scope.chiTietSP.soluongton;
+                    $scope.soluong = 1;
                 } else {
                     $scope.messageShowSoLuongTon = false;
                 }
@@ -346,7 +346,7 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
         if (timKiemMauSac && timKiemSize) {
             if ($scope.soluong > $scope.chiTietSP.soluongton) {
                 $scope.messageShowSoLuongTon = true;
-                $scope.soluong = $scope.chiTietSP.soluongton;
+                $scope.soluong = 1;
             } else {
                 $scope.messageShowSoLuongTon = false;
             }
@@ -360,23 +360,23 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
 
     // Tạo Giỏ Hàng Mới
     $scope.taoGioHang = function () {
-            // Nếu Idtaikhoan có trên localStorage thì sẽ tạo giỏ hàng có idkh
-            // Nếu Idtaikhoan k có trên localStorage thì sẽ tạo giỏ hàng với idkh là null
-            var idkhachhanh = idkh !== null ? idkh : '';
-            console.log("idkh", idkhachhanh)
-            $http.post('http://localhost:8080/api/ol/gio-hang/add?idkh=' + idkhachhanh)
-                .then(function (response) {
-                    $scope.addGioHang = response.data;
-                    console.log("DATA GH :", $scope.addGioHang);
-                    // Lưu idgiohang vào localStorage
-                    localStorage.setItem('idgiohang', $scope.addGioHang.idgh);
+        // Nếu Idtaikhoan có trên localStorage thì sẽ tạo giỏ hàng có idkh
+        // Nếu Idtaikhoan k có trên localStorage thì sẽ tạo giỏ hàng với idkh là null
+        var idkhachhanh = idkh !== null ? idkh : '';
+        console.log("idkh", idkhachhanh)
+        $http.post('http://localhost:8080/api/ol/gio-hang/add?idkh=' + idkhachhanh)
+            .then(function (response) {
+                $scope.addGioHang = response.data;
+                console.log("DATA GH :", $scope.addGioHang);
+                // Lưu idgiohang vào localStorage
+                localStorage.setItem('idgiohang', $scope.addGioHang.idgh);
 
-                    // Gọi hàm taoGioHangCT sau khi tạo giỏ hàng mới
-                    $scope.taoGioHangCT();
-                })
-                .catch(function (error) {
-                    console.error(error.data.message);
-                });
+                // Gọi hàm taoGioHangCT sau khi tạo giỏ hàng mới
+                $scope.taoGioHangCT();
+            })
+            .catch(function (error) {
+                console.error(error.data.message);
+            });
     };
 
     // Tạo Giỏ Hàng CT và thêm sản phẩm vào giỏ hàng
@@ -387,38 +387,49 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
         // Lấy idct quan hàm tìm chiTietSP và soluong ở ô input
         var idspct = $scope.chiTietSP.id;
         var soluong = $scope.soluong;
-        // Nếu dongiakhigiam là null thì sẽ lấy chuỗi rỗng . Còn k null thì lấy giá trị dongiakhigiam
-        var dongiakhigiam = $scope.detailProduct.dongiakhigiam !== null ? $scope.detailProduct.dongiakhigiam : '';
-        console.log("dongiakhigiam", dongiakhigiam);
-        // Hiển thị Sweet Alert để xác nhận
-        Swal.fire({
-            title: "Thêm Vào Giỏ Hàng",
-            text: "Bạn có chắc chắn muốn thêm vào giỏ hàng ?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#28a745",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Add To Cart",
-            cancelButtonText: "Cancel",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $http.post('http://localhost:8080/api/ol/gio-hang-chi-tiet/add-san-pham?idgh=' + IdGioHang + '&idspct=' + idspct + 
-                '&soluong=' + soluong + '&dongiakhigiam=' + dongiakhigiam)
-                    .then(function (response) {
-                        $scope.ghct = response.data;
-                        console.log('Data GHCT :', $scope.ghct);
-                        $window.location.reload();
-                        // $route.reload();
-                    })
-                    .catch(function (error) {
-                        console.error('Lỗi K Thêm Được SP Vào Giỏ Hàng CT : ', error);
-                    });
-                // Sử dụng $location để thay đổi địa chỉ URL
-                // $location.path('/cart/' + idctsp + '&soluong=' + soluong);
-            }
-        });
+        if (soluong > $scope.chiTietSP.soluongton) {
+            Swal.fire({
+                title: "Thông Báo",
+                text: "Sản phẩm này đã bán hết. Bạn có thể chọn sản phẩm khác !",
+                icon: "warning",
+                position: "top-end",
+                toast: true,
+                showConfirmButton: false,
+                timer: 1500,
+            })
+        } else {
+            // Nếu dongiakhigiam là null thì sẽ lấy chuỗi rỗng . Còn k null thì lấy giá trị dongiakhigiam
+            var dongiakhigiam = $scope.detailProduct.dongiakhigiam !== null ? $scope.detailProduct.dongiakhigiam : '';
+            console.log("dongiakhigiam", dongiakhigiam);
+            // Hiển thị Sweet Alert để xác nhận
+            Swal.fire({
+                title: "Thêm Vào Giỏ Hàng",
+                text: "Bạn có chắc chắn muốn thêm vào giỏ hàng ?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#28a745",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Add To Cart",
+                cancelButtonText: "Cancel",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $http.post('http://localhost:8080/api/ol/gio-hang-chi-tiet/add-san-pham?idgh=' + IdGioHang + '&idspct=' + idspct +
+                        '&soluong=' + soluong + '&dongiakhigiam=' + dongiakhigiam)
+                        .then(function (response) {
+                            $scope.ghct = response.data;
+                            console.log('Data GHCT :', $scope.ghct);
+                            $window.location.reload();
+                            // $route.reload();
+                        })
+                        .catch(function (error) {
+                            console.error('Lỗi K Thêm Được SP Vào Giỏ Hàng CT : ', error);
+                        });
+                    // Sử dụng $location để thay đổi địa chỉ URL
+                    // $location.path('/cart/' + idctsp + '&soluong=' + soluong);
+                }
+            });
+        }
     }
-
 
     // Hàm lấy check và tạo giỏ hàng hoặc tạo giỏ hàng chi tiết 
     $scope.CheckAddGHAndGHCT = function () {
