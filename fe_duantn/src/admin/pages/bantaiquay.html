@@ -164,12 +164,12 @@
                     </a>
                   </td>
                   <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 price">
-                    <span ng-show="hdct.dongiakhigiam == null">{{hdct.dongia | number}} đ</span>
-                    <span ng-show="hdct.dongiakhigiam != null" style="color: tomato;">{{hdct.dongiakhigiam | number}} đ |</span>
-                    <span ng-show="hdct.dongiakhigiam != null" style="text-decoration: line-through; opacity: 0.6;" >{{hdct.dongia | number}} đ</span>
+                    <span ng-show="hdct.dongiakhigiam == null">{{hdct.dongia | number}} vnđ</span>
+                    <span ng-show="hdct.dongiakhigiam != null" style="color: tomato;">{{hdct.dongiakhigiam | number}} vnđ |</span>
+                    <span ng-show="hdct.dongiakhigiam != null" style="text-decoration: line-through; opacity: 0.6;" >{{hdct.dongia | number}} vnđ</span>
                   </td>
                   <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 price">
-                    <span>{{(hdct.dongiakhigiam ? hdct.dongiakhigiam : hdct.dongia) * hdct.soluong}}</span>
+                    <span>{{(hdct.dongiakhigiam ? hdct.dongiakhigiam : hdct.dongia) * hdct.soluong | number}} vnđ</span>
                   </td>
                   <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
                     <div class="flex gap-2">
@@ -475,7 +475,7 @@
                           </td>
 
                           <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 phone-number">
-                            {{voucherhienthi.dieukientoithieuhoadon}}
+                            {{voucherhienthi.dieukientoithieuhoadon | number}} vnđ
                           </td>
                           <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 joining-date">
                             {{ voucherhienthi.hinhthucgiam == 1 ? (voucherhienthi.giatrigiam + '%') : (voucherhienthi.giatrigiam | number: '0') + ' vnđ' }}
@@ -798,9 +798,9 @@
                                   </div>
                               </td>
                               <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
-                                <span ng-show="ttsp.dongiakhigiam == null">{{ttsp.giaban | number}} đ</span>
-                                <span ng-show="ttsp.dongiakhigiam != null" style="color: tomato;">{{ttsp.dongiakhigiam | number}} đ |</span>
-                                <span ng-show="ttsp.dongiakhigiam != null" style="text-decoration: line-through; opacity: 0.6;" >{{ttsp.giaban | number}} đ</span>
+                                <span ng-show="ttsp.dongiakhigiam == null">{{ttsp.giaban | number}} vnđ</span>
+                                <span ng-show="ttsp.dongiakhigiam != null" style="color: tomato;">{{ttsp.dongiakhigiam | number}} vnđ |</span>
+                                <span ng-show="ttsp.dongiakhigiam != null" style="text-decoration: line-through; opacity: 0.6;" >{{ttsp.giaban | number}} vnđ</span>
                               </td>
                               <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 status">
                                 <span ng-show="ttsp.trangthai == 1" class="px-2.5 py-0.5 text-xs inline-block font-medium rounded border bg-green-100 border-green-200 text-green-500 dark:bg-green-500/20 dark:border-green-500/20">Đang bán</span>
