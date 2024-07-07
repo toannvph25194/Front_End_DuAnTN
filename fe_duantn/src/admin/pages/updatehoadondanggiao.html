@@ -252,7 +252,13 @@ ng-init="HoaDonTheoId"
                          ng-click="openModal02()"
                 >
                 Huỷ hoá đơn
-              </button>
+              </button>   <button
+            type="button"
+            class="bg-white text-custom-500 btn border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:bg-zink-700 dark:hover:bg-custom-500 dark:ring-custom-400/20 dark:focus:bg-custom-500"
+            ng-click="openModal05()"
+          >
+            Lịch sử thao tác
+          </button>
               <button
             type="button"
             ng-click="openModal04()"
@@ -482,9 +488,7 @@ ng-init="HoaDonTheoId"
       
                       <div>
                         <h6 class="mb-1">Chờ xác nhận</h6>
-                        <p class="text-sm text-slate-500 dark:text-zink-200">
-                          05:57 AM Today
-                        </p>
+                       
                       </div>
                     </div>
                   </div>
@@ -498,7 +502,7 @@ ng-init="HoaDonTheoId"
                 
                     <div>
                         <h6 class="mb-1" >Đã xác nhận</h6>
-                        <p class="text-sm text-slate-500 dark:text-zink-200">25 Dec, 2023</p>
+                  
                     </div>
                 </div>
                 
@@ -515,9 +519,7 @@ ng-init="HoaDonTheoId"
       
                       <div>
                         <h6 class="mb-1">Đang chờ giao hàng</h6>
-                        <p class="text-sm text-slate-500 dark:text-zink-200">
-                          12 Dec, 2023
-                        </p>
+                       
                       </div>
                     </div>
                   </div>
@@ -534,9 +536,7 @@ ng-init="HoaDonTheoId"
       
                       <div>
                         <h6 class="mb-1" style="color: #800080; ">Đang giao</h6>
-                        <p class="text-sm text-slate-500 dark:text-zink-200">
-                          12 Dec, 2023
-                        </p>
+                       
                       </div>
                     </div>
                   </div>
@@ -549,9 +549,7 @@ ng-init="HoaDonTheoId"
                       </div>
                       <div>
                         <h6 class="mb-1">Hoàn thành</h6>
-                        <p class="text-sm text-slate-500 dark:text-zink-200">
-                          12 Dec, 2023
-                        </p>
+                       
                       </div>
                     </div>
                   </div>
@@ -736,6 +734,62 @@ ng-init="HoaDonTheoId"
                 </button>
               </div>
             </form>
+          </div>
+          <div
+            class="flex items-center justify-between p-4 mt-auto border-t border-slate-200 dark:border-zink-500"
+          >
+            <h5 class="text-16">Quần Áo Thời Trang</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><div
+    id="overlay05"
+    class="overlay"
+    ng-class="{ 'active': isModalOpen }"
+    ng-click="closeModal05($event)"
+  >
+    <div id="myModal05" class="modal02">
+      <div class="modal-content01">
+        <div
+          class="w-full bg-white shadow rounded-md dark:bg-zink-600 flex flex-col h-full"
+        >
+          <div
+            class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-zink-500"
+          >
+            <h5 class="text-16">Lịch sử thao tác</h5>
+          </div>
+          <div
+            class="max-h-[calc(theme('height.screen')_-_180px)] p-4 overflow-y-auto"
+          >
+            <div class="card-body">
+              <div class="flex items-center gap-3 mb-4">
+                <h6 class="text-15 grow">Lịch sử thao tác</h6>
+              </div>
+              <div>
+                <div
+                  class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
+                ng-repeat="LIchSUThaoTac in LSTT"
+                  >
+                  <div class="flex gap-4">
+                    <div class="grow">
+                      <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
+                        {{LIchSUThaoTac.nguoithaotac}}
+                      </h6>
+                      <p class="text-gray-400 dark:text-zink-200">
+                        {{LIchSUThaoTac.ghichu}}.
+                      </p>
+                    </div>
+                    <p
+                      class="text-sm text-gray-400 dark:text-zink-200 shrink-0"
+                    >
+                     {{LIchSUThaoTac.ngaytao| date:'dd/MM/yyyy HH:mm:ss'}}
+                    </p>
+                  </div>
+                </div>
+              
+              </div>
+            </div>
           </div>
           <div
             class="flex items-center justify-between p-4 mt-auto border-t border-slate-200 dark:border-zink-500"

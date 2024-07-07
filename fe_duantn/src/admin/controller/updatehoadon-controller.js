@@ -32,6 +32,19 @@ app.service("updateshoadonService", function ($http) {
         return response.data;
       });
   };
+  this.getLichSuThaoTacheoIds = function (IdHD) {
+    return $http
+      .get(
+        "http://localhost:8080/api/admin/lichsuthaotac/hienthilichsuthaotactheoid",
+        {
+          params: { IdHD: IdHD },
+          headers: config.headers,
+        }
+      )
+      .then(function (response) {
+        return response.data;
+      });
+  };
   this.getHinhThucThanhToanTheoIds = function (IdHD) {
     return $http
       .get(
@@ -162,11 +175,12 @@ app.service("updateshoadonService", function ($http) {
         return response.data;
       });
   };
-  this.deleteHDct = function (idhdct) {
+  this.deleteHDct = function (idhdct,idhd) {
     return $http
       .delete("http://localhost:8080/api/admin/hoadonchitiet/delete-san-pham", {
         params: {
           idhdct: idhdct,
+          idhd: idhd
         },
         headers: config.headers,
       })
@@ -177,13 +191,13 @@ app.service("updateshoadonService", function ($http) {
         throw error.data;
       });
   };
-  this.updatesoluong = function (idhdct, soluong) {
+  this.updatesoluong = function (idhdct, soluong,idhd) {
     return $http
       .put(
         "http://localhost:8080/api/admin/hoadonchitiet/update-so-luong",
         null,
         {
-          params: { idhdct: idhdct, soluong: soluong },
+          params: { idhdct: idhdct, soluong: soluong, idhd: idhd },
           headers: config.headers,
         }
       )
@@ -984,6 +998,16 @@ app.controller(
         }, 10);
         $scope.isModalOpen = true;
       };
+      $scope.openModal05 = function () {
+        var modal = document.getElementById("myModal05");
+        var overlay = document.getElementById("overlay05");
+        overlay.style.display = "block";
+        setTimeout(function () {
+          overlay.classList.add("active");
+          modal.classList.add("active");
+        }, 10);
+        $scope.isModalOpen = true;
+      };
       // Đóng modal với hiệu ứng mờ dần
       $scope.closeModal = function (event) {
         if (event.target.id === "overlay") {
@@ -1045,6 +1069,18 @@ app.controller(
           $scope.isModalOpen = false;
         }
       };
+      $scope.closeModal05 = function (event) {
+        if (event.target.id === "overlay05") {
+          var modal = document.getElementById("myModal05");
+          var overlay = document.getElementById("overlay05");
+          overlay.classList.remove("active");
+          modal.classList.remove("active");
+          setTimeout(function () {
+            overlay.style.display = "none";
+          }, 300); // Thời gian trùng với thời gian của animation
+          $scope.isModalOpen = false;
+        }
+      };
       // Phần cập nhật sản ohaamr ở hoá đơn
       $scope.addSanPham = function (sanPham) {
         let IdHD = localStorage.getItem("IDHoaDonUpdate"); // Retrieve the ID from localStorage
@@ -1095,9 +1131,10 @@ app.controller(
         }
 
         let idspct = hoaDon.id; // Assume idspct is a property of hoaDon
+        let IdHD = localStorage.getItem("IDHoaDonUpdate"); // Retrieve the ID from localStorage
 
         updateshoadonService
-          .deleteHDct(idspct)
+          .deleteHDct(idspct,IdHD)
           .then(function (data) {
             console.log("Đã xóa sản phẩm thành công:", data);
             // Remove the deleted item from the array
@@ -1138,6 +1175,8 @@ app.controller(
       ];
 
       $scope.updateSoLuong01 = function (hoaDon) {
+        let IdHD = localStorage.getItem("IDHoaDonUpdate"); // Retrieve the ID from localStorage
+
         if (hoaDon.soluong <= 0 || !Number.isInteger(hoaDon.soluong)) {
           Swal.fire({
             title: "Warning",
@@ -1155,7 +1194,7 @@ app.controller(
         }
 
         updateshoadonService
-          .updatesoluong(hoaDon.id, hoaDon.soluong)
+          .updatesoluong(hoaDon.id, hoaDon.soluong,IdHD)
           .then(function (data) {
             console.log("Cập nhật số lượng thành công:", data);
             Swal.fire({
@@ -1293,6 +1332,43 @@ app.controller(
             // Ví dụ: thông báo lỗi cho người dùng
         }
     };
+    // lịch sử thao tác
+
+    $scope.xemLichsuthaotacId = function () {
+      var maspInput = localStorage.getItem("IDHoaDonUpdate");
+
+      if (maspInput) {
+        updateshoadonService
+          .getLichSuThaoTacheoIds(maspInput)
+          .then(function (data) {
+            console.log("LSTT:", data);
+            if (Array.isArray(data)) {
+              // Nếu data là một mảng
+              if (data.length > 0) {
+                $scope.LSTT = data;
+                console.log(
+                  "LSTT:",
+                  $scope.LSTT
+                );
+              } else {
+                console.error("Không tìm thấy LSTT với IdSP:", maspInput);
+              }
+            } else if (data && typeof data === "object") {
+              // Nếu data là một đối tượng
+              $scope.LSTT = [data];
+              console.log("Danh sách LSTT chi tiết:", $scope.LSTT);
+            } else {
+              console.error("Dữ liệu trả về không hợp lệ");
+            }
+          })
+          .catch(function (error) {
+            console.error("Lỗi khi gọi API xem chi tiết", error);
+          });
+      } else {
+        console.error("Không có IdSP trong localStorage");
+      }
+    };
+    $scope.xemLichsuthaotacId();
     }
   }
 );
