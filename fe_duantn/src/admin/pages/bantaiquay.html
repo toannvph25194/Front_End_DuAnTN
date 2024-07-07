@@ -108,9 +108,9 @@
         </div>
       </div>
       <!-- thông báo khi không có hóa đơn tại quầy -->
-      <div ng-show="loadHoaDonTaiQuay.length == 0" class="flex gap-1 px-4 py-3 text-sm text-orange-500 border border-orange-200 rounded-md md:items-center bg-orange-50 dark:bg-orange-400/20 dark:border-orange-500/50">
+      <div ng-show="loadHoaDonTaiQuay.length == 0" style="display: flex; justify-content: center; align-items: center;" class="flex gap-1 px-4 py-3 text-sm text-orange-500 border border-orange-200 rounded-md md:items-center bg-orange-50 dark:bg-orange-400/20 dark:border-orange-500/50">
         <i data-lucide="alert-circle" class="h-4"></i> 
-        <span style="margin-left: 680px;" class="font-bold">Không có hóa đơn tại quầy nào !</span>
+        <span class="font-bold">Không có hóa đơn tại quầy nào !</span>
       </div>
     </div>
     <div class="xl:col-span-12" ng-show="loadHoaDonTaiQuay.length !== 0">
