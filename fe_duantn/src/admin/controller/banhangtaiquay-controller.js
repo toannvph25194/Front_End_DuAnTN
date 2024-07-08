@@ -1644,7 +1644,7 @@ app.controller(
 
     // Hàm kiểm tra định dạng số điện thoại
     function isValidPhone(phone) {
-      var regex = /^[0-9]{10}$/;
+      var regex = /^[0-9]{9}$/;
       return regex.test(phone);
     }
 

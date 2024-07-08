@@ -216,7 +216,7 @@
                       <input type="number"
                              class="text-center rtl:pr-2 w-13 h-7 products-quantity dark:bg-zink-700 focus:shadow-none"
                              ng-model="sanPham.soluongton"
-                             ng-change="updateCTSPSoluong(sanPham.id, sanPham.soluongton)"
+                             ng-blur="updateCTSPSoluong(sanPham.id, sanPham.soluongton)"
                              min="0"
                              max="10000"
                       >
