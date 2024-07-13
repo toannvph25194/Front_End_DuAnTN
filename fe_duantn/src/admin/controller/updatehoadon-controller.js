@@ -175,12 +175,12 @@ app.service("updateshoadonService", function ($http) {
         return response.data;
       });
   };
-  this.deleteHDct = function (idhdct,idhd) {
+  this.deleteHDct = function (idhdct, idhd) {
     return $http
       .delete("http://localhost:8080/api/admin/hoadonchitiet/delete-san-pham", {
         params: {
           idhdct: idhdct,
-          idhd: idhd
+          idhd: idhd,
         },
         headers: config.headers,
       })
@@ -191,7 +191,7 @@ app.service("updateshoadonService", function ($http) {
         throw error.data;
       });
   };
-  this.updatesoluong = function (idhdct, soluong,idhd) {
+  this.updatesoluong = function (idhdct, soluong, idhd) {
     return $http
       .put(
         "http://localhost:8080/api/admin/hoadonchitiet/update-so-luong",
@@ -249,25 +249,23 @@ app.service("updateshoadonService", function ($http) {
   };
   var token = localStorage.getItem("accessToken");
 
-  
-
   this.generatePDF = function (id) {
     // Thêm token vào header của yêu cầu
-  var config01 = {
+    var config01 = {
       headers: {
-          Authorization: "Bearer " + token,
+        Authorization: "Bearer " + token,
       },
-      responseType: 'arraybuffer' // Đặt responseType là 'arraybuffer' để nhận dữ liệu PDF
-  };
-      return $http
-          .get("http://localhost:8080/api/v1/pdf/pdf/generate/" + id, config01)
-          .then(function (response) {
-              return response.data;
-          })
-          .catch(function (error) {
-              console.error("Failed to generate PDF:", error);
-              throw error; // Ném lỗi để xử lý ở controller hoặc view
-          });
+      responseType: "arraybuffer", // Đặt responseType là 'arraybuffer' để nhận dữ liệu PDF
+    };
+    return $http
+      .get("http://localhost:8080/api/v1/pdf/pdf/generate/" + id, config01)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        console.error("Failed to generate PDF:", error);
+        throw error; // Ném lỗi để xử lý ở controller hoặc view
+      });
   };
 });
 
@@ -415,18 +413,53 @@ app.controller(
       $scope.xemHinhThucThanhToanTheoId();
       //validate hoá đơn chờ xác nhận
       $scope.validateHoaDonchoxacnhan = function () {
+        // Kiểm tra tiền ship là số dương và không để trống
         if (
           !$scope.HoaDonTheoId.tiengiaohang ||
-          isNaN($scope.HoaDonTheoId.tiengiaohang)
+          isNaN($scope.HoaDonTheoId.tiengiaohang) ||
+          $scope.HoaDonTheoId.tiengiaohang < 0
         ) {
           Swal.fire({
             title: "Lỗi!",
-            text: "Tiền ship phải là một số và không được để trống.",
+            text: "Tiền ship phải là một số dương và không được để trống.",
             icon: "error",
           });
           return false;
         }
-        // Add other validation checks if needed
+
+        // Kiểm tra số điện thoại phải là 10 số và bắt đầu bằng số 0
+        var sdtPattern = /^0\d{9}$/; // Pattern cho số điện thoại bắt đầu bằng 0 và có 10 chữ số
+        if (!sdtPattern.test($scope.HoaDonTheoId.sdtnguoinhan)) {
+          Swal.fire({
+            title: "Lỗi!",
+            text: "Số điện thoại phải là 10 số và bắt đầu bằng số 0.",
+            icon: "error",
+          });
+          return false;
+        }
+
+        // Kiểm tra email người nhận phải đúng định dạng
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Pattern cho email đúng định dạng
+        if (!emailPattern.test($scope.HoaDonTheoId.emailnguoinhan)) {
+          Swal.fire({
+            title: "Lỗi!",
+            text: "Email người nhận không hợp lệ.",
+            icon: "error",
+          });
+          return false;
+        }
+
+        // Kiểm tra địa chỉ nhận hàng không được để trống
+        if (!$scope.HoaDonTheoId.diachinhanhang) {
+          Swal.fire({
+            title: "Lỗi!",
+            text: "Địa chỉ nhận hàng không được để trống.",
+            icon: "error",
+          });
+          return false;
+        }
+
+        // Nếu các điều kiện đều hợp lệ, trả về true để tiếp tục cập nhật
         return true;
       };
       //update hoá đơn chờ xác nhận
@@ -1134,7 +1167,7 @@ app.controller(
         let IdHD = localStorage.getItem("IDHoaDonUpdate"); // Retrieve the ID from localStorage
 
         updateshoadonService
-          .deleteHDct(idspct,IdHD)
+          .deleteHDct(idspct, IdHD)
           .then(function (data) {
             console.log("Đã xóa sản phẩm thành công:", data);
             // Remove the deleted item from the array
@@ -1194,7 +1227,7 @@ app.controller(
         }
 
         updateshoadonService
-          .updatesoluong(hoaDon.id, hoaDon.soluong,IdHD)
+          .updatesoluong(hoaDon.id, hoaDon.soluong, IdHD)
           .then(function (data) {
             console.log("Cập nhật số lượng thành công:", data);
             Swal.fire({
@@ -1314,61 +1347,59 @@ app.controller(
         var id = localStorage.getItem("IDHoaDonUpdate");
 
         if (id) {
-            updateshoadonService.generatePDF(id)
+          updateshoadonService
+            .generatePDF(id)
             .then(function (pdfData) {
-                var file = new Blob([pdfData], { type: "application/pdf" });
-                var fileURL = URL.createObjectURL(file);
-                window.open(fileURL, "_blank");
+              var file = new Blob([pdfData], { type: "application/pdf" });
+              var fileURL = URL.createObjectURL(file);
+              window.open(fileURL, "_blank");
             })
             .catch(function (error) {
-                console.error("Failed to generate PDF:", error);
-                // Xử lý lỗi khi không thể tải PDF
-                // Ví dụ: thông báo cho người dùng biết là không thể tải PDF
-                // hoặc log lỗi để theo dõi và xử lý sau này
+              console.error("Failed to generate PDF:", error);
+              // Xử lý lỗi khi không thể tải PDF
+              // Ví dụ: thông báo cho người dùng biết là không thể tải PDF
+              // hoặc log lỗi để theo dõi và xử lý sau này
             });
         } else {
-            console.error("IDHoaDonUpdate is not available.");
-            // Xử lý khi không có IDHoaDonUpdate trong localStorage
-            // Ví dụ: thông báo lỗi cho người dùng
+          console.error("IDHoaDonUpdate is not available.");
+          // Xử lý khi không có IDHoaDonUpdate trong localStorage
+          // Ví dụ: thông báo lỗi cho người dùng
         }
-    };
-    // lịch sử thao tác
+      };
+      // lịch sử thao tác
 
-    $scope.xemLichsuthaotacId = function () {
-      var maspInput = localStorage.getItem("IDHoaDonUpdate");
+      $scope.xemLichsuthaotacId = function () {
+        var maspInput = localStorage.getItem("IDHoaDonUpdate");
 
-      if (maspInput) {
-        updateshoadonService
-          .getLichSuThaoTacheoIds(maspInput)
-          .then(function (data) {
-            console.log("LSTT:", data);
-            if (Array.isArray(data)) {
-              // Nếu data là một mảng
-              if (data.length > 0) {
-                $scope.LSTT = data;
-                console.log(
-                  "LSTT:",
-                  $scope.LSTT
-                );
+        if (maspInput) {
+          updateshoadonService
+            .getLichSuThaoTacheoIds(maspInput)
+            .then(function (data) {
+              console.log("LSTT:", data);
+              if (Array.isArray(data)) {
+                // Nếu data là một mảng
+                if (data.length > 0) {
+                  $scope.LSTT = data;
+                  console.log("LSTT:", $scope.LSTT);
+                } else {
+                  console.error("Không tìm thấy LSTT với IdSP:", maspInput);
+                }
+              } else if (data && typeof data === "object") {
+                // Nếu data là một đối tượng
+                $scope.LSTT = [data];
+                console.log("Danh sách LSTT chi tiết:", $scope.LSTT);
               } else {
-                console.error("Không tìm thấy LSTT với IdSP:", maspInput);
+                console.error("Dữ liệu trả về không hợp lệ");
               }
-            } else if (data && typeof data === "object") {
-              // Nếu data là một đối tượng
-              $scope.LSTT = [data];
-              console.log("Danh sách LSTT chi tiết:", $scope.LSTT);
-            } else {
-              console.error("Dữ liệu trả về không hợp lệ");
-            }
-          })
-          .catch(function (error) {
-            console.error("Lỗi khi gọi API xem chi tiết", error);
-          });
-      } else {
-        console.error("Không có IdSP trong localStorage");
-      }
-    };
-    $scope.xemLichsuthaotacId();
+            })
+            .catch(function (error) {
+              console.error("Lỗi khi gọi API xem chi tiết", error);
+            });
+        } else {
+          console.error("Không có IdSP trong localStorage");
+        }
+      };
+      $scope.xemLichsuthaotacId();
     }
   }
 );

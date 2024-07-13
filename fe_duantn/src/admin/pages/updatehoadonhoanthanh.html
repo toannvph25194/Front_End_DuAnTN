@@ -172,10 +172,16 @@
                 >
                   Hình thức thanh toán
                 </th>
+
                 <th
                   class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
                 >
                   Ghi chú
+                </th>
+                <th
+                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
+                >
+                  Trạng thái
                 </th>
                 <th
                   class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
@@ -202,7 +208,7 @@
                 <td
                   class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
                 >
-                  {{ HTTT.magiaodich == null ?"Khách hàng chưa thanh
+                  {{HTTT.magiaodich == null ? "Chưa thanh
                   toán":HTTT.magiaodich}}
                 </td>
                 <td
@@ -219,20 +225,25 @@
                 <td
                   class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
                 >
-                  {{ HTTT.ngaythanhtoan == null?"Khách chưa
-                  thanhtoán":HTTT.ngaythanhtoan|date:'dd/MM/yyyy HH:mm:ss'}}
+                  {{ HTTT.ngaythanhtoan == null ?"Chưa thanh
+                  toán":HTTT.ngaythanhtoan| date:'dd/MM/yyyy HH:mm:ss'}}
                 </td>
                 <td
                   class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
                 >
-                  {{ HTTT.hinhthucthanhtoan == 1 ? "Tiền mặt" :
-                  (HTTT.hinhthucthanhtoan == 2 ? "Chuyển khoản" :
-                  (HTTT.hinhthucthanhtoan == 3 ? "Hoàn tiền cho khách" : "")) }}
+                  {{ HTTT.hinhthucthanhtoan == 1?"Tiền mặt":"Chuyển khoản"}}
                 </td>
                 <td
                   class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
                 >
                   {{ HTTT.ghichu}}
+                </td>
+                <td
+                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
+                >
+                  {{ HTTT.trangthai == 1 ? "Thanh toán thành công" :
+                  (HTTT.trangthai == 2 ? "Chưa thanh toán" :
+                  (HTTT.trangthai == 3 ? "Hoàn tiền cho khách hàng" : "")) }}
                 </td>
                 <td
                   class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
@@ -356,9 +367,9 @@
                       <div class="grow">
                         <h6 class="mb-1 text-15">
                           <a
-                            href="apps-ecommerce-product-overview.html"
+                            href=""
                             class="transition-all duration-300 ease-linear hover:text-custom-500"
-                            >p{{hoaDon.tensp}} - {{hoaDon.tensize}} -
+                            >{{hoaDon.tensp}} - {{hoaDon.tensize}} -
                             {{hoaDon.tenmausac}}</a
                           >
                         </h6>
@@ -628,60 +639,59 @@
     </div>
   </div>
   <div
-    id="overlay05"
-    class="overlay"
-    ng-class="{ 'active': isModalOpen }"
-    ng-click="closeModal05($event)"
-  >
-    <div id="myModal05" class="modal02">
-      <div class="modal-content01">
+  id="overlay05"
+  class="overlay"
+  ng-class="{ 'active': isModalOpen }"
+  ng-click="closeModal05($event)"
+>
+  <div id="myModal05" class="modal02">
+    <div class="modal-content01">
+      <div
+        class="w-full bg-white shadow rounded-md dark:bg-zink-600 flex flex-col h-full"
+      >
         <div
-          class="w-full bg-white shadow rounded-md dark:bg-zink-600 flex flex-col h-full"
+          class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-zink-500"
         >
-          <div
-            class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-zink-500"
-          >
-            <h5 class="text-16">Lịch sử thao tác</h5>
-          </div>
-          <div
-            class="max-h-[calc(theme('height.screen')_-_180px)] p-4 overflow-y-auto"
-          >
-            <div class="card-body">
-              <div class="flex items-center gap-3 mb-4">
-                <h6 class="text-15 grow">Lịch sử thao tác</h6>
-              </div>
-              <div>
-                <div
-                  class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
+          <h5 class="text-16">Lịch sử thao tác</h5>
+        </div>
+        <div
+          class="max-h-[calc(theme('height.screen')_-_180px)] p-4 overflow-y-auto"
+        >
+          <div class="card-body">
+            <div class="flex items-center gap-3 mb-4">
+              <h6 class="text-15 grow">Lịch sử thao tác</h6>
+            </div>
+            <div>
+              <div
+                class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
                 ng-repeat="LIchSUThaoTac in LSTT"
-                  >
-                  <div class="flex gap-4">
-                    <div class="grow">
-                      <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
-                        {{LIchSUThaoTac.nguoithaotac}}
-                      </h6>
-                      <p class="text-gray-400 dark:text-zink-200">
-                        {{LIchSUThaoTac.ghichu}}.
-                      </p>
-                    </div>
-                    <p
-                      class="text-sm text-gray-400 dark:text-zink-200 shrink-0"
-                    >
-                     {{LIchSUThaoTac.ngaytao| date:'dd/MM/yyyy HH:mm:ss'}}
+              >
+                <div class="flex gap-4">
+                  <div class="grow">
+                    <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
+                      {{LIchSUThaoTac.nguoithaotac}}
+                    </h6>
+                    <p class="mb-2 text-gray-800 text-15 dark:text-zink-50">
+                      {{LIchSUThaoTac.ghichu}}.
                     </p>
                   </div>
+                  <p
+                    class="mb-2 text-gray-800 text-15 dark:text-zink-50"
+                  >
+                    {{LIchSUThaoTac.ngaytao | date:'dd/MM/yyyy HH:mm:ss'}}
+                  </p>
                 </div>
-              
               </div>
             </div>
           </div>
-          <div
-            class="flex items-center justify-between p-4 mt-auto border-t border-slate-200 dark:border-zink-500"
-          >
-            <h5 class="text-16">Quần Áo Thời Trang</h5>
-          </div>
+        </div>
+        <div
+          class="flex items-center justify-between p-4 mt-auto border-t border-slate-200 dark:border-zink-500"
+        >
+          <h5 class="text-16">Quần Áo Thời Trang</h5>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>

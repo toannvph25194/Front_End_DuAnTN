@@ -62,7 +62,6 @@
                             <label for="productNameInput" class="inline-block mb-2 text-base font-medium">Tên sản phẩm</label>
                             <input type="text" id="productNameInput" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
                             placeholder="Tên sản phẩm"  ng-model="sanPhamTheoId.tensp">
-                            <p class="mt-1 text-sm text-slate-400 dark:text-zink-200">Không quá 20 ký tự khi nhập tên sản phẩm.</p>
                             <span class="error-message" ng-if="errorMessage.tensp">{{errorMessage.tensp}}</span>
                         </div><!--end col-->
                         <div class="xl:col-span-6">
@@ -113,17 +112,16 @@
 
                         </div>
                         <div class="xl:col-span-4">
-                            <label for="genderSelect" class="inline-block mb-2 text-base font-medium">Thể loại</label>
-                            <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" 
-                            name="genderSelect" id="genderSelect" ng-model="sanPhamTheoId.theloai">
-                        <option value="">Chọn thể loại</option>
-                        <option value="1" ng-selected="sanPhamTheoId.theloai == '1'">Nam</option>
-                        <option value="0" ng-selected="sanPhamTheoId.theloai == '0'">Nữ</option>
-                    </select>
-                    
-                            <span class="error-message" ng-if="errorMessage.theloai">{{errorMessage.theloai}}</span>
-
-                        </div>
+                          <label for="theLoaiSelect" class="inline-block mb-2 text-base font-medium">Thể loại</label>
+                          <select class="form-input border-slate-200 dark:border-zinc-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zinc-600 disabled:border-slate-300 dark:disabled:border-zinc-500 dark:disabled:text-zinc-200 disabled:text-slate-500 dark:text-zinc-100 dark:bg-zinc-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zinc-200" 
+                                  name="theLoaiSelect" id="theLoaiSelect" ng-model="sanPhamTheoId.theloai">
+                              <option value="">Chọn thể loại</option>
+                              <option value="1" ng-selected="sanPhamTheoId.theloai == '1'">Nam</option>
+                              <option value="0" ng-selected="sanPhamTheoId.theloai == '0'">Nữ</option>
+                          </select>
+                          <span class="error-message" ng-if="errorMessage.theloai">{{errorMessage.theloai}}</span>
+                      </div>
+                      
                         <div class="lg:col-span-2 xl:col-span-12">
                             <div>
                                 <label for="productDescription" class="inline-block mb-2 text-base font-medium">Ghi chú</label>
@@ -133,11 +131,11 @@
 
                         </div>
                         <div class="xl:col-span-4">
-                            <label for="productPrice" class="inline-block mb-2 text-base font-medium">Giá Bán</label>
-                            <input type="number" id="productPrice" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" placeholder="0đ" ng-model="sanPhamTheoId.giaban">
-                            <span class="error-message" ng-if="errorMessage.giaban">{{errorMessage.giaban}}</span>
-                       
-                        </div><!--end col-->
+                          <label for="productPrice" class="inline-block mb-2 text-base font-medium">Giá Bán</label>
+                          <input type="number" id="productPrice" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" placeholder="0đ" ng-model="sanPhamTheoId.giaban" oninput="if(this.value < 0) this.value = 1">
+                          <span class="error-message" ng-if="errorMessage.giaban">{{errorMessage.giaban}}</span>
+                      </div>
+                      <!--end col-->
                         <!-- <div class="xl:col-span-4">
                             <label for="productDiscounts" class="inline-block mb-2 text-base font-medium">Giá nhập</label>
                             <input type="number" id="productDiscounts" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" placeholder="0đ" ng-model="sanPhamTheoId.gianhap">
