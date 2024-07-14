@@ -510,7 +510,8 @@ ng-init="HoaDonTheoId">
     
                     <div>
                       <h6 class="mb-1">Chờ xác nhận</h6>
-                    
+                      <p class="text-sm text-slate-500 dark:text-zink-200">{{HoaDonTheoId.ngaytao | date:'dd/MM/yyyy HH:mm:ss'}}</p>
+
                     </div>
                   </div>
                 </div>
@@ -524,7 +525,8 @@ ng-init="HoaDonTheoId">
               
                   <div>
                       <h6 class="mb-1">Đã xác nhận</h6>
-                     
+                      <p class="text-sm text-slate-500 dark:text-zink-200">{{HoaDonTheoId.ngayxacnhan | date:'dd/MM/yyyy HH:mm:ss'}}</p>
+
                   </div>
               </div>
               
@@ -542,7 +544,8 @@ ng-init="HoaDonTheoId">
     
                     <div>
                       <h6 class="mb-1" style="color: #ffd700;">Đang chờ giao hàng</h6>
-                      
+                      <p class="text-sm text-slate-500 dark:text-zink-200">{{HoaDonTheoId.ngaychogiaohang | date:'dd/MM/yyyy HH:mm:ss'}}</p>
+
                     </div>
                   </div>
                 </div>
@@ -558,7 +561,8 @@ ng-init="HoaDonTheoId">
     
                     <div>
                       <h6 class="mb-1">Đang giao</h6>
-                      
+                      <p class="text-sm text-slate-500 dark:text-zink-200">{{HoaDonTheoId.ngaygiaohang | date:'dd/MM/yyyy HH:mm:ss'}}</p>
+
                     </div>
                   </div>
                 </div>
@@ -571,7 +575,8 @@ ng-init="HoaDonTheoId">
                     </div>
                     <div>
                       <h6 class="mb-1">Hoàn thành</h6>
-                     
+                      <p class="text-sm text-slate-500 dark:text-zink-200">{{HoaDonTheoId.ngaynhanhang | date:'dd/MM/yyyy HH:mm:ss'}}</p>
+
                     </div>
                   </div>
                 </div>
