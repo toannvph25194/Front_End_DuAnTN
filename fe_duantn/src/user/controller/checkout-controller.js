@@ -322,6 +322,7 @@ app.controller('checkoutController', function ($scope, $http, $window, $location
         // Check trống số điện thoại và định dạng sdt
         if (!$scope.sodienthoai) {
             $scope.sodienthoaiValid = false;
+            $scope.sodienthoaiFomart = true;
         } else if (!sdtRegex.test($scope.sodienthoai)) {
             $scope.sodienthoaiValid = true;
             $scope.sodienthoaiFomart = false;
@@ -334,6 +335,7 @@ app.controller('checkoutController', function ($scope, $http, $window, $location
         // Check trống email và định dạng email
         if (!$scope.email) {
             $scope.emailValid = false;
+            $scope.emailFomart = true;
         } else if (!emailRegex.test($scope.email)) {
             $scope.emailValid = true;
             $scope.emailFomart = false;
@@ -551,19 +553,20 @@ app.controller('checkoutController', function ($scope, $http, $window, $location
         // Check trống số điện thoại và định dạng sdt
         if (!$scope.sodienthoai) {
             $scope.sodienthoaiValid = false;
-
+            $scope.sodienthoaiFomart = true;
         } else if (!sdtRegex.test($scope.sodienthoai)) {
             $scope.sodienthoaiValid = true;
             $scope.sodienthoaiFomart = false;
             return;
         } else {
-            $scope.hovatenValid = true;
+            $scope.sodienthoaiValid = true;
             $scope.sodienthoaiFomart = true;
         }
 
         // Check trống email và định dạng email
         if (!$scope.email) {
             $scope.emailValid = false;
+            $scope.emailFomart = true;
         } else if (!emailRegex.test($scope.email)) {
             $scope.emailValid = true;
             $scope.emailFomart = false;

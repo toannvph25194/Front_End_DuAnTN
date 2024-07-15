@@ -120,7 +120,7 @@
                 </div>
             </div>
             <div class="col-9">
-                <div style="width: 400px; margin-left: 40px;">
+                <div style="width: 400px; margin-left: 80px;">
                     <br>
                     <input type="text" id="lastNameInput" ng-model="keyword" ng-change="TimKiemTTHoaDonKhachHang()"
                         class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
@@ -152,7 +152,7 @@
                         </div>
                         <div class="col-3">
                             <h6 style="color:  rgb(238, 86, 35);">Thành Tiền</h6>
-                            {{ ttsp.dongiakhigiam ? ttsp.dongiakhigiam * ttsp.soluong : ttsp.dongia * ttsp.soluong }}
+                            {{ ttsp.dongiakhigiam ? ttsp.dongiakhigiam * ttsp.soluong : ttsp.dongia * ttsp.soluong | number}} vnđ
                         </div>
                     </div>
                     <div ng-if="ttSPHoaDon[tthd.id].length === 0">
@@ -164,7 +164,7 @@
                     <a style="margin-left: 420px; margin-top: 5px; color:  rgb(238, 86, 35);"
                         ng-click="ViewDonHangChiTiet(tthd.id)">Xem chi tiết đơn hàng</a>
                     <label style="margin-left: 750px;" class="inline-block mb-2 text-base font-medium"><span
-                            class="text-red-500"> * </span>Tổng Số Tiền : {{tthd.thanhtien}}</label>
+                            class="text-red-500"> * </span>Tổng Số Tiền : {{tthd.thanhtien | number}} vnđ</label>
                 </div>
             </div>
         </div>

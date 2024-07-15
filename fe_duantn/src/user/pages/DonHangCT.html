@@ -19,35 +19,37 @@
         <hr>
         <h6 class="mb-4 text-15 mt-4" style="color: rgb(238, 86, 35);">1. Thông Tin Nhận Hàng & Lịch Sử Thanh Toán</h6>
         <div class="row">
-            <div class="col-4">
-                <label class="inline-block mb-2 text-base font-medium"><span class="text-red-500"> * </span> Họ Và Tên : {{ttHoaDonCT.tennguoinhan}}</label><br>
-                <label class="inline-block mb-2 text-base font-medium"><span class="text-red-500"> * </span> Số Điện Thoại : {{ttHoaDonCT.sdtnguoinhan}}</label><br>
-                <label class="inline-block mb-2 text-base font-medium"><span class="text-red-500"> * </span> Địa Chỉ Chi Tiết : {{ttHoaDonCT.diachinhanhang}}</label>
+            <div class="col-3">
+                <label class="inline-block mb-2 text-base font-medium"><span class="text-red-500"> * </span> Họ Và Tên :
+                    {{ttHoaDonCT.tennguoinhan}}</label><br>
+                <label class="inline-block mb-2 text-base font-medium"><span class="text-red-500"> * </span> Số Điện
+                    Thoại : {{ttHoaDonCT.sdtnguoinhan}}</label><br>
+                <label class="inline-block mb-2 text-base font-medium"><span class="text-red-500"> * </span> Địa Chỉ Chi
+                    Tiết : {{ttHoaDonCT.diachinhanhang}}</label>
             </div>
-            
-            <div class="col-8">
-               
+
+            <div class="col-9">
                 <table class="table">
                     <thead class="table-info">
                         <th scope="col">STT</th>
-                        <th scope="col">Mã giao dịnh</th>
-                        <th scope="col">Thanh toán</th>
-                        <th scope="col">Số tiền khách trả</th>
-                        <th scope="col">Ngày thanh toán</th>
-                        <th scope="col">Hình thức thanh toán</th>
-                        <th scope="col">Ghi chú</th>
-                        <th scope="col">Người xác nhận</th>
+                        <th scope="col">Mã Giao Dịnh</th>
+                        <th scope="col">Tiền Cần Trả</th>
+                        <th scope="col">Ngày Thanh Toán</th>
+                        <th scope="col">Hình Thức</th>
+                        <th scope="col">Ghi Chú</th>
+                        <th scope="col">Trạng Thái</th>
+                        <th scope="col">Người Xác Nhận</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Má</td>
-                            <td>Thanh Toán</td>
-                            <td>2000</td>
-                            <td>2023/12/12</td>
-                            <td>Chuyển khoản</td>
-                            <td>Khách trả</td>
-                            <td>Người xác nhận</td>
+                        <tr ng-repeat="httt in ttHTTT">
+                            <td>{{$index + 1}}</td>
+                            <td>{{httt.magiaodich}}</td>
+                            <td>{{httt.sotientra}}</td>
+                            <td>{{httt.ngaythanhtoan}}</td>
+                            <td>{{httt.hinhthucthanhtoan == 1 ? "Tiền Mặt":"Chuyển Khoản"}}</td>
+                            <td>{{httt.ghichu}}</td>
+                            <td>{{httt.trangthai == 1 ? "Đã Thanh Toán" : (httt.trangthai == 2 ? "Chưa Thanh Toán" : "Hoàn Tiền")}}</td>
+                            <td>{{httt.hovatennv}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -61,74 +63,95 @@
                 <div class="border-lsdonhangct">
                     <h6 class="mb-4 text-15" style="color: rgb(238, 86, 35);">2. Lịch Sử Đơn Hàng Của Bạn</h6>
                     <div>
-                        <div
+                        <div ng-show="ttLichSuHD.ngaytao != null"
                             class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l ltr:before:left-[.22rem] rtl:before:border-r rtl:before:right-[.22rem] before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:w-2 after:h-2 after:bg-custom-500 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4">
                             <h6 class="mb-4 text-15">Chờ Xác Nhận</h6>
-                            <p class="mb-2 text-slate-500 dark:text-zink-200">No candidate reply</p>
-                            <p class="text-sm text-slate-500 dark:text-zink-200">02 Aug, 2023</p>
+                            <p class="mb-2 text-slate-500 dark:text-zink-200">Đơn hàng của bạn đang chờ xác nhận</p>
+                            <p class="text-sm text-slate-500 dark:text-zink-200">Ngày : {{ttLichSuHD.ngaytao}}</p>
                         </div>
-                        <div
+                        <div ng-show="ttLichSuHD.ngayxacnhan != null"
                             class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l ltr:before:left-[.22rem] rtl:before:border-r rtl:before:right-[.22rem] before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:w-2 after:h-2 after:bg-custom-500 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4">
                             <h6 class="mb-4 text-15">Đã Xác Nhận</h6>
-                            <p class="mb-2 text-slate-500 dark:text-zink-200">Preview message sent</p>
-                            <p class="text-sm text-slate-500 dark:text-zink-200">15 Aug, 2023</p>
+                            <p class="mb-2 text-slate-500 dark:text-zink-200">Đơn hàng của bạn đã được xác nhận</p>
+                            <p class="text-sm text-slate-500 dark:text-zink-200">Ngày : {{ttLichSuHD.ngayxacnhan}}</p>
                         </div>
-                        <div
+                        <div ng-show="ttLichSuHD.ngaychogiaohang != null"
                             class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l ltr:before:left-[.22rem] rtl:before:border-r rtl:before:right-[.22rem] before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:w-2 after:h-2 after:bg-custom-500 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4">
-                            <h6 class="mb-4 text-15">Chờ Giao Hàng</h6>
-                            <p class="mb-2 text-slate-500 dark:text-zink-200">Preview message sent</p>
-                            <p class="text-sm text-slate-500 dark:text-zink-200">15 Aug, 2023</p>
+                            <h6 class="mb-4 text-15">Chờ Đơn Vị Vận Chuyển</h6>
+                            <p class="mb-2 text-slate-500 dark:text-zink-200">Đơn hàng của bạn đang chờ đơn vị vận chuyển</p>
+                            <p class="text-sm text-slate-500 dark:text-zink-200">Ngày : {{ttLichSuHD.ngaychogiaohang}}</p>
                         </div>
-                        <div
+                        <div ng-show="ttLichSuHD.ngaygiaohang != null"
                             class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l ltr:before:left-[.22rem] rtl:before:border-r rtl:before:right-[.22rem] before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:w-2 after:h-2 after:bg-custom-500 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4">
                             <h6 class="mb-4 text-15">Đang Giao Hàng</h6>
-                            <p class="mb-2 text-slate-500 dark:text-zink-200">Preview message sent</p>
-                            <p class="text-sm text-slate-500 dark:text-zink-200">15 Aug, 2023</p>
+                            <p class="mb-2 text-slate-500 dark:text-zink-200">- Đơn hàng của bạn đang được vận chuyển</p>
+                            <p class="mb-2 text-slate-500 dark:text-zink-200">- Dự kiến nhận hàng : Khoảng 3 đến 5 ngày</p>
+                            <p class="text-sm text-slate-500 dark:text-zink-200">- Ngày Giao : {{ttLichSuHD.ngaygiaohang}}</p>
+                            <p class="text-sm text-slate-500 dark:text-zink-200" ng-show="ttLichSuHD.tennguoigiao != null">- Tên Người Giao : {{ttLichSuHD.tennguoigiao}}</p>
+                            <p class="text-sm text-slate-500 dark:text-zink-200" ng-show="ttLichSuHD.sdtnguoigiao != null">- SĐT : {{ttLichSuHD.sdtnguoigiao}}</p>
+                            <p class="text-sm text-slate-500 dark:text-zink-200" ng-show="ttLichSuHD.tiengiaohang != null">- Phí Giao : {{ttLichSuHD.tiengiaohang | number}} vnđ</p>    
                         </div>
-                        <div
+                        <div ng-show="ttLichSuHD.ngaynhanhang != null"
                             class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l ltr:before:left-[.22rem] rtl:before:border-r rtl:before:right-[.22rem] before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:w-2 after:h-2 after:bg-custom-500 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4">
                             <h6 class="mb-4 text-15">Thành Công</h6>
-                            <p class="mb-2 text-slate-500 dark:text-zink-200">Preview message sent</p>
-                            <p class="text-sm text-slate-500 dark:text-zink-200">15 Aug, 2023</p>
+                            <p class="mb-2 text-slate-500 dark:text-zink-200">Đơn hàng của bạn đã hoàn thành</p>
+                            <p class="text-sm text-slate-500 dark:text-zink-200">Ngày : {{ttLichSuHD.ngaynhanhang}}</p>
                         </div>
-                        <div
+                        <div ng-show="ttLichSuHD.ngayhuy != null"
                             class="relative ltr:pl-6 rtl:pr-6 after:absolute after:w-2 after:h-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 dark:after:bg-zink-700 dark:after:border-zink-500">
                             <h6 class="mb-4 text-15">Đã Hủy</h6>
+                            <p class="mb-2 text-slate-500 dark:text-zink-200">Đơn hàng của bạn đã bị hủy</p>
+                            <p class="text-sm text-slate-500 dark:text-zink-200">Ngày : {{ttLichSuHD.ngayhuy}}</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-9">
-                <div class="border-donhang">
+                <div class="border-donhang" ng-repeat="sphdct in ttSPHDCT">
                     <div class="row">
                         <div class="col-2">
-                            <img src="/src/fileanh/product-6-2.jpg" alt="" width="70px" height="70px">
-                        </div>
-                        <div class="col-4">
-                            Tên Sản Phẩm +  Chất Liệu  <br>
-                            Màu Sắc <br>
-                            Size <br>
+                            <h6 style="color:  rgb(238, 86, 35); margin-left: 15px;">Ảnh</h6>
+                            <img src="/src/fileanh/img-sanpham/{{sphdct.imagedefaul}}" alt="" width="70px"
+                                height="70px">
                         </div>
                         <div class="col-3">
-                            Số Lượng
+                            <h6 style="color:  rgb(238, 86, 35);">Sản Phẩm</h6>
+                            {{sphdct.tensp}} - {{sphdct.tenchatlieu}} <br>
+                            {{sphdct.tenmausac}} - Size {{sphdct.tensize}}
+                        </div>
+                        <div class="col-2">
+                            <h6 style="color:  rgb(238, 86, 35);">Số Lượng</h6>
+                            {{sphdct.soluong}}
                         </div>
                         <div class="col-3">
-                            Tiền SP
+                            <h6 style="color:  rgb(238, 86, 35);">Đơn Giá</h6>
+                            <span ng-show="sphdct.dongiakhigiam == null">{{sphdct.dongia | number}} vnđ</span>
+                            <span ng-show="sphdct.dongiakhigiam != null" style="color: rgb(38, 2, 2);">{{sphdct.dongiakhigiam | number}} vnđ |</span>
+                            <span ng-show="sphdct.dongiakhigiam != null" style="text-decoration: line-through; opacity: 0.6;" >{{sphdct.dongia | number}} vnđ</span>
+                        </div>
+                        <div class="col-2">
+                            <h6 style="color:  rgb(238, 86, 35);">Thành Tiền</h6>
+                            {{sphdct.dongiakhigiam ? sphdct.dongiakhigiam * sphdct.soluong : sphdct.dongia * sphdct.soluong | number}} vnđ
                         </div>
                     </div>
                     <br>
                     <hr>
                 </div>
-              
+
             </div>
             <hr>
-            <a class="btn btn-outline-secondary" style="width: 100px; margin-left: 15px;" href="/src/user/pages/DonHang.html">Quay Lai</a>
+            <a class="btn btn-outline-secondary" style="width: 100px; margin-left: 15px;"
+                href="/src/user/pages/DonHang.html">Quay Lai</a>
             <button class="btn btn-outline-danger" style="width: 100px; margin-left: 15px;">Hủy Đơn</button>
             <div class="mb-4" style="padding-left: 1200px;">
-                <label class="inline-block mb-2 text-base font-medium"><span class="text-red-500"> * </span>Tổng Tiền Sản Phẩm : 200000</label><br>
-                <label class="inline-block mb-2 text-base font-medium"><span class="text-red-500"> * </span>Phí Giao Hàng : {{ (ttHoaDonCT.tiengiaohang || 0) | number }} vnđ</label><br>
-                <label class="inline-block mb-2 text-base font-medium"><span class="text-red-500"> * </span>Tiền Giảm Giá Voucher : {{ttHoaDonCT.giatrigiam | number}} vnđ</label><br>
-                <label class="inline-block mb-2 text-base font-medium"><span class="text-red-500"> * </span>Thành Tiền : {{ttHoaDonCT.thanhtien | number}} vnđ</label>
+                <label class="inline-block mb-2 text-base font-medium"><span class="text-red-500"> * </span>Tổng Tiền
+                    Sản Phẩm : {{tongsotiensp | number}} vnđ</label><br>
+                <label class="inline-block mb-2 text-base font-medium"><span class="text-red-500"> * </span>Phí Giao
+                    Hàng : {{ (ttHoaDonCT.tiengiaohang || 0) | number }} vnđ</label><br>
+                <label class="inline-block mb-2 text-base font-medium"><span class="text-red-500"> * </span>Tiền Giảm
+                    Giá Voucher : {{ttHoaDonCT.giatrigiam | number}} vnđ</label><br>
+                <label class="inline-block mb-2 text-base font-medium"><span class="text-red-500"> * </span>Thành Tiền Hóa Đơn :
+                    {{ttHoaDonCT.thanhtien | number}} vnđ</label>
             </div>
             <hr>
         </div>
