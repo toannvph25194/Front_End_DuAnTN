@@ -142,14 +142,14 @@
             <hr>
             <a class="btn btn-outline-secondary" style="width: 100px; margin-left: 15px;"
                 href="/src/user/pages/DonHang.html">Quay Lai</a>
-            <button class="btn btn-outline-danger" style="width: 100px; margin-left: 15px;">Hủy Đơn</button>
+            <button class="btn btn-outline-danger" style="width: 100px; margin-left: 15px;" ng-show="ttHoaDonCT.trangthai == 1" ng-click="HuyDonHangKhacHang()">Hủy Đơn</button>
             <div class="mb-4" style="padding-left: 1200px;">
                 <label class="inline-block mb-2 text-base font-medium"><span class="text-red-500"> * </span>Tổng Tiền
                     Sản Phẩm : {{tongsotiensp | number}} vnđ</label><br>
                 <label class="inline-block mb-2 text-base font-medium"><span class="text-red-500"> * </span>Phí Giao
                     Hàng : {{ (ttHoaDonCT.tiengiaohang || 0) | number }} vnđ</label><br>
                 <label class="inline-block mb-2 text-base font-medium"><span class="text-red-500"> * </span>Tiền Giảm
-                    Giá Voucher : {{ttHoaDonCT.giatrigiam | number}} vnđ</label><br>
+                    Giá Voucher : {{ (ttHoaDonCT.giatrigiam || 0) | number }} vnđ</label><br>
                 <label class="inline-block mb-2 text-base font-medium"><span class="text-red-500"> * </span>Thành Tiền Hóa Đơn :
                     {{ttHoaDonCT.thanhtien | number}} vnđ</label>
             </div>

@@ -94,4 +94,72 @@ app.controller('donhangchitietcontroller', function ($scope, $http, $location, $
         }
     }
     $scope.FinTTLichSuNgayHDKhachHang();
+
+    // Xử lý khách hàng hủy đơn hàng online
+    $scope.HuyDonHangKhacHang = function () {
+        Swal.fire({
+            title: "Xác Nhận",
+            text: "Bạn có muốn hủy đơn hàng không ?",
+            icon: "question",
+            showCancelButton: true,
+            cancelButtonText: "Hủy Bỏ",
+            cancelButtonColor: "#d33",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Xác Nhận",
+            reverseButtons: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (idkh != null) {
+                    var httt = $scope.ttHTTT.some(tt => tt.hinhthucthanhtoan === 1);
+                    if (httt) {
+                        var url = 'http://localhost:8080/api/ol/thong-tin/hoa-don-khach-hang/huy-don-hang-online?idhoadon=' + idhoadon;
+                        $http.put(url).then(resp => {
+                            $scope.huyDonHang = resp.data;
+                            console.log('Khách hàng hủy đơn hàng online thành công !', $scope.huyDonHang);
+                            Swal.fire({
+                                title: "Thành Công",
+                                text: "Đơn hàng của bạn đã hủy thành công !",
+                                icon: "success",
+                                position: "top-end",
+                                toast: true,
+                                showConfirmButton: false,
+                                timer: 2000,
+                            });
+                            setTimeout(function () {
+                                window.location.href = '/src/user/pages/DonHang.html';
+                            }, 1500);
+                        }).catch(error => {
+                            console.log("Lỗi khách hàng hủy đơn hàng online", error);
+                        });
+
+                    } else {
+                        Swal.fire({
+                            title: "Thông Báo Hủy Đơn",
+                            html: ` <ul style='text-align: left;'>
+                                        <li><span style='color : #FF5733;'>*</span> Bạn đã thanh toán đơn hàng.</li>
+                                        <li><span style='color : #FF5733;'>*</span> Nếu bạn muốn hủy đơn hàng, hãy liên hệ với shop để xác nhận !</li>
+                                        <li><span style='color : #FF5733;'>*</span> Thông tin liên hệ : </li>
+                                        <ul>
+                                            <li>
+                                                <span style='color : #FF5733;'>-</span> <strong>Email</strong> : 2thshoppoly@gmail.com
+                                            </li>
+                                            <li> 
+                                                <span style='color : #FF5733;'>-</span> <strong>SĐT</strong> : 0982544290
+                                            </li>
+                                        </ul>
+                                    </ul>
+                                  `,
+                            icon: "warning",
+                            showConfirmButton: true,
+                            confirmButtonText: "OK",
+                            confirmButtonColor: "#FF5733"
+                        });
+                    }
+
+                } else {
+                    console.log("Chưa đăng nhập !");
+                }
+            }
+        });
+    }
 })

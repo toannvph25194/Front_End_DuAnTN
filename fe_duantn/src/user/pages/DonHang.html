@@ -166,6 +166,10 @@
                     <label style="margin-left: 750px;" class="inline-block mb-2 text-base font-medium"><span
                             class="text-red-500"> * </span>Tổng Số Tiền : {{tthd.thanhtien | number}} vnđ</label>
                 </div>
+                <div ng-show="ttHoaDon.length == 0" style="display: flex; justify-content: center; align-items: center; margin-top: 50px; margin-left: 80px; margin-right: 80px;" class="flex gap-1 px-4 py-3 text-sm text-orange-500 border border-orange-200 rounded-md md:items-center bg-orange-50 dark:bg-orange-400/20 dark:border-orange-500/50">
+                    <i data-lucide="alert-circle" class="h-4"></i> 
+                    <span class="font-bold">Không có đơn hàng online nào !</span>
+                </div>
             </div>
         </div>
     </div>
