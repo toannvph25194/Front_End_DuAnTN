@@ -1,5 +1,9 @@
 app.controller('cartController', function ($scope, $http, $window, $routeParams, $route, $location, $timeout) {
 
+    $scope.isActive = function(viewLocation) {
+        return viewLocation === $location.path();
+    };
+
     // Lấy idGioHang và Idtk từ localStorage
     var IdGioHang = localStorage.getItem('idgiohang');
     console.log("ID GioHang LocalStor :", IdGioHang);

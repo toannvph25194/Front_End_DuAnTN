@@ -28,7 +28,7 @@
                                     <div class="product-image-slider">
                                         <figure class="border-radius-10">
                                             <img style="width: 471px; height: 510px;"
-                                                src="/src/fileanh/img-sanpham/{{selectedImage}}" alt="product image">
+                                            ng-src="/src/fileanh/img-sanpham/{{selectedImage}}" alt="product image">
                                         </figure>
                                     </div>
                                     <!-- THUMBNAILS -->
@@ -36,7 +36,7 @@
                                         <span ng-repeat="list in loadlistImgSP" class="border border-secondary"
                                             ng-click="selectImage(list)">
                                             <img style="width: 75px; height: 75px;"
-                                                src="/src/fileanh/img-sanpham/{{list.tenimage}}" alt="product image">
+                                            ng-src="/src/fileanh/img-sanpham/{{list.tenimage}}" alt="product image">
                                         </span>
                                     </div>
                                 </div>
@@ -166,8 +166,8 @@
                                             <button type="submit" class="button button-add-to-cart"
                                                 ng-click="CheckAddGHAndGHCT()">Add to cart</button>
                                             <a aria-label="Add To Wishlist" class="action-btn hover-up"
-                                                href="wishlist.php"><i class="fi-rs-heart"></i></a>
-                                            <a aria-label="Compare" class="action-btn hover-up" href="compare.php"><i
+                                                href="#/shop"><i class="fi-rs-heart"></i></a>
+                                            <a aria-label="Compare" class="action-btn hover-up" href="#/shop"><i
                                                     class="fi-rs-shuffle"></i></a>
                                         </div>
                                     </div>
@@ -213,8 +213,7 @@
                                                 </div>
                                             </div>
                                             <div class="product-content-wrap">
-                                                <h2><a href="" tabindex="0">Ulstra Bass
-                                                        Headphone</a></h2>
+                                                <h2><a href="" tabindex="0">Áo Sơ Mi Kẻ Hoa</a></h2>
                                                 <div class="rating-result" title="90%">
                                                     <span>
                                                     </span>
@@ -251,8 +250,7 @@
                                                 </div>
                                             </div>
                                             <div class="product-content-wrap">
-                                                <h2><a href="" tabindex="0">Smart Bluetooth
-                                                        Speaker</a></h2>
+                                                <h2><a href="" tabindex="0">Áo Sơ Mi Hình Lá</a></h2>
                                                 <div class="rating-result" title="90%">
                                                     <span>
                                                     </span>
@@ -289,7 +287,7 @@
                                                 </div>
                                             </div>
                                             <div class="product-content-wrap">
-                                                <h2><a href="" tabindex="0">HomeSpeak 12UEA</a></h2>
+                                                <h2><a href="" tabindex="0">Áo Sơ Mi Đốm Hoa</a></h2>
                                                 <div class="rating-result" title="90%">
                                                     <span>
                                                     </span>
@@ -326,7 +324,7 @@
                                                 </div>
                                             </div>
                                             <div class="product-content-wrap">
-                                                <h2><a href="" tabindex="0">Dadua Camera 4K</a></h2>
+                                                <h2><a href="" tabindex="0">Áo Sơ Mi Trắng Hoa Đào</a></h2>
                                                 <div class="rating-result" title="90%">
                                                     <span>
                                                     </span>
@@ -354,7 +352,7 @@
                         </div>
                         <div ng-repeat="spn in sanPhamNewCTSP" class="single-post clearfix">
                             <div class="image">
-                                <img src="/src/fileanh/img-sanpham/{{spn.imagedefaul}}" alt="#">
+                                <img ng-src="/src/fileanh/img-sanpham/{{spn.imagedefaul}}" alt="#">
                             </div>
                             <div class="content pt-10">
                                 <h5><a ng-href="#/product-details/{{spn.id}}">{{spn.tensp}}</a></h5>

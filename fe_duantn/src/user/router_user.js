@@ -15,8 +15,11 @@ app.config(function ($routeProvider,  $locationProvider){
     }).when('/thanhyou', {
         templateUrl:'pages/Thanhyou.html',
         controller: "checkoutController"
-    })
-     .otherwise({
+    }).when('/gioithieu', {
+        templateUrl:'pages/GioiThieu.html',
+    }).when('/lienhe', {
+        templateUrl:'pages/LienHe.html',
+    }).otherwise({
         redirectTo: '/' 
     });
 
