@@ -12,13 +12,13 @@ app.config(function ($routeProvider,  $locationProvider){
         templateUrl:'pages/cart.html'
     }).when('/checkout',{
         templateUrl:'pages/checkout.html'
-    }).when('/thanhyou', {
+    }).when('/thanhyou',{
         templateUrl:'pages/Thanhyou.html',
         controller: "checkoutController"
-    }).when('/gioithieu', {
-        templateUrl:'pages/GioiThieu.html',
-    }).when('/lienhe', {
-        templateUrl:'pages/LienHe.html',
+    }).when('/gioithieu',{
+        templateUrl:'pages/gioithieu.html',
+    }).when('/lienhe',{
+        templateUrl:'pages/lienhe.html',
     }).otherwise({
         redirectTo: '/' 
     });
