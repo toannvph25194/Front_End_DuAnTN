@@ -2,7 +2,7 @@
     <script src="assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
     <script src="assets/libs/lucide/umd/lucide.js"></script>
   </head>
-  <div class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto">
+  <div class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto" ng-controller="ChatLieuController">
     <div
       class="flex flex-col gap-2 py-4 md:flex-row md:items-center print:hidden"
     >
@@ -36,8 +36,11 @@
                 id="productNameInput"
                 class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
                 placeholder="Tên màu sắc"
-                ng-model="selectedtenSP"
+                ng-model="selectedCL.tenchatlieu"
               />
+              <span class="error-message" ng-if="errorMessage.ten"
+              >{{errorMessage.ten}}</span
+            >
             </div>
   
             <div class="xl:col-span-5">
@@ -52,14 +55,13 @@
                 data-choices-search-false=""
                 name="taxApplicable"
                 id="taxApplicable"
+                ng-model="selectedCL.trangthai"
+
               >
-                <option value="">Chọn Trạng thái</option>
-                <option value="">Hoạt động</option>
-                <option value="">Ngưng hoạt động</option>
+                <option value="1" ng-selected="selectedCL.trangthai == '1'">Hoạt động</option>
+                <option value="2" ng-selected="selectedCL.trangthai == '2'">Ngưng hoạt động</option>
               </select>
-              <span class="error-message" ng-if="errorMessage.MauSac"
-                >{{errorMessage.MauSac}}</span
-              >
+             
             </div>
           </div>
           <div class="lg:col-span-2 xl:col-span-12">
@@ -74,7 +76,7 @@
                 id="productDescription"
                 placeholder="Chi tiết"
                 rows="5"
-                ng-model="selectedmota"
+                ng-model="selectedCL.mota"
               ></textarea>
             </div>
           </div>
@@ -83,7 +85,7 @@
             <button
               type="button"
               class="text-yellow-500 bg-white border-yellow-500 btn hover:text-white hover:bg-yellow-600 hover:border-yellow-600 focus:text-white focus:bg-yellow-600 focus:border-yellow-600 focus:ring focus:ring-yellow-100 active:text-white active:bg-yellow-600 active:border-yellow-600 active:ring active:ring-yellow-100 dark:bg-zink-700 dark:hover:bg-yellow-500 dark:ring-yellow-400/20 dark:focus:bg-yellow-500"
-             
+             ng-click="updatechatlieu()"
             >
               update chất liệu
             </button>

@@ -1,4 +1,4 @@
-app.controller("MauSacController", function ($scope, $http, $route, $window) {
+app.controller("SizeController", function ($scope, $http, $route, $window) {
   var role = $window.localStorage.getItem("role");
 
   if (!role) {
@@ -59,22 +59,22 @@ app.controller("MauSacController", function ($scope, $http, $route, $window) {
 
       $http
         .get(
-          `http://localhost:8080/api/admin-mausac/hienthitatcamausac?page=${
+          `http://localhost:8080/api/admin-size/hienthitatcasize?page=${
             $scope.currentPage - 1
           }&size=${$scope.itemsPerPage}`,
           config
         )
         .then((resp) => {
-          $scope.MSPhanTrang = resp.data.content;
-          console.log("Load MS :", $scope.MSPhanTrang);
+          $scope.SPhanTrang = resp.data.content;
+          console.log("Load SIZE :", $scope.SPhanTrang);
 
           // Total items and pages
           $scope.totalItems = resp.data.totalElements;
           $scope.totalPages = $scope.getTotalPages();
-          $scope.showNextButton = $scope.MSPhanTrang.length >= $scope.pageSize;
+          $scope.showNextButton = $scope.SPhanTrang.length >= $scope.pageSize;
         })
         .catch((error) => {
-          console.log("Lỗi Load màu sắc", error);
+          console.log("Lỗi Load SIZE", error);
         });
     };
 
@@ -88,18 +88,18 @@ app.controller("MauSacController", function ($scope, $http, $route, $window) {
       }
     };
     // Function to add new Mau Sac
-    $scope.addMauSac = function () {
+    $scope.addSize = function () {
       // Clear previous error messages
       $scope.errorMessage = {};
 
       // Validate form fields
       let hasError = false;
-      if (!$scope.selectedtenMS) {
-        $scope.errorMessage.tenms = "Vui lòng không bỏ trống";
+      if (!$scope.selectedtensize) {
+        $scope.errorMessage.ten = "Vui lòng không bỏ trống";
         hasError = true;
       }
-      if (!$scope.selectedtrangthaiMS) {
-        $scope.errorMessage.trangthaiMS = "Vui lòng không bỏ trống";
+      if (!$scope.selectedtrangthaisize) {
+        $scope.errorMessage.trangthai = "Vui lòng không bỏ trống";
         hasError = true;
       }
 
@@ -115,11 +115,11 @@ app.controller("MauSacController", function ($scope, $http, $route, $window) {
         },
       };
 
-      var url = "http://localhost:8080/api/admin-mausac/create-mausac";
+      var url = "http://localhost:8080/api/admin-size/create-size";
       var data = {
-        tenmausac: $scope.selectedtenMS,
-        mota: $scope.selectedmotaMS,
-        trangthai: $scope.selectedtrangthaiMS,
+        tensize: $scope.selectedtensize,
+        mota: $scope.selectedmotasize,
+        trangthai: $scope.selectedtrangthaisize,
       };
 
       $http
@@ -128,7 +128,7 @@ app.controller("MauSacController", function ($scope, $http, $route, $window) {
           if (response.status === 200) {
             Swal.fire({
               title: "Thành Công",
-              text: "Thêm màu sắc thành công",
+              text: "Thêm size thành công",
               icon: "success",
               position: "top-end",
               toast: true,
@@ -155,7 +155,7 @@ app.controller("MauSacController", function ($scope, $http, $route, $window) {
       };
 
       var newStatus = mau.trangthai === 1 ? 2 : 1;
-      var url = `http://localhost:8080/api/admin-mausac/ctt-mausac/${mau.id}?trangthai=${newStatus}`;
+      var url = `http://localhost:8080/api/admin-size/ctt-size/${mau.id}?trangthai=${newStatus}`;
 
       $http
         .put(url, null, config)
@@ -200,11 +200,11 @@ app.controller("MauSacController", function ($scope, $http, $route, $window) {
     };
     $scope.redirectToProductDetails = function (productId) {
       // Lưu id vào localStorage hoặc sử dụng biến trong controller
-      localStorage.setItem("IDMauSacUpdate", productId);
+      localStorage.setItem("IDSIZEUpdate", productId);
     };
-    $scope.getMauSacById = function () {
+    $scope.getSizeById = function () {
       // Retrieve the ID from local storage
-      var id = localStorage.getItem("IDMauSacUpdate");
+      var id = localStorage.getItem("IDSIZEUpdate");
 
       if (!id) {
         console.error("ID màu sắc không được tìm thấy trong local storage.");
@@ -221,13 +221,13 @@ app.controller("MauSacController", function ($scope, $http, $route, $window) {
       // Call the API to get Mau Sac by ID
       $http
         .get(
-          `http://localhost:8080/api/admin-mausac/hienthitatcamausactheid?id=${id}`,
+          `http://localhost:8080/api/admin-size/hienthitatcasizetheid?id=${id}`,
           config
         )
         .then(function (response) {
           if (response.status === 200) {
-            $scope.selectedMauSac = response.data;
-            console.log("Selected Mau Sac:", $scope.selectedMauSac);
+            $scope.selectedSize = response.data;
+            console.log("Selected Mau Sac:", $scope.selectedSize);
           } else {
             console.error(
               "Không thể tải màu sắc theo ID. Status:",
@@ -239,65 +239,65 @@ app.controller("MauSacController", function ($scope, $http, $route, $window) {
           console.error("Lỗi kết nối:", error);
         });
     };
-
-    // Initial call to load data
-
-    // Function to update Mau Sac
-    $scope.updateMauSac = function () {
-      var id = localStorage.getItem("IDMauSacUpdate");
-
+    $scope.getSizeById();
+    $scope.updateSIze = function () {
+      var id = localStorage.getItem("IDSIZEUpdate");
+    
       if (!id) {
-        console.error("ID màu sắc không được tìm thấy trong local storage.");
+        console.error("ID size không được tìm thấy trong local storage.");
         return;
       }
-
+    
       var token = localStorage.getItem("accessToken");
+      if (!token) {
+        console.error("Token không được tìm thấy trong local storage.");
+        return;
+      }
+    
       var config = {
         headers: {
           Authorization: "Bearer " + token,
         },
       };
+      
       $scope.errorMessage = {};
-
-      // Validate form fields
-      let hasError = false;
-      if (!$scope.selectedMauSac.tenmausac) {
-        $scope.errorMessage.tenms = "Vui lòng không bỏ trống";
-       return;
+    
+      if (!$scope.selectedSize || !$scope.selectedSize.tensize) {
+        $scope.errorMessage.tens = "Vui lòng không bỏ trống";
+        return;
       }
-      var url = `http://localhost:8080/api/admin-mausac/update-mausac?id=${id}`;
+    
+      var url = `http://localhost:8080/api/admin-size/update-size/${id}`;
       var data = {
-        tenmausac: $scope.selectedMauSac.tenmausac,
-        trangthai: $scope.selectedMauSac.trangthai,
-        mota: $scope.selectedMauSac.mota,
+        tensize: $scope.selectedSize.tensize,
+        trangthai: $scope.selectedSize.trangthai,
+        mota: $scope.selectedSize.mota,
       };
-
+    
       $http
         .put(url, data, config)
         .then(function (response) {
           if (response.status === 200) {
-            console.log("Cập nhật màu sắc thành công");
+            console.log("Cập nhật size thành công");
             Swal.fire({
-                title: "Thành Công",
-                text: "Update màu sắc thành công",
-                icon: "success",
-                position: "top-end",
-                toast: true,
-                showConfirmButton: false,
-                timer: 1500,
-              }).then(() => {
-                // Update the local status after a successful response
-                $window.location.reload();
-              });
-            // Optionally reload or redirect
+              title: "Thành Công",
+              text: "Update size thành công",
+              icon: "success",
+              position: "top-end",
+              toast: true,
+              showConfirmButton: false,
+              timer: 1500,
+            }).then(() => {
+              $window.location.reload();
+            });
           } else {
-            console.error("Lỗi cập nhật màu sắc. Status:", response.status);
+            console.error("Lỗi cập nhật size. Status:", response.status);
           }
         })
         .catch(function (error) {
           console.error("Lỗi kết nối:", error);
         });
     };
-    $scope.getMauSacById();
+    
   }
 });

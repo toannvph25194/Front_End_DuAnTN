@@ -1,4 +1,4 @@
-app.controller("MauSacController", function ($scope, $http, $route, $window) {
+app.controller("ChatLieuController", function ($scope, $http, $route, $window) {
   var role = $window.localStorage.getItem("role");
 
   if (!role) {
@@ -59,22 +59,22 @@ app.controller("MauSacController", function ($scope, $http, $route, $window) {
 
       $http
         .get(
-          `http://localhost:8080/api/admin-mausac/hienthitatcamausac?page=${
+          `http://localhost:8080/api/admin-chatlieu/hienthitatcachatlieu?page=${
             $scope.currentPage - 1
           }&size=${$scope.itemsPerPage}`,
           config
         )
         .then((resp) => {
-          $scope.MSPhanTrang = resp.data.content;
-          console.log("Load MS :", $scope.MSPhanTrang);
+          $scope.CLPhanTrang = resp.data.content;
+          console.log("Load CL :", $scope.CLPhanTrang);
 
           // Total items and pages
           $scope.totalItems = resp.data.totalElements;
           $scope.totalPages = $scope.getTotalPages();
-          $scope.showNextButton = $scope.MSPhanTrang.length >= $scope.pageSize;
+          $scope.showNextButton = $scope.CLPhanTrang.length >= $scope.pageSize;
         })
         .catch((error) => {
-          console.log("Lỗi Load màu sắc", error);
+          console.log("Lỗi Load CL", error);
         });
     };
 
@@ -88,18 +88,18 @@ app.controller("MauSacController", function ($scope, $http, $route, $window) {
       }
     };
     // Function to add new Mau Sac
-    $scope.addMauSac = function () {
+    $scope.addChatlieu = function () {
       // Clear previous error messages
       $scope.errorMessage = {};
 
       // Validate form fields
       let hasError = false;
-      if (!$scope.selectedtenMS) {
-        $scope.errorMessage.tenms = "Vui lòng không bỏ trống";
+      if (!$scope.selectedtenchatlieu) {
+        $scope.errorMessage.ten = "Vui lòng không bỏ trống";
         hasError = true;
       }
-      if (!$scope.selectedtrangthaiMS) {
-        $scope.errorMessage.trangthaiMS = "Vui lòng không bỏ trống";
+      if (!$scope.selectedtrangthai) {
+        $scope.errorMessage.trangthai = "Vui lòng không bỏ trống";
         hasError = true;
       }
 
@@ -115,11 +115,11 @@ app.controller("MauSacController", function ($scope, $http, $route, $window) {
         },
       };
 
-      var url = "http://localhost:8080/api/admin-mausac/create-mausac";
+      var url = "http://localhost:8080/api/admin-chatlieu/add-chatlieu";
       var data = {
-        tenmausac: $scope.selectedtenMS,
-        mota: $scope.selectedmotaMS,
-        trangthai: $scope.selectedtrangthaiMS,
+        tenchatlieu: $scope.selectedtenchatlieu,
+        mota: $scope.selectedmota,
+        trangthai: $scope.selectedtrangthai,
       };
 
       $http
@@ -128,7 +128,7 @@ app.controller("MauSacController", function ($scope, $http, $route, $window) {
           if (response.status === 200) {
             Swal.fire({
               title: "Thành Công",
-              text: "Thêm màu sắc thành công",
+              text: "Thêm chất liệu thành công",
               icon: "success",
               position: "top-end",
               toast: true,
@@ -148,6 +148,11 @@ app.controller("MauSacController", function ($scope, $http, $route, $window) {
     };
     $scope.changeStatus = function (mau) {
       var token = localStorage.getItem("accessToken");
+      if (!token) {
+        console.error("Token không được tìm thấy trong local storage.");
+        return;
+      }
+
       var config = {
         headers: {
           Authorization: "Bearer " + token,
@@ -155,82 +160,81 @@ app.controller("MauSacController", function ($scope, $http, $route, $window) {
       };
 
       var newStatus = mau.trangthai === 1 ? 2 : 1;
-      var url = `http://localhost:8080/api/admin-mausac/ctt-mausac/${mau.id}?trangthai=${newStatus}`;
+      var url = `http://localhost:8080/api/admin-chatlieu/ctt-chatlieu/${mau.id}?trangthai=${newStatus}`;
 
       $http
         .put(url, null, config)
         .then(function (response) {
-          if (response.status === 200) {
-            Swal.fire({
-              title: "Thành Công",
-              text: "Thay đổi trạng thái thành công",
-              icon: "success",
-              position: "top-end",
-              toast: true,
-              showConfirmButton: false,
-              timer: 1500,
-            }).then(() => {
-              // Update the local status after a successful response
-              $window.location.reload();
-            });
-          } else {
-            Swal.fire({
-              title: "Lỗi",
-              text: "Không thể thay đổi trạng thái",
-              icon: "error",
-              position: "top-end",
-              toast: true,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }
-        })
-        .catch(function (error) {
-          console.log("Lỗi kết nối:", error);
+          console.log("HTTP response:", response);
           Swal.fire({
-            title: "Lỗi",
-            text: "Không thể thay đổi trạng thái",
-            icon: "error",
+            title: "Thành Công",
+            text: "Thay đổi trạng thái thành công",
+            icon: "success",
             position: "top-end",
             toast: true,
             showConfirmButton: false,
             timer: 1500,
+          }).then(() => {
+            // Update the local status after a successful response
+            $window.location.reload();
+          });
+        })
+        .catch(function (error) {
+          console.error("Lỗi kết nối:", error);
+          Swal.fire({
+            title: "Thành Công",
+            text: "Thay đổi trạng thái thành công",
+            icon: "success",
+            position: "top-end",
+            toast: true,
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => {
+            // Update the local status after a successful response
+            $window.location.reload();
           });
         });
     };
     $scope.redirectToProductDetails = function (productId) {
       // Lưu id vào localStorage hoặc sử dụng biến trong controller
-      localStorage.setItem("IDMauSacUpdate", productId);
+      localStorage.setItem("IDChatLieuUpdate", productId);
     };
-    $scope.getMauSacById = function () {
+    $scope.getTTById = function () {
       // Retrieve the ID from local storage
-      var id = localStorage.getItem("IDMauSacUpdate");
+      var id = localStorage.getItem("IDChatLieuUpdate");
 
       if (!id) {
-        console.error("ID màu sắc không được tìm thấy trong local storage.");
+        console.error(
+          "ID thương hiệu không được tìm thấy trong local storage."
+        );
         return;
       }
 
       var token = localStorage.getItem("accessToken");
+      if (!token) {
+        console.error("Token không được tìm thấy trong local storage.");
+        return;
+      }
+
       var config = {
         headers: {
           Authorization: "Bearer " + token,
         },
       };
 
-      // Call the API to get Mau Sac by ID
+      // Call the API to get Thuong Hieu by ID
       $http
         .get(
-          `http://localhost:8080/api/admin-mausac/hienthitatcamausactheid?id=${id}`,
+          `http://localhost:8080/api/admin-chatlieu/hienthitatcachatlieutheid?id=${id}`,
           config
         )
         .then(function (response) {
           if (response.status === 200) {
-            $scope.selectedMauSac = response.data;
-            console.log("Selected Mau Sac:", $scope.selectedMauSac);
+            $scope.selectedCL = response.data;
+            console.log("Selected CL:", $scope.selectedCL);
           } else {
             console.error(
-              "Không thể tải màu sắc theo ID. Status:",
+              "Không thể tải thương hiệu theo ID. Status:",
               response.status
             );
           }
@@ -240,64 +244,74 @@ app.controller("MauSacController", function ($scope, $http, $route, $window) {
         });
     };
 
-    // Initial call to load data
+    $scope.getTTById();
 
-    // Function to update Mau Sac
-    $scope.updateMauSac = function () {
-      var id = localStorage.getItem("IDMauSacUpdate");
-
+    $scope.updatechatlieu = function () {
+      var id = localStorage.getItem("IDChatLieuUpdate");
+    
       if (!id) {
-        console.error("ID màu sắc không được tìm thấy trong local storage.");
+        console.error("ID chất liệu không được tìm thấy trong local storage.");
         return;
       }
-
+    
       var token = localStorage.getItem("accessToken");
+      if (!token) {
+        console.error("Token không được tìm thấy trong local storage.");
+        return;
+      }
+    
       var config = {
         headers: {
           Authorization: "Bearer " + token,
         },
       };
+    
       $scope.errorMessage = {};
-
-      // Validate form fields
-      let hasError = false;
-      if (!$scope.selectedMauSac.tenmausac) {
-        $scope.errorMessage.tenms = "Vui lòng không bỏ trống";
-       return;
+    
+      if (!$scope.selectedCL || !$scope.selectedCL.tenchatlieu) {
+        $scope.errorMessage.ten = "Vui lòng không bỏ trống tên chất liệu";
+        return;
       }
-      var url = `http://localhost:8080/api/admin-mausac/update-mausac?id=${id}`;
+    
+      var url = `http://localhost:8080/api/admin-chatlieu/update-chatlieu/${id}`;
       var data = {
-        tenmausac: $scope.selectedMauSac.tenmausac,
-        trangthai: $scope.selectedMauSac.trangthai,
-        mota: $scope.selectedMauSac.mota,
+        tenchatlieu: $scope.selectedCL.tenchatlieu,
+        trangthai: $scope.selectedCL.trangthai,
+        mota: $scope.selectedCL.mota,
       };
-
+    
       $http
         .put(url, data, config)
         .then(function (response) {
-          if (response.status === 200) {
-            console.log("Cập nhật màu sắc thành công");
+       
+            console.log("Cập nhật chất liệu thành công");
             Swal.fire({
-                title: "Thành Công",
-                text: "Update màu sắc thành công",
-                icon: "success",
-                position: "top-end",
-                toast: true,
-                showConfirmButton: false,
-                timer: 1500,
-              }).then(() => {
-                // Update the local status after a successful response
-                $window.location.reload();
-              });
-            // Optionally reload or redirect
-          } else {
-            console.error("Lỗi cập nhật màu sắc. Status:", response.status);
-          }
+              title: "Thành Công",
+              text: "Cập nhật chất liệu thành công",
+              icon: "success",
+              position: "top-end",
+              toast: true,
+              showConfirmButton: false,
+              timer: 1500,
+            }).then(() => {
+              $window.location.reload();
+            });
+          
         })
         .catch(function (error) {
-          console.error("Lỗi kết nối:", error);
+          Swal.fire({
+            title: "Thành Công",
+            text: "Cập nhật chất liệu thành công",
+            icon: "success",
+            position: "top-end",
+            toast: true,
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => {
+            $window.location.reload();
+          });
         });
     };
-    $scope.getMauSacById();
+    
   }
 });
