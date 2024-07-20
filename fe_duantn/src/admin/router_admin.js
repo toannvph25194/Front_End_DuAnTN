@@ -42,7 +42,7 @@ app.config(function ($routeProvider, $locationProvider) {
     .when("/danhmuc", {
       templateUrl: "pages/danhmuc.html",
     })
-    .when("/updatechatlieu", {
+    .when("/updatechatlieu/:id", {
       templateUrl: "pages/updatechatlieu.html",
     })
     .when("/updatedanhmuc", {

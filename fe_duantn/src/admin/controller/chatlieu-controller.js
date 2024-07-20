@@ -1,5 +1,7 @@
-app.controller("ChatLieuController", function ($scope, $http, $route, $window) {
+app.controller("ChatLieuController", function ($scope, $http, $route, $window, $routeParams) {
   var role = $window.localStorage.getItem("role");
+  var idchatlieu = $routeParams.id;
+  console.log("IdCL :", idchatlieu);
 
   if (!role) {
     // Display alert if not logged in
@@ -13,13 +15,20 @@ app.controller("ChatLieuController", function ($scope, $http, $route, $window) {
       "http://127.0.0.1:5000/src/admin/index_admin.html#/login";
   }
 
-  // Check role and set isAdmin variable
+  // Khai báo quyền và lấy token
   $scope.isAdmin = role === "ADMIN" || role === "NHANVIEN";
+  var token = localStorage.getItem("accessToken");
+  var config = {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  };
 
+  // Nếu chưa đăng nhập không thực hiện các hàm bên dưới
   if ($scope.isAdmin) {
-    // Initialize variables for pagination and search
+
     $scope.currentPage = 1;
-    $scope.itemsPerPage = 9;
+    $scope.itemsPerPage = 10;
     $scope.pageNumber = 0;
     $scope.pageSize = 9;
     $scope.MSPhanTrang = [];
@@ -27,19 +36,19 @@ app.controller("ChatLieuController", function ($scope, $http, $route, $window) {
     $scope.totalPages = 0;
     $scope.showNextButton = false;
 
-    // Handle previous page event
+    // Hàm xử lý previou trang
     $scope.previousPage = function () {
       if ($scope.currentPage > 1) {
         $scope.currentPage--;
-        $scope.loadData();
+        $scope.LoadChatLieu();
       }
     };
 
-    // Handle next page event
+    // Hàm xử lý next trang
     $scope.nextPage = function () {
       if ($scope.currentPage < $scope.totalPages) {
         $scope.currentPage++;
-        $scope.loadData();
+        $scope.LoadChatLieu();
       }
     };
 
@@ -48,25 +57,12 @@ app.controller("ChatLieuController", function ($scope, $http, $route, $window) {
       return Math.ceil($scope.totalItems / $scope.itemsPerPage);
     };
 
-    // Load data
-    $scope.loadData = function () {
-      var token = localStorage.getItem("accessToken");
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-
-      $http
-        .get(
-          `http://localhost:8080/api/admin-chatlieu/hienthitatcachatlieu?page=${
-            $scope.currentPage - 1
-          }&size=${$scope.itemsPerPage}`,
-          config
-        )
+    // Hàm xử lý load chất liệu
+    $scope.LoadChatLieu = function () {
+      $http.get(`http://localhost:8080/api/admin/chatlieu/hien-thi?page=${$scope.currentPage - 1}&size=${$scope.itemsPerPage}`, config)
         .then((resp) => {
           $scope.CLPhanTrang = resp.data.content;
-          console.log("Load CL :", $scope.CLPhanTrang);
+          console.log("Load chất liệu :", $scope.CLPhanTrang);
 
           // Total items and pages
           $scope.totalItems = resp.data.totalElements;
@@ -74,244 +70,187 @@ app.controller("ChatLieuController", function ($scope, $http, $route, $window) {
           $scope.showNextButton = $scope.CLPhanTrang.length >= $scope.pageSize;
         })
         .catch((error) => {
-          console.log("Lỗi Load CL", error);
+          console.log("Lỗi load chất liệu !", error);
         });
     };
+    $scope.LoadChatLieu();
 
-    // Initial data load
-    $scope.loadData();
-    $scope.clearErrorMessages = function () {
-      for (var key in $scope.errorMessage) {
-        if ($scope.errorMessage.hasOwnProperty(key)) {
-          $scope.errorMessage[key] = "";
+    // Làm mới các ô nhập
+    $scope.LamMoi = function () {
+      $scope.tenchatlieu = "";
+      $scope.mota = "";
+      $scope.trangthai = "";
+      $scope.tenvalid = "";
+      $scope.trangthaivalid = "";
+    }
+
+    // Hàm xử lý thêm mới chất liệu
+    $scope.AddChatlieu = function () {
+      // Valide các ô nhập
+      if (!$scope.tenchatlieu) {
+        $scope.tenvalid = "Vui lòng nhập tên chất liệu";
+      } else {
+        $scope.tenvalid = "";
+      }
+      if (!$scope.trangthai) {
+        $scope.trangthaivalid = "Vui lòng chọn trạng thái";
+      } else {
+        $scope.trangthaivalid = "";
+      }
+
+      if (!$scope.tenchatlieu || !$scope.trangthai) {
+        return;
+      }
+
+      Swal.fire({
+        title: "Xác Nhận",
+        text: "Bạn có muốn thêm chất liệu không ?",
+        icon: "question",
+        showCancelButton: true,
+        cancelButtonText: "Hủy Bỏ",
+        cancelButtonColor: "#d33",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Xác Nhận",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (token != null) {
+            var url = "http://localhost:8080/api/admin/chatlieu/add-chatlieu";
+            var data = {
+              tenchatlieu: $scope.tenchatlieu,
+              mota: $scope.mota,
+              trangthai: $scope.trangthai,
+            };
+
+            $http.post(url, data, config)
+              .then((resp) => {
+                Swal.fire({
+                  title: "Thành Công",
+                  text: "Thêm chất liệu thành công",
+                  icon: "success",
+                  position: "top-end",
+                  toast: true,
+                  showConfirmButton: false,
+                  timer: 1500,
+                }).then(() => {
+                  $scope.LoadChatLieu();
+                  $scope.LamMoi();
+                });
+              })
+              .catch((error) => {
+                console.log("Lỗi thêm chất liệu !", error);
+              });
+          }
+        } else {
+          console.log("Bạn không có quyền truy cập !");
         }
-      }
+      });
+    }
+
+    // Hàm xử lý finby chất liệu theo id
+    $scope.FindByIdChatLieu = function () {
+      $http.get('http://localhost:8080/api/admin/chatlieu/find-by?id=' + idchatlieu, config)
+        .then((resp) => {
+          $scope.detailCL = resp.data;
+          console.log("FindBy chất liệu :", $scope.detailCL);
+        })
+        .catch((error) => {
+          console.log("Lỗi finby chất liệu !", error);
+        });
     };
-    // Function to add new Mau Sac
-    $scope.addChatlieu = function () {
-      // Clear previous error messages
-      $scope.errorMessage = {};
+    if (idchatlieu != null) {
+      $scope.FindByIdChatLieu();
+    }
 
-      // Validate form fields
-      let hasError = false;
-      if (!$scope.selectedtenchatlieu) {
-        $scope.errorMessage.ten = "Vui lòng không bỏ trống";
-        hasError = true;
-      }
-      if (!$scope.selectedtrangthai) {
-        $scope.errorMessage.trangthai = "Vui lòng không bỏ trống";
-        hasError = true;
+    // Hàm xử lý cập nhật chất liệu
+    $scope.UpdateChaLieu = function () {
+      // Valide ô nhập
+      if (!$scope.detailCL.tenchatlieu) {
+        $scope.tenvalid = "Vui lòng nhập tên chất liệu";
+      } else {
+        $scope.tenvalid = "";
       }
 
-      // If there's any validation error, stop the function
-      if (hasError) {
+      if (!$scope.detailCL.trangthai) {
+        $scope.trangthaivalid = "Vui lòng chọn trạng thái";
+      } else {
+        $scope.trangthaivalid = "";
+      }
+
+      if (!$scope.detailCL.tenchatlieu || !$scope.detailCL.trangthai) {
         return;
       }
 
-      var token = localStorage.getItem("accessToken");
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
+      Swal.fire({
+        title: "Xác Nhận",
+        text: "Bạn có muốn cập nhật chất liệu không ?",
+        icon: "question",
+        showCancelButton: true,
+        cancelButtonText: "Hủy Bỏ",
+        cancelButtonColor: "#d33",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Xác Nhận",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (token != null) {
+            var url = "http://localhost:8080/api/admin/chatlieu/update-chatlieu";
+            var data = {
+              id: idchatlieu,
+              tenchatlieu: $scope.detailCL.tenchatlieu,
+              mota: $scope.detailCL.mota,
+              trangthai: $scope.detailCL.trangthai,
+            };
 
-      var url = "http://localhost:8080/api/admin-chatlieu/add-chatlieu";
-      var data = {
-        tenchatlieu: $scope.selectedtenchatlieu,
-        mota: $scope.selectedmota,
-        trangthai: $scope.selectedtrangthai,
-      };
+            $http.put(url, data, config)
+              .then((resp) => {
+                Swal.fire({
+                  title: "Thành Công",
+                  text: "Cập nhật chất liệu thành công",
+                  icon: "success",
+                  position: "top-end",
+                  toast: true,
+                  showConfirmButton: false,
+                  timer: 1500,
+                }).then(() => {
+                  $scope.LoadChatLieu();
+                  $scope.LamMoi();
+                });
+              })
+              .catch((error) => {
+                console.log("Lỗi cập nhật chất liệu !", error);
+              });
+          }
+        } else {
+          console.log("Bạn không có quyền truy cập !");
+        }
+      });
+    };
 
-      $http
-        .post(url, data, config)
-        .then(function (response) {
-          if (response.status === 200) {
+    $scope.UpdateTrangThai = function (chatlieu) {
+      var trangthai = chatlieu.trangthai == 1 ? 2 : 1;
+      if (token != null) {
+        var url = "http://localhost:8080/api/admin/chatlieu/update-trang-thai?id=" + chatlieu.id + '&trangthai=' + trangthai;
+        $http.put(url,{},config)
+          .then((resp) => {
             Swal.fire({
               title: "Thành Công",
-              text: "Thêm chất liệu thành công",
+              text: "Cập nhật trạng thái thành công",
               icon: "success",
               position: "top-end",
               toast: true,
               showConfirmButton: false,
               timer: 1500,
             }).then(() => {
-              // Reload the page after the notification is completed
-              $window.location.reload();
+              $scope.LoadChatLieu();
             });
-          } else {
-            console.log("Lỗi xảy ra trong quá trình thêm màu sắc.");
-          }
-        })
-        .catch(function (error) {
-          console.log("Lỗi kết nối:", error);
-        });
-    };
-    $scope.changeStatus = function (mau) {
-      var token = localStorage.getItem("accessToken");
-      if (!token) {
-        console.error("Token không được tìm thấy trong local storage.");
-        return;
-      }
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-
-      var newStatus = mau.trangthai === 1 ? 2 : 1;
-      var url = `http://localhost:8080/api/admin-chatlieu/ctt-chatlieu/${mau.id}?trangthai=${newStatus}`;
-
-      $http
-        .put(url, null, config)
-        .then(function (response) {
-          console.log("HTTP response:", response);
-          Swal.fire({
-            title: "Thành Công",
-            text: "Thay đổi trạng thái thành công",
-            icon: "success",
-            position: "top-end",
-            toast: true,
-            showConfirmButton: false,
-            timer: 1500,
-          }).then(() => {
-            // Update the local status after a successful response
-            $window.location.reload();
+          })
+          .catch((error) => {
+            console.log("Lỗi cập nhật trạng thái chất liệu !", error);
           });
-        })
-        .catch(function (error) {
-          console.error("Lỗi kết nối:", error);
-          Swal.fire({
-            title: "Thành Công",
-            text: "Thay đổi trạng thái thành công",
-            icon: "success",
-            position: "top-end",
-            toast: true,
-            showConfirmButton: false,
-            timer: 1500,
-          }).then(() => {
-            // Update the local status after a successful response
-            $window.location.reload();
-          });
-        });
-    };
-    $scope.redirectToProductDetails = function (productId) {
-      // Lưu id vào localStorage hoặc sử dụng biến trong controller
-      localStorage.setItem("IDChatLieuUpdate", productId);
-    };
-    $scope.getTTById = function () {
-      // Retrieve the ID from local storage
-      var id = localStorage.getItem("IDChatLieuUpdate");
-
-      if (!id) {
-        console.error(
-          "ID thương hiệu không được tìm thấy trong local storage."
-        );
-        return;
+      } else {
+        console.log("Bạn không có quyền truy cập !");
       }
-
-      var token = localStorage.getItem("accessToken");
-      if (!token) {
-        console.error("Token không được tìm thấy trong local storage.");
-        return;
-      }
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-
-      // Call the API to get Thuong Hieu by ID
-      $http
-        .get(
-          `http://localhost:8080/api/admin-chatlieu/hienthitatcachatlieutheid?id=${id}`,
-          config
-        )
-        .then(function (response) {
-          if (response.status === 200) {
-            $scope.selectedCL = response.data;
-            console.log("Selected CL:", $scope.selectedCL);
-          } else {
-            console.error(
-              "Không thể tải thương hiệu theo ID. Status:",
-              response.status
-            );
-          }
-        })
-        .catch(function (error) {
-          console.error("Lỗi kết nối:", error);
-        });
-    };
-
-    $scope.getTTById();
-
-    $scope.updatechatlieu = function () {
-      var id = localStorage.getItem("IDChatLieuUpdate");
-    
-      if (!id) {
-        console.error("ID chất liệu không được tìm thấy trong local storage.");
-        return;
-      }
-    
-      var token = localStorage.getItem("accessToken");
-      if (!token) {
-        console.error("Token không được tìm thấy trong local storage.");
-        return;
-      }
-    
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-    
-      $scope.errorMessage = {};
-    
-      if (!$scope.selectedCL || !$scope.selectedCL.tenchatlieu) {
-        $scope.errorMessage.ten = "Vui lòng không bỏ trống tên chất liệu";
-        return;
-      }
-    
-      var url = `http://localhost:8080/api/admin-chatlieu/update-chatlieu/${id}`;
-      var data = {
-        tenchatlieu: $scope.selectedCL.tenchatlieu,
-        trangthai: $scope.selectedCL.trangthai,
-        mota: $scope.selectedCL.mota,
-      };
-    
-      $http
-        .put(url, data, config)
-        .then(function (response) {
-       
-            console.log("Cập nhật chất liệu thành công");
-            Swal.fire({
-              title: "Thành Công",
-              text: "Cập nhật chất liệu thành công",
-              icon: "success",
-              position: "top-end",
-              toast: true,
-              showConfirmButton: false,
-              timer: 1500,
-            }).then(() => {
-              $window.location.reload();
-            });
-          
-        })
-        .catch(function (error) {
-          Swal.fire({
-            title: "Thành Công",
-            text: "Cập nhật chất liệu thành công",
-            icon: "success",
-            position: "top-end",
-            toast: true,
-            showConfirmButton: false,
-            timer: 1500,
-          }).then(() => {
-            $window.location.reload();
-          });
-        });
-    };
-    
+    }
   }
 });
