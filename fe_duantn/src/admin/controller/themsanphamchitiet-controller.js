@@ -22,7 +22,7 @@ app.service("themsanPhamchitietService", function ($http) {
   };
   this.getSIzes = function () {
     return $http
-      .get("http://localhost:8080/api/admin-size/hienthitatcasize", config)
+      .get("http://localhost:8080/api/admin/size/hien-thi-combobox", config)
       .then(function (response) {
         return response.data;
       });

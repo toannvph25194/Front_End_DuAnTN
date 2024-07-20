@@ -9,14 +9,14 @@ app.service("upadtesanPhamchitietService", function ($http) {
   };
   this.getMauSacs = function () {
     return $http
-      .get("http://localhost:8080/api/admin-mausac/hienthitatcamausac", config)
+      .get("http://localhost:8080/api/admin/mausac/hien-thi-combobox", config)
       .then(function (response) {
         return response.data;
       });
   };
   this.getSIzes = function () {
     return $http
-      .get("http://localhost:8080/api/admin-size/hienthitatcasize", config)
+      .get("http://localhost:8080/api/admin/size/hien-thi-combobox", config)
       .then(function (response) {
         return response.data;
       });
@@ -115,7 +115,7 @@ app.service("upadtesanPhamchitietService", function ($http) {
   this.getChatLieus = function () {
     return $http
       .get(
-        "http://localhost:8080/api/admin-chatlieu/hienthitatcachatlieu",
+        "http://localhost:8080/api/admin/chatlieu/hien-thi-combobox",
         config
       )
       .then(function (response) {
@@ -125,7 +125,7 @@ app.service("upadtesanPhamchitietService", function ($http) {
   this.getThuongHieus = function () {
     return $http
       .get(
-        "http://localhost:8080/api/admin-thuonghieu/hienthitatcathuonghieu",
+        "http://localhost:8080/api/admin/thuonghieu/hien-thi-combobox",
         config
       )
       .then(function (response) {
@@ -135,7 +135,7 @@ app.service("upadtesanPhamchitietService", function ($http) {
   this.getDanhMucs = function () {
     return $http
       .get(
-        "http://localhost:8080/api/admin-danhmuc/hienthitatcadanhmuc",
+        "http://localhost:8080/api/admin/danhmuc/hien-thi-combobox",
         config
       )
       .then(function (response) {
@@ -144,7 +144,7 @@ app.service("upadtesanPhamchitietService", function ($http) {
   };
   this.getXuatXus = function () {
     return $http
-      .get("http://localhost:8080/api/admin-xuatxu/hienthitatcaxuatxu", config)
+      .get("http://localhost:8080/api/admin/xuatxu/hien-thi-combobox", config)
       .then(function (response) {
         return response.data;
       });

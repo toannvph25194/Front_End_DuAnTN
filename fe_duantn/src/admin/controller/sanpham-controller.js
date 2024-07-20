@@ -158,7 +158,7 @@ app.controller(
         };
         $http
           .get(
-            "http://localhost:8080/api/admin-danhmuc/hienthitatcadanhmuc",
+            "http://localhost:8080/api/admin/danhmuc/hien-thi-combobox",
             config
           )
           .then(function (response) {
@@ -179,7 +179,7 @@ app.controller(
         };
         $http
           .get(
-            "http://localhost:8080/api/admin-mausac/hienthitatcamausac",
+            "http://localhost:8080/api/admin/mausac/hien-thi-combobox",
             config
           )
           .then(function (response) {
@@ -200,7 +200,7 @@ app.controller(
         };
         $http
           .get(
-            "http://localhost:8080/api/admin-chatlieu/hienthitatcachatlieu",
+            "http://localhost:8080/api/admin/chatlieu/hien-thi-combobox",
             config
           )
           .then(function (response) {
@@ -220,7 +220,7 @@ app.controller(
         };
         $http
           .get(
-            "http://localhost:8080/api/admin-xuatxu/hienthitatcaxuatxu",
+            "http://localhost:8080/api/admin/xuatxu/hien-thi-combobox",
             config
           )
           .then(function (response) {
@@ -239,7 +239,7 @@ app.controller(
         };
         $http
           .get(
-            "http://localhost:8080/api/admin-thuonghieu/hienthitatcathuonghieu",
+            "http://localhost:8080/api/admin/thuonghieu/hien-thi-combobox",
             config
           )
           .then(function (response) {
@@ -258,7 +258,7 @@ app.controller(
           },
         };
         $http
-          .get("http://localhost:8080/api/admin-size/hienthitatcasize", config)
+          .get("http://localhost:8080/api/admin/size/hien-thi-combobox", config)
           .then(function (response) {
             $scope.Sizes = response.data;
             // Sắp xếp dữ liệu theo thứ tự mong muốn (S, M, L, XL, XXL)
