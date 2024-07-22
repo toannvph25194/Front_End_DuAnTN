@@ -394,6 +394,12 @@ app.controller(
     // Xử lý chức năng làm mới
     $scope.LamMoiTKSPBanTaiQuay = function () {
       $scope.tensp = "";
+      $scope.tendanhmuc = "";
+      $scope.tenmausac = "";
+      $scope.tensize = "";
+      $scope.tenchatlieu = "";
+      $scope.tenthuonghieu = "";
+      $scope.tenxuatxu = "";
       $scope.LoaTTSanPhamBanTaiQuay();
     };
 
