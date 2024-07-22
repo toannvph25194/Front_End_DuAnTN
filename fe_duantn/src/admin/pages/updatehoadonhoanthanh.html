@@ -2,28 +2,21 @@
   .larger-icon {
     font-size: 1.2em;
   }
+
   .larger-icon1 {
     font-size: 2em;
   }
 </style>
-<div
-  class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto"
-  ng-controller="updatehoadonController"
-  ng-init="HoaDonTheoId"
->
-  <div
-    class="flex flex-col gap-2 py-4 md:flex-row md:items-center print:hidden"
-  >
+<div class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto" ng-controller="updatehoadonController"
+  ng-init="HoaDonTheoId">
+  <div class="flex flex-col gap-2 py-4 md:flex-row md:items-center print:hidden">
     <div class="grow">
       <h5 class="text-16">Update hoá đơn</h5>
     </div>
     <ul class="flex items-center gap-2 text-sm font-normal shrink-0">
       <li
-        class="relative before:content-['\ea54'] before:font-remix ltr:before:-right-1 rtl:before:-left-1 before:absolute before:text-[18px] before:-top-[3px] ltr:pr-4 rtl:pl-4 before:text-slate-400 dark:text-zink-200"
-      >
-        <a href="#!" class="text-slate-400 dark:text-zink-200"
-          >Quản lý hoá đơn</a
-        >
+        class="relative before:content-['\ea54'] before:font-remix ltr:before:-right-1 rtl:before:-left-1 before:absolute before:text-[18px] before:-top-[3px] ltr:pr-4 rtl:pl-4 before:text-slate-400 dark:text-zink-200">
+        <a class="text-slate-400 dark:text-zink-200">Quản lý hoá đơn</a>
       </li>
       <li class="text-slate-700 dark:text-zink-100">Update hoá đơn</li>
     </ul>
@@ -32,14 +25,8 @@
     <div class="2xl:col-span-4">
       <div class="card">
         <div class="card-body">
-          <div
-            class="bg-yellow-100 rounded-md size-12 ltr:float-right rtl:float-left dark:bg-yellow-500/20"
-          >
-            <img
-              src="assets/images/avatar-4.png"
-              alt=""
-              class="h-12 rounded-md"
-            />
+          <div class="bg-yellow-100 rounded-md size-12 ltr:float-right rtl:float-left dark:bg-yellow-500/20">
+            <img ng-src="assets/images/avatar-4.png" alt="" class="h-12 rounded-md" />
           </div>
           <h6 class="mb-4 text-15">Thông tin khách hàng</h6>
 
@@ -57,12 +44,9 @@
       <div class="card">
         <div class="card-body">
           <div
-            class="flex items-center justify-center bg-purple-100 rounded-md size-12 dark:bg-purple-500/20 ltr:float-right rtl:float-left"
-          >
-            <i
-              data-lucide="truck"
-              class="ri-truck-line text-purple-500 fill-purple-200 dark:fill-purple-500/30 larger-icon1"
-            ></i>
+            class="flex items-center justify-center bg-purple-100 rounded-md size-12 dark:bg-purple-500/20 ltr:float-right rtl:float-left">
+            <i data-lucide="truck"
+              class="ri-truck-line text-purple-500 fill-purple-200 dark:fill-purple-500/30 larger-icon1"></i>
           </div>
           <h6 class="mb-4 text-15">Địa chỉ ship hàng</h6>
 
@@ -80,11 +64,8 @@
       <div class="card">
         <div class="card-body">
           <div
-            class="flex items-center justify-center rounded-md size-12 ltr:float-right rtl:float-left bg-sky-100 dark:bg-sky-500/20"
-          >
-            <i
-              class="ri-money-dollar-circle-line text-sky-500 fill-sky-200 dark:fill-sky-500/30 larger-icon1"
-            ></i>
+            class="flex items-center justify-center rounded-md size-12 ltr:float-right rtl:float-left bg-sky-100 dark:bg-sky-500/20">
+            <i class="ri-money-dollar-circle-line text-sky-500 fill-sky-200 dark:fill-sky-500/30 larger-icon1"></i>
           </div>
           <h6 class="mb-4 text-15">Thông tin tiền hoá đơn</h6>
           <h6 class="mb-1">
@@ -142,50 +123,32 @@
           <table class="w-full">
             <thead class="ltr:text-left rtl:text-right">
               <tr>
-                <th
-                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
-                >
+                <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500">
                   STT
                 </th>
-                <th
-                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
-                >
+                <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500">
                   Mã giao dịnh
                 </th>
-                <th
-                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
-                >
+                <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500">
                   Thời gian tạo
                 </th>
-                <th
-                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
-                >
+                <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500">
                   Số tiền
                 </th>
-                <th
-                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
-                >
+                <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500">
                   Thời gian thanh toán
                 </th>
-                <th
-                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
-                >
+                <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500">
                   Hình thức thanh toán
                 </th>
 
-                <th
-                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
-                >
+                <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500">
                   Ghi chú
                 </th>
-                <th
-                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
-                >
+                <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500">
                   Trạng thái
                 </th>
-                <th
-                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
-                >
+                <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500">
                   Người xác nhận
                 </th>
               </tr>
@@ -193,61 +156,37 @@
             <tbody>
               <tr
                 class="even:bg-slate-50 hover:bg-slate-50 even:hover:bg-slate-100 dark:even:bg-zink-600/50 dark:hover:bg-zink-600 dark:even:hover:bg-zink-600"
-                ng-repeat="HTTT in HinhThucThanhToanList"
-              >
-                <td
-                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
-                >
-                  <a
-                    href="#!"
-                    class="transition-all duration-150 ease-linear text-custom-500 hover:text-custom-600"
-                  >
+                ng-repeat="HTTT in HinhThucThanhToanList">
+                <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
+                  <a class="transition-all duration-150 ease-linear text-custom-500 hover:text-custom-600">
                     {{ $index + 1}}
                   </a>
                 </td>
-                <td
-                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
-                >
-                  {{HTTT.magiaodich == null ? "Chưa thanh
-                  toán":HTTT.magiaodich}}
+                <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
+                  {{HTTT.magiaodich == null ? "Chưa thanh toán":HTTT.magiaodich}}
                 </td>
-                <td
-                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
-                >
+                <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
                   {{ HTTT.ngaytao | date:'dd/MM/yyyy HH:mm:ss'}}
                 </td>
-                <td
-                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
-                >
+                <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
                   {{ HTTT.sotientra | number:0}}
                 </td>
 
-                <td
-                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
-                >
-                  {{ HTTT.ngaythanhtoan == null ?"Chưa thanh
-                  toán":HTTT.ngaythanhtoan| date:'dd/MM/yyyy HH:mm:ss'}}
+                <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
+                  {{ HTTT.ngaythanhtoan == null ?"Chưa thanh toán":HTTT.ngaythanhtoan| date:'dd/MM/yyyy HH:mm:ss'}}
                 </td>
-                <td
-                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
-                >
+                <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
                   {{ HTTT.hinhthucthanhtoan == 1?"Tiền mặt":"Chuyển khoản"}}
                 </td>
-                <td
-                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
-                >
+                <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
                   {{ HTTT.ghichu}}
                 </td>
-                <td
-                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
-                >
+                <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
                   {{ HTTT.trangthai == 1 ? "Thanh toán thành công" :
                   (HTTT.trangthai == 2 ? "Chưa thanh toán" :
                   (HTTT.trangthai == 3 ? "Hoàn tiền cho khách hàng" : "")) }}
                 </td>
-                <td
-                  class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500"
-                >
+                <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
                   {{ HTTT.taikhoan}}
                 </td>
               </tr>
@@ -257,26 +196,18 @@
       </div>
       <div>
         <div class="flex justify-end gap-2 mt-5">
-          <button
-            type="button"
+          <button type="button"
             class="text-orange-500 bg-white border-orange-500 btn hover:text-white hover:bg-orange-600 hover:border-orange-600 focus:text-white focus:bg-orange-600 focus:border-orange-600 focus:ring focus:ring-orange-100 active:text-white active:bg-orange-600 active:border-orange-600 active:ring active:ring-orange-100 dark:bg-zink-700 dark:hover:bg-orange-500 dark:ring-orange-400/20 dark:focus:bg-orange-500"
-            ng-click="generatePDF()"
-          >
+            ng-click="generatePDF()">
             In hoá đơn
           </button>
-          <button
-            type="button"
+          <button type="button"
             class="bg-white text-custom-500 btn border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:bg-zink-700 dark:hover:bg-custom-500 dark:ring-custom-400/20 dark:focus:bg-custom-500"
-            ng-click="openModal05()"
-          >
+            ng-click="openModal05()">
             Lịch sử thao tác
           </button>
-          <button
-            type="button"
-            ng-click="openModal04()"
-            style="margin-right: 16px"
-            class="text-yellow-500 bg-white border-yellow-500 btn hover:text-white hover:bg-yellow-600 hover:border-yellow-600 focus:text-white focus:bg-yellow-600 focus:border-yellow-600 focus:ring focus:ring-yellow-100 active:text-white active:bg-yellow-600 active:border-yellow-600 active:ring active:ring-yellow-100 dark:bg-zink-700 dark:hover:bg-yellow-500 dark:ring-yellow-400/20 dark:focus:bg-yellow-500"
-          >
+          <button type="button" ng-click="openModal04()" style="margin-right: 16px"
+            class="text-yellow-500 bg-white border-yellow-500 btn hover:text-white hover:bg-yellow-600 hover:border-yellow-600 focus:text-white focus:bg-yellow-600 focus:border-yellow-600 focus:ring focus:ring-yellow-100 active:text-white active:bg-yellow-600 active:border-yellow-600 active:ring active:ring-yellow-100 dark:bg-zink-700 dark:hover:bg-yellow-500 dark:ring-yellow-400/20 dark:focus:bg-yellow-500">
             Chọn nhân viên
           </button>
         </div>
@@ -332,10 +263,8 @@
           <div class="card">
             <div class="text-center card-body">
               <span
-                class="delivery_status px-2.5 py-0.5 text-xs inline-block font-medium rounded border bg-green-100 border-green-200 text-green-500 dark:bg-green-500/20 dark:border-green-500/20"
-              >
-                {{HoaDonTheoId.trangthai == 5? "Hoàn thành":""}}</span
-              >
+                class="delivery_status px-2.5 py-0.5 text-xs inline-block font-medium rounded border bg-green-100 border-green-200 text-green-500 dark:bg-green-500/20 dark:border-green-500/20">
+                {{HoaDonTheoId.trangthai == 5? "Hoàn thành":""}}</span>
               <p class="uppercase text-slate-500 dark:text-zink-200">
                 Trạng thái
               </p>
@@ -352,26 +281,17 @@
               <tbody>
                 <tr ng-repeat="hoaDon in HoaDonCTList">
                   <td
-                    class="px-3.5 py-4 border-b border-dashed first:pl-0 last:pr-0 border-slate-200 dark:border-zink-500"
-                  >
+                    class="px-3.5 py-4 border-b border-dashed first:pl-0 last:pr-0 border-slate-200 dark:border-zink-500">
                     <div class="flex items-center gap-3">
-                      <div
-                        class="flex items-center justify-center rounded-md size-12 bg-slate-100 shrink-0"
-                      >
-                        <img
-                          src="/src/fileanh/img-sanpham/{{hoaDon.imagedefaul}}"
-                          alt=""
-                          class="h-8"
-                        />
+                      <div class="flex items-center justify-center rounded-md size-12 bg-slate-100 shrink-0">
+                        <img ng-src="/src/fileanh/img-sanpham/{{hoaDon.imagedefaul}}" alt="" class="h-8" />
                       </div>
                       <div class="grow">
                         <h6 class="mb-1 text-15">
-                          <a
-                            href=""
-                            class="transition-all duration-300 ease-linear hover:text-custom-500"
-                            >{{hoaDon.tensp}} - {{hoaDon.tensize}} -
-                            {{hoaDon.tenmausac}}</a
-                          >
+                          <a href=""
+                            class="transition-all duration-300 ease-linear hover:text-custom-500">{{hoaDon.tensp}} -
+                            {{hoaDon.tensize}} -
+                            {{hoaDon.tenmausac}}</a>
                         </h6>
 
                         <p class="mb-1 text-slate-500 dark:text-zink-200">
@@ -380,9 +300,7 @@
                             {{ hoaDon.dongiakhigiam == null ? (hoaDon.dongia |
                             number:0) : (hoaDon.dongiakhigiam | number:0) }} vnđ
                           </span>
-                          <small
-                            class="font-normal line-through text-slate-500 dark:text-zink-200"
-                          >
+                          <small class="font-normal line-through text-slate-500 dark:text-zink-200">
                             {{ hoaDon.dongiakhigiam == null ? "" :
                             (hoaDon.dongia | number:0) }} vnđ
                           </small>
@@ -391,13 +309,11 @@
                     </div>
                   </td>
                   <td
-                    class="px-3.5 py-4 border-b border-dashed first:pl-0 last:pr-0 border-slate-200 dark:border-zink-500 ltr:text-right rtl:text-left"
-                  >
+                    class="px-3.5 py-4 border-b border-dashed first:pl-0 last:pr-0 border-slate-200 dark:border-zink-500 ltr:text-right rtl:text-left">
                     {{hoaDon.soluong}}
                   </td>
                   <td
-                    class="px-3.5 py-4 border-b border-dashed first:pl-0 last:pr-0 border-slate-200 dark:border-zink-500 ltr:text-right rtl:text-left"
-                  >
+                    class="px-3.5 py-4 border-b border-dashed first:pl-0 last:pr-0 border-slate-200 dark:border-zink-500 ltr:text-right rtl:text-left">
                     {{ hoaDon.dongiakhigiam == null ? (hoaDon.dongia *
                     hoaDon.soluong | number:0) : (hoaDon.dongiakhigiam *
                     hoaDon.soluong | number:0) }} vnđ
@@ -415,63 +331,43 @@
             <table class="w-full">
               <tbody>
                 <tr>
-                  <td
-                    class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
-                  >
+                  <td class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200">
                     Tổng tiền
                   </td>
-                  <td
-                    class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
-                  >
+                  <td class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left">
                     {{HoaDonTheoId.thanhtien + HoaDonTheoId.giatrigiam |
                     number:0}} vnđ
                   </td>
                 </tr>
                 <tr>
-                  <td
-                    class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
-                  >
+                  <td class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200">
                     Số tiền được giảm giá
                   </td>
-                  <td
-                    class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
-                  >
+                  <td class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left">
                     {{HoaDonTheoId.giatrigiam | number:0}} vnđ
                   </td>
                 </tr>
                 <tr>
-                  <td
-                    class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
-                  >
+                  <td class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200">
                     Số tiền sau khi giảm
                   </td>
-                  <td
-                    class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
-                  >
+                  <td class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left">
                     {{HoaDonTheoId.thanhtien | number:0}} vnđ
                   </td>
                 </tr>
                 <tr>
-                  <td
-                    class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
-                  >
+                  <td class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200">
                     Phí ship
                   </td>
-                  <td
-                    class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
-                  >
+                  <td class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left">
                     {{HoaDonTheoId.tiengiaohang | number:0}} vnđ
                   </td>
                 </tr>
                 <tr class="font-semibold">
-                  <td
-                    class="px-3.5 pt-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
-                  >
+                  <td class="px-3.5 pt-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200">
                     Tổng tiền khách trả (vnđ)
                   </td>
-                  <td
-                    class="px-3.5 pt-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
-                  >
+                  <td class="px-3.5 pt-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left">
                     {{ (HoaDonTheoId.thanhtien + HoaDonTheoId.tiengiaohang) |
                     number:0 }} vnđ
                   </td>
@@ -488,69 +384,65 @@
           <h6 class="mb-4 text-15">Trạng thái hoá đơn</h6>
           <div>
             <div
-              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500"
-            >
+              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500">
               <div class="relative flex gap-2">
                 <div
-                  class="size-8 p-0.5 bg-white text-gray-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700"
-                >
+                  class="size-8 p-0.5 bg-white text-gray-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700">
                   <i class="ri-file-text-line size-4.5"></i>
                 </div>
 
                 <div>
                   <h6 class="mb-1">Chờ xác nhận</h6>
-                  <p class="text-sm text-slate-500 dark:text-zink-200">{{HoaDonTheoId.ngaytao | date:'dd/MM/yyyy HH:mm:ss'}}</p>
+                  <p class="text-sm text-slate-500 dark:text-zink-200">{{HoaDonTheoId.ngaytao | date:'dd/MM/yyyy
+                    HH:mm:ss'}}</p>
 
                 </div>
               </div>
             </div>
             <div
-              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500"
-            >
+              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500">
               <div class="relative flex gap-2">
                 <div
-                  class="size-8 p-0.5 bg-white text-blue-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700"
-                >
+                  class="size-8 p-0.5 bg-white text-blue-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700">
                   <i class="ri-newspaper-line size-4.5"></i>
                 </div>
 
                 <div>
                   <h6 class="mb-1">Đã xác nhận</h6>
-                  <p class="text-sm text-slate-500 dark:text-zink-200">{{HoaDonTheoId.ngayxacnhan | date:'dd/MM/yyyy HH:mm:ss'}}</p>
+                  <p class="text-sm text-slate-500 dark:text-zink-200">{{HoaDonTheoId.ngayxacnhan | date:'dd/MM/yyyy
+                    HH:mm:ss'}}</p>
 
                 </div>
               </div>
             </div>
             <div
-              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500"
-            >
+              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500">
               <div class="relative flex gap-2">
                 <div
-                  class="size-8 p-0.5 bg-white text-yellow-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700"
-                >
+                  class="size-8 p-0.5 bg-white text-yellow-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700">
                   <i class="ri-loader-2-line size-4.5"></i>
                 </div>
 
                 <div>
                   <h6 class="mb-1">Đang chờ giao hàng</h6>
-                  <p class="text-sm text-slate-500 dark:text-zink-200">{{HoaDonTheoId.ngaychogiaohang | date:'dd/MM/yyyy HH:mm:ss'}}</p>
+                  <p class="text-sm text-slate-500 dark:text-zink-200">{{HoaDonTheoId.ngaychogiaohang | date:'dd/MM/yyyy
+                    HH:mm:ss'}}</p>
 
                 </div>
               </div>
             </div>
             <div
-              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500"
-            >
+              class="relative before:absolute ltr:before:border-l-2 rtl:before:border-r-2 ltr:before:left-3.5 rtl:before:right-3.5 before:top-1.5 before:-bottom-1.5 pb-4 dark:before:border-zink-500">
               <div class="relative flex gap-2">
                 <div
-                  class="size-8 p-0.5 bg-white text-purple-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700"
-                >
+                  class="size-8 p-0.5 bg-white text-purple-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700">
                   <i class="ri-truck-line size-4.5"></i>
                 </div>
 
                 <div>
                   <h6 class="mb-1">Đang giao</h6>
-                  <p class="text-sm text-slate-500 dark:text-zink-200">{{HoaDonTheoId.ngaygiaohang | date:'dd/MM/yyyy HH:mm:ss'}}</p>
+                  <p class="text-sm text-slate-500 dark:text-zink-200">{{HoaDonTheoId.ngaygiaohang | date:'dd/MM/yyyy
+                    HH:mm:ss'}}</p>
 
                 </div>
               </div>
@@ -559,13 +451,13 @@
               <div class="relative flex gap-2">
                 <div
                   class="size-8 p-0.5 bg-white text-green-500 flex items-center justify-center border rounded-full shrink-0 border-slate-200 dark:border-zink-500 dark:bg-zink-700"
-                  style="color: #2ecc71; border-color: #2ecc71"
-                >
+                  style="color: #2ecc71; border-color: #2ecc71">
                   <i class="ri-shopping-bag-3-line size-4.5"></i>
                 </div>
                 <div>
                   <h6 class="mb-1" style="color: #2ecc71">Hoàn thành</h6>
-                  <p class="text-sm text-slate-500 dark:text-zink-200">{{HoaDonTheoId.ngaynhanhang | date:'dd/MM/yyyy HH:mm:ss'}}</p>
+                  <p class="text-sm text-slate-500 dark:text-zink-200">{{HoaDonTheoId.ngaynhanhang | date:'dd/MM/yyyy
+                    HH:mm:ss'}}</p>
 
                 </div>
               </div>
@@ -576,127 +468,84 @@
     </div>
     <!--end col-->
   </div>
-  <div
-    id="overlay04"
-    class="overlay"
-    ng-class="{ 'active': isModalOpen }"
-    ng-click="closeModal04($event)"
-  >
+  <div id="overlay04" class="overlay" ng-class="{ 'active': isModalOpen }" ng-click="closeModal04($event)">
     <div id="myModal04" class="modal02">
       <div class="modal-content01">
-        <div
-          class="w-full bg-white shadow rounded-md dark:bg-zink-600 flex flex-col h-full"
-        >
-          <div
-            class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-zink-500"
-          >
+        <div class="w-full bg-white shadow rounded-md dark:bg-zink-600 flex flex-col h-full">
+          <div class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-zink-500">
             <h5 class="text-16">Chọn người xác nhận</h5>
           </div>
-          <div
-            class="max-h-[calc(theme('height.screen')_-_180px)] p-4 overflow-y-auto"
-          >
+          <div class="max-h-[calc(theme('height.screen')_-_180px)] p-4 overflow-y-auto">
             <form>
               <div class="grid grid-cols-1 gap-5 xl:grid-cols-12">
                 <div class="xl:col-span-12">
-                  <label
-                    for="createDateInput"
-                    class="inline-block mb-2 text-base font-medium"
-                    >Nhân viên</label
-                  >
+                  <label for="createDateInput" class="inline-block mb-2 text-base font-medium">Nhân viên</label>
                   <div>
                     <select
                       class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                      data-choices=""
-                      data-choices-search-false=""
-                      name="productTypeSelect"
-                      id="productTypeSelect"
+                      data-choices="" data-choices-search-false="" name="productTypeSelect" id="productTypeSelect"
                       ng-model="selectedNhanVien"
-                      ng-options="nhanvien.idnv as nhanvien.taikhoan for nhanvien in NhanViens"
-                    >
+                      ng-options="nhanvien.idnv as nhanvien.taikhoan for nhanvien in NhanViens">
                       <option value="">Chọn nhân viên</option>
                     </select>
-                    <span class="error-message" ng-if="errorMessage.nhanvien"
-                      >{{errorMessage.nhanvien}}</span
-                    >
+                    <span class="error-message" ng-if="errorMessage.nhanvien">{{errorMessage.nhanvien}}</span>
                   </div>
                 </div>
               </div>
 
               <div class="flex justify-end gap-2 mt-4">
-                <button
-                  type="submit"
-                  id="addNew"
-                  ng-click="updateNguoiXacNhan()"
-                  class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20"
-                >
+                <button type="submit" id="addNew" ng-click="updateNguoiXacNhan()"
+                  class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">
                   Cập nhật
                 </button>
               </div>
             </form>
           </div>
-          <div
-            class="flex items-center justify-between p-4 mt-auto border-t border-slate-200 dark:border-zink-500"
-          >
+          <div class="flex items-center justify-between p-4 mt-auto border-t border-slate-200 dark:border-zink-500">
             <h5 class="text-16">Quần Áo Thời Trang</h5>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div
-  id="overlay05"
-  class="overlay"
-  ng-class="{ 'active': isModalOpen }"
-  ng-click="closeModal05($event)"
->
-  <div id="myModal05" class="modal02">
-    <div class="modal-content01">
-      <div
-        class="w-full bg-white shadow rounded-md dark:bg-zink-600 flex flex-col h-full"
-      >
-        <div
-          class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-zink-500"
-        >
-          <h5 class="text-16">Lịch sử thao tác</h5>
-        </div>
-        <div
-          class="max-h-[calc(theme('height.screen')_-_180px)] p-4 overflow-y-auto"
-        >
-          <div class="card-body">
-            <div class="flex items-center gap-3 mb-4">
-              <h6 class="text-15 grow">Lịch sử thao tác</h6>
-            </div>
-            <div>
-              <div
-                class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
-                ng-repeat="LIchSUThaoTac in LSTT"
-              >
-                <div class="flex gap-4">
-                  <div class="grow">
-                    <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
-                      {{LIchSUThaoTac.nguoithaotac}}
-                    </h6>
+  <div id="overlay05" class="overlay" ng-class="{ 'active': isModalOpen }" ng-click="closeModal05($event)">
+    <div id="myModal05" class="modal02">
+      <div class="modal-content01">
+        <div class="w-full bg-white shadow rounded-md dark:bg-zink-600 flex flex-col h-full">
+          <div class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-zink-500">
+            <h5 class="text-16">Lịch sử thao tác</h5>
+          </div>
+          <div class="max-h-[calc(theme('height.screen')_-_180px)] p-4 overflow-y-auto">
+            <div class="card-body">
+              <div class="flex items-center gap-3 mb-4">
+                <h6 class="text-15 grow">Lịch sử thao tác</h6>
+              </div>
+              <div>
+                <div
+                  class="relative ltr:pl-6 rtl:pr-6 before:absolute ltr:before:border-l rtl:before:border-r ltr:before:left-[0.1875rem] rtl:before:right-[0.1875rem] before:border-slate-200 [&.done]:before:border-custom-500 before:top-1.5 before:-bottom-1.5 after:absolute after:size-2 after:bg-white after:border after:border-slate-200 after:rounded-full ltr:after:left-0 rtl:after:right-0 after:top-1.5 pb-4 last:before:hidden [&.done]:after:bg-custom-500 [&.done]:after:border-custom-500 done"
+                  ng-repeat="LIchSUThaoTac in LSTT">
+                  <div class="flex gap-4">
+                    <div class="grow">
+                      <h6 class="mb-2 text-gray-800 text-15 dark:text-zink-50">
+                        {{LIchSUThaoTac.nguoithaotac}}
+                      </h6>
+                      <p class="mb-2 text-gray-800 text-15 dark:text-zink-50">
+                        {{LIchSUThaoTac.ghichu}}.
+                      </p>
+                    </div>
                     <p class="mb-2 text-gray-800 text-15 dark:text-zink-50">
-                      {{LIchSUThaoTac.ghichu}}.
+                      {{LIchSUThaoTac.ngaytao | date:'dd/MM/yyyy HH:mm:ss'}}
                     </p>
                   </div>
-                  <p
-                    class="mb-2 text-gray-800 text-15 dark:text-zink-50"
-                  >
-                    {{LIchSUThaoTac.ngaytao | date:'dd/MM/yyyy HH:mm:ss'}}
-                  </p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          class="flex items-center justify-between p-4 mt-auto border-t border-slate-200 dark:border-zink-500"
-        >
-          <h5 class="text-16">Quần Áo Thời Trang</h5>
+          <div class="flex items-center justify-between p-4 mt-auto border-t border-slate-200 dark:border-zink-500">
+            <h5 class="text-16">Quần Áo Thời Trang</h5>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>
