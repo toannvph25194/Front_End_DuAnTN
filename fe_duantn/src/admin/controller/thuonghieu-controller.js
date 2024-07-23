@@ -1,303 +1,256 @@
-app.controller("ThuongHieuController", function ($scope, $http, $route, $window) {
-    var role = $window.localStorage.getItem("role");
-  
-    if (!role) {
-      // Display alert if not logged in
-      Swal.fire({
-        title: "Bạn cần phải đăng nhập !",
-        text: "Vui lòng đăng nhập để sử dụng chức năng !",
-        icon: "warning",
-      });
-      // Redirect to login page
-      $window.location.href =
-        "http://127.0.0.1:5000/src/admin/index_admin.html#/login";
+app.controller("ThuongHieuController", function ($scope, $http, $route, $window, $routeParams) {
+  var role = $window.localStorage.getItem("role");
+  var idthuonghieu = $routeParams.id;
+  console.log("Idth :", idthuonghieu);
+
+  if (!role) {
+    // Display alert if not logged in
+    Swal.fire({
+      title: "Bạn cần phải đăng nhập !",
+      text: "Vui lòng đăng nhập để sử dụng chức năng !",
+      icon: "warning",
+    });
+    // Redirect to login page
+    $window.location.href =
+      "http://127.0.0.1:5000/src/admin/index_admin.html#/login";
+  }
+
+  // Khai báo quyền và lấy token
+  $scope.isAdmin = role === "ADMIN" || role === "NHANVIEN";
+  var token = localStorage.getItem("accessToken");
+  var config = {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  };
+
+  // Nếu chưa đăng nhập không thực hiện các hàm bên dưới
+  if ($scope.isAdmin) {
+
+    $scope.currentPage = 1;
+    $scope.itemsPerPage = 10;
+    $scope.pageNumber = 0;
+    $scope.pageSize = 10;
+    $scope.MSPhanTrang = [];
+    $scope.totalItems = 0;
+    $scope.totalPages = 0;
+    $scope.showNextButton = false;
+
+    // Hàm xử lý previou trang
+    $scope.previousPage = function () {
+      if ($scope.currentPage > 1) {
+        $scope.currentPage--;
+        $scope.LoadThuongHieu();
+      }
+    };
+
+    // Hàm xử lý next trang
+    $scope.nextPage = function () {
+      if ($scope.currentPage < $scope.totalPages) {
+        $scope.currentPage++;
+        $scope.LoadThuongHieu();
+      }
+    };
+
+    // Get total pages
+    $scope.getTotalPages = function () {
+      return Math.ceil($scope.totalItems / $scope.itemsPerPage);
+    };
+
+    // Hàm xử lý load thương hiệu
+    $scope.LoadThuongHieu = function () {
+      $http.get(`http://localhost:8080/api/admin/thuonghieu/hien-thi?page=${$scope.currentPage - 1}&size=${$scope.itemsPerPage}`, config)
+        .then((resp) => {
+          $scope.THPhanTrang = resp.data.content;
+          console.log("Load thương hiệu :", $scope.THPhanTrang);
+          // Total items and pages
+          $scope.totalItems = resp.data.totalElements;
+          $scope.totalPages = $scope.getTotalPages();
+          $scope.showNextButton = $scope.THPhanTrang.length >= $scope.pageSize;
+        })
+        .catch((error) => {
+          console.log("Lỗi load thương hiệu !", error);
+        });
+    };
+    $scope.LoadThuongHieu();
+
+    // Làm mới các ô nhập
+    $scope.LamMoi = function () {
+      $scope.tenthuonghieu = "";
+      $scope.mota = "";
+      $scope.trangthai = "";
+      $scope.tenvalid = "";
+      $scope.trangthaivalid = "";
     }
-  
-    // Check role and set isAdmin variable
-    $scope.isAdmin = role === "ADMIN" || role === "NHANVIEN";
-  
-    if ($scope.isAdmin) {
-      // Initialize variables for pagination and search
-      $scope.currentPage = 1;
-      $scope.itemsPerPage = 9;
-      $scope.pageNumber = 0;
-      $scope.pageSize = 9;
-      $scope.MSPhanTrang = [];
-      $scope.totalItems = 0;
-      $scope.totalPages = 0;
-      $scope.showNextButton = false;
-  
-      // Handle previous page event
-      $scope.previousPage = function () {
-        if ($scope.currentPage > 1) {
-          $scope.currentPage--;
-          $scope.loadData();
+
+    // Hàm xử lý thêm mới thương hiệu
+    $scope.AddThuongHieu = function () {
+      // Valide các ô nhập
+      if (!$scope.tenthuonghieu) {
+        $scope.tenvalid = "Vui lòng nhập tên thương hiệu";
+      } else {
+        $scope.tenvalid = "";
+      }
+      if (!$scope.trangthai) {
+        $scope.trangthaivalid = "Vui lòng chọn trạng thái";
+      } else {
+        $scope.trangthaivalid = "";
+      }
+
+      if (!$scope.tenthuonghieu || !$scope.trangthai) {
+        return;
+      }
+
+      Swal.fire({
+        title: "Xác Nhận",
+        text: "Bạn có muốn thêm thương hiệu không ?",
+        icon: "question",
+        showCancelButton: true,
+        cancelButtonText: "Hủy Bỏ",
+        cancelButtonColor: "#d33",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Xác Nhận",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (token != null) {
+            var url = "http://localhost:8080/api/admin/thuonghieu/add-thuonghieu";
+            var data = {
+              tenthuonghieu: $scope.tenthuonghieu,
+              mota: $scope.mota,
+              trangthai: $scope.trangthai,
+            };
+
+            $http.post(url, data, config)
+              .then((resp) => {
+                Swal.fire({
+                  title: "Thành Công",
+                  text: "Thêm thương hiệu thành công",
+                  icon: "success",
+                  position: "top-end",
+                  toast: true,
+                  showConfirmButton: false,
+                  timer: 1500,
+                }).then(() => {
+                  $scope.LoadThuongHieu();
+                  $scope.LamMoi();
+                });
+              })
+              .catch((error) => {
+                console.log("Lỗi thêm thương hiệu!", error);
+              });
+          }
+        } else {
+          console.log("Bạn không có quyền truy cập !");
         }
-      };
-  
-      // Handle next page event
-      $scope.nextPage = function () {
-        if ($scope.currentPage < $scope.totalPages) {
-          $scope.currentPage++;
-          $scope.loadData();
+      });
+    }
+
+    // Hàm xử lý finby thương hiệu theo id
+    $scope.FindByIdThuongHieu = function () {
+      $http.get('http://localhost:8080/api/admin/thuonghieu/find-by?id=' + idthuonghieu, config)
+        .then((resp) => {
+          $scope.detailTH = resp.data;
+          console.log("FindBy thương hiệu :", $scope.detailCL);
+        })
+        .catch((error) => {
+          console.log("Lỗi finby thương hiệu !", error);
+        });
+    };
+    if (idthuonghieu != null) {
+      $scope.FindByIdThuongHieu();
+    }
+
+    // Hàm xử lý cập nhật thương hiệu
+    $scope.UpdateThuongHieu = function () {
+      // Valide ô nhập
+      if (!$scope.detailTH.tenthuonghieu) {
+        $scope.tenvalid = "Vui lòng nhập tên thương hiệu";
+      } else {
+        $scope.tenvalid = "";
+      }
+
+      if (!$scope.detailTH.trangthai) {
+        $scope.trangthaivalid = "Vui lòng chọn trạng thái";
+      } else {
+        $scope.trangthaivalid = "";
+      }
+
+      if (!$scope.detailTH.tenthuonghieu || !$scope.detailTH.trangthai) {
+        return;
+      }
+
+      Swal.fire({
+        title: "Xác Nhận",
+        text: "Bạn có muốn cập nhật thương hiệu không ?",
+        icon: "question",
+        showCancelButton: true,
+        cancelButtonText: "Hủy Bỏ",
+        cancelButtonColor: "#d33",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Xác Nhận",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (token != null) {
+            var url = "http://localhost:8080/api/admin/thuonghieu/update-thuonghieu";
+            var data = {
+              id: idthuonghieu,
+              tenthuonghieu: $scope.detailTH.tenthuonghieu,
+              mota: $scope.detailTH.mota,
+              trangthai: $scope.detailTH.trangthai,
+            };
+
+            $http.put(url, data, config)
+              .then((resp) => {
+                Swal.fire({
+                  title: "Thành Công",
+                  text: "Cập nhật thương hiệu thành công",
+                  icon: "success",
+                  position: "top-end",
+                  toast: true,
+                  showConfirmButton: false,
+                  timer: 1500,
+                }).then(() => {
+                  $scope.LoadThuongHieu();
+                  $scope.LamMoi();
+                });
+              })
+              .catch((error) => {
+                console.log("Lỗi cập nhật thương hiệu !", error);
+              });
+          }
+        } else {
+          console.log("Bạn không có quyền truy cập !");
         }
-      };
-  
-      // Get total pages
-      $scope.getTotalPages = function () {
-        return Math.ceil($scope.totalItems / $scope.itemsPerPage);
-      };
-  
-      // Load data
-      $scope.loadData = function () {
-        var token = localStorage.getItem("accessToken");
-        var config = {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        };
-  
-        $http
-          .get(
-            `http://localhost:8080/api/admin-thuonghieu/hienthitatcathuonghieu?page=${
-              $scope.currentPage - 1
-            }&size=${$scope.itemsPerPage}`,
-            config
-          )
+      });
+    };
+
+    // Hàm xử lý cập nhật trạng thái thương hiệu
+    $scope.UpdateTrangThai = function (thuonghieu) {
+      var trangthai = thuonghieu.trangthai == 1 ? 2 : 1;
+      if (token != null) {
+        var url = "http://localhost:8080/api/admin/thuonghieu/update-trang-thai?id=" + thuonghieu.id + '&trangthai=' + trangthai;
+        $http.put(url, {}, config)
           .then((resp) => {
-            $scope.THPhanTrang = resp.data.content;
-            console.log("Load TH :", $scope.THPhanTrang);
-  
-            // Total items and pages
-            $scope.totalItems = resp.data.totalElements;
-            $scope.totalPages = $scope.getTotalPages();
-            $scope.showNextButton = $scope.THPhanTrang.length >= $scope.pageSize;
+            Swal.fire({
+              title: "Thành Công",
+              text: "Cập nhật trạng thái thành công",
+              icon: "success",
+              position: "top-end",
+              toast: true,
+              showConfirmButton: false,
+              timer: 1500,
+            }).then(() => {
+              $scope.LoadThuongHieu();
+            });
           })
           .catch((error) => {
-            console.log("Lỗi Load TH", error);
+            console.log("Lỗi cập nhật trạng thái thương hiệu !", error);
           });
-      };
-  
-      // Initial data load
-      $scope.loadData();
-      $scope.clearErrorMessages = function () {
-        for (var key in $scope.errorMessage) {
-          if ($scope.errorMessage.hasOwnProperty(key)) {
-            $scope.errorMessage[key] = "";
-          }
-        }
-      };
-      // Function to add new Mau Sac
-      $scope.addThuongHieu = function () {
-        // Clear previous error messages
-        $scope.errorMessage = {};
-  
-        // Validate form fields
-        let hasError = false;
-        if (!$scope.selectedtenthuonghieu) {
-          $scope.errorMessage.tenthuonghieu = "Vui lòng không bỏ trống";
-          hasError = true;
-        }
-        if (!$scope.selectedtrangthai) {
-          $scope.errorMessage.trangthai = "Vui lòng không bỏ trống";
-          hasError = true;
-        }
-  
-        // If there's any validation error, stop the function
-        if (hasError) {
-          return;
-        }
-  
-        var token = localStorage.getItem("accessToken");
-        var config = {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        };
-  
-        var url = "http://localhost:8080/api/admin-thuonghieu/add-thuonghieu";
-        var data = {
-          tenthuonghieu: $scope.selectedtenthuonghieu,
-          mota: $scope.selectedmota,
-          trangthai: $scope.selectedtrangthai,
-        };
-  
-        $http
-          .post(url, data, config)
-          .then(function (response) {
-            if (response.status === 200) {
-              Swal.fire({
-                title: "Thành Công",
-                text: "Thêm thương hiệu thành công",
-                icon: "success",
-                position: "top-end",
-                toast: true,
-                showConfirmButton: false,
-                timer: 1500,
-              }).then(() => {
-                // Reload the page after the notification is completed
-                $window.location.reload();
-              });
-            } else {
-              console.log("Lỗi xảy ra trong quá trình thêm màu sắc.");
-            }
-          })
-          .catch(function (error) {
-            console.log("Lỗi kết nối:", error);
-          });
-      };
-      $scope.changeStatus = function (mau) {
-        var token = localStorage.getItem("accessToken");
-        if (!token) {
-          console.error("Token không được tìm thấy trong local storage.");
-          return;
-        }
-      
-        var config = {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        };
-      
-        var newStatus = mau.trangthai === 1 ? 2 : 1;
-        var url = `http://localhost:8080/api/admin-thuonghieu/ctt-thuonghieu/${mau.id}?trangthai=${newStatus}`;
-      
-        $http
-          .put(url, null, config)
-          .then(function (response) {
-            console.log("HTTP response:", response);
-              Swal.fire({
-                title: "Thành Công",
-                text: "Thay đổi trạng thái thành công",
-                icon: "success",
-                position: "top-end",
-                toast: true,
-                showConfirmButton: false,
-                timer: 1500,
-              }).then(() => {
-                // Update the local status after a successful response
-                $window.location.reload();
-              });
-            
-          })
-          .catch(function (error) {
-            console.error("Lỗi kết nối:", error);
-            Swal.fire({
-                title: "Thành Công",
-                text: "Thay đổi trạng thái thành công",
-                icon: "success",
-                position: "top-end",
-                toast: true,
-                showConfirmButton: false,
-                timer: 1500,
-              }).then(() => {
-                // Update the local status after a successful response
-                $window.location.reload();
-              });
-          });
-      }; 
-      $scope.redirectToProductDetails = function (productId) {
-        // Lưu id vào localStorage hoặc sử dụng biến trong controller
-        localStorage.setItem("IDThuongHieuUpdate", productId);
-      };
-      $scope.getTTById = function () {
-        // Retrieve the ID from local storage
-        var id = localStorage.getItem("IDThuongHieuUpdate");
-      
-        if (!id) {
-          console.error("ID thương hiệu không được tìm thấy trong local storage.");
-          return;
-        }
-      
-        var token = localStorage.getItem("accessToken");
-        if (!token) {
-          console.error("Token không được tìm thấy trong local storage.");
-          return;
-        }
-      
-        var config = {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        };
-      
-        // Call the API to get Thuong Hieu by ID
-        $http
-          .get(`http://localhost:8080/api/admin-thuonghieu/hienthitatcathuonghieutheid?id=${id}`, config)
-          .then(function (response) {
-            if (response.status === 200) {
-              $scope.selectedTH = response.data;
-              console.log("Selected TH:", $scope.selectedTH);
-            } else {
-              console.error("Không thể tải thương hiệu theo ID. Status:", response.status);
-            }
-          })
-          .catch(function (error) {
-            console.error("Lỗi kết nối:", error);
-          });
-      };
-      
-      $scope.getTTById();
-      
-      $scope.updatethuonghieu = function () {
-        var id = localStorage.getItem("IDThuongHieuUpdate");
-      
-        if (!id) {
-          console.error("ID size không được tìm thấy trong local storage.");
-          return;
-        }
-      
-        var token = localStorage.getItem("accessToken");
-        if (!token) {
-          console.error("Token không được tìm thấy trong local storage.");
-          return;
-        }
-      
-        var config = {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        };
-        
-        $scope.errorMessage = {};
-      
-        if (!$scope.selectedTH || !$scope.selectedTH.tenthuonghieu) {
-          $scope.errorMessage.tenthuonghieu = "Vui lòng không bỏ trống";
-          return;
-        }
-      
-        var url = `http://localhost:8080/api/admin-thuonghieu/update-thuonghieu/${id}`;
-        var data = {
-          tenthuonghieu: $scope.selectedTH.tenthuonghieu,
-          trangthai: $scope.selectedTH.trangthai,
-          mota: $scope.selectedTH.mota,
-        };
-      
-        $http
-          .put(url, data, config)
-          .then(function (response) {
-            if (response.status === 200) {
-              console.log("Cập nhật size thành công");
-              Swal.fire({
-                title: "Thành Công",
-                text: "Update size thành công",
-                icon: "success",
-                position: "top-end",
-                toast: true,
-                showConfirmButton: false,
-                timer: 1500,
-              }).then(() => {
-                $window.location.reload();
-              });
-            } else {
-              console.error("Lỗi cập nhật size. Status:", response.status);
-            }
-          })
-          .catch(function (error) {
-            console.error("Lỗi kết nối:", error);
-          });
-      };
-      
+      } else {
+        console.log("Bạn không có quyền truy cập !");
+      }
     }
-  });
-  
+  }
+});

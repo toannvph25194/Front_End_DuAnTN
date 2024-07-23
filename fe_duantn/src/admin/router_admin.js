@@ -45,19 +45,19 @@ app.config(function ($routeProvider, $locationProvider) {
     .when("/updatechatlieu/:id", {
       templateUrl: "pages/updatechatlieu.html",
     })
-    .when("/updatedanhmuc", {
+    .when("/updatedanhmuc/:id", {
       templateUrl: "pages/updatedanhmuc.html",
     })
-    .when("/updatemausac", {
+    .when("/updatemausac/:id", {
       templateUrl: "pages/updatemausac.html",
     })
-    .when("/updatsize", {
+    .when("/updatsize/:id", {
       templateUrl: "pages/updatesize.html",
     })
-    .when("/updatethuonghieu", {
+    .when("/updatethuonghieu/:id", {
       templateUrl: "pages/updatethuonghieu.html",
     })
-    .when("/updatexuatxu", {
+    .when("/updatexuatxu/:id", {
       templateUrl: "pages/updatexuatxu.html",
     }).when("/showsanpham", {
       templateUrl: "pages/showsanpham.html",

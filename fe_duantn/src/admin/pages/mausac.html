@@ -3,166 +3,134 @@
   <script src="assets/libs/lucide/umd/lucide.js"></script>
 </head>
 <div class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto " ng-controller="MauSacController">
-  <div
-    class="flex flex-col gap-2 py-4 md:flex-row md:items-center print:hidden"
-  >
+  <div class="flex flex-col gap-2 py-4 md:flex-row md:items-center print:hidden">
     <div class="grow">
       <h5 class="text-16">Quản lý thuộc tính</h5>
     </div>
     <ul class="flex items-center gap-2 text-sm font-normal shrink-0">
       <li
-        class="relative before:content-['\ea54'] before:font-remix ltr:before:-right-1 rtl:before:-left-1 before:absolute before:text-[18px] before:-top-[3px] ltr:pr-4 rtl:pl-4 before:text-slate-400 dark:text-zink-200"
-      >
-        <a href="#!" class="text-slate-400 dark:text-zink-200">Sản phẩm</a>
+        class="relative before:content-['\ea54'] before:font-remix ltr:before:-right-1 rtl:before:-left-1 before:absolute before:text-[18px] before:-top-[3px] ltr:pr-4 rtl:pl-4 before:text-slate-400 dark:text-zink-200">
+        <a class="text-slate-400 dark:text-zink-200">Quản lý thuộc tính</a>
       </li>
-      <li class="text-slate-700 dark:text-zink-100">màu sắc</li>
+      <li class="text-slate-700 dark:text-zink-100">Màu Sắc</li>
     </ul>
   </div>
   <div class="card">
     <div class="card-body">
-      <h6 class="mb-4 text-15">Màu sắc</h6>
-      <form>
+      <h6 class="mb-4 text-15">Màu Sắc</h6>
+      <form action="">
         <div class="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-12">
           <div class="xl:col-span-7">
-            <label for="productNameInput" class="inline-block mb-2 text-base font-medium">Tên màu sắc</label>
-            <input type="text" id="productNameInput" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" placeholder="Tên màu sắc" ng-model="selectedtenMS">
-            <span class="error-message text-red-500" ng-if="errorMessage.tenms">{{errorMessage.tenms}}</span>
+            <label class="inline-block mb-2 text-base font-medium">Tên Màu Sắc</label>
+            <input type="text"
+              class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+              placeholder="Tên màu sắc" ng-model="tenmausac" />
+            <span class="error-message">{{tenvalid}}</span>
           </div>
-      
+
           <div class="xl:col-span-5">
-            <label for="taxApplicable" class="inline-block mb-2 text-base font-medium">Trạng thái</label>
-            <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" id="taxApplicable" ng-model="selectedtrangthaiMS">
-              <option value="">Chọn Trạng thái</option>
+            <label class="inline-block mb-2 text-base font-medium">Trạng thái</label>
+            <select
+              class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+              ng-model="trangthai">
+              <option value="">Chọn trạng thái</option>
               <option value="1">Hoạt động</option>
-              <option value="2">Ngưng hoạt động</option>
+              <option value="2">Ngừng hoạt động</option>
             </select>
-            <span class="error-message text-red-500" ng-if="errorMessage.trangthaiMS">{{errorMessage.trangthaiMS}}</span>
+            <span class="error-message">{{trangthaivalid}}</span>
           </div>
         </div>
-      
+        <br>
         <div class="lg:col-span-2 xl:col-span-12">
           <div>
-            <label for="productDescription" class="inline-block mb-2 text-base font-medium">Ghi chú</label>
-            <textarea class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" id="productDescription" placeholder="Chi tiết sản phẩm" rows="5" ng-model="selectedmotaMS"></textarea>
+            <label class="inline-block mb-2 text-base font-medium">Mô Tả</label>
+            <textarea
+              class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+              placeholder="Mô tả màu sắc" rows="5" ng-model="mota"></textarea>
           </div>
         </div>
-      
+
         <div class="flex justify-end gap-2 mt-4">
-          <button type="button" class="text-yellow-500 bg-white border-yellow-500 btn hover:text-white hover:bg-yellow-600 hover:border-yellow-600 focus:text-white focus:bg-yellow-600 focus:border-yellow-600 focus:ring focus:ring-yellow-100 active:text-white active:bg-yellow-600 active:border-yellow-600 active:ring active:ring-yellow-100 dark:bg-zink-700 dark:hover:bg-yellow-500 dark:ring-yellow-400/20 dark:focus:bg-yellow-500" ng-click="addMauSac()">
-            Thêm chi tiết
+          <button type="button"
+            class="bg-white text-slate-500 btn border-slate-500 hover:text-white hover:bg-slate-600 hover:border-slate-600 focus:text-white focus:bg-slate-600 focus:border-slate-600 focus:ring focus:ring-slate-100 active:text-white active:bg-slate-600 active:border-slate-600 active:ring active:ring-slate-100 dark:bg-zink-700 dark:hover:bg-slate-500 dark:ring-slate-400/20 dark:focus:bg-slate-500"
+            ng-click="LamMoi()">
+            Làm Mới
+          </button>
+          <button type="button"
+            class="text-yellow-500 bg-white border-yellow-500 btn hover:text-white hover:bg-yellow-600 hover:border-yellow-600 focus:text-white focus:bg-yellow-600 focus:border-yellow-600 focus:ring focus:ring-yellow-100 active:text-white active:bg-yellow-600 active:border-yellow-600 active:ring active:ring-yellow-100 dark:bg-zink-700 dark:hover:bg-yellow-500 dark:ring-yellow-400/20 dark:focus:bg-yellow-500"
+            ng-click="AddMauSac()">
+            Thêm màu sắc
           </button>
         </div>
       </form>
-      
+
       <div class="card-body">
         <div class="overflow-x-auto">
-          
+          <div class="grid grid-cols-1 gap-4 mb-5 lg:grid-cols-2 xl:grid-cols-12">
+            <!--end col-->
+          </div>
+
           <table class="w-full">
             <thead class="ltr:text-left rtl:text-right">
               <tr>
-                <th
-                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
-                >
-                  Tên màu sắc
-                </th>
-
-                <th
-                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
-                >
-                  Ghi chú
-                </th>
-                <th
-                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
-                >
-                  Trạng thái
-                </th>
-                <th
-                  class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"
-                >
-                  Action
-                </th>
+                <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500">STT</th>
+                <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500">Tên màu sắc</th>
+                <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500">Mô Tả</th>
+                <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500">Trạng thái</th>
+                <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500">Action</th>
               </tr>
-
             </thead>
             <tbody>
               <tr
-              class="even:bg-slate-50 hover:bg-slate-50 even:hover:bg-slate-100 dark:even:bg-zink-600/50 dark:hover:bg-zink-600 dark:even:hover:bg-zink-600"
-              ng-repeat="MS in MSPhanTrang"
-            >
-              <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
-                {{MS.tenmausac}}
-              </td>
-              <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
-                {{MS.mota}}
-              </td>
-              <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 status">
-                <span
-                  class="status px-2.5 py-0.5 inline-block text-xs font-medium rounded border 
-                    {{ MS.trangthai == 1 ? 'bg-green-100 text-green-500 dark:bg-green-500/20 dark:text-green-500' : 'bg-red-100 text-red-500 dark:bg-red-500/20 dark:text-red-500' }}"
-                >
-                  {{ MS.trangthai == 1 ? 'Đang hoạt động' : 'Dừng hoạt động' }}
-                </span>
-              </td>
-              <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
-                <div class="flex gap-2">
-                  <a
-                    href="#/updatemausac"
-                    class="flex items-center justify-center transition-all duration-200 ease-linear rounded-md size-8 text-slate-500 bg-slate-100 hover:text-white hover:bg-slate-500 dark:bg-zink-600 dark:text-zink-200 dark:hover:text-white dark:hover:bg-zink-500"
-                    ng-click="redirectToProductDetails(MS.id)"
-                  >
-                    <i class="ri-pencil-line"></i>
-                  </a>
-                  <a
-                    ng-click="changeStatus(MS)"
-                    class="flex items-center justify-center text-red-500 transition-all duration-200 ease-linear bg-red-100 rounded-md size-8 hover:text-white hover:bg-red-500 dark:bg-red-500/20 dark:hover:bg-red-500"
-                  >
-                    <i class="ri-arrow-left-right-line"></i>
-                  </a>
-                </div>
-              </td>
-            </tr>
-            
-              </tbody>
-            </table>
-            <div class="flex flex-col items-center mt-5 md:flex-row">
-              <div class="mb-4 grow md:mb-0">
-                <p class="text-slate-500 dark:text-zink-200">
-                  Số trang <b>{{currentPage}}</b> trên <b>{{totalPages}}</b> trang
-                </p>
-              </div>
-              <ul class="flex flex-wrap items-center gap-2 shrink-0">
-                <li>
-                  <a
-                    ng-click="previousPage()"
-                    class="inline-flex items-center justify-center bg-white dark:bg-zink-700 h-8 px-3 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 [&.active]:text-white dark:[&.active]:text-white [&.active]:bg-custom-500 dark:[&.active]:bg-custom-500 [&.active]:border-custom-500 dark:[&.active]:border-custom-500 [&.active]:hover:text-custom-700 dark:[&.active]:hover:text-custom-700 [&.disabled]:text-slate-400 dark:[&.disabled]:text-zink-300 [&.disabled]:cursor-auto"
-                  >
-                    Prev</a
-                  >
-                </li>
-                <li>
-                  <input
-                    ng-model="currentPage"
-                    min="1"
-                    max="{{totalPages}}"
-                    class="inline-flex items-center justify-center bg-white dark:bg-zink-700 w-8 h-8 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 [&.active]:text-white dark:[&.active]:text-white [&.active]:bg-custom-500 dark:[&.active]:bg-custom-500 [&.active]:border-custom-500 dark:[&.active]:border-custom-500 [&.active]:hover:text-custom-700 dark:[&.active]:hover:text-custom-700 [&.disabled]:text-slate-400 dark:[&.disabled]:text-zink-300 [&.disabled]:cursor-auto"
-                    style="text-align: center; line-height: 1.5"
-                    readonly
-                  />
-                </li>
-                <li>
-                  <a
-                    ng-click="nextPage()"
-                    class="inline-flex items-center justify-center bg-white dark:bg-zink-700 h-8 px-3 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 [&.active]:text-white dark:[&.active]:text-white [&.active]:bg-custom-500 dark:[&.active]:bg-custom-500 [&.active]:border-custom-500 dark:[&.active]:border-custom-500 [&.active]:hover:text-custom-700 dark:[&.active]:hover:text-custom-700 [&.disabled]:text-slate-400 dark:[&.disabled]:text-zink-300 [&.disabled]:cursor-auto"
-                    ng-show="showNextButton"
-                    >Next
-                  </a>
-                </li>
-              </ul>
+                class="even:bg-slate-50 hover:bg-slate-50 even:hover:bg-slate-100 dark:even:bg-zink-600/50 dark:hover:bg-zink-600 dark:even:hover:bg-zink-600"
+                ng-repeat="ms in MSPhanTrang">
+                <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">{{$index + 1}}</td>
+                <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">{{ms.tenmausac}}</td>
+                <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">{{ms.mota}}</td>
+                <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 status">
+                  <span
+                    class="status px-2.5 py-0.5 inline-block text-xs font-medium rounded border {{ ms.trangthai == 1 ? 'bg-green-100 text-green-500 dark:bg-green-500/20 dark:text-green-500' : 'bg-red-100 text-red-500 dark:bg-red-500/20 dark:text-red-500' }}">
+                    {{ms.trangthai == 1 ? 'Đang hoạt động' : 'Ngừng hoạt động'}}
+                  </span>
+                </td>
+                <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
+                  <div class="flex gap-2">
+                    <a href="#/updatemausac/{{ms.id}}"
+                      class="flex items-center justify-center transition-all duration-200 ease-linear rounded-md size-8 text-slate-500 bg-slate-100 hover:text-white hover:bg-slate-500 dark:bg-zink-600 dark:text-zink-200 dark:hover:text-white dark:hover:bg-zink-500"
+                    ><i class="ri-pencil-line"></i></a>
+                    <a ng-click="UpdateTrangThai(ms)"
+                      class="flex items-center justify-center text-red-500 transition-all duration-200 ease-linear bg-red-100 rounded-md size-8 hover:text-white hover:bg-red-500 dark:bg-red-500/20 dark:hover:bg-red-500"><i
+                        class="ri-arrow-left-right-line"></i></a>
                   </div>
                 </td>
               </tr>
             </tbody>
           </table>
+          <div class="flex flex-col items-center mt-5 md:flex-row">
+            <div class="mb-4 grow md:mb-0">
+              <p class="text-slate-500 dark:text-zink-200">
+                Số trang <b>{{currentPage}}</b> trên <b>{{totalPages}}</b> trang
+              </p>
+            </div>
+            <ul class="flex flex-wrap items-center gap-2 shrink-0">
+              <li>
+                <a ng-click="previousPage()"
+                  class="inline-flex items-center justify-center bg-white dark:bg-zink-700 h-8 px-3 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 [&.active]:text-white dark:[&.active]:text-white [&.active]:bg-custom-500 dark:[&.active]:bg-custom-500 [&.active]:border-custom-500 dark:[&.active]:border-custom-500 [&.active]:hover:text-custom-700 dark:[&.active]:hover:text-custom-700 [&.disabled]:text-slate-400 dark:[&.disabled]:text-zink-300 [&.disabled]:cursor-auto">
+                  Prev</a>
+              </li>
+              <li>
+                <input ng-model="currentPage" min="1" max="{{totalPages}}"
+                  class="inline-flex items-center justify-center bg-white dark:bg-zink-700 w-8 h-8 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 [&.active]:text-white dark:[&.active]:text-white [&.active]:bg-custom-500 dark:[&.active]:bg-custom-500 [&.active]:border-custom-500 dark:[&.active]:border-custom-500 [&.active]:hover:text-custom-700 dark:[&.active]:hover:text-custom-700 [&.disabled]:text-slate-400 dark:[&.disabled]:text-zink-300 [&.disabled]:cursor-auto"
+                  style="text-align: center; line-height: 1.5" readonly />
+              </li>
+              <li>
+                <a ng-click="nextPage()"
+                  class="inline-flex items-center justify-center bg-white dark:bg-zink-700 h-8 px-3 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 [&.active]:text-white dark:[&.active]:text-white [&.active]:bg-custom-500 dark:[&.active]:bg-custom-500 [&.active]:border-custom-500 dark:[&.active]:border-custom-500 [&.active]:hover:text-custom-700 dark:[&.active]:hover:text-custom-700 [&.disabled]:text-slate-400 dark:[&.disabled]:text-zink-300 [&.disabled]:cursor-auto"
+                  ng-show="showNextButton">Next
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

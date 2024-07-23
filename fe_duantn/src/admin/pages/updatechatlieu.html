@@ -1,82 +1,72 @@
 <head>
-    <script src="assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
-    <script src="assets/libs/lucide/umd/lucide.js"></script>
-  </head>
-  <div class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto" ng-controller="ChatLieuController">
-    <div
-      class="flex flex-col gap-2 py-4 md:flex-row md:items-center print:hidden"
-    >
-      <div class="grow">
-        <h5 class="text-16">Quản lý thuộc tính</h5>
-      </div>
-      <ul class="flex items-center gap-2 text-sm font-normal shrink-0">
-        <li
-          class="relative before:content-['\ea54'] before:font-remix ltr:before:-right-1 rtl:before:-left-1 before:absolute before:text-[18px] before:-top-[3px] ltr:pr-4 rtl:pl-4 before:text-slate-400 dark:text-zink-200"
-        >
-          <a href="#!" class="text-slate-400 dark:text-zink-200">Chất liệu update</a>
-        </li>
-        <li class="text-slate-700 dark:text-zink-100">Chất liệu update</li>
-      </ul>
+  <script src="assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
+  <script src="assets/libs/lucide/umd/lucide.js"></script>
+</head>
+<div class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto" ng-controller="ChatLieuController">
+  <div class="flex flex-col gap-2 py-4 md:flex-row md:items-center print:hidden">
+    <div class="grow">
+      <h5 class="text-16">Quản lý thuộc tính</h5>
     </div>
-    <div class="card">
-      <div class="card-body">
-        <h6 class="mb-4 text-15">Chất liệu</h6>
-        <form action="">
-          <div class="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-12">
-            <!--end col-->
-  
-            <div class="xl:col-span-7">
-              <label for="productNameInput" class="inline-block mb-2 text-base font-medium">Tên Chất liệu</label>
-              <input
-                type="text"
-                class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                placeholder="Tên chất liệu"
-                ng-model="detailCL.tenchatlieu"
-              />
-              <span class="error-message">{{tenvalid}}</span>
-            </div>
-  
-            <div class="xl:col-span-5">
-              <label class="inline-block mb-2 text-base font-medium">Trạng thái</label>
-              <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                ng-model="detailCL.trangthai"
-              >
-                <option value="1" ng-selected="detailCL.trangthai == 1">Hoạt động</option>
-                <option value="2" ng-selected="detailCL.trangthai == 2">Ngừng hoạt động</option>
-              </select>
-            </div>
-          </div>
-          <br>
-          <div class="lg:col-span-2 xl:col-span-12">
-            <div>
-              <label class="inline-block mb-2 text-base font-medium">Mô Tả</label>
-              <textarea class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                placeholder="Mô tả chất liệu"
-                rows="5"
-                ng-model="detailCL.mota"
-              ></textarea>
-            </div>
-          </div>
-  
-          <div class="flex justify-end gap-2 mt-4">
-            <a type="button" href="#/chatlieu" class="bg-white text-slate-500 btn border-slate-500 hover:text-white hover:bg-slate-600 hover:border-slate-600 focus:text-white focus:bg-slate-600 focus:border-slate-600 focus:ring focus:ring-slate-100 active:text-white active:bg-slate-600 active:border-slate-600 active:ring active:ring-slate-100 dark:bg-zink-700 dark:hover:bg-slate-500 dark:ring-slate-400/20 dark:focus:bg-slate-500">
-              Quay Lại
-            </a>
-            <button
-              type="button"
-              class="text-yellow-500 bg-white border-yellow-500 btn hover:text-white hover:bg-yellow-600 hover:border-yellow-600 focus:text-white focus:bg-yellow-600 focus:border-yellow-600 focus:ring focus:ring-yellow-100 active:text-white active:bg-yellow-600 active:border-yellow-600 active:ring active:ring-yellow-100 dark:bg-zink-700 dark:hover:bg-yellow-500 dark:ring-yellow-400/20 dark:focus:bg-yellow-500"
-             ng-click="UpdateChaLieu()"
-            >
-              update chất liệu
-            </button>
-          </div>
-        </form>
-  
-        
-      </div>
-      <!--end card-->
-    </div>
+    <ul class="flex items-center gap-2 text-sm font-normal shrink-0">
+      <li
+        class="relative before:content-['\ea54'] before:font-remix ltr:before:-right-1 rtl:before:-left-1 before:absolute before:text-[18px] before:-top-[3px] ltr:pr-4 rtl:pl-4 before:text-slate-400 dark:text-zink-200">
+        <a class="text-slate-400 dark:text-zink-200">Quản lý thuộc tính</a>
+      </li>
+      <li class="text-slate-700 dark:text-zink-100">Cập nhật chất liệu</li>
+    </ul>
   </div>
-  
-  <!-- container-fluid -->
-  
+  <div class="card">
+    <div class="card-body">
+      <h6 class="mb-4 text-15">Chất liệu</h6>
+      <form action="">
+        <div class="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-12">
+          <!--end col-->
+
+          <div class="xl:col-span-7">
+            <label for="productNameInput" class="inline-block mb-2 text-base font-medium">Tên Chất liệu</label>
+            <input type="text"
+              class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+              placeholder="Tên chất liệu" ng-model="detailCL.tenchatlieu" />
+            <span class="error-message">{{tenvalid}}</span>
+          </div>
+
+          <div class="xl:col-span-5">
+            <label class="inline-block mb-2 text-base font-medium">Trạng thái</label>
+            <select
+              class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+              ng-model="detailCL.trangthai">
+              <option value="1" ng-selected="detailCL.trangthai == 1">Hoạt động</option>
+              <option value="2" ng-selected="detailCL.trangthai == 2">Ngừng hoạt động</option>
+            </select>
+          </div>
+        </div>
+        <br>
+        <div class="lg:col-span-2 xl:col-span-12">
+          <div>
+            <label class="inline-block mb-2 text-base font-medium">Mô Tả</label>
+            <textarea
+              class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+              placeholder="Mô tả chất liệu" rows="5" ng-model="detailCL.mota"></textarea>
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-2 mt-4">
+          <a type="button" href="#/chatlieu"
+            class="bg-white text-slate-500 btn border-slate-500 hover:text-white hover:bg-slate-600 hover:border-slate-600 focus:text-white focus:bg-slate-600 focus:border-slate-600 focus:ring focus:ring-slate-100 active:text-white active:bg-slate-600 active:border-slate-600 active:ring active:ring-slate-100 dark:bg-zink-700 dark:hover:bg-slate-500 dark:ring-slate-400/20 dark:focus:bg-slate-500">
+            Quay Lại
+          </a>
+          <button type="button"
+            class="text-yellow-500 bg-white border-yellow-500 btn hover:text-white hover:bg-yellow-600 hover:border-yellow-600 focus:text-white focus:bg-yellow-600 focus:border-yellow-600 focus:ring focus:ring-yellow-100 active:text-white active:bg-yellow-600 active:border-yellow-600 active:ring active:ring-yellow-100 dark:bg-zink-700 dark:hover:bg-yellow-500 dark:ring-yellow-400/20 dark:focus:bg-yellow-500"
+            ng-click="UpdateChaLieu()">
+            update chất liệu
+          </button>
+        </div>
+      </form>
+
+
+    </div>
+    <!--end card-->
+  </div>
+</div>
+
+<!-- container-fluid -->

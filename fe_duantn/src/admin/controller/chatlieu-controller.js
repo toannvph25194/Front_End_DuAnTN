@@ -30,7 +30,7 @@ app.controller("ChatLieuController", function ($scope, $http, $route, $window, $
     $scope.currentPage = 1;
     $scope.itemsPerPage = 10;
     $scope.pageNumber = 0;
-    $scope.pageSize = 9;
+    $scope.pageSize = 10;
     $scope.MSPhanTrang = [];
     $scope.totalItems = 0;
     $scope.totalPages = 0;
@@ -227,6 +227,7 @@ app.controller("ChatLieuController", function ($scope, $http, $route, $window, $
       });
     };
 
+    // Hàm xử lý cập nhật trạng thái chất liệu
     $scope.UpdateTrangThai = function (chatlieu) {
       var trangthai = chatlieu.trangthai == 1 ? 2 : 1;
       if (token != null) {
