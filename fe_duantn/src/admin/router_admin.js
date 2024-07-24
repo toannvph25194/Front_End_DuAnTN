@@ -88,6 +88,15 @@ app.config(function ($routeProvider, $locationProvider) {
       templateUrl: "pages/vnpaydone.html",
       controller: "BanHangTaiQuayController"
     })
+    .when("/khachhang", {
+      templateUrl: "pages/khachhang.html",
+    })
+    .when("/themkhachhang", {
+      templateUrl: "pages/themkhachhang.html",
+    })
+    .when("/updatekhachhang/:id", {
+      templateUrl: "pages/updatekhachhang.html",
+    })
     .otherwise({
       redirectTo: "/",
     });
