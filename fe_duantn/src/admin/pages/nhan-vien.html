@@ -1,0 +1,203 @@
+<style>
+  .larger-icon {
+    font-size: 1.2em;
+  }
+</style>
+<div class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto" ng-controller="QuanLyNhanVien">
+  <div class="flex flex-col gap-2 py-4 md:flex-row md:items-center print:hidden">
+    <div class="grow">
+      <h5 class="text-16">Nhân viên</h5>
+    </div>
+    <ul class="flex items-center gap-2 text-sm font-normal shrink-0">
+      <li
+        class="relative before:content-['\ea54'] before:font-remix ltr:before:-right-1 rtl:before:-left-1 before:absolute before:text-[18px] before:-top-[3px] ltr:pr-4 rtl:pl-4 before:text-slate-400 dark:text-zink-200">
+        <a href="#!" class="text-slate-400 dark:text-zink-200">Nhân viên</a>
+      </li>
+      <li class="text-slate-700 dark:text-zink-100">Quản lý nhân viên</li>
+    </ul>
+  </div>
+  <div class="grid grid-cols-1 gap-x-5 xl:grid-cols-12">
+    <div class="xl:col-span-12">
+      <div class="card" id="usersTable">
+        <div class="card-body">
+          <div class="flex items-center">
+            <h6 class="text-15 grow">Nhân viên</h6>
+            <div class="shrink-0">
+              <a href="#/themnv" data-modal-target="addUserModal" type="button"
+                class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">
+                <i class="ri-sticky-note-add-line larger-icon"></i>
+                <span class="align-middle">Thêm mới nhân viên</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="!py-3.5 card-body border-y border-dashed border-slate-200 dark:border-zink-500">
+          <form>
+            <div class="grid grid-cols-1 gap-x-5 xl:grid-cols-12">
+                <div class="relative xl:col-span-6">
+                    <input type="text" ng-model="searchText" ng-change="searchNhanVien()"
+                        class="ltr:pl-8 rtl:pr-8 search form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                        placeholder="Tìm kiếm ...." autocomplete="off" />
+                    <i class="ri-search-line inline-block size-4 absolute ltr:left-2.5 rtl:right-2.5 top-2.5 text-slate-500 dark:text-zink-200 fill-slate-100 dark:fill-zink-600"></i>
+                </div>
+                <div class="relative xl:col-span-2">
+                    <select ng-model="selectedStatus" ng-change="searchNhanVien()"
+                        class="form-select border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                        data-choices="" id="choices-single-default">
+                        <option value="">Chọn trạng thái</option>
+                        <option value="1">Đang hoạt động</option>
+                        <option value="0">Nghỉ làm</option>
+                    </select>
+                </div>
+                <div class="xl:col-span-2">
+                    <button type="button" ng-click="resetSearch()"
+                        class="bg-white border-dashed text-sky-500 btn border-sky-500 hover:text-sky-500 hover:bg-sky-50 hover:border-sky-600 focus:text-sky-600 focus:bg-sky-50 focus:border-sky-600 active:text-sky-600 active:bg-sky-50 active:border-sky-600 dark:bg-zink-700 dark:ring-sky-400/20 dark:hover:bg-sky-800/20 dark:focus:bg-sky-800/20 dark:active:bg-sky-800/20">
+                        <i class="align-baseline ltr:pr-1 rtl:pl-1 ri-refresh-line"></i> Làm mới
+                    </button>
+                </div>
+            </div>
+        </form>
+        
+        
+          
+        </div>
+        <div class="card-body">
+          <div class="-mx-5 -mb-5 overflow-x-auto">
+            <table class="w-full border-separate table-custom border-spacing-y-1 whitespace-nowrap">
+              <thead class="text-left">
+                <tr
+                  class="relative rounded-md bg-slate-100 dark:bg-zink-600 after:absolute ltr:after:border-l-2 rtl:after:border-r-2 ltr:after:left-0 rtl:after:right-0 after:top-0 after:bottom-0 after:border-transparent [&.active]:after:border-custom-500 [&.active]:bg-slate-100 dark:[&.active]:bg-zink-600">
+                  <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold">
+                    <div class="flex items-center h-full">
+                     STT
+                    </div>
+                  </th>
+                  <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold sort" data-sort="user-id">
+                    Mã Nhân Viên
+                  </th>
+                  <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold sort" data-sort="user-id">
+                    Ảnh
+                  </th>
+                  <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold sort" data-sort="name">
+                    Họ Và Tên
+                  </th>
+
+                  <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold sort" data-sort="gt">
+                    Giới Tính
+                  </th>
+
+                  <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold sort" data-sort="diachi">
+                    Địa Chỉ
+                  </th>
+                  <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold sort" data-sort="email">
+                    Email
+                  </th>
+                  <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold sort" data-sort="sdt">
+                    Số Điện Thoại
+                  </th>
+                  <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold sort" data-sort="joining-date">
+                    Ngày Sinh
+                  </th>
+                  <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold sort" data-sort="status">
+                    Trạng Thái
+                  </th>
+                  <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="list">
+                <tr ng-repeat="nhanVien in nhanVienList">
+                  <td class="px-3.5 py-2.5 first:pl-5 last:pr-5">
+                    {{$index + 1}}
+                  </td>
+                  <td class="px-3.5 py-2.5 first:pl-5 last:pr-5">
+                    {{ nhanVien.manv }}
+                  </td>
+                  <td class="px-3.5 py-2.5  border-slate-200 dark:border-zink-500 product_name">
+                    <a href="apps-ecommerce-product-overview.html" class="flex items-center gap-2">
+
+                      <img ng-src="/src/fileanh/img-nhanvien/{{nhanVien.image}}" alt="Product images" class="h-20" />
+                    </a>
+                  </td>
+                  <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 location">
+                    {{ nhanVien.hovatennv }}
+                  </td>
+                  <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 location">
+                    {{ nhanVien.gioitinh == false ? "Nữ" : "Nam" }}
+                  </td>
+                  <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 email">
+                    {{ nhanVien.diachi }}
+                  </td>
+                  <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 phone-number">
+                    {{ nhanVien.email }}
+                  </td>
+                  <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 joining-date">
+                    {{ nhanVien.sodienthoai }}
+                  </td>
+                  <td class="px-3.5 py-2.5 first:pl-5 last:pr-5">
+                    {{ nhanVien.ngaysinh }}
+                  </td>
+                  <td class="px-3.5 py-2.5 first:pl-5 last:pr-5">
+                    <span class="px-2.5 py-0.5 text-xs font-medium rounded border 
+                      {{nhanVien.trangthai == 1 ? 'bg-green-100 border-transparent text-green-500 dark:bg-green-500/20 dark:border-transparent' : 'bg-red-100 border-transparent text-red-500 dark:bg-red-500/20 dark:border-transparent'}} 
+                      inline-flex items-center status">
+                      <i class="ri-loader-fill size-3 mr-1.5"></i>
+                      {{nhanVien.trangthai == 1 ? "Hoạt động": "Nghỉ làm"}}
+                    </span>
+                  </td>
+                  <td class="px-3.5 py-2.5 first:pl-5 last:pr-5">
+                    <div class="flex gap-2">
+                      <a href="#/updatenhanvien/{{nhanVien.idnv}}"
+                        class="flex items-center justify-center transition-all duration-200 ease-linear rounded-md size-8 text-slate-500 bg-slate-100 hover:text-white hover:bg-slate-500 dark:bg-zink-600 dark:text-zink-200 dark:hover:text-white dark:hover:bg-zink-500"
+                        ng-click="redirectToProductDetails(nhanVien.idnv)"
+                        >
+                        <i class="ri-pencil-line"></i>
+                      </a>
+                      <a ng-click="toggleStatus(nhanVien)"
+                        class="flex items-center justify-center text-red-500 transition-all duration-200 ease-linear bg-red-100 rounded-md size-8 hover:text-white hover:bg-red-500 dark:bg-red-500/20 dark:hover:bg-red-500">
+                        <i class="ri-arrow-left-right-line"></i>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="flex flex-col items-center mt-8 md:flex-row">
+            <div class="mb-4 grow md:mb-0">
+              <p class="text-slate-500 dark:text-zink-200">
+                Trang <b>{{currentPage}}</b> / <b>{{totalPages}}</b>
+              </p>
+            </div>
+            <ul class="flex flex-wrap items-center gap-2 shrink-0">
+              <li>
+                <button ng-click="previousPage()" ng-disabled="currentPage === 1"
+                  class="inline-flex items-center justify-center bg-white dark:bg-zink-700 h-8 px-3 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 disabled:text-slate-400 dark:disabled:text-zink-300 disabled:cursor-auto">
+                  Prev
+                </button>
+              </li>
+              <li>
+                <input ng-model="currentPage" min="1" max="{{totalPages}}" ng-change="pageChanged()"
+                  class="inline-flex items-center justify-center bg-white dark:bg-zink-700 w-8 h-8 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 text-center">
+                </input>
+              </li>
+              <li>
+                <button ng-click="nextPage()" ng-disabled="currentPage === totalPages"
+                  class="inline-flex items-center justify-center bg-white dark:bg-zink-700 h-8 px-3 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 disabled:text-slate-400 dark:disabled:text-zink-300 disabled:cursor-auto">
+                  Next
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          
+          
+        </div>
+      </div>
+      <!--end card-->
+    </div>
+    <!--end col-->
+  </div>
+  <!--end grid-->
+</div>

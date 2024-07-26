@@ -109,6 +109,15 @@ app.config(function ($routeProvider, $locationProvider) {
     .when("/updategiamgiatheosanphamgiaodien/:id", {
       templateUrl: "pages/updategiamgiatheosanpham.html",
     })
+    .when("/nhan-vien", {
+      templateUrl: "pages/nhan-vien.html",
+    })
+    .when("/themnv", {
+      templateUrl: "pages/themnhanvien.html",
+    })
+    .when("/updatenhanvien/:id", {
+      templateUrl: "pages/updatenhanvien.html",
+    })
     .otherwise({
       redirectTo: "/",
     });

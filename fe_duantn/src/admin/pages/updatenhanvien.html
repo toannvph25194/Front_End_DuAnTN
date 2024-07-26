@@ -1,0 +1,101 @@
+<div class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto" ng-controller="QuanLyNhanVien"
+  ng-init="initNhanVien()">
+
+  <body>
+    <div class="flex flex-col gap-2 py-4 md:flex-row md:items-center print:hidden">
+      <div class="grow">
+        <h5 class="text-16">Update nhân viên</h5>
+      </div>
+      <ul class="flex items-center gap-2 text-sm font-normal shrink-0">
+        <li
+          class="relative before:content-['\ea54'] before:font-remix ltr:before:-right-1 rtl:before:-left-1 before:absolute before:text-[18px] before:-top-[3px] ltr:pr-4 rtl:pl-4 before:text-slate-400 dark:text-zink-200">
+          <a href="#!" class="text-slate-400 dark:text-zink-200">Nhân viên</a>
+        </li>
+        <li class="text-slate-700 dark:text-zink-100">Update nhân viên</li>
+      </ul>
+    </div>
+    <div class="card" id="employeeTable">
+      <div class="xl:col-span-9">
+        <div class="card">
+          <div class="card-body">
+            <form ng-submit="updateNhanVien()">
+              <div class="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-12">
+                <div class="xl:col-span-12">
+                  <div class="relative mx-auto mb-5 rounded-full shadow-md size-32 bg-slate-100 profile-user dark:bg-zink-500">
+                    <!-- Hiển thị hình ảnh đã chọn -->
+                    <img id="profile-image" ng-src="/src/fileanh/img-nhanvien/{{nhanVien.image}}" alt=""
+                      class="object-cover w-full h-full rounded-full user-profile-image" />
+                
+                    <div class="absolute bottom-0 flex items-center justify-center rounded-full size-14 ltr:right-0 rtl:left-0 profile-photo-edit">
+                      <!-- Input để chọn tệp ảnh -->
+                      <input id="profile-img-file-input" name="profile-img-file-input" type="file" class="hidden profile-img-file-input"
+                        accept="image/*" onchange="angular.element(this).scope().handleFileSelect01(event)"" />
+                
+                      <!-- Label cho input -->
+                      <label for="profile-img-file-input"
+                        class="flex items-center justify-center bg-white rounded-full shadow-lg cursor-pointer size-8 dark:bg-zink-600 profile-photo-edit">
+                        <i class="ri-image-add-fill size-4 text-slate-500 fill-slate-200 dark:text-zink-200 dark:fill-zink-500"></i>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="xl:col-span-4">
+                  <label for="productNameInput" class="inline-block mb-2 text-base font-medium">Họ và tên</label>
+                  <input type="text" id="productNameInput" class="form-input" placeholder="Họ và tên"
+                    ng-model="nhanVien.hovatennv" />
+                </div>
+                <div class="xl:col-span-4">
+                  <label for="birthDateInput" class="inline-block mb-2 text-base font-medium">Ngày sinh</label>
+                  <input type="date" id="birthDateInput" class="form-input" placeholder="Ngày sinh"
+                    ng-model="nhanVien.ngaysinh" />
+                </div>
+                <div class="xl:col-span-4">
+                  <label for="phoneInput" class="inline-block mb-2 text-base font-medium">Số điện thoại</label>
+                  <input type="text" id="phoneInput" class="form-input" placeholder="Số điện thoại"
+                    ng-model="nhanVien.sodienthoai" />
+                </div>
+                <div class="xl:col-span-4">
+                  <label for="addressInput" class="inline-block mb-2 text-base font-medium">Địa chỉ</label>
+                  <input type="text" id="addressInput" class="form-input" placeholder="Địa chỉ"
+                    ng-model="nhanVien.diachi" />
+                </div>
+                <div class="xl:col-span-4">
+                  <label for="emailInput" class="inline-block mb-2 text-base font-medium">Email</label>
+                  <input type="text" id="emailInput" class="form-input" placeholder="Email" ng-model="nhanVien.email" />
+                </div>
+                <div class="lg:col-span-2 xl:col-span-12">
+                  <label for="descriptionInput" class="inline-block mb-2 text-base font-medium">Mô tả</label>
+                  <textarea id="descriptionInput" class="form-input" placeholder="Enter Description" rows="5"
+                    ng-model="nhanVien.mota"></textarea>
+                </div>
+                <div class="xl:col-span-4">
+                  <label for="genderSelect" class="inline-block mb-2 text-base font-medium">Giới tính</label>
+                  <select id="genderSelect" class="form-input" ng-model="nhanVien.gioitinh">
+                    <option value="true" ng-selected="nhanVien.gioitinh == true">Nam</option>
+                    <option value="false"  ng-selected="nhanVien.gioitinh == false">Nữ</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="flex justify-end gap-2 mt-4">
+                <a type="button" href="#/nhan-vien"
+                  class="bg-white text-slate-500 btn border-slate-500 hover:text-white hover:bg-slate-600 hover:border-slate-600 focus:text-white focus:bg-slate-600 focus:border-slate-600 focus:ring focus:ring-slate-100 active:text-white active:bg-slate-600 active:border-slate-600 active:ring active:ring-slate-100 dark:bg-zink-700 dark:hover:bg-slate-500 dark:ring-slate-400/20 dark:focus:bg-slate-500">
+                  Quay Lại
+                </a>
+                <button type="reset" id="refreshButton"
+                  class="bg-white border-dashed text-sky-500 btn border-sky-500 hover:text-sky-500 hover:bg-sky-50 hover:border-sky-600 focus:text-sky-600 focus:bg-sky-50 focus:border-sky-600 active:text-sky-600 active:bg-sky-50 active:border-sky-600 dark:bg-zink-700 dark:ring-sky-400/20 dark:hover:bg-sky-800/20 dark:focus:bg-sky-800/20 dark:active:bg-sky-800/20">
+                  <i class="align-baseline ltr:pr-1 rtl:pl-1 ri-refresh-line"></i> Làm mới
+                </button>
+                <button type="submit"
+                  class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20"
+                  ng-click="updateNhanVien()">
+                  Cập nhật nhân viên
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</div>
