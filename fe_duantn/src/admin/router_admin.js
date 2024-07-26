@@ -97,6 +97,18 @@ app.config(function ($routeProvider, $locationProvider) {
     .when("/updatekhachhang/:id", {
       templateUrl: "pages/updatekhachhang.html",
     })
+    .when("/giamgiatheosanpham", {
+      templateUrl: "pages/giamgiatheosanpham.html",
+    })
+    .when("/themgiamgiatheosanpham", {
+      templateUrl: "pages/themgiamgiatheosanpham.html",
+    })
+    .when("/themsanphamgiamgia", {
+      templateUrl: "pages/themsanphamgiamgia.html",
+    })
+    .when("/updategiamgiatheosanphamgiaodien/:id", {
+      templateUrl: "pages/updategiamgiatheosanpham.html",
+    })
     .otherwise({
       redirectTo: "/",
     });

@@ -1,0 +1,205 @@
+<div
+  class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto"
+  ng-controller="GiamGiaTheoSanPhamController"
+>
+  <body>
+    <div
+      class="flex flex-col gap-2 py-4 md:flex-row md:items-center print:hidden"
+    >
+      <div class="grow">
+        <h5 class="text-16">Thêm mã giảm giá mới</h5>
+      </div>
+      <ul class="flex items-center gap-2 text-sm font-normal shrink-0">
+        <li
+          class="relative before:content-['\ea54'] before:font-remix ltr:before:-right-1 rtl:before:-left-1 before:absolute before:text-[18px] before:-top-[3px] ltr:pr-4 rtl:pl-4 before:text-slate-400 dark:text-zink-200"
+        >
+          <a href="#!" class="text-slate-400 dark:text-zink-200"
+            >Quản lý giảm giá</a
+          >
+        </li>
+        <li class="text-slate-700 dark:text-zink-100">Thêm mã giảm mới</li>
+      </ul>
+    </div>
+    <div class="card" id="employeeTable">
+      <div class="xl:col-span-9">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="mb-4 text-15">Thêm mã giảm giá mới</h6>
+            <form ng-submit="AddGiamGia(); $event.preventDefault();">
+              <div
+                class="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-12"
+              >
+                <div class="xl:col-span-6">
+                  <label
+                    for="productCodeInput"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Mã Giảm giá</label
+                  >
+                  <div class="flex items-center">
+                    <span
+                      class="inline-block px-3 py-2 border ltr:border-r-0 rtl:border-l-0 border-slate-200 bg-slate-100 dark:border-zink-500 dark:bg-zink-600 ltr:rounded-l-md rtl:rounded-r-md"
+                      ng-click="generateProductCode()"
+                      >+</span
+                    >
+                    <input
+                      type="text"
+                      id="inputText"
+                      class="ltr:rounded-l-none rtl:rounded-r-none form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                      placeholder="@Mã giảm giá"
+                      ng-model="selectedmaGG"
+                      disabled=""
+                    />
+                  </div>
+                  <span class="error-message" ng-if="errorMessage.selectedmaGG"
+                    >{{errorMessage.selectedmaGG}}</span
+                  >
+                </div>
+                <div class="xl:col-span-6">
+                  <label
+                    for="productNameInput"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Tên giảm giá</label
+                  >
+                  <input
+                    type="text"
+                    id="productNameInput"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    placeholder="Tên giảm giá"
+                    ng-model="selectedtenGG"
+                  />
+                  <span class="error-message" ng-if="errorMessage.selectedtenGG"
+                    >{{errorMessage.selectedtenGG}}</span
+                  >
+                </div>
+                <!--end col-->
+
+                <div class="xl:col-span-3">
+                  <label
+                    for="genderSelect"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Hình thức giảm</label
+                  >
+                  <select
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    name="genderSelect"
+                    id="genderSelect"
+                    ng-model="selectedHinhThuc"
+                  >
+                    <option value="">Chọn hình thức giảm</option>
+                    <option value="2">VNĐ</option>
+                    <option value="1">%</option>
+                  </select>
+                  <span
+                    class="error-message"
+                    ng-if="errorMessage.selectedHinhThuc"
+                    >{{errorMessage.selectedHinhThuc}}</span
+                  >
+                </div>
+
+                <div class="xl:col-span-3">
+                  <label
+                    for="productPrice"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Số tiền giảm</label
+                  >
+                  <input
+                    type="number"
+                    id="productPrice"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    placeholder="0đ"
+                    ng-model="selectedSoTienGiam"
+                    oninput="this.value = this.value < 0 ? 0 : this.value.replace(/[^0-9]/g, '');"
+                  />
+                  <span
+                    class="error-message"
+                    ng-if="errorMessage.selectedSoTienGiam"
+                    >{{errorMessage.selectedSoTienGiam}}</span
+                  >
+                </div>
+                <div class="xl:col-span-3">
+                  <label
+                    for="productPrice"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Ngày bắt đầu</label
+                  >
+                  <input
+                    type="date"
+                    id="productPrice"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    ng-model="selectedNgayBatDau"
+                  />
+
+                  <span
+                    class="error-message"
+                    ng-if="errorMessage.selectedNgayBatDau"
+                    >{{errorMessage.selectedNgayBatDau}}</span
+                  >
+                </div>
+                <div class="xl:col-span-3">
+                  <label
+                    for="productPrice"
+                    class="inline-block mb-2 text-base font-medium"
+                    >Ngày kết thức</label
+                  >
+                  <input
+                    type="date"
+                    id="productPrice"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    ng-model="selectedNgayKetThuc"
+                  />
+                  <span
+                    class="error-message"
+                    ng-if="errorMessage.selectedNgayKetThuc"
+                    >{{errorMessage.selectedNgayKetThuc}}</span
+                  >
+                </div>
+                <div class="lg:col-span-2 xl:col-span-12">
+                  <div>
+                    <label
+                      for="productDescription"
+                      class="inline-block mb-2 text-base font-medium"
+                      >Ghi chú</label
+                    >
+                    <textarea
+                      class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                      id="productDescription"
+                      placeholder="Enter Description"
+                      rows="5"
+                      ng-model="selectedMoTaGG"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="flex justify-end gap-2 mt-4">
+                <button
+                  type="reset"
+                  id="refreshButton"
+                  class="text-red-500 bg-white btn hover:text-red-500 hover:bg-red-100 focus:text-red-500 focus:bg-red-100 active:text-red-500 active:bg-red-100 dark:bg-zink-700 dark:hover:bg-red-500/10 dark:focus:bg-red-500/10 dark:active:bg-red-500/10"
+                >
+                  Làm mới
+                </button>
+                <button
+                  type="button"
+                  ng-click="quayLai()"
+                  class="text-yellow-500 bg-white border-yellow-500 btn hover:text-white hover:bg-yellow-600 hover:border-yellow-600 focus:text-white focus:bg-yellow-600 focus:border-yellow-600 focus:ring focus:ring-yellow-100 active:text-white active:bg-yellow-600 active:border-yellow-600 active:ring active:ring-yellow-100 dark:bg-zink-700 dark:hover:bg-yellow-500 dark:ring-yellow-400/20 dark:focus:bg-yellow-500"
+                >
+                  Quay lại
+                </button>
+                <button
+                  type="submit"
+                  class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20"
+                  ng-click="AddGiamGia()"
+                >
+                  Thêm mới
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!--end card-->
+      </div>
+
+      <!--end col-->
+    </div>
+  </body>
+</div>
