@@ -10,21 +10,22 @@ app.controller('shopController', function ($scope, $http) {
     $scope.listSize = [];
     $scope.listMauSac = [];
 
-    // khai báo 2 biến cho các hàm tìm kiếm
-    $scope.pageNumber = 0;
-    $scope.pageSize = 9
+    // Biến để kiểm tra trạng thái lọc theo nhiều tiêu chí và khoảng giá
+    $scope.isLocTNTC = false;
 
     // Xử lý sự kiện trang trước
     $scope.previousPage = function () {
         if ($scope.currentPage > 1) {
             $scope.currentPage--;
+            $scope.ApplyFilters();
         }
     };
 
     // Xử lý sự kiện trang tiếp theo
     $scope.nextPage = function () {
-        if ($scope.currentPage <  $scope.totalPages) {
+        if ($scope.currentPage < $scope.totalPages) {
             $scope.currentPage++;
+            $scope.ApplyFilters();
         }
     };
 
@@ -39,6 +40,21 @@ app.controller('shopController', function ($scope, $http) {
             $scope.currentPage = 1;
         } else if ($scope.currentPage > $scope.totalPages) {
             $scope.currentPage = $scope.totalPages;
+        }
+        $scope.ApplyFilters();
+    };
+
+    // Hàm áp dụng tất cả các bộ lọc
+    $scope.ApplyFilters = function () {
+        if ($scope.isLocTNTC) {
+            $scope.locSPShopNhieuTC();
+        } else if ($scope.tensp && $scope.tensp !== "") {
+            $scope.locTenSPShop();
+        } else if ($scope.khoanggia && $scope.khoanggia !== "") {
+            $scope.locSPShopKhoangGia();
+        } else {
+            $scope.loadSPShop();
+            console.log("ApplyFilters");
         }
     };
 
@@ -63,7 +79,10 @@ app.controller('shopController', function ($scope, $http) {
             console.log("Lỗi Load SPShop", error);
         });
     }
-    $scope.$watch('currentPage',$scope.loadSPShop);
+    // Theo dõi sự thay đổi của currentPage
+    $scope.$watch('currentPage', function () {
+        $scope.ApplyFilters();
+    });
 
     // Load danh mục sản phẩm shop
     $scope.getAllDanhMucSPShop = function () {
@@ -103,67 +122,59 @@ app.controller('shopController', function ($scope, $http) {
     };
     $scope.getAllSizeSPShop();
 
-    // kéo thả gias
-    var sliderrange = $('#slider-range');
-    var amountprice = $('#amount');
-    $(function () {
-        sliderrange.slider({
-            range: true,
-            min: 9000,
-            max: 1000000,
-            values: [0, 300000],
-            slide: function (event, ui) {
-                amountprice.val(ui.values[0] + "đ" + " - " + ui.values[1] + "đ");
-            },
-            stop: function (event, ui) {
-                $scope.locSPShopKhoangGia();
-            }
-        });
-        amountprice.val(sliderrange.slider("values", 0) + "đ" +
-            " - " + sliderrange.slider("values", 1) + "đ");
-    });
-
-
     // Lọc sản phẩm theo khoảng giá
     $scope.locSPShopKhoangGia = function () {
-        var key1 = sliderrange.slider("values", 0);
-        var key2 = sliderrange.slider("values", 1);
+        var lockhoangia = $scope.khoanggia;
+        var key1, key2;
 
-        $http.get(
-            "http://localhost:8080/api/ol/san-pham-shop/loc/khoang-gia?pageNumber=" + $scope.pageNumber + "&pageSize=" + $scope.pageSize +
-            "&key1=" + key1 +
-            "&key2=" + key2
-        )
-            .then(function (response) {
-                $scope.sanPhamShop = response.data.content;
-                console.log("Lọc SP Theo khoảng giá :", $scope.sanPhamShop);
-                if ($scope.sanPhamShop.length < $scope.pageSize) {
-                    $scope.showNextButton = false; // Ẩn nút "Next"
-                } else {
-                    $scope.showNextButton = true; // Hiển thị nút "Next"
-                }
-            });
+        // Tách giá trị của option thành khoảng giá key1 và key2
+        if (lockhoangia) {
+            var kgvalues = lockhoangia.split("-");
+            key1 = kgvalues[0];
+            key2 = kgvalues.length > 1 ? kgvalues[1] : null;
+        }
+
+        if (!lockhoangia) {
+            $scope.loadSPShop();
+        } else {
+            $http.get("http://localhost:8080/api/ol/san-pham-shop/loc/khoang-gia?pageNumber=" + ($scope.currentPage - 1) + "&pageSize=" + $scope.itemsPerPage + "&key1=" + key1 + "&key2=" + key2)
+                .then(function (response) {
+                    $scope.sanPhamShop = response.data.content;
+                    console.log("Lọc SP Theo khoảng giá :", $scope.sanPhamShop);
+                    // Tổng số bản ghi
+                    $scope.totalItems = response.data.totalElements;
+                    // Tổng số trang
+                    $scope.totalPages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+                    if ($scope.sanPhamShop.length < $scope.itemsPerPage) {
+                        $scope.showNextButton = false;
+                    } else {
+                        $scope.showNextButton = true;
+                    }
+                });
+        }
     };
 
     // Lọc sản phẩm theo tensp
     $scope.locTenSPShop = function () {
         var tensanpham = $scope.tensp;
         if (tensanpham == "") {
-            // Nếu giá trị là null, gọi lại danh sách đầy đủ
             $scope.loadSPShop();
-            console.log("Gọi Hàm LoadSPShop");
         } else {
             $http.get(
-                "http://localhost:8080/api/ol/san-pham-shop/loc/ten-san-pham?pageNumber=" + $scope.pageNumber + "&pageSize=" + $scope.pageSize +
-                "&tensp=" + tensanpham 
+                "http://localhost:8080/api/ol/san-pham-shop/loc/ten-san-pham?pageNumber=" + ($scope.currentPage - 1) + "&pageSize=" + $scope.itemsPerPage +
+                "&tensp=" + tensanpham
             )
                 .then(function (response) {
                     $scope.sanPhamShop = response.data.content;
-                    console.log("Lọc SP Theo Nhiều Tiêu Chí :", $scope.sanPhamShop);
-                    if ($scope.sanPhamShop.length < $scope.pageSize) {
-                        $scope.showNextButton = false; // Ẩn nút "Next"
+                    console.log("Lọc SP Theo Tên :", $scope.sanPhamShop);
+                    // Tổng số bản ghi
+                    $scope.totalItems = response.data.totalElements;
+                    // Tổng số trang
+                    $scope.totalPages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+                    if ($scope.sanPhamShop.length < $scope.itemsPerPage) {
+                        $scope.showNextButton = false;
                     } else {
-                        $scope.showNextButton = true; // Hiển thị nút "Next"
+                        $scope.showNextButton = true;
                     }
                 });
         }
@@ -178,23 +189,24 @@ app.controller('shopController', function ($scope, $http) {
         var tendm = $scope.tendanhmuc;
         var tenms = $scope.tenmausac;
         var tens = $scope.tensize;
-
+        $scope.isLocTNTC = true;
         if (tendm == "" && tenms == "" && tens == "") {
-            // Nếu giá trị là null, gọi lại danh sách đầy đủ
             $scope.loadSPShop();
-            console.log("Gọi Hàm LoadSPShop");
+             $scope.isLocTNTC = true;
         } else {
-            $http.get(
-                "http://localhost:8080/api/ol/san-pham-shop/loc/san-pham?pageNumber=" + $scope.pageNumber + "&pageSize=" + $scope.pageSize +
-                "&tendanhmuc=" + tendm + "&tenmausac=" + tenms + "&tensize=" + tens
-            )
+            $http.get("http://localhost:8080/api/ol/san-pham-shop/loc/san-pham?pageNumber=" + ($scope.currentPage - 1) + "&pageSize=" + $scope.itemsPerPage +
+                "&tendanhmuc=" + tendm + "&tenmausac=" + tenms + "&tensize=" + tens)
                 .then(function (response) {
                     $scope.sanPhamShop = response.data.content;
                     console.log("Lọc SP Theo Nhiều Tiêu Chí :", $scope.sanPhamShop);
-                    if ($scope.sanPhamShop.length < $scope.pageSize) {
-                        $scope.showNextButton = false; // Ẩn nút "Next"
+                    // Tổng số bản ghi
+                    $scope.totalItems = response.data.totalElements;
+                    // Tổng số trang
+                    $scope.totalPages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+                    if ($scope.sanPhamShop.length < $scope.itemsPerPage) {
+                        $scope.showNextButton = false;
                     } else {
-                        $scope.showNextButton = true; // Hiển thị nút "Next"
+                        $scope.showNextButton = true;
                     }
                 });
         }

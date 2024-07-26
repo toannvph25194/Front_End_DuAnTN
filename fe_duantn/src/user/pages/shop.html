@@ -18,7 +18,7 @@
         <div class="col-lg-3 primary-sidebar sticky-sidebar">
 
           <div class="danh-muc">
-            <h3>Search Name Product</h3>
+            <h3>Tìm Kiếm Tên Sản Phẩm</h3>
           </div>
           <div class="search-style-1" style="margin-top: 10px;">
             <form action="#">
@@ -28,39 +28,38 @@
           </div>
 
           <br>
-          <div class="danh-muc">
-            <h3>Categotys </h3>
+          <!-- Lọc Theo Khoảng Giá -->
+          <div class="price">
+            <h3>Giá Bán</h3>
           </div>
-          <div class="sidebar__item"  style="margin-top: 10px;">
+          <div class="sidebar__item" style="margin-top: 10px;">
+            <select ng-model="khoanggia" ng-change="locSPShopKhoangGia()" class="form-select" style="width: 280px;">
+              <option value="">Tất cả</option>
+              <option value="100000-300000">100.000 - 300.000 vnđ</option>
+              <option value="300000-500000">300.000 - 500.000 vnđ</option>
+              <option value="500000-700000">500.000 - 700.000</option>
+              <option value="700000-1000000">700.000 - 1.000.000 vnđ</option>
+              <option value="1000000-1500000">1.000.000 - 1.500.000 vnđ</option>
+              <option value="1500000-2500000">1.500.000 - 2.500.000 vnđ</option>
+              <option value="3000000-1000000000">Trên 3.000.000 vnđ</option>
+            </select>
+          </div>
+
+          <div class="danh-muc">
+            <h3>Danh Mục </h3>
+          </div>
+          <div class="sidebar__item" style="margin-top: 10px;">
             <select ng-model="tendanhmuc" ng-change="locSPShopNhieuTC()" class="form-select" style="width: 280px;">
               <option value="">Tất cả</option>
               <option ng-repeat="dm in listDanhMuc" ng-value="dm.tendanhmuc">{{dm.tendanhmuc}}</option>
             </select>
           </div>
-          <!-- Lọc Theo Khoảng Giá -->
-
-          <div class="price">
-            <h3>Price</h3>
-          </div>
-          <div class="sidebar-widget price_range range mb-30"  style="margin-top: 10px;">
-            <div class="price-filter">
-              <div class="price-filter-inner">
-                <div id="slider-range"></div>
-                <div class="price_slider_amount">
-                  <div class="label-input">
-                    <br>
-                    <span>Range:</span><input type="text" id="amount" name="price" >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
           <!-- Lọc Theo Màu Sắc -->
           <div class="mau-sac">
-            <h3>Color</h3>
+            <h3>Màu Sắc</h3>
           </div>
-          <div class="sidebar__item sidebar__item__color--option"  style="margin-top: 10px;">
+          <div class="sidebar__item sidebar__item__color--option" style="margin-top: 10px;">
             <div class="sidebar__item">
               <select ng-model="tenmausac" ng-change="locSPShopNhieuTC()" class="form-select" style="width: 280px;">
                 <option value="">Tất cả</option>
@@ -71,11 +70,11 @@
 
           <!-- Lọc theo size -->
 
-          <div class="sidebar__item"  style="margin-top: -40px;">
+          <div class="sidebar__item" style="margin-top: -40px;">
             <div class="size">
               <h3>Size</h3>
             </div>
-            <div class="sidebar__item"  style="margin-top: 10px;">
+            <div class="sidebar__item" style="margin-top: 10px;">
               <select ng-model="tensize" ng-change="locSPShopNhieuTC()" class="form-select" style="width: 280px;">
                 <option value="">Tất cả</option>
                 <option ng-repeat="s in listSize" value="{{s.tensize}}">{{s.tensize}}</option>
@@ -99,7 +98,8 @@
                 <div class="product-img-action-wrap">
                   <div class="product-img product-img-zoom">
                     <a>
-                      <img style="width: 300px; height: 340px;" class="default-img" ng-src="/src/fileanh/img-sanpham/{{sp.imagedefaul}}" alt="">
+                      <img style="width: 300px; height: 340px;" class="default-img"
+                        ng-src="/src/fileanh/img-sanpham/{{sp.imagedefaul}}" alt="">
                       <!-- <img class="hover-img" src="assets/imgs/shop/product-2-1.jpg" alt=""> -->
                     </a>
                   </div>
@@ -171,7 +171,4 @@
 
     </div>
   </section>
-
-  <script src="assets/js/main.js?v=3.3"></script>
-
 </main>

@@ -83,45 +83,6 @@
             });
         });
 
-        // Qty custom ctsp
-        // $('.detail-qty-ctsp').each(function () {
-        //     var qtyInput = $(this).find('.qty-val');
-
-        //     qtyInput.on('input', function () {
-        //         var enteredValue = qtyInput.val();
-
-        //         // Kiểm tra nếu không phải là số dương, có chữ hoặc là số 0
-        //         if (!/^[1-9]\d*$/.test(enteredValue)) {
-        //             qtyInput.val(1);
-        //         }
-        //     });
-
-        //     qtyInput.on('blur', function () {
-        //         // Xử lý khi mất trạng thái fokus (nếu cần)
-        //     });
-
-        //     // Xử lý nút cộng
-        //     $(this).find('.qty-up').on('click', function (event) {
-        //         event.preventDefault();
-        //         updateQuantity(1);
-        //     });
-
-        //     // Xử lý nút trừ
-        //     $(this).find('.qty-down').on('click', function (event) {
-        //         event.preventDefault();
-        //         updateQuantity(-1);
-        //     });
-
-        //     function updateQuantity(change) {
-        //         var currentQty = parseInt(qtyInput.val(), 10) || 0;
-        //         var newQty = Math.max(currentQty + change, 1);
-        //         qtyInput.val(newQty);
-        //     }
-        // });
-
-
-
-
         $('.dropdown-menu .cart_list').on('click', function (event) {
             event.stopPropagation();
         });
