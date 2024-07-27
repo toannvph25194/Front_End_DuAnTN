@@ -27,38 +27,48 @@ app.controller(
 
     // Nếu chưa đăng nhập không thực hiện các hàm bên dưới
     if ($scope.isAdmin) {
-      // Load tất cả mã giảm giá
+      // Khởi tạo các biến cho phân trang và bộ lọc
       $scope.currentPage = 1;
       $scope.itemsPerPage = 10;
-      $scope.pageNumber = 0;
-      $scope.pageSize = 10;
-      $scope.MSPhanTrang = [];
       $scope.totalItems = 0;
       $scope.totalPages = 0;
       $scope.showNextButton = false;
+      $scope.currentFilter = ""; // Lưu bộ lọc hiện tại
 
-      // Hàm xử lý previou trang
+      // Hàm load dữ liệu chung
+      $scope.loadData = function () {
+        if ($scope.startDate && $scope.endDate) {
+          $scope.locTheoKhoangNgay();
+        } else if ($scope.magiamgia) {
+          $scope.locMaggShop();
+        } else {
+          $scope.LoadGiamGia();
+          console.log("ApplyFilters");
+        }
+      };
+
+      // Hàm xử lý trang trước
       $scope.previousPage = function () {
         if ($scope.currentPage > 1) {
           $scope.currentPage--;
-          $scope.loadData();
+          $scope.loadData(); // Gọi lại loadData khi chuyển trang
         }
       };
 
-      // Hàm xử lý next trang
+      // Hàm xử lý trang tiếp theo
       $scope.nextPage = function () {
         if ($scope.currentPage < $scope.totalPages) {
           $scope.currentPage++;
-          $scope.LoadGiamGia();
+          $scope.loadData(); // Gọi lại loadData khi chuyển trang
         }
       };
 
-      // Get total pages
+      // Lấy tổng số trang
       $scope.getTotalPages = function () {
         return Math.ceil($scope.totalItems / $scope.itemsPerPage);
       };
 
-      // Hàm xử lý load giam gia
+      // Hàm xử lý tải giảm giá
       $scope.LoadGiamGia = function () {
         $http
           .get(
@@ -69,69 +79,70 @@ app.controller(
           )
           .then((resp) => {
             $scope.GGPhanTrang = resp.data.content;
-            console.log("Load giảm giá :", $scope.GGPhanTrang);
+            console.log("Load giảm giá:", $scope.GGPhanTrang);
 
-            // Total items and pages
+            // Cập nhật tổng số bản ghi và số trang
             $scope.totalItems = resp.data.totalElements;
             $scope.totalPages = $scope.getTotalPages();
-            $scope.showNextButton =
-              $scope.GGPhanTrang.length >= $scope.pageSize;
+            $scope.showNextButton = $scope.currentPage < $scope.totalPages;
+
+            console.log("Total Items:", $scope.totalItems);
+            console.log("Total Pages:", $scope.totalPages);
+            console.log("Current Page:", $scope.currentPage);
+            console.log("Show Next Button:", $scope.showNextButton);
           })
           .catch((error) => {
-            console.log("Lỗi load giảm giá !", error);
+            console.log("Lỗi load giảm giá!", error);
           });
       };
-      $scope.LoadGiamGia();
-      // lọc mã giảm giá theo mã
+
+      // Hàm lọc theo mã giảm giá
       $scope.locMaggShop = function () {
         var magiamgia = $scope.magiamgia;
 
-        // Gán lại currentPage về 1 trước khi gọi API tìm kiếm
-        $scope.currentPage = 1;
+        console.log("Lọc theo mã giảm giá, Mã giảm giá:", magiamgia);
 
-        if (magiamgia === "") {
+        if (!magiamgia) {
           // Nếu giá trị là null hoặc rỗng, gọi lại danh sách đầy đủ
           $scope.LoadGiamGia();
+          $scope.currentFilter = ""; // Không áp dụng bộ lọc
           console.log("Gọi Hàm LoadGiamGiaDaApDung");
         } else {
           $http
             .get(
-              "http://localhost:8080/api/admin/giamgia/loc/magiamgia?page=" +
-                ($scope.currentPage - 1) + // Giảm 1 vì API tính page từ 0
-                "&size=" +
-                $scope.itemsPerPage +
-                "&magiamgia=" +
-                magiamgia,
+              `http://localhost:8080/api/admin/giamgia/loc/magiamgia?page=${
+                $scope.currentPage - 1
+              }&size=${$scope.itemsPerPage}&magiamgia=${magiamgia}`,
               config
             )
             .then(function (response) {
               $scope.GGPhanTrang = response.data.content;
-              console.log("Lọc Ma giam gia:", $scope.GGPhanTrang);
+              console.log("Lọc Mã Giảm Giá:", $scope.GGPhanTrang);
 
               // Cập nhật tổng số bản ghi và số trang
               $scope.totalItems = response.data.totalElements;
               $scope.totalPages = $scope.getTotalPages();
-
-              // Hiển thị hoặc ẩn nút "Next"
               $scope.showNextButton = $scope.currentPage < $scope.totalPages;
+
+              console.log("Total Items:", $scope.totalItems);
+              console.log("Total Pages:", $scope.totalPages);
+              console.log("Current Page:", $scope.currentPage);
+              console.log("Show Next Button:", $scope.showNextButton);
             })
             .catch(function (error) {
-              console.log("Lỗi khi tìm kiếm sản phẩm", error);
+              console.log("Lỗi khi tìm kiếm mã giảm giá", error);
             });
         }
       };
-      // lọc khoảng ngày tạo giảm giá
 
+      // Hàm lọc theo khoảng ngày
       $scope.locTheoKhoangNgay = function () {
         var startDate = $scope.startDate ? new Date($scope.startDate) : null;
         var endDate = $scope.endDate ? new Date($scope.endDate) : null;
 
         // Kiểm tra nếu ngày kết thúc phải lớn hơn ngày bắt đầu
         if (startDate && endDate) {
-          var startDateObj = new Date(startDate);
-          var endDateObj = new Date(endDate);
-
-          if (isNaN(startDateObj.getTime()) || isNaN(endDateObj.getTime())) {
+          if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
             Swal.fire({
               title: "Lỗi",
               text: "Ngày bắt đầu hoặc ngày kết thúc không hợp lệ.",
@@ -141,7 +152,7 @@ app.controller(
             return; // Dừng hàm nếu ngày không hợp lệ
           }
 
-          if (endDateObj < startDateObj) {
+          if (endDate < startDate) {
             Swal.fire({
               title: "Lỗi",
               text: "Ngày kết thúc phải lớn hơn ngày bắt đầu.",
@@ -168,39 +179,36 @@ app.controller(
           ? $scope.formatDateToYYYYMMDD(endDate)
           : null;
 
-        // Gán lại currentPage về 1 trước khi gọi API tìm kiếm
-        $scope.currentPage = 1;
+        var url = "http://localhost:8080/api/admin/giamgia/loc/khoangngay";
+        var params = {
+          pageNumber: $scope.currentPage - 1, // Giảm 1 vì API tính pageNumber từ 0
+          pageSize: $scope.itemsPerPage, // Đảm bảo dùng itemsPerPage
+          startDate: formattedStartDate,
+          endDate: formattedEndDate,
+        };
 
-        if (!formattedStartDate || !formattedEndDate) {
-          // Nếu ngày bắt đầu hoặc ngày kết thúc không được chọn, gọi lại danh sách đầy đủ
-          $scope.LoadGiamGia();
-          console.log("Gọi Hàm LoadGiamGia với khoảng ngày");
-        } else {
-          var url = "http://localhost:8080/api/admin/giamgia/loc/khoangngay";
-          var params = {
-            pageNumber: $scope.currentPage - 1, // Giảm 1 vì API tính pageNumber từ 0
-            pageSize: $scope.pageSize,
-            startDate: formattedStartDate,
-            endDate: formattedEndDate,
-          };
+        console.log("Request URL:", url);
+        console.log("Request Params:", params);
 
-          $http
-            .get(url, { params: params, ...config })
-            .then(function (response) {
-              $scope.GGPhanTrang = response.data.content;
-              console.log("Lọc Theo Khoảng Ngày:", $scope.GGPhanTrang);
+        $http
+          .get(url, { params: params, ...config })
+          .then(function (response) {
+            $scope.GGPhanTrang = response.data.content;
+            console.log("Lọc Theo Khoảng Ngày:", $scope.GGPhanTrang);
 
-              // Cập nhật tổng số bản ghi và số trang
-              $scope.totalItems = response.data.totalElements;
-              $scope.totalPages = $scope.getTotalPages();
+            // Cập nhật tổng số bản ghi và số trang
+            $scope.totalItems = response.data.totalElements;
+            $scope.totalPages = $scope.getTotalPages();
+            $scope.showNextButton = $scope.currentPage < $scope.totalPages;
 
-              // Hiển thị hoặc ẩn nút "Next"
-              $scope.showNextButton = $scope.currentPage < $scope.totalPages;
-            })
-            .catch(function (error) {
-              console.log("Lỗi khi lọc theo khoảng ngày", error);
-            });
-        }
+            console.log("Total Items:", $scope.totalItems);
+            console.log("Total Pages:", $scope.totalPages);
+            console.log("Current Page:", $scope.currentPage);
+            console.log("Show Next Button:", $scope.showNextButton);
+          })
+          .catch(function (error) {
+            console.log("Lỗi khi lọc theo khoảng ngày", error);
+          });
       };
 
       // Hàm chuyển đổi ngày thành định dạng YYYY-MM-DD
@@ -214,19 +222,19 @@ app.controller(
         }
         return "";
       };
-      // Hàm load dữ liệu chung
-      $scope.loadData = function () {
-        switch ($scope.currentFilter) {
-          case "CODE":
-            $scope.locMaggShop(false); // Gọi hàm locMaggShop mà không reset currentPage
-            break;
-          case "DATE":
-            $scope.locTheoKhoangNgay(false); // Gọi hàm locTheoKhoangNgay mà không reset currentPage
-            break;
-          default:
-            $scope.LoadGiamGia(); // Nếu không có bộ lọc, load toàn bộ dữ liệu
-        }
+
+      // Gọi hàm LoadGiamGia khi bắt đầu để tải dữ liệu mặc định
+      $scope.LoadGiamGia();
+
+      // Hàm reset trường lọc
+      $scope.resetFields = function () {
+        $scope.magiamgia = "";
+        $scope.startDate = null;
+        $scope.endDate = null;
+        $scope.currentPage = 1;
+        $scope.loadData(); // Gọi lại loadData để tải dữ liệu mặc định
       };
+
       $scope.selectedmaGG = "";
 
       function generateProductCode() {
@@ -417,9 +425,8 @@ app.controller(
             console.error("Lỗi khi gọi API:", error);
           });
       };
-      $scope.getLoadMaGiamGiaTheoID();
-      // Khai báo các biến cho phân trang 1
 
+      //Hàm load sản phẩm theo id khi thêm
       $scope.currentPage1 = 1;
       $scope.itemsPerPage1 = 10;
       $scope.pageNumber1 = 0;
@@ -428,7 +435,6 @@ app.controller(
       $scope.totalItems1 = 0;
       $scope.totalPages1 = 0;
       $scope.showNextButton1 = false;
-
       $scope.showNextButton2 = false;
 
       // Hàm xử lý previous trang cho phân trang 1
@@ -484,20 +490,18 @@ app.controller(
           });
       };
 
-      // Load danh sách giảm giá sản phẩm cho phân trang 2
-
-      // Gọi hàm để tải dữ liệu khi trang được khởi tạo
-      $scope.LoadSanPhamGiamGia();
-
-      // Hàm mở modal
+      $scope.LoadDuLieuManThemMa = function () {
+        $scope.getLoadMaGiamGiaTheoID();
+        $scope.LoadSanPhamGiamGia();
+      };
+      // Hàm mở modalload sản phẩm chưa được giảm giá khi thêm
       $scope.openModal02 = function () {
         var modal = document.getElementById("myModal02");
         if (modal) {
           modal.style.display = "block";
         }
       };
-
-      // Hàm đóng modal
+      // Hàm đóng modal load sản phẩm chưa được giảm giá khi thêm
       $scope.closeModal02 = function () {
         var modal = document.getElementById("myModal02");
         if (modal) {
@@ -510,7 +514,6 @@ app.controller(
           modal.style.display = "block";
         }
       };
-
       // Hàm đóng modal
       $scope.closeModal03 = function () {
         var modal = document.getElementById("myModal03");
@@ -549,24 +552,19 @@ app.controller(
 
       // Load danh sách giảm giá sản phẩm cho phân trang 2
       $scope.LoadSanPhamGiamGiaThem = function () {
-        var idGGKhiThem = localStorage.getItem("IdGGKhiThem");
-        if (!idGGKhiThem) {
-          console.log("ID giảm giá chưa được xác định.");
-          return;
-        }
-
-        console.log("ID lấy từ localStorage:", idGGKhiThem); // Kiểm tra giá trị
-
         $http
           .get(
             `http://localhost:8080/api/admin/giamgia/hien-thi-them?page=${
               $scope.currentPage2 - 1
-            }&size=${$scope.itemsPerPage2}&id=${idGGKhiThem}`,
+            }&size=${$scope.itemsPerPage2}`,
             config
           )
           .then((resp) => {
             $scope.GGPhanTrang2 = resp.data.content;
-            console.log("Load giảm giá thêm:", $scope.GGPhanTrang2);
+            console.log(
+              "Load sản phẩm giảm giá thêm zzzz:",
+              $scope.GGPhanTrang2
+            );
 
             // Tổng số mục và trang
             $scope.totalItems2 = resp.data.totalElements;
@@ -575,11 +573,10 @@ app.controller(
               $scope.GGPhanTrang2.length >= $scope.itemsPerPage2;
           })
           .catch((error) => {
-            console.log("Lỗi load giảm giá thêm:", error);
+            console.log("Lỗi load giảm giá thêm zzz:", error);
           });
       };
 
-      // Gọi hàm để tải dữ liệu khi trang được khởi tạo
       $scope.LoadSanPhamGiamGiaThem();
 
       // Hàm mở modal
@@ -699,7 +696,7 @@ app.controller(
       $scope.quayLai = function () {
         $window.location.href = "#/giamgiatheosanpham";
       };
-      // update
+
       $scope.addSanPhamGiamGiaUpdate = function (idsp) {
         // Gọi API thêm sản phẩm giảm giá
         $http
@@ -809,8 +806,6 @@ app.controller(
           });
       };
 
-      // Gọi hàm để tải dữ liệu khi trang được khởi tạo
-
       $scope.getLoadMaGiamGiaTheoIDUpdate = function () {
         var id = idGGUpdate;
         var apiUrl = "http://localhost:8080/api/admin/giamgia/find-by";
@@ -827,8 +822,18 @@ app.controller(
           .get(apiUrl, config)
           .then(function (response) {
             if (response.data) {
-              $scope.GGTheoIdUpdate = response.data;
-              console.log("Fin by giam gia :", $scope.GGTheoIdUpdate);
+              var data = response.data;
+              $scope.GGTheoIdUpdate = data;
+              console.log("detai", $scope.GGTheoIdUpdate);
+              $scope.GGTheoIdUpdate.ngaybatdau = new Date(
+                response.data.ngaybatdau
+              );
+              console.log("detai", $scope.GGTheoIdUpdate);
+              $scope.GGTheoIdUpdate.ngayketthuc = new Date(
+                response.data.ngayketthuc
+              );
+
+              console.log("Fin by giam gia upadte:", $scope.GGTheoIdUpdate);
             } else {
               console.error("API không trả về dữ liệu.");
             }
@@ -837,6 +842,7 @@ app.controller(
             console.error("Lỗi khi gọi API:", error);
           });
       };
+
       $scope.hamLoadUpdate = function () {
         $scope.LoadSanPhamGiamGiaUpdate();
         $scope.getLoadMaGiamGiaTheoIDUpdate();
@@ -918,6 +924,9 @@ app.controller(
       $scope.updateGiamGia = function () {
         var idgg = idGGUpdate; // Đảm bảo rằng idGGUpdate đã được gán giá trị UUID thực tế
 
+        console.log("idGGUpdate:", idGGUpdate);
+        console.log("GGTheoIdUpdate:", $scope.GGTheoIdUpdate);
+
         var data = {
           tengiamgia: $scope.GGTheoIdUpdate.tengiamgia,
           ngaybatdau: $scope.GGTheoIdUpdate.ngaybatdau,
@@ -926,6 +935,9 @@ app.controller(
           giatrigiam: $scope.GGTheoIdUpdate.giatrigiam,
           ghichu: $scope.GGTheoIdUpdate.ghichu,
         };
+
+        console.log("Data to be sent:", data);
+
         if ($scope.validateForm()) {
           var token = localStorage.getItem("accessToken");
           var config = {
@@ -934,6 +946,7 @@ app.controller(
             },
             params: { idgg: idgg },
           };
+
           Swal.fire({
             title: "Xác Nhận",
             text: "Bạn có muốn sửa mã giảm giá không?",
@@ -945,36 +958,39 @@ app.controller(
             confirmButtonText: "Xác Nhận",
             reverseButtons: true,
           }).then((result) => {
-            $http
-              .put(
-                "http://localhost:8080/api/admin/giamgia/updtae-giamgia",
-                data,
-                config
-              )
-              .then(function (response) {
-                Swal.fire({
-                  title: "Thành Công",
-                  text: "Sửa giảm giá thành công",
-                  icon: "success",
-                  position: "top-end",
-                  toast: true,
-                  showConfirmButton: false,
-                  timer: 1500,
-                }).then(() => {
-                  $route.reload();
+            if (result.isConfirmed) {
+              $http
+                .put(
+                  "http://localhost:8080/api/admin/giamgia/updtae-giamgia",
+                  data,
+                  config
+                )
+                .then(function (response) {
+                  Swal.fire({
+                    title: "Thành Công",
+                    text: "Sửa giảm giá thành công",
+                    icon: "success",
+                    position: "top-end",
+                    toast: true,
+                    showConfirmButton: false,
+                    timer: 1500,
+                  }).then(() => {
+                    $route.reload();
+                  });
+                })
+                .catch(function (error) {
+                  Swal.fire(
+                    "Lỗi!",
+                    "Có lỗi xảy ra khi cập nhật giảm giá.",
+                    "error"
+                  );
+                  // Xử lý lỗi ở đây
                 });
-              })
-              .catch(function (error) {
-                Swal.fire(
-                  "Lỗi!",
-                  "Có lỗi xảy ra khi cập nhật giảm giá.",
-                  "error"
-                );
-                // Xử lý lỗi ở đây
-              });
+            }
           });
         }
       };
+
       // load những sản phẩm đã được áp dụng giảm giá
       $scope.currentPage4 = 1;
       $scope.itemsPerPage4 = 10;
