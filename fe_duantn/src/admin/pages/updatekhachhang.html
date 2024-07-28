@@ -1,5 +1,4 @@
-<div class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto" ng-controller="QuanLyKhachHang"
-  ng-init="initKhachHang()">
+<div class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto" ng-controller="QuanLyKhachHang">
 
   <body>
     <div class="flex flex-col gap-2 py-4 md:flex-row md:items-center print:hidden">
@@ -21,67 +20,117 @@
             <form ng-submit="updateKhachHang()">
               <div class="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-12">
                 <div class="xl:col-span-12">
-                  <div class="relative mx-auto mb-5 rounded-full shadow-md size-32 bg-slate-100 profile-user dark:bg-zink-500">
+                  <div
+                    class="relative mx-auto mb-5 rounded-full shadow-md size-32 bg-slate-100 profile-user dark:bg-zink-500">
                     <!-- Hiển thị hình ảnh đã chọn -->
-                    <img id="profile-image" ng-src="/src/fileanh/{{nhanVien.image}}" alt=""
-                      class="object-cover w-full h-full rounded-full user-profile-image" />
-                
-                    <div class="absolute bottom-0 flex items-center justify-center rounded-full size-14 ltr:right-0 rtl:left-0 profile-photo-edit">
+                    <img id="profile-image" ng-show="selectedImageName == ''" ng-src="/src/fileanh/img-khachhang/{{FindKhachHang.image}}" alt="" class="object-cover w-full h-full rounded-full user-profile-image" />
+                    <img id="profile-image" ng-show="selectedImageName != ''" ng-src="/src/fileanh/img-khachhang/{{selectedImageName}}" alt="" class="object-cover w-full h-full rounded-full user-profile-image" />
+                    <div
+                      class="absolute bottom-0 flex items-center justify-center rounded-full size-14 ltr:right-0 rtl:left-0 profile-photo-edit">
                       <!-- Input để chọn tệp ảnh -->
-                      <input id="profile-img-file-input" name="profile-img-file-input" type="file" class="hidden profile-img-file-input"
-                        accept="image/*" onchange="angular.element(this).scope().handleFileSelect01(event)"" />
-                
+                      <input id="profile-img-file-input" name="profile-img-file-input" type="file"
+                        class="hidden profile-img-file-input" accept="image/*"
+                        onchange="angular.element(this).scope().handleFileSelect(this)" />
+
                       <!-- Label cho input -->
                       <label for="profile-img-file-input"
                         class="flex items-center justify-center bg-white rounded-full shadow-lg cursor-pointer size-8 dark:bg-zink-600 profile-photo-edit">
-                        <i class="ri-image-add-fill size-4 text-slate-500 fill-slate-200 dark:text-zink-200 dark:fill-zink-500"></i>
+                        <i
+                          class="ri-image-add-fill size-4 text-slate-500 fill-slate-200 dark:text-zink-200 dark:fill-zink-500"></i>
                       </label>
                     </div>
                   </div>
                 </div>
-                <div class="xl:col-span-4">
-                  <label class="inline-block mb-2 text-base font-medium">Họ và tên</label>
-                  <input type="text" class="form-input" placeholder="Họ và tên"
-                    ng-model="khachHang.hovatenkh" />
+                <div class="xl:col-span-3">
+                  <label for="hovatenkh" class="inline-block mb-2 text-base font-medium">Họ và tên</label>
+                  <input type="text"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    placeholder="Họ và tên" ng-model="FindKhachHang.hovatenkh" />
                 </div>
-                <div class="xl:col-span-4">
+                <div class="xl:col-span-3">
                   <label class="inline-block mb-2 text-base font-medium">Ngày sinh</label>
-                  <input type="date" class="form-input" placeholder="Ngày sinh"
-                    ng-model="khachHang.ngaysinh" />
+                  <input type="date"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    placeholder="Ngày sinh" ng-model="FindKhachHang.ngaysinh" />
                 </div>
-                <div class="xl:col-span-4">
+                <div class="xl:col-span-3">
                   <label class="inline-block mb-2 text-base font-medium">Số điện thoại</label>
-                  <input type="text" class="form-input" placeholder="Số điện thoại"
-                    ng-model="khachHang.sodienthoai" />
+                  <input type="text"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    placeholder="Số điện thoại" ng-model="FindKhachHang.sodienthoai" />
                 </div>
-                <div class="xl:col-span-4">
-                  <label class="inline-block mb-2 text-base font-medium">Địa chỉ</label>
-                  <input type="text" class="form-input" placeholder="Địa chỉ"
-                    ng-model="khachHang.diachi" />
-                </div>
-                <div class="xl:col-span-4">
+                <div class="xl:col-span-3">
                   <label class="inline-block mb-2 text-base font-medium">Email</label>
-                  <input type="text" class="form-input" placeholder="Email" ng-model="khachHang.email" />
+                  <input type="text"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    placeholder="Email" ng-model="FindKhachHang.email" />
+                </div>
+                <div class="xl:col-span-3">
+                  <label class="inline-block mb-2 text-base font-medium">Địa chỉ</label>
+                  <input type="text"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    placeholder="Địa chỉ chi tiết" ng-model="FindKhachHang.diachichitiet" />
+                </div>
+                <div class="xl:col-span-3">
+                  <label class="inline-block mb-2 text-base font-medium">Phường / Xã</label>
+                  <input type="text"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    placeholder="Phường xã" ng-model="FindKhachHang.phuongxa" />
+                </div>
+                <div class="xl:col-span-3">
+                  <label class="inline-block mb-2 text-base font-medium">Quận / Huyện</label>
+                  <input type="text"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    placeholder="Quận huyện" ng-model="FindKhachHang.quanhuyen" />
+                </div>
+                <div class="xl:col-span-3">
+                  <label class="inline-block mb-2 text-base font-medium">Tỉnh / Thành</label>
+                  <input type="text"
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    placeholder="Tỉnh thành" ng-model="FindKhachHang.tinhthanh" />
+                </div>
+                <div class="xl:col-span-3">
+                  <label class="inline-block mb-2 text-base font-medium">Giới tính</label>
+                  <select
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    ng-model="FindKhachHang.gioitinh">
+                    <option value="" disabled hidden>Chọn giới tính</option>
+                    <option value="true">Nam</option>
+                    <option value="false">Nữ</option>
+                  </select>
+
+                </div>
+                <div class="xl:col-span-3">
+                  <label class="inline-block mb-2 text-base font-medium">Trạng thái</label>
+                  <select
+                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    ng-model="FindKhachHang.trangthai">
+                    <option value="" disabled hidden>Chọn giới tính</option>
+                    <option value="1">Hoạt động</option>
+                    <option value="0">Ngừng hoạt động</option>
+                  </select>
                 </div>
                 <div class="lg:col-span-2 xl:col-span-12">
-                  <label class="inline-block mb-2 text-base font-medium">Mô tả</label>
-                  <textarea class="form-input" placeholder="Enter Description" rows="5"
-                    ng-model="khachHang.mota"></textarea>
-                </div>
-                <div class="xl:col-span-4">
-                  <label class="inline-block mb-2 text-base font-medium">Giới tính</label>
-                  <select class="form-input" ng-model="khachHang.gioitinh">
-                    <option value="">Chọn giới tính</option>
-                    <option value="true" ng-selected="khachHang.gioitinh == true">Nam</option>
-                    <option value="false"  ng-selected="khachHang.gioitinh == false">Nữ</option>
-                  </select>
+                  <div>
+                    <label class="inline-block mb-2 text-base font-medium">Mô tả</label>
+                    <textarea
+                      class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                      placeholder="Enter Description" rows="5" ng-model="FindKhachHang.mota"></textarea>
+                  </div>
                 </div>
               </div>
               <div class="flex justify-end gap-2 mt-4">
-                <a type="button" href="#/khachhang" class="bg-white text-slate-500 btn border-slate-500 hover:text-white hover:bg-slate-600 hover:border-slate-600 focus:text-white focus:bg-slate-600 focus:border-slate-600 focus:ring focus:ring-slate-100 active:text-white active:bg-slate-600 active:border-slate-600 active:ring active:ring-slate-100 dark:bg-zink-700 dark:hover:bg-slate-500 dark:ring-slate-400/20 dark:focus:bg-slate-500">
-                    Quay Lại
+                <a type="button" href="#/khachhang"
+                  class="bg-white text-slate-500 btn border-slate-500 hover:text-white hover:bg-slate-600 hover:border-slate-600 focus:text-white focus:bg-slate-600 focus:border-slate-600 focus:ring focus:ring-slate-100 active:text-white active:bg-slate-600 active:border-slate-600 active:ring active:ring-slate-100 dark:bg-zink-700 dark:hover:bg-slate-500 dark:ring-slate-400/20 dark:focus:bg-slate-500">
+                  Quay Lại
                 </a>
-                <button type="submit" class="text-white btn bg-custom-500" ng-click="updateKhachHang()">Cập nhật khách hàng</button>
+                <button type="button" ng-click="LamMoiCapNhat()"
+                  class="bg-white border-dashed text-sky-500 btn border-sky-500 hover:text-sky-500 hover:bg-sky-50 hover:border-sky-600 focus:text-sky-600 focus:bg-sky-50 focus:border-sky-600 active:text-sky-600 active:bg-sky-50 active:border-sky-600 dark:bg-zink-700 dark:ring-sky-400/20 dark:hover:bg-sky-800/20 dark:focus:bg-sky-800/20 dark:active:bg-sky-800/20">
+                  <i class="align-baseline ltr:pr-1 rtl:pl-1 ri-refresh-line"></i> Làm mới
+                </button>
+                <button type="submit" class="text-white btn bg-custom-500" ng-click="CapNhatKhachHang()">
+                  Cập nhật khách hàng
+                </button>
               </div>
             </form>
           </div>
