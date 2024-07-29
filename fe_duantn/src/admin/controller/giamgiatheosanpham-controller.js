@@ -832,6 +832,7 @@ app.controller(
               $scope.GGTheoIdUpdate.ngayketthuc = new Date(
                 response.data.ngayketthuc
               );
+              $scope.GGTheoIdUpdate.hinhthucgiam = $scope.GGTheoIdUpdate.hinhthucgiam.toString();
 
               console.log("Fin by giam gia upadte:", $scope.GGTheoIdUpdate);
             } else {

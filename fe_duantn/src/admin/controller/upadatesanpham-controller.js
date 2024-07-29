@@ -114,10 +114,7 @@ app.service("upadtesanPhamchitietService", function ($http) {
   };
   this.getChatLieus = function () {
     return $http
-      .get(
-        "http://localhost:8080/api/admin/chatlieu/hien-thi-combobox",
-        config
-      )
+      .get("http://localhost:8080/api/admin/chatlieu/hien-thi-combobox", config)
       .then(function (response) {
         return response.data;
       });
@@ -134,10 +131,7 @@ app.service("upadtesanPhamchitietService", function ($http) {
   };
   this.getDanhMucs = function () {
     return $http
-      .get(
-        "http://localhost:8080/api/admin/danhmuc/hien-thi-combobox",
-        config
-      )
+      .get("http://localhost:8080/api/admin/danhmuc/hien-thi-combobox", config)
       .then(function (response) {
         return response.data;
       });
@@ -577,6 +571,8 @@ app.controller(
                   "Thông tin chi tiết sản phẩm:",
                   $scope.sanPhamTheoId
                 );
+                $scope.sanPhamTheoId.theloai =
+                  $scope.sanPhamTheoId.theloai.toString();
               } else {
                 console.error("Không tìm thấy sản phẩm với IdSP:", maspInput);
                 // Xử lý tình huống không tìm thấy sản phẩm
