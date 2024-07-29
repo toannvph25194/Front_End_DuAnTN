@@ -406,7 +406,7 @@ app.controller("QuanLyKhachHang", function ($scope, $http, $window, $routeParams
               }).then(() => {
                 $scope.LoadKhachHang();
                 $scope.FindByKhachHang();
-                $scope.LamMoiCapNhat();
+                // $scope.LamMoiCapNhat();
               });
             })
             .catch((error) => {
