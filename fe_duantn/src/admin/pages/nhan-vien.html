@@ -46,7 +46,7 @@
                         data-choices="" id="choices-single-default">
                         <option value="">Chọn trạng thái</option>
                         <option value="1">Đang hoạt động</option>
-                        <option value="0">Nghỉ làm</option>
+                        <option value="0">Ngừng hoạt động</option>
                     </select>
                 </div>
                 <div class="xl:col-span-2">
@@ -136,14 +136,14 @@
                     {{ nhanVien.sodienthoai }}
                   </td>
                   <td class="px-3.5 py-2.5 first:pl-5 last:pr-5">
-                    {{ nhanVien.ngaysinh }}
+                    {{ nhanVien.ngaysinh | date:'dd/MM/yyyy' }}
                   </td>
                   <td class="px-3.5 py-2.5 first:pl-5 last:pr-5">
                     <span class="px-2.5 py-0.5 text-xs font-medium rounded border 
                       {{nhanVien.trangthai == 1 ? 'bg-green-100 border-transparent text-green-500 dark:bg-green-500/20 dark:border-transparent' : 'bg-red-100 border-transparent text-red-500 dark:bg-red-500/20 dark:border-transparent'}} 
                       inline-flex items-center status">
                       <i class="ri-loader-fill size-3 mr-1.5"></i>
-                      {{nhanVien.trangthai == 1 ? "Hoạt động": "Nghỉ làm"}}
+                      {{nhanVien.trangthai == 1 ? "Hoạt động": "Ngừng hoạt động"}}
                     </span>
                   </td>
                   <td class="px-3.5 py-2.5 first:pl-5 last:pr-5">
@@ -177,13 +177,15 @@
                   Prev
                 </button>
               </li>
+              <!-- Hiển thị số trang hiện tại thay vì trường nhập -->
               <li>
-                <input ng-model="currentPage" min="1" max="{{totalPages}}" ng-change="pageChanged()"
-                  class="inline-flex items-center justify-center bg-white dark:bg-zink-700 w-8 h-8 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 text-center">
-                </input>
+                <span class="inline-flex items-center justify-center bg-white dark:bg-zink-700 w-8 h-8 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 text-center">
+                  {{currentPage}}
+                </span>
               </li>
-              <li>
-                <button ng-click="nextPage()" ng-disabled="currentPage === totalPages"
+              <!-- Chỉ hiển thị nút "Next" nếu còn trang tiếp theo -->
+              <li ng-if="currentPage < totalPages">
+                <button ng-click="nextPage()"
                   class="inline-flex items-center justify-center bg-white dark:bg-zink-700 h-8 px-3 transition-all duration-150 ease-linear border rounded border-slate-200 dark:border-zink-500 text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500 hover:bg-custom-100 dark:hover:bg-custom-500/10 focus:bg-custom-50 dark:focus:bg-custom-500/10 focus:text-custom-500 dark:focus:text-custom-500 disabled:text-slate-400 dark:disabled:text-zink-300 disabled:cursor-auto">
                   Next
                 </button>
