@@ -203,7 +203,6 @@ app.controller("QuanLyNhanVien", function ($scope, $http, $window, $routeParams,
 
     // Hàm làm mới thêm nhân viên
     $scope.LamMoi = function () {
-      $scope.email = "";
       $scope.hovatennv = "";
       $scope.ngaysinh = "";
       $scope.sodienthoai = "";
@@ -264,24 +263,24 @@ app.controller("QuanLyNhanVien", function ($scope, $http, $window, $routeParams,
           });
           return;
         }
-        // Kiểm tra sự tồn tại của email
-        let response = await $http.get("http://localhost:8080/api/admin/quan-ly-nhan-vien/check-email", {
-          params: { email: $scope.email },
-          headers: config.headers,
-        });
+        // // Kiểm tra sự tồn tại của email
+        // let response = await $http.get("http://localhost:8080/api/admin/quan-ly-nhan-vien/check-email", {
+        //   params: { email: $scope.email },
+        //   headers: config.headers,
+        // });
 
-        if (response.data === true) {
-          await Swal.fire({
-            title: "Thông báo",
-            text: "Địa chỉ email đã được sử dụng!",
-            icon: "warning",
-            position: "top-end",
-            toast: true,
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          return;
-        }
+        // if (response.data === true) {
+        //   await Swal.fire({
+        //     title: "Thông báo",
+        //     text: "Địa chỉ email đã được sử dụng!",
+        //     icon: "warning",
+        //     position: "top-end",
+        //     toast: true,
+        //     showConfirmButton: false,
+        //     timer: 1500,
+        //   });
+        //   return;
+        // }
 
         // Kiểm tra sự tồn tại của số điện thoại
         response = await $http.get("http://localhost:8080/api/admin/quan-ly-nhan-vien/check-phone", {
@@ -347,7 +346,7 @@ app.controller("QuanLyNhanVien", function ($scope, $http, $window, $routeParams,
         );
 
         await Swal.fire({
-          title: "Success",
+          title: "Thành Công",
           text: "Thêm nhân viên thành công",
           icon: "success",
           position: "top-end",
@@ -362,7 +361,7 @@ app.controller("QuanLyNhanVien", function ($scope, $http, $window, $routeParams,
         }, 1500);
 
       } catch (error) {
-        console.error("Lỗi khi thêm:", error);
+        console.error("Lỗi khi thêm  !", error);
         await Swal.fire({
           title: "Error",
           text: "Lỗi thêm!",
@@ -377,142 +376,113 @@ app.controller("QuanLyNhanVien", function ($scope, $http, $window, $routeParams,
 
     // Hàm làm mới cập nhật nhân viên
     $scope.LamMoiCapNhatNhanVien = function () {
-      $scope.FindNhanVien.hovatenkh = "";
+      $scope.FindNhanVien.hovatennv = "";
       $scope.FindNhanVien.ngaysinh = "";
       $scope.FindNhanVien.sodienthoai = "";
       $scope.FindNhanVien.email = "";
       $scope.FindNhanVien.diachi = "";
       $scope.FindNhanVien.gioitinh = "";
-      $scope.FindNhanVien.trangthai = "";
       $scope.FindNhanVien.mota = "";
     }
     // Hàm cập nhật nhân viên
     $scope.updateNhanVien = function () {
-      try {
-        // Đảm bảo $scope.FindNhanVien đã được khởi tạo
-        $scope.FindNhanVien = $scope.FindNhanVien || {};
-
-        // Kiểm tra các trường bắt buộc
-        if (
-          !$scope.FindNhanVien.hovatennv ||
-          !$scope.FindNhanVien.email ||
-          !$scope.FindNhanVien.sodienthoai ||
-          !$scope.FindNhanVien.diachi ||
-          !$scope.FindNhanVien.ngaysinh ||
-          !$scope.FindNhanVien.gioitinh
-        ) {
-            Swal.fire({
-            title: "Thông Báo",
-            text: "Vui lòng nhập đầy đủ thông tin!",
-            icon: "warning",
-            position: "top-end",
-            toast: true,
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          return;
-        }
-
-        // Kiểm tra định dạng email
-        if (!validateEmail($scope.FindNhanVien.email)) {
-            Swal.fire({
-            title: "Thông Báo",
-            text: "Định dạng email không hợp lệ!",
-            icon: "error",
-            position: "top-end",
-            toast: true,
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          return;
-        }
-        // Kiểm tra định dạng số điện thoại
-        if (!validatePhoneNumber($scope.FindNhanVien.sodienthoai)) {
-            Swal.fire({
-            title: "Thông Báo",
-            text: "Định dạng số điện thoại không hợp lệ!",
-            icon: "error",
-            position: "top-end",
-            toast: true,
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          return;
-        }
-
-        // Hiển thị hộp thoại xác nhận
-        const confirmResult = Swal.fire({
-          title: 'Xác Nhận',
-          text: 'Bạn có muốn cập nhật nhân viên không?',
-          icon: 'question',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Xác Nhận',
-          cancelButtonText: 'Hủy bỏ'
-        });
-
-        if (!confirmResult.isConfirmed) {
-          return;
-        }
-        // Định nghĩa URL và cấu hình
-        const url = `http://localhost:8080/api/admin/quan-ly-nhan-vien/update-nhan-vien?id=${idnhanvien}`;
-        const config = {
-          headers: {
-            'Authorization': 'Bearer ' + token
-          }
-        };
-
-        var image = $scope.selectedImageName == "" ? $scope.FindNhanVien.image : $scope.selectedImageName;
-        var data = {
-          id: idnhanvien,
-          hovatennv: $scope.FindNhanVien.hovatennv,
-          image: image,
-          ngaysinh: $scope.FindNhanVien.ngaysinh,
-          sodienthoai: $scope.FindNhanVien.sodienthoai,
-          email: $scope.FindNhanVien.email,
-          diachi: $scope.FindNhanVien.diachi,
-          gioitinh: $scope.FindNhanVien.gioitinh,
-          mota: $scope.FindNhanVien.mota
-        };
-
-        // Gỡ lỗi: Ghi lại chi tiết yêu cầu
-        console.log("Request URL:", url);
-        console.log("Request Data:", data);
-        console.log("Config:", config);
-        // Thực hiện yêu cầu PUT
-        let response = $http.put(url, data, config);
-        // Kiểm tra mã phản hồi từ server
-        if (response.status !== 200) {
-          throw new Error(`Lỗi từ server khi cập nhật dữ liệu nhân viên. Mã lỗi: ${response.status}`);
-        }
-          Swal.fire({
-          title: "Thành Công",
-          text: "Cập nhật thành công",
-          icon: "success",
+      // Kiểm tra các trường bắt buộc
+      if (
+        !$scope.FindNhanVien.hovatennv ||
+        !$scope.FindNhanVien.email ||
+        !$scope.FindNhanVien.sodienthoai ||
+        !$scope.FindNhanVien.diachi ||
+        !$scope.FindNhanVien.ngaysinh ||
+        !$scope.FindNhanVien.gioitinh
+      ) {
+        Swal.fire({
+          title: "Thông Báo",
+          text: "Vui lòng nhập đầy đủ thông tin!",
+          icon: "warning",
           position: "top-end",
           toast: true,
           showConfirmButton: false,
           timer: 1500,
         });
-        // Cập nhật scope với dữ liệu mới
-        $scope.FindNhanVien = response.data;
-        setTimeout(function () {
-          $scope.LoadNhanVien();
-          $scope.FindByNhanVien();
-        }, 1500);
-      } catch (error) {
-        console.error("Lỗi cập nhật dữ liệu nhân viên:", error);
-          Swal.fire({
-          title: "Lỗi",
-          text: `Lỗi cập nhật dữ liệu nhân viên: ${error.message}`,
-          icon: "error",
-          position: "top-end",
-          toast: true,
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        return;
       }
+
+      // Kiểm tra định dạng email
+      if (!validateEmail($scope.FindNhanVien.email)) {
+        Swal.fire({
+          title: "Thông Báo",
+          text: "Định dạng email không hợp lệ!",
+          icon: "warning",
+          position: "top-end",
+          toast: true,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return;
+      }
+      // Kiểm tra định dạng số điện thoại
+      if (!validatePhoneNumber($scope.FindNhanVien.sodienthoai)) {
+        Swal.fire({
+          title: "Thông Báo",
+          text: "Định dạng số điện thoại không hợp lệ!",
+          icon: "warning",
+          position: "top-end",
+          toast: true,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return;
+      }
+
+      Swal.fire({
+        title: 'Xác Nhận',
+        text: 'Bạn có muốn cập nhật nhân viên không?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Xác Nhận',
+        cancelButtonText: 'Hủy bỏ'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (role != null) {
+            var url = "http://localhost:8080/api/admin/quan-ly-nhan-vien/update-nhan-vien";
+            var image = $scope.selectedImageName == "" ? $scope.FindNhanVien.image : $scope.selectedImageName;
+            var data = {
+              id: idnhanvien,
+              hovatennv: $scope.FindNhanVien.hovatennv,
+              image: image,
+              ngaysinh: $scope.FindNhanVien.ngaysinh,
+              sodienthoai: $scope.FindNhanVien.sodienthoai,
+              email: $scope.FindNhanVien.email,
+              diachi: $scope.FindNhanVien.diachi,
+              gioitinh: $scope.FindNhanVien.gioitinh,
+              mota: $scope.FindNhanVien.mota
+            };
+
+            $http.put(url, data, config)
+              .then((resp) => {
+                Swal.fire({
+                  title: "Thành Công",
+                  text: "Cập nhật nhân viên thành công",
+                  icon: "success",
+                  position: "top-end",
+                  toast: true,
+                  showConfirmButton: false,
+                  timer: 1500,
+                }).then(() => {
+                  $scope.LoadNhanVien();
+                  $scope.FindByNhanVien();
+                });
+              })
+              .catch((error) => {
+                console.log("Lỗi cập nhật nhân viên !", error);
+              });
+          }
+        } else {
+          console.log("Bạn không có quyền truy cập !");
+        }
+      });
     };
 
 
