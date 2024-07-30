@@ -25,7 +25,7 @@
                   <div
                     class="relative mx-auto mb-5 rounded-full shadow-md size-32 bg-slate-100 profile-user dark:bg-zink-500">
                     <!-- Hiển thị hình ảnh đã chọn -->
-                    <img id="profile-image" ng-src="{{ selectedImage}}" alt=""
+                    <img id="profile-image" ng-src="{{showImage}}" alt=""
                       class="object-cover w-full h-full rounded-full user-profile-image" />
 
                     <div
@@ -33,7 +33,7 @@
                       <!-- Input để chọn tệp ảnh -->
                       <input id="profile-img-file-input" name="profile-img-file-input" type="file"
                         class="hidden profile-img-file-input" accept="image/*"
-                        onchange="angular.element(this).scope().handleFileSelect(event)" />
+                        onchange="angular.element(this).scope().handleFileSelect(this)" />
 
                       <!-- Label cho input -->
                       <label for="profile-img-file-input"
