@@ -14,6 +14,12 @@
             <div class="row">
                 <div class="col-lg-9">
                     <div class="product-detail accordion-detail">
+                        <div class="row mb-50" style="text-align: center" ng-show="!detailProduct">
+                            <h4 style="color: #F15412">
+                                Rất tiếc, sản phẩm hiện tại đang được cập nhật. <br>
+                                2TH-SHOP Xin quý khách vui lòng quay lại sau !
+                            </h4>
+                        </div>
                         <div class="row mb-50" style="text-align: center" ng-show="tongSoLuongTonSP.tongsoluongtonsp <= 0">
                             <h4 style="color: #F15412">
                                 Rất tiếc, sản phẩm hiện tại đã hết hàng. <br>
@@ -164,7 +170,7 @@
 
                                         <div class="product-extra-link2">
                                             <button type="submit" class="button button-add-to-cart"
-                                                ng-click="CheckAddGHAndGHCT()">Add to cart</button>
+                                                ng-click="CheckAddGHAndGHCT()">Thêm vào giỏ</button>
                                             <a aria-label="Add To Wishlist" class="action-btn hover-up"
                                                 href="#/shop"><i class="fi-rs-heart"></i></a>
                                             <a aria-label="Compare" class="action-btn hover-up" href="#/shop"><i

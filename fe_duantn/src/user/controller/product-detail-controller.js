@@ -239,7 +239,7 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
     // Khi chưa chọn màu sắc và size sẽ load tổng số lượng sản phẩm
     $scope.isSoLuongTonAndTongSoLuongSP = false;
     $scope.finByIdSPCTAndSoLuongTon = function () {
-
+        var idgiohang = localStorage.getItem('idgiohang');
         // Tìm Màu Sắc được chọn
         var timKiemMauSac = $scope.detailMauSac.find(function (ms) {
             return ms.isActive;
@@ -265,9 +265,11 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
 
             $http.get('http://localhost:8080/api/ol/san-pham-chi-tiet/finby-idspct-soluongton?idsp=' + idsanpham + '&idmausac=' + idMauSac + '&idsize=' + idSize)
                 .then(function (response) {
-
                     $scope.chiTietSP = response.data;
                     console.log('Idspct và soluongton :', $scope.chiTietSP);
+                    if (idgiohang != null) {
+                        $scope.FindSoLuongGHCT($scope.chiTietSP.id, idgiohang);
+                    }
                 })
                 .catch(function (error) {
                     console.error('Lỗi K Tìm Được Idspct và soluongton !', error);
@@ -370,12 +372,11 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
                 console.log("DATA GH :", $scope.addGioHang);
                 // Lưu idgiohang vào localStorage
                 localStorage.setItem('idgiohang', $scope.addGioHang.idgh);
-
                 // Gọi hàm taoGioHangCT sau khi tạo giỏ hàng mới
                 $scope.taoGioHangCT();
             })
             .catch(function (error) {
-                console.error(error.data.message);
+                console.log("Khách hàng đã có giỏ hàng !");
             });
     };
 
@@ -396,39 +397,50 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
                 toast: true,
                 showConfirmButton: false,
                 timer: 1500,
-            })
-        } else {
-            // Nếu dongiakhigiam là null thì sẽ lấy chuỗi rỗng . Còn k null thì lấy giá trị dongiakhigiam
-            var dongiakhigiam = $scope.detailProduct.dongiakhigiam !== null ? $scope.detailProduct.dongiakhigiam : '';
-            console.log("dongiakhigiam", dongiakhigiam);
-            // Hiển thị Sweet Alert để xác nhận
-            Swal.fire({
-                title: "Thêm Vào Giỏ Hàng",
-                text: "Bạn có chắc chắn muốn thêm vào giỏ hàng ?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#28a745",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Add To Cart",
-                cancelButtonText: "Cancel",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $http.post('http://localhost:8080/api/ol/gio-hang-chi-tiet/add-san-pham?idgh=' + IdGioHang + '&idspct=' + idspct +
-                        '&soluong=' + soluong + '&dongiakhigiam=' + dongiakhigiam)
-                        .then(function (response) {
-                            $scope.ghct = response.data;
-                            console.log('Data GHCT :', $scope.ghct);
-                            $window.location.reload();
-                            // $route.reload();
-                        })
-                        .catch(function (error) {
-                            console.error('Lỗi K Thêm Được SP Vào Giỏ Hàng CT : ', error);
-                        });
-                    // Sử dụng $location để thay đổi địa chỉ URL
-                    // $location.path('/cart/' + idctsp + '&soluong=' + soluong);
-                }
             });
+            return;
         }
+        if ($scope.SoLuongGHCT && (+$scope.SoLuongGHCT.soluong + +soluong > $scope.chiTietSP.soluongton)) {
+            Swal.fire({
+                title: "Thông Báo",
+                text: "Số lượng sản phẩm không đủ !",
+                icon: "warning",
+                position: "top-end",
+                toast: true,
+                showConfirmButton: false,
+                timer: 1500,
+            });
+            return;
+        }
+        // Nếu dongiakhigiam là null thì sẽ lấy chuỗi rỗng . Còn k null thì lấy giá trị dongiakhigiam
+        var dongiakhigiam = $scope.detailProduct.dongiakhigiam !== null ? $scope.detailProduct.dongiakhigiam : '';
+        console.log("dongiakhigiam", dongiakhigiam);
+        // Hiển thị Sweet Alert để xác nhận
+        Swal.fire({
+            title: "Thêm Vào Giỏ Hàng",
+            text: "Bạn có chắc chắn muốn thêm vào giỏ hàng ?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#28a745",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Thêm vào giỏ",
+            cancelButtonText: "Hủy",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $http.post('http://localhost:8080/api/ol/gio-hang-chi-tiet/add-san-pham?idgh=' + IdGioHang + '&idspct=' + idspct +
+                    '&soluong=' + soluong + '&dongiakhigiam=' + dongiakhigiam)
+                    .then(function (response) {
+                        $scope.ghct = response.data;
+                        console.log('Data GHCT :', $scope.ghct);
+                        $window.location.reload();
+                        // $route.reload();
+                    })
+                    .catch(function (error) {
+                        console.error('Lỗi K Thêm Được SP Vào Giỏ Hàng CT : ', error);
+                    });
+            }
+        });
+
     }
 
     // Hàm lấy check và tạo giỏ hàng hoặc tạo giỏ hàng chi tiết 
@@ -466,4 +478,16 @@ app.controller('productDetailController', function ($scope, $http, $window, $rou
         }
     };
 
-})
+    // Find số lượng của giỏ hàng chi tiết
+    $scope.FindSoLuongGHCT = function (idspct, idgh) {
+        $http.get('http://localhost:8080/api/ol/gio-hang-chi-tiet/find-so-luong?idspct=' + idspct + '&idgh=' + idgh)
+            .then(function (response) {
+                $scope.SoLuongGHCT = response.data;
+                console.log('Số Lượng GHCT :', $scope.SoLuongGHCT);
+            })
+            .catch(function (error) {
+                console.error('Lỗi find số lượng giỏ hàng !', error);
+            });
+    }
+
+});

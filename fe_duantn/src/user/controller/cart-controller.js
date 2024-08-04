@@ -50,9 +50,8 @@ app.controller('cartController', function ($scope, $http, $window, $routeParams,
     // Xử lý cộng trừ số lượng 
     $scope.changeQuantity = function (product, change) {
         if (change === 'qty-up') {
-            if (product.soluongton > 0) {
+            if (product.soluongton > 0 && product.soluong < product.soluongton) {
                 product.soluong++;
-
             } else {
                 Swal.fire({
                     title: "Thông Báo",
@@ -63,6 +62,7 @@ app.controller('cartController', function ($scope, $http, $window, $routeParams,
                     showConfirmButton: false, // Ẩn nút xác nhận
                     timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
                 })
+                return;
             }
         } else if (change === 'qty-down' && product.soluong > 1) {
             product.soluong--;

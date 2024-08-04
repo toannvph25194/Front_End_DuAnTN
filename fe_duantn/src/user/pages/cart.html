@@ -63,7 +63,7 @@
 
                   </td>
                   <td class="text-right" data-title="Cart">
-                    <span>{{(cart.dongiakhigiam ? cart.dongiakhigiam : cart.dongia) * cart.soluong}}</span>
+                    <span>{{(cart.dongiakhigiam ? cart.dongiakhigiam : cart.dongia) * cart.soluong | number}} đ</span>
                   </td>
                   <td class="action" data-title="Remove">
                     <a class="text-muted"><i ng-click="deleteCart(cart.idghct)" class="fi-rs-trash"></i></a>
