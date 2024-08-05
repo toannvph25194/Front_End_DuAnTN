@@ -519,10 +519,10 @@ app.controller(
           });
           return false;
         }
-        if (!$scope.GhiChu || $scope.GhiChu.length <= 30) {
+        if (!$scope.GhiChu) {
           Swal.fire({
             title: "Lỗi!",
-            text: "Ghi chú phải có ít nhất 30 ký tự.",
+            text: "Ghi chú không được bỏ trống.",
             icon: "error",
           });
           return false;
@@ -755,10 +755,10 @@ app.controller(
           });
           return false;
         }
-        if (!$scope.GhiChu || $scope.GhiChu.length <= 30) {
+        if (!$scope.GhiChu) {
           Swal.fire({
             title: "Lỗi!",
-            text: "Ghi chú phải có ít nhất 30 ký tự.",
+            text: "Ghi chú không được bỏ trống.",
             icon: "error",
           });
           return false;
@@ -834,10 +834,10 @@ app.controller(
       };
       //validate trạng thái huỷ hoá đơn
       $scope.validateHoaDonTrangThaiHuy = function () {
-        if (!$scope.GhiChu || $scope.GhiChu.length <= 30) {
+        if (!$scope.GhiChu) {
           Swal.fire({
             title: "Lỗi!",
-            text: "Ghi chú phải có ít nhất 30 ký tự.",
+            text: "Ghi chú không được bỏ trống",
             icon: "error",
           });
           return false;
@@ -917,10 +917,10 @@ app.controller(
 
       // validate đang giao
       $scope.validateHoaDonTrangThaiDangGiao = function () {
-        if (!$scope.GhiChu || $scope.GhiChu.length <= 30) {
+        if (!$scope.GhiChu) {
           Swal.fire({
             title: "Lỗi!",
-            text: "Ghi chú phải có ít nhất 30 ký tự.",
+            text: "Ghi chú không được bỏ trống.",
             icon: "error",
           });
           return false;
@@ -1139,7 +1139,7 @@ app.controller(
             });
             $scope.Updatethanhtien1();
 
-            // $route.reload();
+            $route.reload();
             return;
           })
           .catch(function (error) {
@@ -1185,7 +1185,7 @@ app.controller(
             });
             $scope.Updatethanhtien1();
             // Optionally, you can reload the route if needed
-            // $route.reload();
+            $route.reload();
             return;
           })
           .catch(function (error) {
@@ -1201,11 +1201,7 @@ app.controller(
             });
           });
       };
-      // Assume HoaDonCTList is already loaded into the scope
-      // Assume HoaDonCTList is already loaded into the scope
-      $scope.HoaDonCTList = [
-        // your initial data here
-      ];
+      $scope.HoaDonCTList = [];
 
       $scope.updateSoLuong01 = function (hoaDon) {
         let IdHD = localStorage.getItem("IDHoaDonUpdate"); // Retrieve the ID from localStorage
@@ -1222,7 +1218,7 @@ app.controller(
           });
           // Optionally, you can reload the route if needed
           $scope.Updatethanhtien1();
-          // $route.reload();
+          $route.reload();
           return;
         }
 
@@ -1275,7 +1271,7 @@ app.controller(
         $scope.NhanViens = data;
       });
       $scope.selectedNhanVien = null;
-      $scope.errorMessage = {}; // Khởi tạo đối tượng errorMessage
+      $scope.errorMessage = {};
 
       $scope.clearErrorMessages = function () {
         for (var key in $scope.errorMessage) {
@@ -1324,8 +1320,6 @@ app.controller(
               showConfirmButton: false,
               timer: 1500,
             });
-            // $scope.Updatethanhtien1();
-            // // Optionally, you can reload the route if needed
             $route.reload();
           })
           .catch(function (error) {

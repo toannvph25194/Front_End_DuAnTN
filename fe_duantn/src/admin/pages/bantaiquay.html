@@ -971,8 +971,16 @@
 
                 <div class="card-body">
                   <div class="flex flex-col gap-2">
-                    <label>Khách thanh toán: <span class="text-red-500">{{TienKhachTra.tienkhachtra | number: 0}} vnđ</span></label>
-                    <label>Tiền thừa: <span class="text-red-500">{{TienKhachTra.tienthua | number: 0}} vnđ</span></label>
+                    <label>Khách thanh toán: 
+                      <span class="text-red-500">
+                        {{TienKhachTra.tienkhachtra != null ? (TienKhachTra.tienkhachtra | number: 0) : '0'}} vnđ
+                      </span>
+                    </label>
+                    <label>Tiền thừa: 
+                      <span class="text-red-500">
+                        {{TienKhachTra.tienthua != null ? (TienKhachTra.tienthua | number: 0) : '0'}} vnđ
+                      </span>
+                    </label>
                     <label>Tiền hoàn khách: <span class="text-red-500">
                       {{
                         TienKhachTra.tienkhachtra > (tongtiens.tongtien - (vouCherTheoIds.hinhthucgiam == 1 ? (tongtiens.tongtien * (vouCherTheoIds.giatrigiam || 0) / 100) : (vouCherTheoIds.giatrigiam || 0)))

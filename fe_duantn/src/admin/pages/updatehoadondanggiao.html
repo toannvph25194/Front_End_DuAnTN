@@ -25,7 +25,7 @@
     </ul>
   </div>
   <div class="grid grid-cols-1 2xl:grid-cols-12 gap-x-5">
-    <div class="2xl:col-span-4">
+    <div class="2xl:col-span-3">
       <div class="card">
         <div class="card-body">
           <div class="bg-yellow-100 rounded-md size-12 ltr:float-right rtl:float-left dark:bg-yellow-500/20">
@@ -43,7 +43,7 @@
         </div>
       </div>
     </div>
-    <div class="2xl:col-span-4">
+    <div class="2xl:col-span-3">
       <div class="card">
         <div class="card-body">
           <div
@@ -63,7 +63,26 @@
         </div>
       </div>
     </div>
-    <div class="2xl:col-span-4">
+    <div class="2xl:col-span-3">
+      <div class="card">
+        <div class="card-body">
+          <div
+            class="flex items-center justify-center bg-purple-100 rounded-md size-12 dark:bg-purple-500/20 ltr:float-right rtl:float-left">
+            <img src="assets/images/avatar-9.png" alt="" class="h-12 rounded-md" />
+          </div>
+          <h6 class="mb-4 text-15">Thông tin người giao</h6>
+
+          <h6 class="mb-1">Họ tên: {{HoaDonTheoId.tennguoigiao == null ?"Chưa cập nhật":HoaDonTheoId.tennguoigiao}}</h6>
+          <p class="text-slate-500 dark:text-zink-200">
+            Số điện thoại: <b>{{HoaDonTheoId.sdtnguoigiao == null ?"Chưa cập nhật":HoaDonTheoId.sdtnguoigiao}}</b>
+          </p>
+          <p class="mb-1 text-slate-500 dark:text-zink-200">
+            Đơn vị giao hàng: <b>{{HoaDonTheoId.donvigiaohang == null ?"Chưa cập nhật":HoaDonTheoId.donvigiaohang}}</b>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="2xl:col-span-3">
       <div class="card">
         <div class="card-body">
           <div
@@ -84,40 +103,6 @@
         </div>
       </div>
     </div>
-    <!-- <div class="2xl:col-span-4" ng-repeat="HTTT in HinhThucThanhToanList">
-        <div class="card">
-          <div class="card-body">
-            <div
-              class="flex items-center justify-center rounded-md size-12 ltr:float-right rtl:float-left bg-sky-100 dark:bg-sky-500/20"
-            >
-              <i
-                class="ri-money-dollar-circle-line text-sky-500 fill-sky-200 dark:fill-sky-500/30 larger-icon1"
-              ></i>
-            </div>
-            <h6 class="mb-4 text-15">Thông tin thanh toán</h6>
-  
-            <h6 class="mb-1">
-              Mã: {{HTTT.magiaodich == null ? "Đơn hàng thanh toán
-              khinhận":HTTT.magiaodich}}
-            </h6>
-            <p class="mb-1 text-slate-500 dark:text-zink-200">
-              Hình thức:
-              <b
-                >{{HTTT.hinhthucthanhtoan == 1? "Thanh toán khi nhận hàng":"Thanh
-                toán online"}}</b
-              >
-            </p>
-            <p class="mb-1 text-slate-500 dark:text-zink-200">
-              Ghi chú:
-              <b
-                >{{HTTT.ghichu == null ? "Khách hàng chưa thanh toán":
-                HTTT.ghichu}}</b
-              >
-            </p>
-          </div>
-        </div>
-      </div> -->
-    <!--end col-->
   </div>
   <div class="xl:col-span-12">
     <div class="card">

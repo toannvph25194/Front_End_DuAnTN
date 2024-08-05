@@ -399,6 +399,15 @@ app.controller(
           }
         });
       };
+      $scope.resetDiscountFilters = function () {
+        $scope.selectedmaGG = ""; // Reset mã giảm giá
+        $scope.selectedtenGG = ""; // Reset tên giảm giá
+        $scope.selectedNgayBatDau = ""; // Reset ngày bắt đầu
+        $scope.selectedNgayKetThuc = ""; // Reset ngày kết thúc
+        $scope.selectedHinhThuc = ""; // Reset hình thức giảm giá
+        $scope.selectedSoTienGiam = ""; // Reset giá trị giảm
+        $scope.selectedMoTaGG = ""; // Reset mô tả giảm giá
+      };
       $scope.getLoadMaGiamGiaTheoID = function () {
         var id = localStorage.getItem("IdGGKhiThem");
         var apiUrl = "http://localhost:8080/api/admin/giamgia/find-by";
@@ -832,7 +841,8 @@ app.controller(
               $scope.GGTheoIdUpdate.ngayketthuc = new Date(
                 response.data.ngayketthuc
               );
-              $scope.GGTheoIdUpdate.hinhthucgiam = $scope.GGTheoIdUpdate.hinhthucgiam.toString();
+              $scope.GGTheoIdUpdate.hinhthucgiam =
+                $scope.GGTheoIdUpdate.hinhthucgiam.toString();
 
               console.log("Fin by giam gia upadte:", $scope.GGTheoIdUpdate);
             } else {

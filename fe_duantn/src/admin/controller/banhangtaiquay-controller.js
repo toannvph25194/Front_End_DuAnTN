@@ -108,10 +108,19 @@ app.controller(
                 .post(url, {}, config)
                 .then((resp) => {
                   $scope.hoadonTaiQuay = resp.data;
-                  console.log("Hóa đơn tại quầy vừa tạo :",$scope.hoadonTaiQuay);
-                  localStorage.setItem("idhoadontq",$scope.hoadonTaiQuay.idhoadon);
+                  console.log(
+                    "Hóa đơn tại quầy vừa tạo :",
+                    $scope.hoadonTaiQuay
+                  );
+                  localStorage.setItem(
+                    "idhoadontq",
+                    $scope.hoadonTaiQuay.idhoadon
+                  );
                   localStorage.setItem("idkhtq", $scope.hoadonTaiQuay.idkh);
-                  localStorage.setItem("mahoadontq", $scope.hoadonTaiQuay.mahoadon);
+                  localStorage.setItem(
+                    "mahoadontq",
+                    $scope.hoadonTaiQuay.mahoadon
+                  );
                   Swal.fire({
                     title: "Thành Công",
                     text: "Tạo hóa đơn tại quầy thành công",
@@ -1004,6 +1013,19 @@ app.controller(
       var idhoadontq = localStorage.getItem("idhoadontq");
       var tienkhachdua = parseFloat($scope.sotienkhachdua);
 
+      if (!idhoadontq) {
+        Swal.fire({
+          title: "Error",
+          text: "Vui lòng chọn hóa đơn cần thanh toán",
+          icon: "error",
+          position: "top-end",
+          toast: true,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return;
+      }
+
       if (tienkhachdua == null || isNaN(tienkhachdua)) {
         Swal.fire({
           title: "Error",
@@ -1014,7 +1036,6 @@ app.controller(
           showConfirmButton: false,
           timer: 1500,
         });
-
         return;
       }
 
@@ -1029,7 +1050,6 @@ app.controller(
           showConfirmButton: false,
           timer: 1500,
         });
-
         return;
       }
 
@@ -1075,6 +1095,7 @@ app.controller(
           $route.reload();
         });
     };
+
     $scope.listTransaction = []; // Khởi tạo danh sách giao dịch
     $scope.queryParams = $location.search(); // Lấy các tham số từ URL
 
@@ -1086,6 +1107,7 @@ app.controller(
     $scope.ThanhToanChuyenKhoan = function () {
       // Lấy lại hoặc tính toán các giá trị mới nhất trước khi gọi API
       var idhoadontq = localStorage.getItem("idhoadontq");
+
       var url =
         "http://localhost:8080/api/admin/bantaiquay/hinhthucthanhtoan/Addhtttchuyenkhoan";
       var params = {
@@ -1138,6 +1160,20 @@ app.controller(
     };
 
     $scope.executePaymentProcess = function (tongTienAmount, tiencheck) {
+      // Kiểm tra nếu TienKhachTra không được khởi tạo
+      if (!$scope.TienKhachTra) {
+        Swal.fire({
+          title: "Lỗi",
+          text: "Vui lòng chọn hóa đơn để thanh toán",
+          icon: "error",
+          position: "top-end",
+          toast: true,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return;
+      }
+
       // Khởi tạo tienkhachtra nếu chưa khởi tạo
       if ($scope.TienKhachTra.tienkhachtra == null) {
         $scope.TienKhachTra.tienkhachtra = 0;
@@ -1172,6 +1208,20 @@ app.controller(
     };
 
     $scope.Updatetehoanthanh = function (TienCuoiCung, TienDuocGiam) {
+      // Kiểm tra nếu TienKhachTra không được khởi tạo
+      if (!$scope.TienKhachTra) {
+        Swal.fire({
+          title: "Lỗi",
+          text: "Vui lòng chọn hóa đơn để thanh toán",
+          icon: "error",
+          position: "top-end",
+          toast: true,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return;
+      }
+
       // Kiểm tra nếu tiền khách trả đủ hoặc hơn tiền cuối cùng
       if ($scope.TienKhachTra.tienkhachtra < TienCuoiCung) {
         Swal.fire({
@@ -1250,6 +1300,20 @@ app.controller(
         });
     };
     $scope.Updatetexacnhan = function (TienCuoiCung, TienDuocGiam) {
+      // Kiểm tra nếu TienKhachTra không được khởi tạo
+      if (!$scope.TienKhachTra) {
+        Swal.fire({
+          title: "Lỗi",
+          text: "Vui lòng chọn hóa đơn để thanh toán",
+          icon: "error",
+          position: "top-end",
+          toast: true,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return;
+      }
+
       // Kiểm tra nếu tiền khách trả đủ hoặc hơn tiền cuối cùng
       if ($scope.TienKhachTra.tienkhachtra < TienCuoiCung) {
         Swal.fire({
@@ -1806,18 +1870,17 @@ app.controller(
     $scope.generatePDF = function () {
       var id = localStorage.getItem("idhoadontq");
       $http
-          .get("http://localhost:8080/api/v1/pdf/pdf/generate/" + id, {
-              responseType: "arraybuffer",
-              headers: config.headers, // Thêm headers vào request
-          })
-          .then(function (response) {
-              var file = new Blob([response.data], {
-                  type: "application/pdf",
-              });
-              var fileURL = URL.createObjectURL(file);
-              window.open(fileURL, "_blank");
+        .get("http://localhost:8080/api/v1/pdf/pdf/generate/" + id, {
+          responseType: "arraybuffer",
+          headers: config.headers, // Thêm headers vào request
+        })
+        .then(function (response) {
+          var file = new Blob([response.data], {
+            type: "application/pdf",
           });
-  };
-  
+          var fileURL = URL.createObjectURL(file);
+          window.open(fileURL, "_blank");
+        });
+    };
   }
 );

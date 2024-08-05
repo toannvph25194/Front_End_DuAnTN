@@ -1,6 +1,13 @@
-app.controller("loginController", function ($scope, $http, $window) {
+app.controller("loginController", function ($scope, $http, $window, $route) {
+  // Lấy username từ localStorage để kiểm tra
+  $scope.taikhoancheck = localStorage.getItem("username");
+  // Lấy role từ localStorage để kiểm tra
+  $scope.role = localStorage.getItem("role");
+  // Lấy role từ localStorage để kiểm tra
+  $scope.image = localStorage.getItem("image");
+  // Hàm xác thực đăng nhập
   $scope.authenticate = function () {
-    // Kiểm tra xem tài khoản và mật khẩu có bị bỏ trống không
+    // Kiểm tra tài khoản và mật khẩu có bị bỏ trống không
     if (!$scope.taikhoan || !$scope.matkhau) {
       Swal.fire({
         title: "Error",
@@ -18,6 +25,7 @@ app.controller("loginController", function ($scope, $http, $window) {
       taikhoan: $scope.taikhoan,
       matkhau: $scope.matkhau,
     };
+
     // Gửi yêu cầu POST đến API
     $http
       .post(
@@ -27,40 +35,37 @@ app.controller("loginController", function ($scope, $http, $window) {
       .then(function (response) {
         console.log("Đăng nhập thành công:", response.data);
 
-        // Lưu AccessToken vào localStorage
-        var accessToken = response.data.accessToken;
-        localStorage.setItem("accessToken", accessToken);
-        // Lưu tài khoản vào localStorage
-        var taikhoan = response.data.username;
-        localStorage.setItem("username", taikhoan);
-        // Lưu quyền hạn
-        var role = response.data.role;
-        localStorage.setItem("role", role);
+        // Lưu thông tin vào localStorage
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("username", response.data.username);
+        localStorage.setItem("role", response.data.role);
+        localStorage.setItem("image", response.data.image);
 
-        // Hiển thị thông báo SweetAlert2 khi đăng nhập thành công
+        // Hiển thị thông báo thành công
         Swal.fire({
           title: "Success",
-          text: `Đăng nhập thành công với vai trò ${role}`,
+          text: `Đăng nhập thành công với vai trò ${response.data.role}`,
           icon: "success",
           position: "top-end",
           toast: true,
           showConfirmButton: false,
           timer: 1500,
-        });
-
-        // Tải lại trang sau 1.5 giây khi thông báo biến mất
-        setTimeout(function () {
-          if (role === "NHANVIEN") {
+        }).then(() => {
+          // Điều hướng và tải lại trang sau khi thông báo biến mất
+          if (response.data.role === "NHANVIEN") {
             $window.location.href = "#/sanpham";
-          } else if (role === "ADMIN") {
+          } else if (response.data.role === "ADMIN") {
             $window.location.href = "#/";
           }
-        }, 1500);
+
+          // Tải lại trang sau khi điều hướng
+          $window.location.reload();
+        });
       })
       .catch(function (error) {
         console.error("Lỗi khi đăng nhập:", error);
 
-        // Hiển thị thông báo đăng nhập thất bại
+        // Hiển thị thông báo lỗi
         Swal.fire({
           title: "Error",
           text: "Đăng nhập thất bại. Mật khẩu hoặc tài khoản không đúng, hãy thử lại",
@@ -72,21 +77,28 @@ app.controller("loginController", function ($scope, $http, $window) {
         });
       });
   };
+
+  // Hàm đăng xuất
   $scope.logout = function () {
+    // Hiển thị thông báo đăng xuất thành công
     Swal.fire({
-      title: "Bạn đã đăng xuất thành công !",
-      text: "Vui lòng đăng nhập để sử dụng chức năng !",
+      title: "Success",
+      text: "Bạn đã đăng xuất thành công!",
       icon: "success",
+      position: "top-end",
+      toast: true,
+      showConfirmButton: false,
+      timer: 1500,
+    }).then(() => {
+      // Xóa dữ liệu khỏi localStorage
+      $window.localStorage.clear();
+
+      // Thiết lập trạng thái đăng nhập
+      $scope.isLoggedIn = false;
+
+      // Điều hướng đến trang đăng nhập và tải lại trang ngay lập tức
+      $window.location.href = "#/login";
+      $window.location.reload();
     });
-    // Xóa token khỏi localStorage
-    window.location.href = "#/login";
-    $window.localStorage.removeItem("accessToken");
-    $window.localStorage.removeItem("username");
-    $window.localStorage.removeItem("role");
-    $window.localStorage.removeItem("idhoadontq");
-    $window.localStorage.removeItem("idkhtq");
-    $window.localStorage.removeItem("mahoadontq");
-    $window.localStorage.removeItem("tenkhachhang");
-    $scope.isLoggedIn = false;
   };
 });
