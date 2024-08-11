@@ -59,7 +59,8 @@ app.config(function ($routeProvider, $locationProvider) {
     })
     .when("/updatexuatxu/:id", {
       templateUrl: "pages/updatexuatxu.html",
-    }).when("/showsanpham", {
+    })
+    .when("/showsanpham", {
       templateUrl: "pages/showsanpham.html",
     })
     .when("/showsanphamchitiet", {
@@ -82,11 +83,13 @@ app.config(function ($routeProvider, $locationProvider) {
     })
     .when("/updatehoadonhuy", {
       templateUrl: "pages/updatehoadonhuy.html",
-    }).when("/bantaiquay", {
+    })
+    .when("/bantaiquay", {
       templateUrl: "pages/bantaiquay.html",
-    }).when("/vnpaydone", {
+    })
+    .when("/vnpaydone", {
       templateUrl: "pages/vnpaydone.html",
-      controller: "BanHangTaiQuayController"
+      controller: "BanHangTaiQuayController",
     })
     .when("/khachhang", {
       templateUrl: "pages/khachhang.html",
@@ -117,6 +120,15 @@ app.config(function ($routeProvider, $locationProvider) {
     })
     .when("/updatenhanvien/:id", {
       templateUrl: "pages/updatenhanvien.html",
+    })
+    .when("/voucher", {
+      templateUrl: "pages/voucher.html",
+    })
+    .when("/themvoucher", {
+      templateUrl: "pages/themvoucher.html",
+    })
+    .when("/updatevoucher/:id", {
+      templateUrl: "pages/updatevoucher.html",
     })
     .otherwise({
       redirectTo: "/",
