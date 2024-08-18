@@ -15,7 +15,7 @@ app.service("themsanPhamchitietService", function ($http) {
   };
   this.getMauSacs = function () {
     return $http
-      .get("http://localhost:8080/api/admin-mausac/hienthitatcamausac", config)
+      .get("http://localhost:8080/api/admin/mausac/hien-thi-combobox", config)
       .then(function (response) {
         return response.data;
       });
