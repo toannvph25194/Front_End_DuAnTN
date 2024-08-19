@@ -32,10 +32,10 @@
 
           <h6 class="mb-1">Họ tên: {{HoaDonTheoId.tennguoinhan}}</h6>
           <p class="mb-1 text-slate-500 dark:text-zink-200">
-            Email: {{HoaDonTheoId.emailnguoinhan}}
+            Email: {{HoaDonTheoId.emailnguoinhan == null?"Không có thông tin":HoaDonTheoId.emailnguoinhan}}
           </p>
           <p class="text-slate-500 dark:text-zink-200">
-            Số điện thoại: {{HoaDonTheoId.sdtnguoinhan}}
+            Số điện thoại: {{HoaDonTheoId.sdtnguoinhan== null?"Không có thông tin":HoaDonTheoId.sdtnguoinhan}}
           </p>
         </div>
       </div>
@@ -50,12 +50,12 @@
           </div>
           <h6 class="mb-4 text-15">Địa chỉ ship hàng</h6>
 
-          <h6 class="mb-1">Họ tên: {{HoaDonTheoId.tennguoinhan}}</h6>
+          <h6 class="mb-1">Họ tên: {{HoaDonTheoId.tennguoinhan== null?"Không có thông tin":HoaDonTheoId.tennguoinhan}}</h6>
           <p class="text-slate-500 dark:text-zink-200">
-            Số điện thoại: <b>{{HoaDonTheoId.sdtnguoinhan}}</b>
+            Số điện thoại: <b>{{HoaDonTheoId.sdtnguoinhan== null?"Không có thông tin":HoaDonTheoId.sdtnguoinhan}}</b>
           </p>
           <p class="mb-1 text-slate-500 dark:text-zink-200">
-            Địa chỉ: <b>{{HoaDonTheoId.diachinhanhang}}</b>
+            Địa chỉ: <b>{{HoaDonTheoId.diachinhanhang== null?"Không có thông tin":HoaDonTheoId.diachinhanhang}}</b>
           </p>
         </div>
       </div>
