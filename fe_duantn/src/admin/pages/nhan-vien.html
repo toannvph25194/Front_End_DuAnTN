@@ -117,7 +117,8 @@
                   <td class="px-3.5 py-2.5  border-slate-200 dark:border-zink-500 product_name">
                     <a class="flex items-center gap-2">
 
-                      <img ng-src="/src/fileanh/img-nhanvien/{{nhanVien.image}}" alt="Product images" class="h-20" />
+                      <img ng-src="/src/fileanh/img-nhanvien/{{nhanVien.image}}" alt="Product images" 
+                       style="width: 70px; height:75px; object-fit: cover;" class="h-20" />
                     </a>
                   </td>
                   <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 location">
@@ -126,7 +127,7 @@
                   <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 location">
                     {{ nhanVien.gioitinh == false ? "Nữ" : "Nam" }}
                   </td>
-                  <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 email">
+                  <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 email" style="word-wrap: break-word; white-space: normal;">
                     {{ nhanVien.diachi }}
                   </td>
                   <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 phone-number">
