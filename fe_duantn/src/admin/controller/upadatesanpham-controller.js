@@ -408,7 +408,7 @@ app.controller(
 
         // Kiểm tra người dùng đã chọn ảnh chưa
         if (!$scope.selectedImages || $scope.selectedImages.length === 0) {
-          $scope.errorMessage.image = "Vui lòng chọn ít nhất một ảnh để thêm";
+          $scope.errorMessage.image01 = "Vui lòng chọn ít nhất một ảnh để thêm";
           return;
         }
 
