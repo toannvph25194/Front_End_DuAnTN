@@ -220,8 +220,8 @@ app.controller("ThemSanPhamController",function ($scope, themsanPhamService, $wi
       if ($scope.selectedGiaBan <= 0) {
         $scope.errorMessage.giaban = "Giá bán phải là số dương và lớn hơn 0";
       }
-      if ($scope.selectedtenSP.length > 20) {
-        $scope.errorMessage.tensp = "Tên sản phẩm không được quá 20 ký tự";
+      if ($scope.selectedtenSP.length > 250) {
+        $scope.errorMessage.tensp = "Tên sản phẩm không được quá 250 ký tự";
       }
     
       // Kiểm tra xem có thông báo lỗi nào không
