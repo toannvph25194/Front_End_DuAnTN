@@ -327,42 +327,78 @@
             <table class="w-full">
               <tbody>
                 <tr>
-                  <td class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200">
+                  <td
+                    class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
                     Tổng tiền
                   </td>
-                  <td class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left">
-                    {{HoaDonTheoId.thanhtien + HoaDonTheoId.giatrigiam | number:0}} vnđ
+                  <td
+                    class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
+                    {{HoaDonTheoId.thanhtien + HoaDonTheoId.giatrigiam |
+                    number:0}} vnđ
                   </td>
                 </tr>
                 <tr>
-                  <td class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200">
+                  <td
+                    class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
+                    Voucher đang áp dụng
+                  </td>
+                  <td
+                    class="px-3.5 pt-4 pb-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
+                    {{ HoaDonTheoId.mavoucher == null ? "Chưa được áp dụng" :
+                    HoaDonTheoId.mavoucher + " (" +
+                    (HoaDonTheoId.giaTrigiamvouCher | number:0) +
+                    (HoaDonTheoId.hinhthucgiam == 1 ? "%" : " vnđ") + ")" }}
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
                     Số tiền được giảm giá
                   </td>
-                  <td class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left">
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
                     {{HoaDonTheoId.giatrigiam | number:0}} vnđ
                   </td>
                 </tr>
                 <tr>
-                  <td class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200">
-                    Số tiền sau khi giảm
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
+                    Tổng tiền sau khi giảm
                   </td>
-                  <td class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left">
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
                     {{HoaDonTheoId.thanhtien | number:0}} vnđ
                   </td>
                 </tr>
                 <tr>
-                  <td class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200">
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
                     Phí ship
                   </td>
-                  <td class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left">
+                  <td
+                    class="px-3.5 py-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
                     {{HoaDonTheoId.tiengiaohang | number:0}} vnđ
                   </td>
                 </tr>
                 <tr class="font-semibold">
-                  <td class="px-3.5 pt-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200">
+                  <td
+                    class="px-3.5 pt-3 first:pl-0 last:pr-0 text-slate-500 dark:text-zink-200"
+                  >
                     Tổng tiền khách trả (vnđ)
                   </td>
-                  <td class="px-3.5 pt-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left">
+                  <td
+                    class="px-3.5 pt-3 first:pl-0 last:pr-0 ltr:text-right rtl:text-left"
+                  >
                     {{ (HoaDonTheoId.thanhtien + HoaDonTheoId.tiengiaohang) |
                     number:0 }} vnđ
                   </td>
