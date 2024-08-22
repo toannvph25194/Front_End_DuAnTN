@@ -356,12 +356,29 @@ app.controller('checkoutController', function ($scope, $http, $window, $location
             !$scope.diachiValid
         ) {
             Swal.fire({
-                title: "Warning",
+                title: "Thông Báo",
                 text: "Vui lòng điền đủ thông tin",
-                icon: "error",
+                icon: "warning",
                 showConfirmButton: false,
                 timer: 1500,
             });
+            return;
+        }
+
+        var checkslt = false;
+        angular.forEach($scope.ghctcheckout, function (item) {
+            if (item.soluong > item.soluongton) {
+                checkslt = true;
+                Swal.fire({
+                    title: "Thông Báo",
+                    text: "Số lượng tồn sản phẩm không đủ !",
+                    icon: "warning",
+                    showConfirmButton: false,
+                    timer: 1800,
+                })
+            }
+        });
+        if (checkslt) {
             return;
         }
 
@@ -593,6 +610,23 @@ app.controller('checkoutController', function ($scope, $http, $window, $location
                 showConfirmButton: false,
                 timer: 1500,
             });
+            return;
+        }
+
+        var checkslt = false;
+        angular.forEach($scope.ghctcheckout, function (item) {
+            if (item.soluong > item.soluongton) {
+                checkslt = true;
+                Swal.fire({
+                    title: "Thông Báo",
+                    text: "Số lượng tồn sản phẩm không đủ !",
+                    icon: "warning",
+                    showConfirmButton: false,
+                    timer: 1800,
+                })
+            }
+        });
+        if (checkslt) {
             return;
         }
 
