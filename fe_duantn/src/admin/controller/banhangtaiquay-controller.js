@@ -1249,7 +1249,7 @@ app.controller(
 
       // Chỉ thêm Idgg nếu nó không phải null
       if (Idgg !== null) {
-        params.params = Idgg;
+        params.Idgg = Idgg;
       }
       return $http({
         method: "put",
