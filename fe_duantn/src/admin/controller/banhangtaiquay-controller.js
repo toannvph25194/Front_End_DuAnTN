@@ -1211,9 +1211,23 @@ app.controller(
       // Kiểm tra nếu TienKhachTra không được khởi tạo
       if (!$scope.TienKhachTra) {
         Swal.fire({
-          title: "Lỗi",
+          title: "Thông báo",
           text: "Vui lòng chọn hóa đơn để thanh toán",
-          icon: "error",
+          icon: "warning",
+          position: "top-end",
+          toast: true,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return;
+      }
+      
+      // Kiểm tra nếu hóa đơn k có sp thì thông báo
+      if ($scope.loadHDCTKH.length < 1) {
+        Swal.fire({
+          title: "Thông báo",
+          text: "Vui lòng thêm sản phẩm vào hóa đơn !",
+          icon: "warning",
           position: "top-end",
           toast: true,
           showConfirmButton: false,
@@ -1225,9 +1239,9 @@ app.controller(
       // Kiểm tra nếu tiền khách trả đủ hoặc hơn tiền cuối cùng
       if ($scope.TienKhachTra.tienkhachtra < TienCuoiCung) {
         Swal.fire({
-          title: "Lỗi",
+          title: "Thông Báo",
           text: "Bạn phải thanh toán tiền trước",
-          icon: "error",
+          icon: "warning",
           position: "top-end",
           toast: true,
           showConfirmButton: false,
@@ -1303,9 +1317,23 @@ app.controller(
       // Kiểm tra nếu TienKhachTra không được khởi tạo
       if (!$scope.TienKhachTra) {
         Swal.fire({
-          title: "Lỗi",
+          title: "Thông báo",
           text: "Vui lòng chọn hóa đơn để thanh toán",
-          icon: "error",
+          icon: "warning",
+          position: "top-end",
+          toast: true,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return;
+      }
+
+      // Kiểm tra nếu hóa đơn k có sp thì thông báo
+      if ($scope.loadHDCTKH.length < 1) {
+        Swal.fire({
+          title: "Thông báo",
+          text: "Vui lòng thêm sản phẩm vào hóa đơn !",
+          icon: "warning",
           position: "top-end",
           toast: true,
           showConfirmButton: false,
@@ -1317,9 +1345,9 @@ app.controller(
       // Kiểm tra nếu tiền khách trả đủ hoặc hơn tiền cuối cùng
       if ($scope.TienKhachTra.tienkhachtra < TienCuoiCung) {
         Swal.fire({
-          title: "Lỗi",
+          title: "Thông báo",
           text: "Bạn phải thanh toán trước",
-          icon: "error",
+          icon: "warning",
           position: "top-end",
           toast: true,
           showConfirmButton: false,
